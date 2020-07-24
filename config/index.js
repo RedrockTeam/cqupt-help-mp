@@ -1,3 +1,6 @@
+/* eslint-disable import/no-commonjs */
+const path = require('path')
+
 const config = {
   projectName: 'cqupt-help-mp',
   date: '2020-7-24',
@@ -11,6 +14,9 @@ const config = {
   outputRoot: 'dist',
   plugins: [],
   defineConstants: {
+  },
+  alias: {
+    '@': path.resolve(__dirname,'..','src'),
   },
   copy: {
     patterns: [

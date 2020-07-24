@@ -7,5 +7,5 @@ export default {
     navigationBarBackgroundColor: '#F6F6F9',
     navigationBarTitleText: '重邮帮',
     navigationBarTextStyle: 'black',
-  }
+  },
 }
