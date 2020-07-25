@@ -1,5 +1,6 @@
 export default {
   pages: [
+    'pages/my-activity/index',
     'pages/my-reward/index',
   ],
   window: {
@@ -7,5 +8,6 @@ export default {
     navigationBarBackgroundColor: '#F6F6F9',
     navigationBarTitleText: '重邮帮',
     navigationBarTextStyle: 'black',
+    navigationStyle: 'custom',
   },
 }

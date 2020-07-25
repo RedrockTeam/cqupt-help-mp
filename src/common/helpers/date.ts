@@ -15,3 +15,8 @@ export const timestampToDayjs = (timestamp: number) => dayjs.unix(timestamp)
 export const timestampToDateString = (timestamp: number) => {
   return timestampToDayjs(timestamp).format('YYYY.MM.DD')
 }
+
+/**
+ * 现在时间的十位 Unix 时间戳，复用这一个节省内存
+ */
+export const now = new Date().getTime() / 1000

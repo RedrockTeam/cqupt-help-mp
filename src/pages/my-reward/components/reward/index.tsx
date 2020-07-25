@@ -1,7 +1,7 @@
 import React from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Button } from '@tarojs/components'
-import { timestampToDateString } from '@/common/helpers/date.ts'
+import { timestampToDateString, now } from '@/common/helpers/date.ts'
 import styles from './index.module.scss'
 
 type Props = {
@@ -11,8 +11,8 @@ type Props = {
   activity: string,
   location: string,
   received: boolean,
-  timeBegin: number,
-  timeEnd: number,
+  beginTime: number,
+  endTime: number,
 }
 
 const Reward = ({
@@ -22,8 +22,8 @@ const Reward = ({
   activity,
   location,
   received,
-  timeBegin,
-  timeEnd,
+  beginTime,
+  endTime,
 }: Props) => {
 
   const handleReceiveReward = async () => {
@@ -39,7 +39,7 @@ const Reward = ({
   }
 
   const renderBtn = () => {
-    if (new Date().getTime() / 1000 > timeEnd) return (
+    if (now > endTime) return (
       <Button disabled className={`${styles.btn} ${styles.btn_disabled}`}>已过期</Button>
     )
     if (received) return <Button className={`${styles.btn} ${styles.btn_disabled}`}>已领取</Button>
@@ -64,7 +64,7 @@ const Reward = ({
         <View className={styles.info}>
           <View className={styles.infoKey}>领取时间：</View>
           <View className={styles.infoValue}>
-            {timestampToDateString(timeBegin)} - {timestampToDateString(timeEnd)}
+            {timestampToDateString(beginTime)} - {timestampToDateString(endTime)}
           </View>
         </View>
       </View>

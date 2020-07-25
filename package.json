@@ -42,7 +42,8 @@
     "@tarojs/taro": "3.0.5",
     "dayjs": "^1.8.30",
     "react": "^16.10.0",
-    "react-dom": "^16.10.0"
+    "react-dom": "^16.10.0",
+    "taro-navigationbar": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
