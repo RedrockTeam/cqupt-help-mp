@@ -1,0 +1,52 @@
+.wrapper {
+  padding-left: 32px;
+  padding-right: 32px;
+
+  .title {
+    width: 288px;
+    height: 152px;
+    margin-top: 62px;
+    margin-bottom: 16px;
+    color: #1c184c;
+    font-family: PingFang SC;
+    font-weight: bold;
+    font-size: 48px;
+    text-align: left;
+  }
+  .form {
+    height: 522px;
+    border-radius: 20px;
+    background: #ffffff;
+    padding-top: 64px;
+    padding-left: 58px;
+    .formLabel {
+      color: #a4a3b7;
+      font-family: PingFang SC;
+      font-weight: medium;
+      font-size: 28px;
+      text-align: left;
+      margin-bottom: 32px;
+      margin-top: 32px;
+    }
+    .forminput {
+      display: block;
+      height: 40px;
+    }
+  }
+  .tips {
+    color: #a4a3b7;
+    font-family: PingFang SC;
+    font-weight: medium;
+    font-size: 26px;
+    padding-left: 22px;
+    margin-top: 32px;
+  }
+  .button {
+    border-radius: 64px;
+    background: #625af8;
+    width: 572px;
+    height: 92px;
+    color: #efeffe;
+    margin-top: 178px;
+  }
+}

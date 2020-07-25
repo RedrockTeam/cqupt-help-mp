@@ -1,6 +1,10 @@
 export default {
   pages: [
-    'pages/my-reward/index',
+    // 'pages/my-reward/index',
+    // 'pages/volunteer-entry/index',
+    'pages/volunteer/index',
+    // 'pages/volunteer-detail/index'
+    
   ],
   window: {
     backgroundTextStyle: 'light',

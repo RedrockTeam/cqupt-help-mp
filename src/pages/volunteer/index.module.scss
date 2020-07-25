@@ -1,0 +1,45 @@
+.wrapper {
+  padding: 22px 20px;
+  .card {
+    border-radius: 20px;
+    background: #ffffff;
+    padding: 40px 30px 36px 34px;
+    margin-bottom: 24px;
+    .cardTop {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      .cardName {
+        color: #1c184c;
+        font-family: PingFang SC;
+        font-size: 32px;
+        text-align: left;
+      }
+      .cardTime {
+        color: #ff684e;
+        font-family: PingFang SC;
+        font-size: 28px;
+        text-align: left;
+        margin-right: 0;
+        margin-left: auto;
+      }
+      .cardTimeGray {
+        color: #cdcce0;
+        margin-right: 0;
+        margin-left: auto;
+        font-family: PingFang SC;
+        font-size: 28px;
+        text-align: left;
+      }
+    }
+    .cardInfo {
+      color: #b1aec1;
+      font-family: PingFang SC;
+      font-weight: medium;
+      font-size: 28px;
+      line-height: 48px;
+      letter-spacing: 0px;
+      text-align: left;
+    }
+  }
+}
