@@ -1,5 +1,5 @@
 import React from "react";
-import Taro from "@tarojs/taro";
+import { navigateTo } from "@tarojs/taro";
 import { View, Text, Image } from "@tarojs/components";
 
 import PrimaryButton from "@/common/components/primary-button";
@@ -52,7 +52,7 @@ const rewardList = [
 ];
 
 const MyReward = () => {
-  const handleNavigateToActivity = () => Taro.navigateTo({ url: "" }); // TODO
+  const handleNavigateToActivity = () => navigateTo({ url: "" }); // TODO
   const hasRewards = rewardList.length !== 0;
   const renderRewardList = () => (
     <View className={styles.wrapper}>

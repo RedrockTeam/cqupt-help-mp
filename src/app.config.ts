@@ -3,6 +3,7 @@ const resolvePage = (module: string, page: string) =>
 
 export default {
   pages: [
+    resolvePage("ticket", "rob-ticket"),
     resolvePage("my-activity", "index"),
     resolvePage("my-reward", "index"),
     resolvePage("volunteer", "index"),

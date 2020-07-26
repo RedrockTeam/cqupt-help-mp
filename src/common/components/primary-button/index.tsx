@@ -4,6 +4,7 @@ import styles from "./index.module.scss";
 
 type Props = {
   children: React.ReactNode;
+  disabled?: boolean;
   onClick?: (event: ITouchEvent) => unknown;
   className?: string;
 };
@@ -11,8 +12,19 @@ type Props = {
 /**
  * 蓝色的最大的那个 button
  */
-const PrimaryButton = ({ onClick, children, className }: Props) => (
-  <Button onClick={onClick} className={`${styles.primaryButton} ${className}`}>
+const PrimaryButton = ({
+  onClick,
+  children,
+  disabled = false,
+  className = "",
+}: Props) => (
+  <Button
+    onClick={onClick}
+    className={`${styles.primaryButton} ${
+      disabled ? styles.disabled : ""
+    } ${className}`}
+    disabled={disabled}
+  >
     {children}
   </Button>
 );
