@@ -7,6 +7,9 @@ type Props = {
   background: "#FFFFFF" | "#F6F6F9";
 };
 
+/**
+ * 自定义 navigation bar，左上角是回退按钮的
+ */
 const NavBack = ({ title, background }: Props) => {
   const handleBack = () => navigateBack();
   return (

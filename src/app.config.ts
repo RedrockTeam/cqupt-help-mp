@@ -1,10 +1,13 @@
+const resolvePage = (module: string, page: string) =>
+  `modules/${module}/pages/${page}/index`;
+
 export default {
   pages: [
-    "pages/my-activity/index",
-    "pages/my-reward/index",
-    // 'pages/volunteer-entry/index',
-    "pages/volunteer/index",
-    // 'pages/volunteer-detail/index'
+    resolvePage("my-activity", "index"),
+    resolvePage("my-reward", "index"),
+    resolvePage("volunteer", "index"),
+    resolvePage("volunteer", "entry"),
+    resolvePage("volunteer", "detail"),
   ],
   window: {
     backgroundTextStyle: "light",

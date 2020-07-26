@@ -8,6 +8,9 @@ type Props = {
   className?: string;
 };
 
+/**
+ * 蓝色的最大的那个 button
+ */
 const PrimaryButton = ({ onClick, children, className }: Props) => (
   <Button onClick={onClick} className={`${styles.primaryButton} ${className}`}>
     {children}
