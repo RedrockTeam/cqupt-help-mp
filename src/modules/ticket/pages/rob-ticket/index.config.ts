@@ -1,4 +1,4 @@
 export default {
-  navigationBarTitleText: "我的奖品",
+  navigationBarTitleText: "线上抢票",
   navigationStyle: "custom",
 };

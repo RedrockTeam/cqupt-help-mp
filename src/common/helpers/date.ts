@@ -1,4 +1,8 @@
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/zh-cn";
+
+dayjs.extend(relativeTime);
 
 /**
  * 转换 Unix 时间戳到 dayjs 对象
@@ -15,7 +19,10 @@ export const timestampToDayjs = (timestamp: number) => dayjs.unix(timestamp);
 export const timestampToDateString = (timestamp: number) =>
   timestampToDayjs(timestamp).format("YYYY.MM.DD");
 
+export const timestampToTimeCNString = (timestamp: number) =>
+  timestampToDayjs(timestamp).format("MM 月 DD 日 HH:mm");
+
 /**
- * 现在时间的十位 Unix 时间戳，复用这一个节省内存
+ * 现在时间的十位 Unix 时间戳
  */
-export const now = new Date().getTime() / 1000;
+export const now = () => new Date().getTime() / 1000;

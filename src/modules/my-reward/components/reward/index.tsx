@@ -1,19 +1,19 @@
-import React from 'react'
-import Taro from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
-import { timestampToDateString, now } from '@/common/helpers/date.ts'
-import styles from './index.module.scss'
+import React from "react";
+import Taro from "@tarojs/taro";
+import { View, Text, Button } from "@tarojs/components";
+import { timestampToDateString, now } from "@/common/helpers/date";
+import styles from "./index.module.scss";
 
 type Props = {
-  level: number,
-  name: string,
-  organizer: string,
-  activity: string,
-  location: string,
-  received: boolean,
-  beginTime: number,
-  endTime: number,
-}
+  level: number;
+  name: string;
+  organizer: string;
+  activity: string;
+  location: string;
+  received: boolean;
+  beginTime: number;
+  endTime: number;
+};
 
 const Reward = ({
   level,
@@ -25,31 +25,45 @@ const Reward = ({
   beginTime,
   endTime,
 }: Props) => {
-
   const handleReceiveReward = async () => {
     const res = await Taro.showActionSheet({
-      itemList: ['确定'],
+      itemList: ["确定"],
       fail(e) {
-        console.log(e)
+        // eslint-disable-next-line no-console
+        console.log(e);
       },
-    })
+    });
     if (res.tapIndex === 0) {
       // TODO: request
     }
-  }
+  };
 
   const renderBtn = () => {
-    if (now > endTime) return (
-      <Button disabled className={`${styles.btn} ${styles.btn_disabled}`}>已过期</Button>
-    )
-    if (received) return <Button className={`${styles.btn} ${styles.btn_disabled}`}>已领取</Button>
-    return <Button className={styles.btn} onClick={handleReceiveReward}>领取奖品</Button>
-  }
+    if (now() > endTime)
+      return (
+        <Button disabled className={`${styles.btn} ${styles.btn_disabled}`}>
+          已过期
+        </Button>
+      );
+    if (received)
+      return (
+        <Button className={`${styles.btn} ${styles.btn_disabled}`}>
+          已领取
+        </Button>
+      );
+    return (
+      <Button className={styles.btn} onClick={handleReceiveReward}>
+        领取奖品
+      </Button>
+    );
+  };
 
   return (
     <View className={styles.wrapper}>
       <View className={styles.header}>
-        <Text className={styles.title}>{level}等奖：{name}</Text>
+        <Text className={styles.title}>
+          {level}等奖：{name}
+        </Text>
         <Text className={styles.organizer}>{organizer}</Text>
       </View>
       <View className={styles.content}>
@@ -64,15 +78,14 @@ const Reward = ({
         <View className={styles.info}>
           <View className={styles.infoKey}>领取时间：</View>
           <View className={styles.infoValue}>
-            {timestampToDateString(beginTime)} - {timestampToDateString(endTime)}
+            {timestampToDateString(beginTime)} -{" "}
+            {timestampToDateString(endTime)}
           </View>
         </View>
       </View>
-      <View className={styles.btnWrapper}>
-        {renderBtn()}
-      </View>
+      <View className={styles.btnWrapper}>{renderBtn()}</View>
     </View>
-  )
-}
+  );
+};
 
-export default Reward
+export default Reward;
