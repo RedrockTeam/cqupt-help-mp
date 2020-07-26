@@ -1,6 +1,6 @@
 import React from "react";
 import { navigateBack } from "@tarojs/taro";
-import { NavBar } from "taro-navigationbar";
+import NavBar from "taro3-navigationbar";
 
 type Props = {
   title: string;
