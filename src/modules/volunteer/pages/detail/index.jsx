@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Taro from "@tarojs/taro";
-import { View, Button, Picker } from "@tarojs/components";
+import { View, Button, Picker, Image, Text } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
+import icon1 from "@/static/images/volunteer-icon1.png";
+import icon2 from "@/static/images/volunteer-icon2.png";
+import icon3 from "@/static/images/volunteer-icon3.png";
+
 import styles from "./index.module.scss";
 
 const list = {
@@ -41,19 +45,28 @@ const VolunteerDetail = () => {
         </View>
 
         <View className={styles.item2}>
-          <View className={styles.subTitle}>活动介绍</View>
+          <View className={styles.subTitle}>
+            <Image src={icon1} className={styles.icon} />
+            <Text>活动介绍</Text>
+          </View>
           <View className={styles.text}>
             志愿者需要在选择的志愿时间内，在指定地点进行护花活动，对进行随意摘花的同学、游客进行提醒，并告诫摘花的坏处等。
           </View>
         </View>
         <View className={styles.item2}>
-          <View className={styles.subTitle}>活动规则</View>
+          <View className={styles.subTitle}>
+            <Image src={icon2} className={styles.icon} />
+            <Text>活动规则</Text>
+          </View>
           <View className={styles.text}>
             志愿者需要在选择的志愿时间内，在指定地点进行护花活动，对进行随意摘花的同学、游客进行提醒，并告诫摘花的坏处等。
           </View>
         </View>
         <View className={styles.item2}>
-          <View className={styles.subTitle}>志愿时长</View>
+          <View className={styles.subTitle}>
+            <Image src={icon3} className={styles.icon} />
+            <Text>活动时长</Text>
+          </View>
           <View className={styles.text}>2时长</View>
         </View>
       </View>
