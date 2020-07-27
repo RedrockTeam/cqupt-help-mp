@@ -1,0 +1,120 @@
+.wrapper {
+  padding: 22px 30px;
+  .inputWrapper {
+    background-color: #ffffff;
+    margin-bottom: 158px;
+    padding: 22px;
+    .title {
+      border-bottom: 1px solid #d8d8e1;
+      padding: 26px 16px;
+      color: #494670;
+      font-family: PingFang SC;
+      font-weight: 500;
+      font-size: 28px;
+      text-align: left;
+    }
+    .text {
+      padding: 32px 16px;
+      border-bottom: 1px solid #d8d8e1;
+      color: #494670;
+      font-family: PingFang SC;
+      font-size: 26px;
+      text-align: left;
+      .textNum {
+        text-align: right;
+        color: #a4a3b7;
+      }
+    }
+    .pic {
+      .picText {
+        padding: 32px 16px 24px;
+        color: #a4a3b7;
+        font-family: PingFang SC;
+        font-weight: medium;
+        font-size: 28px;
+        display: flex;
+        .picNum {
+          margin-right: 0;
+          margin-left: auto;
+        }
+      }
+      .picList {
+        display: flex;
+        flex-wrap: wrap;
+        .picUp {
+          width: 200px;
+          height: 200px;
+          border-radius: 20px;
+          margin-right: 15px;
+          margin-bottom: 15px;
+        }
+        .picAdd {
+          .addBtn {
+            display: none;
+          }
+          .addLabel {
+            display: block;
+            border-radius: 20px;
+            width: 200px;
+            height: 200px;
+            background-color: #f1f1f8;
+            box-sizing: border-box;
+            color: #c9c8d2;
+            position: relative;
+            &:before {
+              content: "";
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              width: 50px;
+              margin-left: -25px;
+              margin-top: -4px;
+              border-top: 4px solid;
+            }
+            &:after {
+              content: "";
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              height: 50px;
+              margin-left: -4px;
+              margin-top: -25px;
+              border-left: 4px solid;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .button {
+    width: 572px;
+    height: 92px;
+    border-radius: 64px;
+    background: #cecde8;
+    color: #ffffff;
+    font-family: PingFang SC;
+    font-weight: medium;
+    font-size: 36px;
+    margin-bottom: 96px;
+  }
+  .buttonPush {
+    width: 572px;
+    height: 92px;
+    border-radius: 64px;
+    background: #625af8;
+    color: #ffffff;
+    font-family: PingFang SC;
+    font-weight: medium;
+    font-size: 36px;
+    margin-bottom: 96px;
+  }
+  .tips {
+    color: #a4a3b7;
+    font-family: PingFang SC;
+    font-weight: medium;
+    font-size: 28px;
+    letter-spacing: 4px;
+    text-align: center;
+  }
+}

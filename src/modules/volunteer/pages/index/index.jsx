@@ -1,5 +1,6 @@
 import React from "react";
 import { View } from "@tarojs/components";
+import NavBack from "@/common/components/nav-back";
 import styles from "./index.module.scss";
 
 const list = [
@@ -21,8 +22,9 @@ const list = [
 
 const Volunteer = () => (
   <View className={styles.wrapper}>
+    <NavBack title="志愿报名" background="#F6F6F9" />
     {list.map((item) => (
-      <View className={styles.card} key="key">
+      <View className={styles.card} key={item.key}>
         <View className={styles.cardTop}>
           <View className={styles.cardName}>{item.name}</View>
           <View

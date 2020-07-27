@@ -3,12 +3,14 @@ const resolvePage = (module: string, page: string) =>
 
 export default {
   pages: [
-    resolvePage("ticket", "rob-ticket"),
-    resolvePage("my-activity", "index"),
-    resolvePage("my-reward", "index"),
-    resolvePage("volunteer", "index"),
+    // resolvePage("ticket", "rob-ticket"),
+    // resolvePage("my-activity", "index"),
+    // resolvePage("my-reward", "index"),
+    // resolvePage("volunteer", "index"),
     resolvePage("volunteer", "entry"),
-    resolvePage("volunteer", "detail"),
+    // resolvePage("volunteer", "detail"),
+    // resolvePage("feedback", "index"),
+    // resolvePage("feedback", "result"),
   ],
   window: {
     backgroundTextStyle: "light",

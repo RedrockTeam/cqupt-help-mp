@@ -1,9 +1,11 @@
 import React from "react";
 import { View, Text, Button, Input } from "@tarojs/components";
+import NavBack from "@/common/components/nav-back";
 import styles from "./index.module.scss";
 
 const VolunteerEntry = () => (
   <View className={styles.wrapper}>
+    <NavBack title="志愿报名" background="#F6F6F9" />
     <View className={styles.title}>
       <View>欢迎使用</View>
       <View>志愿报名系统</View>

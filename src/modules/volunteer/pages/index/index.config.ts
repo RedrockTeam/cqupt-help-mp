@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: "志愿活动",
+  navigationBarTitleText: "志愿报名",
 };

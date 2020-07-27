@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Taro from "@tarojs/taro";
 import { View, Button, Picker } from "@tarojs/components";
+import NavBack from "@/common/components/nav-back";
 import styles from "./index.module.scss";
 
 const list = {
@@ -21,6 +22,7 @@ const VolunteerDetail = () => {
 
   return (
     <View className={styles.wrapper}>
+      <NavBack title="志愿报名" background="#F6F6F9" />
       <View className={styles.pic}>一张图片</View>
       <View className={styles.card}>
         <View className={styles.item1}>
