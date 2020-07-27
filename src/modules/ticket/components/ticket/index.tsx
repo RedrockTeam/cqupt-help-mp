@@ -1,11 +1,7 @@
 import React from "react";
-import { View, Image, Text } from "@tarojs/components";
+import { View, Image, Text, ITouchEvent } from "@tarojs/components";
 import PrimaryButton from "@/common/components/primary-button";
-import {
-  timestampToTimeCNString,
-  now,
-  timestampToDayjs,
-} from "@/common/helpers/date";
+import { timestampToTimeCNString, now } from "@/common/helpers/date";
 import dateIcon from "@/static/images/date.png";
 import styles from "./index.module.scss";
 
@@ -25,6 +21,7 @@ type Props = {
   image: string;
   name: string;
   isReceived: boolean;
+  onRobTicket: (event: ITouchEvent) => unknown;
 };
 
 const Ticket = ({
@@ -35,6 +32,7 @@ const Ticket = ({
   image,
   name,
   isReceived,
+  onRobTicket,
 }: Props) => {
   const renderRobBtn = () => {
     const nowTimestamp = now();
@@ -51,7 +49,11 @@ const Ticket = ({
             已抢完
           </PrimaryButton>
         );
-      return <PrimaryButton className={styles.btn}>立即抢票</PrimaryButton>;
+      return (
+        <PrimaryButton className={styles.btn} onClick={onRobTicket}>
+          立即抢票
+        </PrimaryButton>
+      );
     }
     const leftTime = Math.round((robTime - nowTimestamp) / 60);
     if (leftTime < 120)

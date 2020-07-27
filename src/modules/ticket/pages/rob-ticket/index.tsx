@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
+import Popup from "@/common/components/popup";
+import robSuccessImg from "@/static/images/rob-success.png";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
 
@@ -53,11 +55,28 @@ const ticketList = [
 ];
 
 const RobTicket = () => {
+  const [isShow, setIsShow] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setIsShow(false), 3000);
+  }, [isShow]);
+  const handleRobTicket = () => {
+    // TODO: 抢票 request
+    // TODO: 刷新电影列表 request
+    setIsShow(true);
+  };
   return (
     <View className={styles.wrapper}>
-      <NavBack title="我的奖品" background="#F6F6F9" />
+      <NavBack title="在线抢票" background="#F6F6F9" />
       {ticketList.length &&
-        ticketList.map((e) => <Ticket {...e} key={e.name} />)}
+        ticketList.map((e) => (
+          <Ticket {...e} onRobTicket={handleRobTicket} key={e.name} />
+        ))}
+      <Popup
+        img={robSuccessImg}
+        isShow={isShow}
+        title="恭喜您！抢票成功！"
+        detail="电影票卡卷已存入“我的”页面‘我的影票’中。赶紧去领电影票吧!"
+      />
     </View>
   );
 };
