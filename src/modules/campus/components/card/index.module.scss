@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: 40px 22px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  margin: 16px 0;
+  .img {
+    width: 88px;
+    height: 88px;
+  }
+  .info {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+    .title {
+      color: #1C184C;
+      font-family: PingFang SC;
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 36px;
+    }
+    .organization {
+      color: #A4A3B7;
+      font-family: PingFang SC;
+      font-weight: medium;
+      font-size: 28px;
+      line-height: 32px;      
+    }
+  }
+  .icon {
+    margin-left: auto;
+    width: 30px;
+    height: 40px;
+  }
+}

@@ -3,11 +3,15 @@ const resolvePage = (module: string, page: string) =>
 
 export default {
   pages: [
+    resolvePage("index", "bind"),
+    resolvePage("campus", "index"),
+    resolvePage("campus", "safe-run"),
+    resolvePage("campus", "shark-it"),
     // resolvePage("ticket", "rob-ticket"),
     // resolvePage("my-activity", "index"),
     // resolvePage("my-reward", "index"),
     // resolvePage("volunteer", "index"),
-    resolvePage("volunteer", "entry"),
+    // resolvePage("volunteer", "entry"),
     // resolvePage("volunteer", "detail"),
     // resolvePage("feedback", "index"),
     // resolvePage("feedback", "result"),
