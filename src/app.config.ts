@@ -8,8 +8,8 @@ export default {
     // resolvePage("my-reward", "index"),
     // resolvePage("volunteer", "index"),
     // resolvePage("volunteer", "entry"),
-    resolvePage("volunteer", "detail"),
-    // resolvePage("feedback", "index"),
+    // resolvePage("volunteer", "detail"),
+    resolvePage("feedback", "index"),
     // resolvePage("feedback", "result"),
   ],
   window: {

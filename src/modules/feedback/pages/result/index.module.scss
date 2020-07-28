@@ -1,8 +1,8 @@
 .pic {
-  width: 388px;
-  height: 388px;
-  background-color: pink;
-  margin: 244px auto 40px;
+  display: block;
+  width: 280px;
+  height: 300px;
+  margin: 180px auto 40px;
 }
 .tips1 {
   width: 528px;
@@ -11,6 +11,7 @@
   font-family: PingFang SC;
   font-weight: medium;
   font-size: 32px;
+  line-height: 64px;
   text-align: center;
 }
 .tips2 {
@@ -20,12 +21,22 @@
   font-family: PingFang SC;
   font-weight: medium;
   font-size: 32px;
+  line-height: 64px;
   text-align: center;
 }
 .button {
+  display: block;
   border-radius: 64px;
   background: #625af8;
   width: 572px;
+  display: block;
   color: #ffffff;
-  margin-top: 272px;
+  margin: 254px auto 0;
+}
+
+.copyPng {
+  width: 44px;
+  height: 29px;
+  padding-left: 20px;
+  padding-bottom: 5px;
 }
