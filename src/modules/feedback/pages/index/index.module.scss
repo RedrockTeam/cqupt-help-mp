@@ -42,12 +42,22 @@
       .picList {
         display: flex;
         flex-wrap: wrap;
-        .picUp {
-          width: 200px;
-          height: 200px;
-          border-radius: 20px;
-          margin-right: 15px;
-          margin-bottom: 15px;
+        .picWrap {
+          margin: 0;
+          // margin-right: 15px;
+          // margin-bottom: 15px;
+          .picUp {
+            width: 180px;
+            height: 180px;
+            border-radius: 20px;
+          }
+          .del {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            bottom: 150px;
+            left: -30px;
+          }
         }
         .picAdd {
           .addBtn {
