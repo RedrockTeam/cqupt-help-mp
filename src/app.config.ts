@@ -3,10 +3,10 @@ const resolvePage = (module: string, page: string) =>
 
 export default {
   pages: [
-    resolvePage("index", "bind"),
-    resolvePage("campus", "index"),
-    resolvePage("campus", "safe-run"),
-    resolvePage("campus", "shark-it"),
+    // resolvePage("index", "bind"),
+    // resolvePage("campus", "index"),
+    // resolvePage("campus", "safe-run"),
+    // resolvePage("campus", "shark-it"),
     // resolvePage("ticket", "rob-ticket"),
     // resolvePage("my-activity", "index"),
     // resolvePage("my-reward", "index"),
@@ -15,6 +15,7 @@ export default {
     // resolvePage("volunteer", "detail"),
     // resolvePage("feedback", "index"),
     // resolvePage("feedback", "result"),
+    resolvePage("my", "index"),
   ],
   window: {
     backgroundTextStyle: "light",
