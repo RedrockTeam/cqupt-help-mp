@@ -2,7 +2,7 @@
   padding: 22px 30px;
   .inputWrapper {
     background-color: #ffffff;
-    margin-bottom: 158px;
+    margin-bottom: 90px;
     padding: 22px;
     .title {
       border-bottom: 1px solid #d8d8e1;
@@ -13,13 +13,14 @@
       font-size: 28px;
       text-align: left;
     }
-    .text {
+    .textWrap {
       padding: 32px 16px;
       border-bottom: 1px solid #d8d8e1;
       color: #494670;
       font-family: PingFang SC;
       font-size: 26px;
       text-align: left;
+      height: 384px;
       .textNum {
         text-align: right;
         color: #a4a3b7;
@@ -41,12 +42,22 @@
       .picList {
         display: flex;
         flex-wrap: wrap;
-        .picUp {
-          width: 200px;
-          height: 200px;
-          border-radius: 20px;
-          margin-right: 15px;
-          margin-bottom: 15px;
+        .picWrap {
+          margin: 0;
+          // margin-right: 15px;
+          // margin-bottom: 15px;
+          .picUp {
+            width: 180px;
+            height: 180px;
+            border-radius: 20px;
+          }
+          .del {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            bottom: 150px;
+            left: -30px;
+          }
         }
         .picAdd {
           .addBtn {
@@ -96,7 +107,7 @@
     font-family: PingFang SC;
     font-weight: medium;
     font-size: 36px;
-    margin-bottom: 96px;
+    margin: 0 auto 96px;
   }
   .buttonPush {
     width: 572px;
@@ -107,14 +118,13 @@
     font-family: PingFang SC;
     font-weight: medium;
     font-size: 36px;
-    margin-bottom: 96px;
+    margin: 0 auto 96px;
   }
   .tips {
     color: #a4a3b7;
     font-family: PingFang SC;
     font-weight: medium;
     font-size: 28px;
-    letter-spacing: 4px;
     text-align: center;
   }
 }

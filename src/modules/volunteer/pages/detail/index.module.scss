@@ -1,20 +1,21 @@
 .wrapper {
   height: 100vh;
+  background: #ffffff;
+
   .pic {
     width: 100vw;
-    height: 0;
-    padding-bottom: 50%;
+    height: 376px;
     background-color: pink;
+    margin-bottom: 0;
   }
 
   .card {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
     background: #ffffff;
-    height: 75vh;
-    position: absolute;
-    bottom: 0;
-    padding: 0 38px;
+    margin-top: -24px;
   }
   .item1 {
     border-bottom: 1px solid #d8d8e1;
@@ -22,12 +23,12 @@
     .title {
       display: flex;
       align-items: center;
-      margin-bottom: 34px;
-      margin-top: 48px;
+      margin-bottom: 18px;
+      padding-top: 48px;
       .name {
         color: #1c184c;
         font-family: PingFang SC;
-        font-weight: bold;
+        font-weight: 500;
         font-size: 40px;
         text-align: left;
         margin-right: 16px;
@@ -51,7 +52,7 @@
       font-family: PingFang SC;
       font-weight: medium;
       font-size: 28px;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
       .time {
         margin-right: 0;
         margin-left: auto;
@@ -65,9 +66,9 @@
   .subTitle {
     color: #1c184c;
     font-family: PingFang SC;
-    font-weight: bold;
-    font-size: 30px;
+    font-size: 28px;
     text-align: left;
+    margin-bottom: 10px;
   }
   .text {
     color: #9794ad;
@@ -92,4 +93,11 @@
   bottom: 40px;
   left: 50%;
   margin-left: -180px;
+}
+
+.icon {
+  width: 40px;
+  height: 38px;
+  padding-right: 8px;
+  vertical-align: top;
 }

@@ -13,7 +13,7 @@ export default {
     // resolvePage("volunteer", "index"),
     // resolvePage("volunteer", "entry"),
     // resolvePage("volunteer", "detail"),
-    // resolvePage("feedback", "index"),
+    resolvePage("feedback", "index"),
     // resolvePage("feedback", "result"),
   ],
   window: {
