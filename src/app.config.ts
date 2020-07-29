@@ -5,7 +5,8 @@ export default {
   pages: [
     // resolvePage("index", "bind"),
     // resolvePage("campus", "index"),
-    resolvePage("campus", "safe-run"),
+    // resolvePage("campus", "safe-run"),
+    resolvePage("campus", "safe-run-history"),
     // resolvePage("campus", "shark-it"),
     resolvePage("ticket", "rob-ticket"),
     // resolvePage("my-activity", "index"),
