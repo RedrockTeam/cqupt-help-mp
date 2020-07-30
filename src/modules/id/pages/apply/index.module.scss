@@ -1,0 +1,56 @@
+.wrap {
+  padding-top: 40px;
+  padding-left: 64px;
+  .top {
+    .title {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 48px;
+      line-height: 36px;
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+    .tips {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 28px;
+      line-height: 36px;
+      letter-spacing: 0.04em;
+      color: #a4a3b7;
+    }
+  }
+
+  .mid {
+    margin-top: 54px;
+    .iconWrap {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      .icon {
+        width: 34px;
+        height: 34px;
+        padding-right: 10px;
+      }
+    }
+    .input {
+      background: #ffffff;
+      border: 3px solid #cdcce0;
+      box-sizing: border-box;
+      border-radius: 122px;
+      width: 622px;
+      height: 88px;
+      padding-left: 20px;
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 30px;
+      line-height: 48px;
+    }
+  }
+  .button {
+    margin-top: 132px;
+    width: 622px;
+  }
+}
