@@ -7,11 +7,10 @@ import apply from "@/static/images/apply.png";
 import styles from "./index.module.scss";
 
 const Apply = () => {
+  const [isShow, setIsShow] = useState(false);
   const handleClick = () => {
     setIsShow(true);
   };
-
-  const [isShow, setIsShow] = useState(false);
 
   return (
     <View className={styles.wrap}>
