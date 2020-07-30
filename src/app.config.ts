@@ -15,7 +15,10 @@ export default {
     // resolvePage("volunteer", "detail"),
     // resolvePage("feedback", "index"),
     // resolvePage("feedback", "result"),
-    resolvePage("my", "index"),
+    // resolvePage("my", "index"),
+    // resolvePage("id", "index"),
+    // resolvePage("id", "empty"),
+    resolvePage("id", "apply"),
   ],
   window: {
     backgroundTextStyle: "light",

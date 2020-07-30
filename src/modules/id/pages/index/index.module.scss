@@ -1,0 +1,70 @@
+.cardWrap {
+  background: #ffffff;
+  margin-bottom: 16px;
+  padding: 48px 30px;
+  .card {
+    width: 690px;
+    height: 328px;
+    border-radius: 16px;
+    margin: 0 auto;
+    background-color: pink;
+    padding: 32px;
+    box-sizing: border-box;
+    background: url("../../../../static/images/id1.png");
+    background-size: cover;
+  }
+  .top {
+    display: flex;
+    align-items: center;
+    .avator {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      padding-right: 14px;
+    }
+    .name {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 40px;
+      line-height: 36px;
+      color: #ffffff;
+    }
+    .info {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 32px;
+      line-height: 56px;
+      text-align: center;
+      letter-spacing: 0.06em;
+      color: #f2f1f9;
+    }
+  }
+
+  .footer {
+    display: flex;
+    margin-top: 114px;
+    justify-content: space-between;
+    .time {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 28px;
+      line-height: 56px;
+      text-align: center;
+      letter-spacing: 0.03em;
+      color: #f2f1f9;
+    }
+    .department {
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 28px;
+      line-height: 56px;
+      text-align: center;
+      letter-spacing: 0.06em;
+      color: #f2f1f9;
+    }
+  }
+}
