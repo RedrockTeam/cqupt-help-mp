@@ -1,3 +1,5 @@
 export default {
-  navigationBarTitleText: "首页",
+  navigationBarTitleText: "重邮帮",
+  navigationStyle: "default",
+  navigationBarBackgroundColor: "#FFFFFF",
 };
