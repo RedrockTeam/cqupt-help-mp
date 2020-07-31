@@ -25,12 +25,16 @@
       font-weight: medium;
       font-size: 28px;
       text-align: left;
-      margin-bottom: 32px;
-      margin-top: 32px;
+      margin-bottom: 16px;
     }
-    .forminput {
-      display: block;
+    .formInput {
       height: 40px;
+      margin-bottom: 48px;
+      color: #494670;
+      font-family: DIN;
+      font-weight: medium;
+      font-size: 32px;
+      text-align: left;
     }
   }
   .tips {
@@ -41,12 +45,20 @@
     padding-left: 22px;
     margin-top: 32px;
   }
-  .button {
+  .buttonPush {
     border-radius: 64px;
     background: #625af8;
     width: 572px;
     height: 92px;
     color: #efeffe;
-    margin-top: 178px;
+    margin: 178px auto 0;
+  }
+  .button {
+    background: #cecde8;
+    color: #ffffff;
+    border-radius: 64px;
+    width: 572px;
+    height: 92px;
+    margin: 178px auto 0;
   }
 }
