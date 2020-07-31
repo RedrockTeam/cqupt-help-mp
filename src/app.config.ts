@@ -27,6 +27,7 @@ export default {
     // resolvePage("id", "index"),
     // resolvePage("id", "empty"),
     resolvePage("id", "apply"),
+    "modules/webview/index",
   ],
   window: {
     backgroundTextStyle: "light",

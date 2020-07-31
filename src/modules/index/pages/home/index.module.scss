@@ -1,0 +1,88 @@
+.wrapper {
+  background-image: radial-gradient(ellipse at top, #fff, #fff 90%, #F6F6F9 90%);
+  background-size: 900px 250px;
+  background-position: center top;
+  background-repeat: no-repeat;
+  .swiper {
+    width: 710px;
+    height: 322px;
+    margin: 0 auto;
+    padding: 10px 0;
+    border-radius: 20px;
+    .bannerItem {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
+  }
+  .slideWrapper {
+    margin-bottom: 56px;
+    .slide {
+      width: 100%;
+      height: 202px;
+      display: flex;
+      overflow-x: auto;
+      padding-top: 46px;
+      .slideItem {
+        width: 116px;
+        height: 130px;
+        padding-right: 69px;
+        text-align: center;
+        box-sizing: content-box;
+        &:first-child {
+          padding-left: 40px;
+        }
+        &:last-child {
+          padding-right: 40px;
+        }
+        .slideImg {
+          width: 116px;
+          height: 82px;
+        }
+        .slideText {
+          font-family: PingFang SC;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 32px;
+          color: #A4A3B7;
+          text-align: center;
+        }
+      }
+    }
+    .scrollBar {
+      background: transparent;
+      .scrollBarBg {
+        position: relative;
+        width: 84rpx;
+        height: 8rpx;
+        background: #E8E8ED;
+        border-radius: 5px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+      .scrollBarSlide {
+        width: 52px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: rgba(98, 90, 248, 0.7);
+        border-radius: 5px;
+      }
+    }
+  }
+  .recentActivitiesWrapper {
+    padding: 0 20px 20px;
+    .title {
+      margin-left: 8px;
+      margin-bottom: 16px;
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 36px;
+      line-height: 36px;
+      color: #1C184C;
+    }
+  }
+}

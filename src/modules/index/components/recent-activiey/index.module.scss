@@ -1,0 +1,84 @@
+.activity {
+  background-color: #ffffff;
+  border-radius: 16px;
+  height: 240px;
+  display: flex;
+  padding: 24px 16px;
+  margin-top: 16px;
+  .left {
+    position: relative;
+    margin-right: 16px;
+    .img {
+      width: 256px;
+      height: 192px;
+    }
+    .remainTime {
+      width: 112px;
+      height: 36px;
+      position: absolute;
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 22px;
+      line-height: 32px;
+      text-align: center;
+      color: #FFFFFF;
+      top: 0;
+      left: 0;
+      background: rgba(255, 97, 149, .7);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      box-sizing: border-box;
+      border-radius: 12px 0px 12px 0px;
+    }
+    .doing {
+      background: rgba(98, 90, 248, .7);
+    }
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    .activityTitle {
+      display: flex;
+      align-items: center;
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 36px;
+      color: #1C184C;
+      margin-top: 10px;
+      margin-bottom: 68px;
+      .tag {
+        margin-left: 12px;
+        width: 64px;
+        height: 32px;
+        border-top-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        font-family: PingFang SC;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 28px;
+        text-align: center;
+      }
+      .online {
+        border: 2px solid #625AF8;
+        color: #625AF8;
+      }
+      .offline {
+        border: 2px solid #1678FE;
+        color: #1678FE;
+      }
+    }
+    .text {
+      margin-bottom: 12px;
+      font-family: PingFang SC;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 28px;
+      line-height: 32px;
+      color: #777494;
+    }
+  }
+}
