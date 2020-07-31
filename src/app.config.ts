@@ -3,9 +3,9 @@ const resolvePage = (module: string, page: string) =>
 
 export default {
   pages: [
-    resolvePage("index", "bind"),
-    resolvePage("campus", "index"),
-    resolvePage("campus", "safe-run"),
+    // resolvePage("index", "bind"),
+    // resolvePage("campus", "index"),
+    // resolvePage("campus", "safe-run"),
     resolvePage("campus", "shark-it"),
     // resolvePage("ticket", "rob-ticket"),
     // resolvePage("my-activity", "index"),
