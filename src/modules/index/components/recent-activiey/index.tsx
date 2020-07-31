@@ -1,9 +1,6 @@
 import React from "react";
 import { View, Image, Text } from "@tarojs/components";
-import {
-  timestampToTimeCNString,
-  timestampToDateString,
-} from "@/common/helpers/date";
+import { timestampToDateString } from "@/common/helpers/date";
 import { navTo } from "@/common/helpers/utils";
 import styles from "./index.module.scss";
 

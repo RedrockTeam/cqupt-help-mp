@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Image, Text } from "@tarojs/components";
+import { resolvePage, navTo } from "@/common/helpers/utils";
 import avator from "@/static/images/empty.png";
 import aboutIcon from "@/static/images/about-icon.png";
 import feedbackIcon from "@/static/images/feedback-icon.png";
@@ -24,15 +25,19 @@ const myIndex = () => {
           </View>
         </View>
         <View className={styles.top_bottom}>
-          <View>
+          <View onClick={() => navTo({ url: resolvePage("my", "my-reward") })}>
             <Image className={styles.pic} src={prizeIcon} />
             <Text className={styles.text}>我的奖品</Text>
           </View>
-          <View>
+          <View
+            onClick={() => navTo({ url: resolvePage("my", "my-activity") })}
+          >
             <Image className={styles.pic} src={campusIcon} />
             <Text className={styles.text}>我的活动</Text>
           </View>
-          <View>
+          <View
+            onClick={() => navTo({ url: resolvePage("ticket", "my-ticket") })}
+          >
             <Image className={styles.pic} src={ticketIcon} />
             <Text className={styles.text}>我的影票</Text>
           </View>
@@ -40,12 +45,20 @@ const myIndex = () => {
       </View>
 
       <View className={styles.list}>
-        <View className={styles.feedback}>
+        <View
+          className={styles.feedback}
+          onClick={() => navTo({ url: resolvePage("feedback", "index") })}
+        >
           <Image src={feedbackIcon} className={styles.icon} />
           <Text className={styles.text}>意见反馈</Text>
           <Image src={enter} className={styles.enter} />
         </View>
-        <View className={styles.about}>
+        <View
+          className={styles.about}
+          onClick={() =>
+            navTo({ url: "https://wx.redrock.team/game/help-form/" })
+          }
+        >
           <Image src={aboutIcon} className={styles.icon} />
           <Text className={styles.text}>关于我们</Text>
           <Image src={enter} className={styles.enter} />

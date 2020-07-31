@@ -1,17 +1,29 @@
-.cardWrap {
+.wrapper {
   background: #ffffff;
+  min-height: 100vh;
   margin-bottom: 16px;
-  padding: 48px 30px;
+  padding: 42px 30px;
   .card {
     width: 690px;
     height: 328px;
     border-radius: 16px;
-    margin: 0 auto;
+    margin: 0 auto 84px;
     background-color: pink;
     padding: 32px;
     box-sizing: border-box;
-    background: url("../../../../static/images/id1.png");
     background-size: cover;
+    &:nth-child(1) {
+      background-image: url("../../../../static/images/id1.png");
+    }
+    &:nth-child(2) {
+      background-image: url("../../../../static/images/id2.png");
+    }
+    &:nth-child(3) {
+      background-image: url("../../../../static/images/id3.png");
+    }
+    &:nth-child(4) {
+      background-image: url("../../../../static/images/id4.png");
+    }
   }
   .top {
     display: flex;

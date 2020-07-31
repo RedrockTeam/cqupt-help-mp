@@ -67,7 +67,7 @@ const Feedback = () => {
               titleChange(e);
             }}
             value={title}
-            placeholderStyle={{ color: "#a4a3b7" }}
+            placeholderStyle="color: #a4a3b7; font-weight: normal;"
           />
         </View>
         <View className={styles.textWrap}>
@@ -79,7 +79,7 @@ const Feedback = () => {
               contentChange(e);
             }}
             value={content}
-            placeholderStyle={{ color: "#a4a3b7" }}
+            placeholderStyle="color: #a4a3b7;"
           />
           <View className={styles.textNum}>{contentNum}/150</View>
         </View>

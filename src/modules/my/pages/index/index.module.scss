@@ -64,17 +64,17 @@
   margin: 0 auto;
   border-radius: 16px;
   background: #ffffff;
-  padding: 18px 40px;
+  padding: 0 40px;
   .feedback {
-    margin-top: 40px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid #c4c4c4;
+    padding-top: 56px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid #f2f2f2;
     display: flex;
     align-items: center;
   }
   .about {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    padding-top: 56px;
+    padding-bottom: 56px;
     display: flex;
     align-items: center;
   }
@@ -93,8 +93,8 @@
     height: 34px;
   }
   .enter {
+    margin-left: auto;
     width: 32px;
-    height: 56px;
-    padding-left: 454px;
+    height: 40px;
   }
 }

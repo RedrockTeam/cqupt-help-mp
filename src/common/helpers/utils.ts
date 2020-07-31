@@ -5,11 +5,11 @@ export const resolvePage = (module: string, page: string) =>
 
 export const navTo = ({
   url,
-  title,
+  title = "",
   payload = {},
 }: {
   url: string;
-  title: string;
+  title?: string;
   payload?: Record<string, string | number | boolean>;
 }) => {
   if (/^https?:\/\//.test(url)) {

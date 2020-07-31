@@ -17,6 +17,7 @@ import tmpHomeBanner from "@/static/images/tmp-home-banner.jpg";
 import tmpHomeBanner1 from "@/static/images/tmp-home-banner2.jpg";
 import tmpHomeRecent from "@/static/images/tmp-home-recent.jpg";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
+import { resolvePage, navTo } from "@/common/helpers/utils";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
 
@@ -106,23 +107,40 @@ export default function Index() {
           enableFlex
           onScroll={handleSlideScroll}
         >
-          <View className={styles.slideItem}>
+          <View
+            className={styles.slideItem}
+            onClick={() => navTo({ url: resolvePage("ticket", "rob-ticket") })}
+          >
             <Image src={homeTicketIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>线上抢票</Text>
           </View>
-          <View className={styles.slideItem}>
+          <View
+            className={styles.slideItem}
+            onClick={() => navTo({ url: resolvePage("campus", "index") })}
+          >
             <Image src={homeCampusIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>校园服务</Text>
           </View>
-          <View className={styles.slideItem}>
+          <View
+            className={styles.slideItem}
+            onClick={() => navTo({ url: resolvePage("volunteer", "index") })}
+          >
             <Image src={homeVolunteerIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>志愿报名</Text>
           </View>
-          <View className={styles.slideItem}>
+          <View
+            className={styles.slideItem}
+            onClick={() =>
+              navTo({ url: "https://wx.redrock.team/game/help-form/" })
+            }
+          >
             <Image src={homeYoungIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>青春邮约</Text>
           </View>
-          <View className={styles.slideItem}>
+          <View
+            className={styles.slideItem}
+            onClick={() => navTo({ url: resolvePage("id", "index") })}
+          >
             <Image src={homeIdIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>身份有证</Text>
           </View>
