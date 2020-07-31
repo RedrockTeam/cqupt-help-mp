@@ -8,6 +8,8 @@ const resolvePage = (module: string, page: string) =>
 
 export default {
   pages: [
+    // resolvePage("index", "bind"),
+    resolvePage("campus", "shark-it"),
     resolvePage("index", "home"),
     resolvePage("my", "index"),
     // resolvePage("index", "bind"),

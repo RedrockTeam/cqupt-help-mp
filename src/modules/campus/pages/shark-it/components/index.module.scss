@@ -1,0 +1,39 @@
+.wrapper {
+  .content {
+    width: 607px;
+    height: 192px;
+    background: #ffffff;
+    box-shadow: 0px 6px 6px rgba(73, 70, 112, 0.03),
+      0px 4px 4px rgba(144, 141, 206, 0.05), 4px -4px 4px #4f47dd0a;
+    border-radius: 16px;
+    display: flex;
+    padding: 24px;
+    margin: 190px auto 0;
+    .img {
+      border-radius: 12px;
+      width: 256px;
+      height: 192px;
+      background-color: pink;
+    }
+    .text {
+      padding-left: 16px;
+      .title {
+        font-family: PingFang SC;
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 36px;
+        letter-spacing: 0.06em;
+        color: #1c184c;
+        margin-bottom: 16px;
+      }
+      .detail {
+        font-family: PingFang SC;
+        font-weight: normal;
+        font-size: 26px;
+        line-height: 44px;
+        letter-spacing: 0.06em;
+        color: #777494;
+      }
+    }
+  }
+}
