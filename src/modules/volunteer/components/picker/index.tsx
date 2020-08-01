@@ -22,9 +22,10 @@ const list = {
 type Props = {
   visible: boolean;
   onCancel: (event: ITouchEvent) => unknown;
+  onOk: (event: ITouchEvent) => unknown;
 };
 
-const Picker = ({ visible, onCancel }: Props) => {
+const Picker = ({ visible, onCancel, onOk }: Props) => {
   const onTimeChange = (e) => {
     console.log(e.detail);
   };
@@ -56,10 +57,7 @@ const Picker = ({ visible, onCancel }: Props) => {
             </PickerViewColumn>
           </PickerView>
         </View>
-        <Button
-          className={styles.vBtn}
-          onClick={() => navTo({ url: resolvePage("volunteer", "index") })}
-        >
+        <Button className={styles.vBtn} onClick={onOk}>
           确认提交
         </Button>
       </View>
