@@ -1,0 +1,83 @@
+.mask {
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($color: #000000, $alpha: 0.25);
+  .verify {
+    width: 100vw;
+    // height: 586px;
+    background-color: #ffffff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    position: absolute;
+    bottom: 0;
+    padding: 40px 52px;
+    .vTop {
+      display: flex;
+      padding-bottom: 74px;
+      .vTitle {
+        font-family: PingFang SC;
+        font-style: normal;
+        font-size: 32px;
+        line-height: 36px;
+        letter-spacing: 0.06em;
+        color: #777494;
+        width: 136px;
+        margin: 0 auto;
+      }
+      .vIcon {
+        width: 26px;
+        height: 26px;
+      }
+    }
+    .vInfos {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      .vInfo {
+        display: flex;
+        margin-bottom: 48px;
+        .vInfoT {
+          font-family: PingFang SC;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 32px;
+          line-height: 36px;
+          letter-spacing: 0.06em;
+          color: #777494;
+        }
+        .vInfoC {
+          font-family: PingFang SC;
+          font-style: normal;
+          font-size: 32px;
+          line-height: 36px;
+          letter-spacing: 0.06em;
+          margin-left: auto;
+        }
+      }
+    }
+    .vBtn {
+      width: 360px;
+      height: 88px;
+      margin: 52px auto 0;
+      background: #625af8;
+      border-radius: 64px;
+      font-family: PingFang SC;
+      font-size: 36px;
+      line-height: 88px;
+      color: #ffffff;
+    }
+    .picker {
+      width: 100%;
+      height: 300px;
+      text-align: center;
+      line-height: 58px;
+    }
+  }
+}

@@ -1,27 +1,36 @@
-import React, { useState } from "react";
-import Taro from "@tarojs/taro";
-import { View, Button, Picker, Image, Text } from "@tarojs/components";
+import React, { useState, useEffect } from "react";
+import { View, Image, Text, Button } from "@tarojs/components";
+import Popup from "@/common/components/popup/index";
 import NavBack from "@/common/components/nav-back";
 import icon1 from "@/static/images/volunteer-icon1.png";
 import icon2 from "@/static/images/volunteer-icon2.png";
 import icon3 from "@/static/images/volunteer-icon3.png";
+import wait from "@/static/images/wait.png";
+import Picker from "../../components/picker/index";
 
 import styles from "./index.module.scss";
 
-const list = {
-  selector: ["7月13日 10:00-12:00", "7月14日", "7月15日", "7月16日"],
-};
-
 const VolunteerDetail = () => {
-  const [, setSelected] = useState();
-  const onChange = (e) => {
-    const index = e.detail.value;
-    setSelected(index); // 数据的下标
-    Taro.showToast({
-      title: "申请成功！申请结果将会通过重邮小帮手进行通知！",
-      icon: "success",
-      duration: 2000,
-    });
+  const [showPicker, setShowPicker] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    if (showPopup === true) {
+      setTimeout(() => setShowPopup(false), 3000);
+    }
+  }, [showPopup]);
+
+  const handleShowPicker = () => {
+    setShowPicker(true);
+  };
+
+  const cancelShowPicker = () => {
+    setShowPicker(false);
+  };
+
+  const pushPicker = () => {
+    setShowPicker(false);
+    setShowPopup(true);
   };
 
   return (
@@ -70,14 +79,25 @@ const VolunteerDetail = () => {
           <View className={styles.text}>2时长</View>
         </View>
       </View>
-      <Picker
-        mode="selector"
-        range={list.selector}
-        onChange={onChange}
-        header-text="选择时间"
+      <View />
+      <Button
+        className={styles.button}
+        onClick={() => {
+          handleShowPicker();
+        }}
       >
-        <Button className={styles.button}>立即报名</Button>
-      </Picker>
+        立即报名
+      </Button>
+      <Picker
+        visible={showPicker}
+        onCancel={cancelShowPicker}
+        onOk={pushPicker}
+      />
+      <Popup
+        detail="申请成功,申请结果将通过重邮小帮手进行通知"
+        img={wait}
+        isShow={showPopup}
+      />
     </View>
   );
 };
