@@ -36,7 +36,7 @@ const list = [
 const MyTicket = () => {
   return (
     <View className={styles.wrapper}>
-      <NavBack title="我的奖品" background="#F6F6F9" />
+      <NavBack title="我的影票" background="#F6F6F9" />
       <Swiper
         className={styles.swiper}
         indicatorColor="#A7A3FF"

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Text, ITouchEvent } from "@tarojs/components";
+import { View, Image, Text } from "@tarojs/components";
 import PrimaryButton from "@/common/components/primary-button";
 import { timestampToTimeCNString, now } from "@/common/helpers/date";
 import dateIcon from "@/static/images/date.png";
@@ -14,6 +14,7 @@ import styles from "./index.module.scss";
  * name：电影名
  */
 type Props = {
+  id: number;
   playTime: number;
   robTime: number;
   location: string;
@@ -21,10 +22,11 @@ type Props = {
   image: string;
   name: string;
   isReceived: boolean;
-  onRobTicket: (event: ITouchEvent) => unknown;
+  onRobTicket: (id: number) => void;
 };
 
 const Ticket = ({
+  id,
   playTime,
   robTime,
   location,
@@ -50,7 +52,7 @@ const Ticket = ({
           </PrimaryButton>
         );
       return (
-        <PrimaryButton className={styles.btn} onClick={onRobTicket}>
+        <PrimaryButton className={styles.btn} onClick={() => onRobTicket(id)}>
           立即抢票
         </PrimaryButton>
       );

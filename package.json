@@ -40,9 +40,11 @@
     "@tarojs/react": "3.0.5",
     "@tarojs/runtime": "3.0.5",
     "@tarojs/taro": "3.0.5",
+    "@welldone-software/why-did-you-render": "^4.2.7",
     "dayjs": "^1.8.30",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
+    "swr": "^0.3.0",
     "taro3-navigationbar": "^3.0.1"
   },
   "devDependencies": {

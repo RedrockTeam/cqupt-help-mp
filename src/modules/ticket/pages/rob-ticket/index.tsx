@@ -1,76 +1,78 @@
 import React, { useState, useEffect } from "react";
-import { View } from "@tarojs/components";
+import { navigateBack } from "@tarojs/taro";
+import { View, Image, Text } from "@tarojs/components";
+
 import NavBack from "@/common/components/nav-back";
 import Popup from "@/common/components/popup";
+import Loading from "@/common/components/loading";
+import PrimaryButton from "@/common/components/primary-button";
+
 import robSuccessImg from "@/static/images/rob-success.png";
+import emptyImg from "@/static/images/empty.png";
+
+import dayjs from "dayjs";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
-
-const ticketList = [
-  {
-    playTime: 1687484800,
-    robTime: 1595874800,
-    location: "红岩网校工作站",
-    remain: 200,
-    image: "http://img.zhengyua.cn/img/20200413190823.png",
-    name: "爱情公寓12345",
-    isReceived: false,
-  },
-  {
-    playTime: 1587484800,
-    robTime: 1595779610,
-    location: "红岩网校工作站",
-    remain: 200,
-    image: "http://img.zhengyua.cn/img/20200413190823.png",
-    name: "爱情公寓1234",
-    isReceived: false,
-  },
-  {
-    playTime: 1587484800,
-    robTime: 1595779610,
-    location: "红岩网校工作站",
-    remain: 200,
-    image: "http://img.zhengyua.cn/img/20200413190823.png",
-    name: "爱情公寓123",
-    isReceived: false,
-  },
-  {
-    playTime: 1587484800,
-    robTime: 1587312000,
-    location: "红岩网校工作站",
-    remain: 0,
-    image: "http://img.zhengyua.cn/img/20200413190823.png",
-    name: "爱情公寓12",
-    isReceived: false,
-  },
-  {
-    playTime: 1587484800,
-    robTime: 1587312000,
-    location: "红岩网校工作站",
-    remain: 200,
-    image: "http://img.zhengyua.cn/img/20200413190823.png",
-    name: "爱情公寓1",
-    isReceived: false,
-  },
-];
+import { useRobTicketListInfo, robTicket } from "../../services";
 
 const RobTicket = () => {
   const [isShow, setIsShow] = useState(false);
   useEffect(() => {
-    setTimeout(() => setIsShow(false), 3000);
+    if (isShow === true) {
+      setTimeout(() => setIsShow(false), 3000);
+    }
   }, [isShow]);
-  const handleRobTicket = () => {
-    // TODO: 抢票 request
-    // TODO: 刷新电影列表 request
-    setIsShow(true);
+
+  const { data: ticketList } = useRobTicketListInfo();
+  const handleRobTicket = async (id: number) => {
+    const res = await robTicket(id);
+    if (res.data.status === 10000) {
+      setIsShow(true);
+    } else {
+      // handle
+    }
   };
+
+  if (!ticketList) {
+    return (
+      <View className={styles.emptyWrapper}>
+        <NavBack title="在线抢票" background="#F6F6F9" />
+        <Loading />
+      </View>
+    );
+  }
+  if (ticketList && ticketList.data.length === 0) {
+    return (
+      <View className={styles.emptyWrapper}>
+        <NavBack title="在线抢票" background="#FFFFFF" />
+        <Image src={emptyImg} className={styles.img} />
+        <Text className={styles.text}>目前还没有影票哦~</Text>
+        <Text className={styles.text}>去看看其他活动吧</Text>
+        <PrimaryButton className={styles.btn} onClick={() => navigateBack()}>
+          查看活动
+        </PrimaryButton>
+      </View>
+    );
+  }
   return (
     <View className={styles.wrapper}>
       <NavBack title="在线抢票" background="#F6F6F9" />
-      {ticketList.length &&
-        ticketList.map((e) => (
-          <Ticket {...e} onRobTicket={handleRobTicket} key={e.name} />
-        ))}
+      {ticketList
+        ? ticketList.data.map((e) => (
+            <Ticket
+              id={e.id}
+              playTime={dayjs(e.play_time).unix()}
+              robTime={dayjs(e.begin_time).unix()}
+              location={e.location}
+              remain={e.left}
+              image={e.image}
+              name={e.name}
+              isReceived={e.is_received}
+              onRobTicket={handleRobTicket}
+              key={e.id}
+            />
+          ))
+        : null}
       <Popup
         img={robSuccessImg}
         isShow={isShow}
@@ -80,5 +82,7 @@ const RobTicket = () => {
     </View>
   );
 };
+
+RobTicket.whyDidYouRender = true;
 
 export default RobTicket;

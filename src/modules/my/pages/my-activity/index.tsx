@@ -1,9 +1,10 @@
 import React from "react";
-import { navigateTo } from "@tarojs/taro";
+import { switchTab } from "@tarojs/taro";
 import { View, Image, Text } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import PrimaryButton from "@/common/components/primary-button";
 import emptyImg from "@/static/images/empty.png";
+import { resolvePage } from "@/common/helpers/utils";
 import Activity from "../../components/activity";
 import styles from "./index.module.scss";
 
@@ -81,7 +82,8 @@ const activityList = [
 ];
 
 const MyActivity = () => {
-  const handleNavigateToActivity = () => navigateTo({ url: "" }); // TODO
+  const handleNavigateToActivity = () =>
+    switchTab({ url: resolvePage("index", "home") });
   const hasActivities = activityList.length !== 0;
   const renderActivityList = () => (
     <View className={styles.wrapper}>
