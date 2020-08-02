@@ -117,3 +117,23 @@
       export * from "react-query";
     }
     ```
+
+5. popup 通过 context 进行封装，可以通过命令式调用弹出
+
+    ```ts
+    const Popup = useContainer(PopupContext);
+    // ...
+    const hide = Popup.show({
+      title: "登录失败",
+      detail: "已绑定，不能重复绑定",
+    });
+    setTimeout(() => hide(), 3000);
+    ```
+
+    以此弹出的 Popup 组件的状态都是在 `stores/popup.ts` 中的，是同一个，但组件需要在每个用到的页面声明
+
+    ```tsx
+    <Popup.Comp />
+    ```
+
+    这是因为 taro 通过 App 的 props.children 注入页面，类似于伪代码 `<App children={<page>{wx.resolvePage('modules/index/pages/home/index')}</page>} />` 而 page 之外的会忽略，所以不能只声明一个 Popup 组件，需要在每个页面都声明一遍
