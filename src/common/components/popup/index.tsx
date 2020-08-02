@@ -2,11 +2,11 @@ import React from "react";
 import { View, Image, Text } from "@tarojs/components";
 import styles from "./index.module.scss";
 
-type Props = {
+export type Props = {
   isShow: boolean;
   img?: string;
   title?: string;
-  detail: string;
+  detail?: string;
   bottom?: React.ReactNode;
   className?: string;
 };

@@ -1,4 +1,10 @@
-import { navigateTo } from "@tarojs/taro";
+import {
+  navigateTo,
+  request,
+  getStorage,
+  login,
+  setStorage,
+} from "@tarojs/taro";
 
 export const resolvePage = (module: string, page: string) =>
   `/modules/${module}/pages/${page}/index`;
@@ -30,3 +36,22 @@ function urlStringify(
   );
   return arr.length ? `${url}?${arr.join("&")}` : url;
 }
+
+export const getToken = async (): Promise<string | undefined> => {
+  try {
+    const res = await getStorage({
+      key: "cqupt-help-mp-token-key",
+    });
+    return res.data;
+  } catch (e) {
+    const { code } = await login();
+    const { data } = await request({
+      url: `https://wx.redrock.team/magicloop/rushAb?code=${code}`,
+      method: "POST",
+    });
+    if (data.status === "10000") {
+      setStorage({ key: "cqupt-help-mp-token-key", data: data.data.token });
+      return data.data.token;
+    }
+  }
+};

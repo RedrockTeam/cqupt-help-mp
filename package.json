@@ -44,8 +44,9 @@
     "dayjs": "^1.8.30",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
-    "swr": "^0.3.0",
-    "taro3-navigationbar": "^3.0.1"
+    "react-query": "^2.5.11",
+    "taro3-navigationbar": "^3.0.1",
+    "unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",

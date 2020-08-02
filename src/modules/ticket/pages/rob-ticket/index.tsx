@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { navigateBack } from "@tarojs/taro";
+import { navigateBack, request } from "@tarojs/taro";
 import { View, Image, Text } from "@tarojs/components";
+import dayjs from "dayjs";
+import { useQuery } from "react-query/dist/react-query.production.min";
 
 import NavBack from "@/common/components/nav-back";
 import Popup from "@/common/components/popup";
@@ -9,8 +11,7 @@ import PrimaryButton from "@/common/components/primary-button";
 
 import robSuccessImg from "@/static/images/rob-success.png";
 import emptyImg from "@/static/images/empty.png";
-
-import dayjs from "dayjs";
+import { API } from "@/common/constants";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
 import { useRobTicketListInfo, robTicket } from "../../services";
@@ -23,7 +24,18 @@ const RobTicket = () => {
     }
   }, [isShow]);
 
-  const { data: ticketList } = useRobTicketListInfo();
+  // const { data: ticketList } = useRobTicketListInfo();
+  const { data: ticketList } = useQuery(
+    "/cyb-secondKill/secKillInfo",
+    () =>
+      request({
+        url: `${API}/cyb-secondKill/secKillInfo`,
+        method: "POST",
+      }).then((res) => res.data),
+    {
+      refetchInterval: 2000,
+    }
+  );
   const handleRobTicket = async (id: number) => {
     const res = await robTicket(id);
     if (res.data.status === 10000) {
@@ -32,7 +44,7 @@ const RobTicket = () => {
       // handle
     }
   };
-
+  console.log(ticketList);
   if (!ticketList) {
     return (
       <View className={styles.emptyWrapper}>
@@ -77,7 +89,7 @@ const RobTicket = () => {
         img={robSuccessImg}
         isShow={isShow}
         title="恭喜您！抢票成功！"
-        detail="电影票卡卷已存入“我的”页面‘我的影票’中。赶紧去领电影票吧!"
+        detail="电影票卡卷已存入“我的”页面”我的影票“中。赶紧去领电影票吧!"
       />
     </View>
   );

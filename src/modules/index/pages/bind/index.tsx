@@ -7,11 +7,17 @@ import {
   Text,
 } from "@tarojs/components";
 import { InputProps } from "@tarojs/components/types/Input";
+import { useContainer } from "unstated-next";
 import PrimaryButton from "@/common/components/primary-button";
 import passwordIcon from "@/static/images/password-icon.png";
 import passwordTitleIcon from "@/static/images/password-title-icon.png";
 import accountIcon from "@/static/images/account-icon.png";
+import { useMutation } from "react-query";
+import { switchTab } from "@tarojs/taro";
+import { resolvePage } from "@/common/helpers/utils";
+import PopupContext from "@/stores/popup";
 import styles from "./index.module.scss";
+import { bindReq } from "../../services";
 
 const Bind = () => {
   const [account, setAccount] = useState("");
@@ -24,8 +30,31 @@ const Bind = () => {
     e
   ) => setPassword(e.detail.value);
 
-  const handleBind = () => {
-    // TODO: request
+  const Popup = useContainer(PopupContext);
+
+  const [mutateBind, { isLoading }] = useMutation(bindReq, {
+    onSuccess(data) {
+      if (data.errcode === "10010") {
+        const hide = Popup.show({
+          title: "登录失败",
+          detail: "已绑定，不能重复绑定",
+        });
+        setTimeout(() => hide(), 3000);
+      } else {
+        switchTab({ url: resolvePage("index", "home") });
+      }
+    },
+    onError() {
+      const hide = Popup.show({
+        title: "登录失败",
+        detail: "网络错误",
+      });
+      setTimeout(() => hide(), 3000);
+    },
+  });
+
+  const handleBind = async () => {
+    await mutateBind({ account, password });
   };
 
   return (
@@ -41,8 +70,11 @@ const Bind = () => {
             <Input
               className={styles.input}
               type="text"
+              maxlength={10}
               value={account}
               onInput={handleAccountInput}
+              placeholder="学号"
+              placeholderClass={styles.placeholder}
             />
           </View>
         </View>
@@ -56,6 +88,7 @@ const Bind = () => {
               className={styles.input}
               placeholderClass={styles.placeholder}
               password
+              maxlength={6}
               value={password}
               onInput={handlePasswordInput}
               placeholder="身份证后六位"
@@ -64,10 +97,11 @@ const Bind = () => {
           </View>
         </View>
         <PrimaryButton className={styles.btn} onClick={handleBind}>
-          登录
+          {isLoading ? "Loading..." : "登录"}
         </PrimaryButton>
       </View>
       <Text className={styles.copyright}>COPYRICHT@红岩网校工作站</Text>
+      <Popup.Comp />
     </View>
   );
 };
