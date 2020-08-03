@@ -2,6 +2,8 @@
 
 重邮帮小程序
 
+- [ ]: 抽离应用中的实体，优化类型
+
 ## 目录结构
 
 ```shell
@@ -136,4 +138,4 @@
     <Popup.Comp />
     ```
 
-    这是因为 taro 通过 App 的 props.children 注入页面，类似于伪代码 `<App children={<page>{wx.resolvePage('modules/index/pages/home/index')}</page>} />` 而 page 之外的会忽略，所以不能只声明一个 Popup 组件，需要在每个页面都声明一遍
+    这是因为 taro 通过 App 的 props.children 注入页面，类似于伪代码 `<App children={<page>{loadPage(globalConfig.pages[0])}</page>} />` 而 page 之外的会忽略，所以不能只声明一个 Popup 组件，需要在每个页面都声明一遍

@@ -1,12 +1,25 @@
 import React, { useState } from "react";
+import { redirectTo } from "@tarojs/taro";
 import { View, Text, Button, Input } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
-import Popup from "../../components/popup/index";
+import {
+  useQuery,
+  useMutation,
+} from "react-query/dist/react-query.production.min";
+import { resolvePage } from "@/common/helpers/utils";
+import Loading from "@/common/components/loading";
 import styles from "./index.module.scss";
+import Popup from "../../components/popup";
+import { checkIsVolunteer, loginVolunteer } from "../../services";
 
 const VolunteerEntry = () => {
+  const { data: isVolunteerRes } = useQuery(
+    "checkIsVolunteer",
+    checkIsVolunteer
+  );
+  const [mutateBindVolunteer] = useMutation(loginVolunteer);
   const [phone, setPhone] = useState();
-  const [IdCardNum, setIdCardNum] = useState();
+  const [idCardNum, setIdCardNum] = useState();
   const [volunteerNum, setVolunteerNUm] = useState();
   const [showVerify, setShowVerify] = useState(false);
 
@@ -30,6 +43,41 @@ const VolunteerEntry = () => {
     setShowVerify(false);
   };
 
+  const handleBindVolunteer = async () => {
+    try {
+      const data = await mutateBindVolunteer({
+        phone,
+        idCardNum,
+        volunteerNum,
+      });
+      if (data.errcode === "10010") {
+        const hide = Popup.show({
+          title: "登录失败",
+          detail: "已绑定，不能重复绑定",
+        });
+        setTimeout(() => hide(), 3000);
+      } else {
+        redirectTo({ url: resolvePage("volunteer", "index") });
+        return null;
+      }
+    } catch (e) {
+      const hide = Popup.show({
+        title: "登录失败",
+        detail: "网络错误",
+      });
+      setTimeout(() => hide(), 3000);
+    }
+  };
+
+  if (!isVolunteerRes) {
+    return <Loading />;
+  }
+  if (isVolunteerRes.status === 10000) {
+    if (isVolunteerRes.exist) {
+      redirectTo({ url: resolvePage("volunteer", "index") });
+      return null;
+    }
+  }
   return (
     <View>
       <View className={styles.wrapper}>
@@ -50,7 +98,7 @@ const VolunteerEntry = () => {
           <View className={styles.formLabel}>身份证号:</View>
           <Input
             className={styles.formInput}
-            value={IdCardNum}
+            value={idCardNum}
             onInput={(e) => {
               changeIdCardNum(e);
             }}
@@ -71,7 +119,7 @@ const VolunteerEntry = () => {
         </View>
         <Button
           className={
-            phone && IdCardNum && volunteerNum
+            phone && idCardNum && volunteerNum
               ? styles.buttonPush
               : styles.button
           }
@@ -83,9 +131,10 @@ const VolunteerEntry = () => {
       <Popup
         visible={showVerify}
         phone={phone}
-        IdCardNum={IdCardNum}
+        idCardNum={idCardNum}
         volunteerNum={volunteerNum}
         onCancel={cancelPopup}
+        onOk={handleBindVolunteer}
       />
     </View>
   );

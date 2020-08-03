@@ -32,8 +32,11 @@ const Bind = () => {
 
   const Popup = useContainer(PopupContext);
 
-  const [mutateBind, { isLoading }] = useMutation(bindReq, {
-    onSuccess(data) {
+  const [mutateBind, { isLoading }] = useMutation(bindReq);
+
+  const handleBind = async () => {
+    try {
+      const data = await mutateBind({ account, password });
       if (data.errcode === "10010") {
         const hide = Popup.show({
           title: "登录失败",
@@ -42,19 +45,15 @@ const Bind = () => {
         setTimeout(() => hide(), 3000);
       } else {
         switchTab({ url: resolvePage("index", "home") });
+        return null;
       }
-    },
-    onError() {
+    } catch (e) {
       const hide = Popup.show({
         title: "登录失败",
         detail: "网络错误",
       });
       setTimeout(() => hide(), 3000);
-    },
-  });
-
-  const handleBind = async () => {
-    await mutateBind({ account, password });
+    }
   };
 
   return (

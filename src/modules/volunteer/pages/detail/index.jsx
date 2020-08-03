@@ -6,13 +6,22 @@ import icon1 from "@/static/images/volunteer-icon1.png";
 import icon2 from "@/static/images/volunteer-icon2.png";
 import icon3 from "@/static/images/volunteer-icon3.png";
 import wait from "@/static/images/wait.png";
+import { useRouter } from "@tarojs/taro";
+import { useQuery } from "react-query/dist/react-query.production.min";
 import Picker from "../../components/picker/index";
+import { getVolunteerActivityDetail } from "../../services";
 
 import styles from "./index.module.scss";
 
 const VolunteerDetail = () => {
+  const { params } = useRouter();
   const [showPicker, setShowPicker] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const { data: detail } = useQuery(
+    ["getVolunteerActivityDetail", params.id],
+    getVolunteerActivityDetail
+  );
+  console.log(detail);
 
   useEffect(() => {
     if (showPopup === true) {

@@ -10,10 +10,11 @@
     display: flex;
     margin-bottom: 54px;
     .avator {
+      display: block;
       width: 108px;
       height: 108px;
       border-radius: 50%;
-      background-color: pink;
+      overflow: hidden;
     }
     .top_left {
       margin-left: 28px;

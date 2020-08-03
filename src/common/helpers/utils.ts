@@ -23,6 +23,7 @@ export const navTo = ({
   } else {
     navigateTo({ url: urlStringify(url, payload) });
   }
+  return null;
 };
 
 function urlStringify(

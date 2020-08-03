@@ -1,50 +1,61 @@
-import React, { useState, useEffect } from "react";
-import { navigateBack, request } from "@tarojs/taro";
+import React from "react";
+import { useContainer } from "unstated-next";
+import { navigateBack } from "@tarojs/taro";
 import { View, Image, Text } from "@tarojs/components";
 import dayjs from "dayjs";
 import { useQuery } from "react-query/dist/react-query.production.min";
 
+import PopupContext from "@/stores/popup";
 import NavBack from "@/common/components/nav-back";
-import Popup from "@/common/components/popup";
 import Loading from "@/common/components/loading";
 import PrimaryButton from "@/common/components/primary-button";
-
 import robSuccessImg from "@/static/images/rob-success.png";
 import emptyImg from "@/static/images/empty.png";
-import { API } from "@/common/constants";
+
+import { getRobTicketListInfo, robTicket } from "../../services";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
-import { useRobTicketListInfo, robTicket } from "../../services";
 
 const RobTicket = () => {
-  const [isShow, setIsShow] = useState(false);
-  useEffect(() => {
-    if (isShow === true) {
-      setTimeout(() => setIsShow(false), 3000);
-    }
-  }, [isShow]);
+  const Popup = useContainer(PopupContext);
 
-  // const { data: ticketList } = useRobTicketListInfo();
   const { data: ticketList } = useQuery(
-    "/cyb-secondKill/secKillInfo",
-    () =>
-      request({
-        url: `${API}/cyb-secondKill/secKillInfo`,
-        method: "POST",
-      }).then((res) => res.data),
+    "robTicketListInfo",
+    getRobTicketListInfo,
     {
       refetchInterval: 2000,
     }
   );
+
   const handleRobTicket = async (id: number) => {
     const res = await robTicket(id);
-    if (res.data.status === 10000) {
-      setIsShow(true);
+    if (res.status === 10000) {
+      Popup.show({
+        img: robSuccessImg,
+        title: "恭喜您！抢票成功！",
+        detail: "电影票卡卷已存入“我的”页面”我的影票“中。赶紧去领电影票吧!",
+      });
     } else {
-      // handle
+      let detail: string;
+      if (res.status === 10004) {
+        detail = "票已经被抢完了";
+      } else if (res.status === 10006) {
+        detail = "请求超时,请重试";
+      } else if (res.status === 10007) {
+        detail = "请求过于频繁";
+      } else if (res.status === 10008) {
+        detail = "客户端错误,请稍后再试";
+      } else {
+        detail = "出错了...";
+      }
+      Popup.show({
+        img: robSuccessImg,
+        title: "抢票失败...",
+        detail,
+      });
     }
   };
-  console.log(ticketList);
+
   if (!ticketList) {
     return (
       <View className={styles.emptyWrapper}>
@@ -85,12 +96,7 @@ const RobTicket = () => {
             />
           ))
         : null}
-      <Popup
-        img={robSuccessImg}
-        isShow={isShow}
-        title="恭喜您！抢票成功！"
-        detail="电影票卡卷已存入“我的”页面”我的影票“中。赶紧去领电影票吧!"
-      />
+      <Popup.Comp />
     </View>
   );
 };

@@ -1,6 +1,7 @@
-import React from "react";
-import { View, Image, Text } from "@tarojs/components";
-import { resolvePage, navTo } from "@/common/helpers/utils";
+import React, { useState } from "react";
+import { View, Image, Text, OpenData } from "@tarojs/components";
+import { atob } from "Base64";
+import { resolvePage, navTo, getToken } from "@/common/helpers/utils";
 import avator from "@/static/images/empty.png";
 import aboutIcon from "@/static/images/about-icon.png";
 import feedbackIcon from "@/static/images/feedback-icon.png";
@@ -10,18 +11,30 @@ import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
 import styles from "./index.module.scss";
 
+const parseToken = (token) =>
+  JSON.parse(decodeURIComponent(escape(atob(token.split(".")[0]))));
+
+let userInfo;
+getToken().then((t) => {
+  userInfo = parseToken(t);
+});
+
 const myIndex = () => {
   return (
     <View>
       <View className={styles.top}>
         <View className={styles.top_top}>
           <View>
-            <Image className={styles.avator} src={avator} />
+            <OpenData
+              className={styles.avator}
+              type="userAvatarUrl"
+              defaultAvatar={avator}
+            />
           </View>
           <View className={styles.top_left}>
-            <View className={styles.name}>邮小岩</View>
-            <View className={styles.info}>学号:2018211214</View>
-            <View className={styles.info}>专业：数字媒体专业</View>
+            <View className={styles.name}>{userInfo.realName}</View>
+            <View className={styles.info}>学号：{userInfo.stuNum}</View>
+            <View className={styles.info}>专业：{userInfo.college}</View>
           </View>
         </View>
         <View className={styles.top_bottom}>

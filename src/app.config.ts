@@ -4,7 +4,6 @@ const resolvePage = (module: string, page: string) =>
 
 export default {
   pages: [
-    resolvePage("index", "bind"),
     resolvePage("index", "home"),
       resolvePage("campus", "index"),
       resolvePage("campus", "safe-run"),
@@ -23,6 +22,7 @@ export default {
       resolvePage("my", "my-reward"),
       resolvePage("feedback", "index"),
         resolvePage("feedback", "result"),
+    resolvePage("index", "bind"),
     "modules/webview/index",
   ],
   window: {
