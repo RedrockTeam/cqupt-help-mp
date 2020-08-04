@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Image, Text, OpenData } from "@tarojs/components";
 import { atob } from "Base64";
 import { resolvePage, navTo, getToken } from "@/common/helpers/utils";
@@ -9,6 +9,7 @@ import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
+// import { useQuery } from "react-query/dist/react-query.production.min";
 import styles from "./index.module.scss";
 
 const parseToken = (token) =>
@@ -19,7 +20,10 @@ getToken().then((t) => {
   userInfo = parseToken(t);
 });
 
-const myIndex = () => {
+const MyIndex = () => {
+  // const { data: userInfo } = useQuery("userInfo", () =>
+  //   getToken().then((t) => parseToken(t))
+  // );
   return (
     <View>
       <View className={styles.top}>
@@ -81,4 +85,4 @@ const myIndex = () => {
   );
 };
 
-export default myIndex;
+export default MyIndex;

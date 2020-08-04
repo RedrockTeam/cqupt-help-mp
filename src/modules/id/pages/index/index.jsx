@@ -1,35 +1,64 @@
 import React from "react";
-import { View, Image, Button } from "@tarojs/components";
+import { navigateBack } from "@tarojs/taro";
+import { View, Image, Button, Text, OpenData } from "@tarojs/components";
 import { resolvePage, navTo } from "@/common/helpers/utils";
-import avator from "@/static/images/empty.png";
 import NavBack from "@/common/components/nav-back";
+import { useQuery } from "react-query/dist/react-query.production.min";
+import Loading from "@/common/components/loading";
+import emptyImg from "@/static/images/empty.png";
+import PrimaryButton from "@/common/components/primary-button";
+import { getIdCardList } from "../../services";
 import styles from "./index.module.scss";
 
-const info = [
-  {
-    id: 0,
-    name: "邮小岩",
-    title: "摸鱼协会会长",
-    time: "2020年10月20日",
-    department: "摸鱼协会",
-  },
-  {
-    id: 1,
-    name: "邮小岩",
-    title: "摸鱼协会会长",
-    time: "2020年10月20日",
-    department: "摸鱼协会",
-  },
-];
+// const info = [
+//   {
+//     id: 0,
+//     name: "邮小岩",
+//     title: "摸鱼协会会长",
+//     time: "2020年10月20日",
+//     department: "摸鱼协会",
+//   },
+//   {
+//     id: 1,
+//     name: "邮小岩",
+//     title: "摸鱼协会会长",
+//     time: "2020年10月20日",
+//     department: "摸鱼协会",
+//   },
+// ];
 
 const IdIndex = () => {
+  const { data: idCardListRes } = useQuery("getIdCardList", getIdCardList);
+  if (!idCardListRes) {
+    return <Loading />;
+  }
+  if (idCardListRes.status !== 10000) {
+    return "Error";
+  }
+  if (idCardListRes.data.length === 0) {
+    return (
+      <View className={styles.emptyWrapper}>
+        <NavBack title="身份有证" background="#FFFFFF" />
+        <Image src={emptyImg} className={styles.img} />
+        <Text className={styles.text}>目前还没有社团证件哦~</Text>
+        <Text className={styles.text}>去看看其他活动吧</Text>
+        <PrimaryButton className={styles.btn} onClick={() => navigateBack()}>
+          查看活动
+        </PrimaryButton>
+      </View>
+    );
+  }
   return (
     <View className={styles.wrapper}>
       <NavBack title="身份有证" background="#FFFFFF" />
-      {info.map((item) => (
+      {idCardListRes.data.map((item) => (
         <View className={styles.card} key={item.id}>
           <View className={styles.top}>
-            <Image src={avator} className={styles.avator} />
+            <OpenData
+              className={styles.avator}
+              type="userAvatarUrl"
+              defaultAvatar={emptyImg}
+            />
             <View className={styles.top_right}>
               <View className={styles.name}>{item.name}</View>
               <View className={styles.info}>{item.title}</View>
