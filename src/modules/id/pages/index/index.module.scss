@@ -29,10 +29,12 @@
     display: flex;
     align-items: center;
     .avator {
+      display: block;
       width: 112px;
       height: 112px;
       border-radius: 50%;
       border: 2px solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
     }
     .top_right {
       padding-left: 26px;
@@ -96,5 +98,31 @@
     font-size: 36px;
     line-height: 88px;
     color: #ffffff;
+  }
+}
+
+.emptyWrapper {
+  min-height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .img {
+    width: 384px;
+    height: 345px;
+    margin-top: 180px;
+    margin-bottom: 20px;
+  }
+  .text {
+    color: #777494;
+    font-family: PingFang SC;
+    font-weight: medium;
+    font-size: 32px;
+    line-height: 56px;
+    letter-spacing: 4px;
+    text-align: center;
+  }
+  .btn {
+    margin-top: 316px;
   }
 }
