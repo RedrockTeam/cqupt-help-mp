@@ -34,3 +34,10 @@ export interface VolunteerActivityDetail {
 export interface VolunteerActivityDetailRes extends BaseRes {
   data: VolunteerActivityDetail;
 }
+
+export interface VolunteerActivityApply {
+  id: number;
+  timePart: number;
+}
+
+export type VolunteerActivityApplyRes = BaseRes;

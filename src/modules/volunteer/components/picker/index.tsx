@@ -1,5 +1,5 @@
 import React from "react";
-import { resolvePage, navTo } from "@/common/helpers/utils";
+import { timePart } from "@/common/helpers/constants";
 import {
   View,
   Button,
@@ -11,24 +11,17 @@ import {
 import cancel from "@/static/images/cancel.png";
 import styles from "./index.module.scss";
 
-const list = {
-  days: ["7月13日", "7月14日"],
-  time: [
-    ["10:00 - 12:00", "12:00 - 14:00"],
-    ["13:00-15:00", "15:00-18:00"],
-  ],
-};
-
 type Props = {
   visible: boolean;
   onCancel: (event: ITouchEvent) => unknown;
   onOk: (event: ITouchEvent) => unknown;
+  onTimeChange: (event: ITouchEvent) => unknown;
 };
 
-const Picker = ({ visible, onCancel, onOk }: Props) => {
-  const onTimeChange = (e) => {
-    console.log(e.detail);
-  };
+const Picker = ({ visible, onCancel, onOk, onTimeChange }: Props) => {
+  // const onTimeChange = (e) => {
+  //   console.log(e.detail);
+  // };
 
   return visible ? (
     <View className={styles.mask}>
@@ -41,18 +34,15 @@ const Picker = ({ visible, onCancel, onOk }: Props) => {
           <PickerView
             indicatorStyle="height:58px"
             className={styles.picker}
-            onChange={(e) => {
-              onTimeChange(e);
-            }}
+            onChange={onTimeChange}
           >
             <PickerViewColumn>
-              {list.days.map((item) => {
-                return <View style={{ lineHeight: "58px" }}>{item}</View>;
-              })}
-            </PickerViewColumn>
-            <PickerViewColumn>
-              {list.time[0].map((item) => {
-                return <View style={{ lineHeight: "58px" }}>{item}</View>;
+              {timePart.map((item) => {
+                return (
+                  <View style={{ lineHeight: "58px" }} key={item}>
+                    {item}
+                  </View>
+                );
               })}
             </PickerViewColumn>
           </PickerView>
