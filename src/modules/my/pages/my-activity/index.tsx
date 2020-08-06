@@ -5,83 +5,91 @@ import NavBack from "@/common/components/nav-back";
 import PrimaryButton from "@/common/components/primary-button";
 import emptyImg from "@/static/images/empty.png";
 import { resolvePage } from "@/common/helpers/utils";
+
+import { useQuery } from "react-query/dist/react-query.production.min";
+import { getMyActivities } from "../../services/index";
 import Activity from "../../components/activity";
 import styles from "./index.module.scss";
 
 const activityList = [
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1665360000,
-  //   name: '啦啦队大比拼1',
-  //   organizer: '红岩网校',
-  // },
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1665360000,
-  //   name: '啦啦队大比拼2',
-  //   organizer: '红岩网校',
-  // },
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1665360000,
-  //   name: '啦啦队大比拼3',
-  //   organizer: '红岩网校',
-  // },
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1665360000,
-  //   name: '啦啦队大比拼4',
-  //   organizer: '红岩网校',
-  // },
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1587484800,
-  //   name: '啦啦队大比拼5',
-  //   organizer: '红岩网校',
-  // },
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1587484800,
-  //   name: '啦啦队大比拼6',
-  //   organizer: '红岩网校',
-  // },
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1587484800,
-  //   name: '啦啦队大比拼7',
-  //   organizer: '红岩网校',
-  // },
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1665360000,
-  //   name: '啦啦队大比拼8',
-  //   organizer: '红岩网校',
-  // },
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1665360000,
-  //   name: '啦啦队大比拼9',
-  //   organizer: '红岩网校',
-  // },
-  // {
-  //   time: 1637484800,
-  //   beginTime: 1587484800,
-  //   endTime: 1665360000,
-  //   name: '啦啦队大比拼10',
-  //   organizer: '红岩网校',
-  // },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1665360000,
+    name: "啦啦队大比拼1",
+    organizer: "红岩网校",
+  },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1665360000,
+    name: "啦啦队大比拼2",
+    organizer: "红岩网校",
+  },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1665360000,
+    name: "啦啦队大比拼3",
+    organizer: "红岩网校",
+  },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1665360000,
+    name: "啦啦队大比拼4",
+    organizer: "红岩网校",
+  },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1587484800,
+    name: "啦啦队大比拼5",
+    organizer: "红岩网校",
+  },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1587484800,
+    name: "啦啦队大比拼6",
+    organizer: "红岩网校",
+  },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1587484800,
+    name: "啦啦队大比拼7",
+    organizer: "红岩网校",
+  },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1665360000,
+    name: "啦啦队大比拼8",
+    organizer: "红岩网校",
+  },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1665360000,
+    name: "啦啦队大比拼9",
+    organizer: "红岩网校",
+  },
+  {
+    time: 1637484800,
+    beginTime: 1587484800,
+    endTime: 1665360000,
+    name: "啦啦队大比拼10",
+    organizer: "红岩网校",
+  },
 ];
 
+const stuNum = 2018211214;
 const MyActivity = () => {
+  const data = useQuery(["getMyActivities", stuNum], getMyActivities);
+  console.log(data);
+  // TODO : 等待后端修改接口然后渲染
+
   const handleNavigateToActivity = () =>
     switchTab({ url: resolvePage("index", "home") });
   const hasActivities = activityList.length !== 0;

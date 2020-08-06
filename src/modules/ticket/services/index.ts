@@ -9,10 +9,7 @@ export const getRobTicketListInfo = (_key: string) =>
 export const robTicket = (id: number) =>
   request<RobTicketRes>("/cyb-secondKill/secKill", {
     method: "POST",
-    header: {
-      "content-type": "application/x-www-form-urlencoded",
-    },
     data: {
-      id,
+      product_id: id,
     },
   });

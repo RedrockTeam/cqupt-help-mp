@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Image, Text, Button } from "@tarojs/components";
 import { redirectTo, useRouter } from "@tarojs/taro";
 import { resolvePage } from "@/common/helpers/utils";
