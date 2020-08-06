@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Image, Input } from "@tarojs/components";
 import PrimaryButton from "@/common/components/primary-button";
 import icon from "@/static/images/account-icon.png";
+import error from "@/static/images/error.png";
 import apply from "@/static/images/apply.png";
 import { useContainer } from "unstated-next";
 import { useMutation } from "react-query/dist/react-query.production.min";
@@ -41,6 +42,7 @@ const Apply = () => {
       }
     } catch (e) {
       const hide = Popup.show({
+        img: error,
         title: "申请失败",
         detail: "网络错误",
       });
@@ -68,7 +70,11 @@ const Apply = () => {
           />
         </View>
       </View>
-      <PrimaryButton className={styles.button} onClick={handleClick}>
+      <PrimaryButton
+        className={name ? styles.buttonPush : styles.button}
+        disabled={!name}
+        onClick={handleClick}
+      >
         完成
       </PrimaryButton>
       <Popup.Comp />

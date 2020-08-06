@@ -10,6 +10,7 @@ import NavBack from "@/common/components/nav-back";
 import Loading from "@/common/components/loading";
 import PrimaryButton from "@/common/components/primary-button";
 import robSuccessImg from "@/static/images/rob-success.png";
+import error from "@/static/images/error.png";
 import emptyImg from "@/static/images/empty.png";
 
 import { getRobTicketListInfo, robTicket } from "../../services";
@@ -49,7 +50,7 @@ const RobTicket = () => {
         detail = "出错了...";
       }
       Popup.show({
-        img: robSuccessImg,
+        img: error,
         title: "抢票失败...",
         detail,
       });
@@ -100,7 +101,5 @@ const RobTicket = () => {
     </View>
   );
 };
-
-RobTicket.whyDidYouRender = true;
 
 export default RobTicket;

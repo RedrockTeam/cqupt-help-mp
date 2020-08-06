@@ -3,6 +3,7 @@ import { View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import Loading from "@/common/components/loading";
 import { resolvePage, navTo } from "@/common/helpers/utils";
+import { gapDay } from "@/common/helpers/date";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import { getVolunteerActivityListInfo } from "../../services";
 import styles from "./index.module.scss";
@@ -35,10 +36,14 @@ const Volunteer = () => {
             <View className={styles.cardName}>{item.name}</View>
             <View
               className={
-                item.left === "已结束" ? styles.cardTimeGray : styles.cardTime
+                gapDay(item.last_date) <= 0
+                  ? styles.cardTimeGray
+                  : styles.cardTime
               }
             >
-              {item.left}
+              {gapDay(item.last_date) <= 0
+                ? "已结束"
+                : `距报名结束:${gapDay(item.last_date)}天`}
             </View>
           </View>
           <View className={styles.cardInfo}>

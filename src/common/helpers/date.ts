@@ -26,3 +26,14 @@ export const timestampToTimeCNString = (timestamp: number) =>
  * 现在时间的十位 Unix 时间戳
  */
 export const now = () => new Date().getTime() / 1000;
+
+/**
+ *  两个时间戳相差天数
+ * @param 传入的时间戳
+ * now()现在的时间戳
+ */
+
+export const gapDay = (param) => {
+  const gap = param - now();
+  return Math.floor(gap / 24 / 3600);
+};

@@ -36,3 +36,24 @@ export interface ApplyActivities {
 export interface ApplyActivitiesRes extends BaseRes {
   data: Activity;
 }
+
+interface MyReward {
+  activity_name: string;
+  name: string;
+  level: number;
+  location: string;
+  time_begin: number;
+  time_end: number;
+  organizers: string;
+  activity_id: number;
+  is_received: number;
+  index: number;
+}
+
+export type MyRewards = MyReward[];
+
+export interface MyRewardsRes extends BaseRes {
+  prizes: MyRewards;
+}
+
+export type MyRewardsApplyRes = BaseRes;

@@ -1,65 +1,65 @@
 import React from "react";
-import { navigateTo } from "@tarojs/taro";
+import Taro, { switchTab } from "@tarojs/taro";
 import { View, Text, Image } from "@tarojs/components";
-
+import { useQuery } from "react-query/dist/react-query.production.min";
+import { useMutation, queryCache } from "react-query";
+import { resolvePage } from "@/common/helpers/utils";
 import PrimaryButton from "@/common/components/primary-button";
 import NavBack from "@/common/components/nav-back";
 import emptyImg from "@/static/images/empty.png";
 import Reward from "../../components/reward";
 import styles from "./index.module.scss";
+import { getMyRewards, applyMyRewards } from "../../services";
 
-const rewardList = [
-  {
-    level: 1,
-    name: "兔子闹钟",
-    organizer: "红岩网校",
-    activity: "伟大成就翻翻看",
-    location: "红岩网校工作站B区",
-    received: false,
-    beginTime: 1587484800,
-    endTime: 1665360000,
-  },
-  {
-    level: 2,
-    name: "闹钟tutu",
-    organizer: "红岩网校",
-    activity: "伟大成就翻翻看",
-    location: "红岩网校工作站B区",
-    received: true,
-    beginTime: 1587484800,
-    endTime: 1665360000,
-  },
-  {
-    level: 2,
-    name: "闹钟tutuooo",
-    organizer: "红岩网校",
-    activity: "伟大成就翻翻看",
-    location: "红岩网校工作站B区",
-    received: false,
-    beginTime: 1587484800,
-    endTime: 1587484800,
-  },
-  {
-    level: 2,
-    name: "闹钟tutzzzu",
-    organizer: "红岩网校",
-    activity: "伟大成就翻翻看",
-    location: "红岩网校工作站B区",
-    received: true,
-    beginTime: 1587484800,
-    endTime: 1587484800,
-  },
-];
+// const rewardList = [
+//   {
+//     activity_name: "社团达人秀",
+//     name: "2de",
+//     level: 2,
+//     location: "红岩网校A区",
+//     time_begin: 1590746384,
+//     time_end: 1598889600,
+//     organizers: "红岩网校",
+//     activity_id: 13,
+//     is_received: 1,
+//     index: 0,
+//   },
+// ];
 
 const MyReward = () => {
-  const handleNavigateToActivity = () => navigateTo({ url: "" }); // TODO
-  const hasRewards = rewardList.length !== 0;
+  const { data } = useQuery(["getMyRewards"], getMyRewards);
+  const [mutateApplyMyReward] = useMutation(applyMyRewards, {
+    onSuccess: () => queryCache.invalidateQueries("getMyRewards"),
+  });
+
+  const handleReceiveReward = async (id: number) => {
+    const res = await Taro.showActionSheet({
+      itemList: ["确定"],
+      fail(e) {
+        // eslint-disable-next-line no-console
+        console.log(e);
+      },
+    });
+    if (res.tapIndex === 0) {
+      const res = await mutateApplyMyReward(id);
+      console.log(id);
+    }
+  };
+
+  const handleNavigateToActivity = () =>
+    switchTab({ url: resolvePage("index", "home") });
+  const hasRewards = data?.prizes.length !== 0;
+
   const renderRewardList = () => (
     <View className={styles.wrapper}>
       <NavBack title="我的奖品" background="#F6F6F9" />
-      {rewardList.length &&
-        rewardList.map((e) => (
-          <Reward {...e} key={`${e.activity}-${e.name}`} />
+      {data?.prizes.length &&
+        data?.prizes.map((e) => (
+          <Reward
+            {...e}
+            key={`${e.activity_name}-${e.name}`}
+            apply={() => handleReceiveReward(e.activity_id)}
+          />
         ))}
     </View>
   );

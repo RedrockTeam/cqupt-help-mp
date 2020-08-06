@@ -16,7 +16,8 @@ export interface VolunteerActivity {
   id: number;
   name: string;
   description: string;
-  left: number;
+  date: number; // 截止志愿活动时间戳
+  last_date: number; // 截止报名的时间戳
 }
 
 export interface VolunteerActivityListInfoRes extends BaseRes {
@@ -26,9 +27,10 @@ export interface VolunteerActivityListInfoRes extends BaseRes {
 export interface VolunteerActivityDetail {
   name: string;
   description: string;
-  role: string;
-  date: number;
+  role: string; // 这是rule 后端命名的锅
+  date: number; // 截止志愿活动时间戳
   hour: string;
+  last_date: number; // 截止报名的时间戳
 }
 
 export interface VolunteerActivityDetailRes extends BaseRes {
@@ -36,7 +38,7 @@ export interface VolunteerActivityDetailRes extends BaseRes {
 }
 
 export interface VolunteerActivityApply {
-  id: number;
+  id: string;
   timePart: number;
 }
 

@@ -1,16 +1,12 @@
 import React from "react";
-import { View } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
+import loading from "@/static/images/loading.gif";
 import styles from "./index.module.scss";
 
 const Loading = () => {
   return (
     <View className={styles.gooey}>
-      <View className={styles.dot} />
-      <View className={styles.dots}>
-        <View className={styles.dd} />
-        <View className={styles.dd} />
-        <View className={styles.dd} />
-      </View>
+      <Image src={loading} className={styles.loading} />
     </View>
   );
 };

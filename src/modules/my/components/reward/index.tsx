@@ -1,58 +1,49 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
-import Taro from "@tarojs/taro";
-import { View, Text, Button } from "@tarojs/components";
+import { View, Text, Button, ITouchEvent } from "@tarojs/components";
 import { timestampToDateString, now } from "@/common/helpers/date";
 import styles from "./index.module.scss";
 
 type Props = {
-  level: number;
+  activity_name: string;
   name: string;
-  organizer: string;
-  activity: string;
+  level: number;
   location: string;
-  received: boolean;
-  beginTime: number;
-  endTime: number;
+  time_begin: number;
+  time_end: number;
+  organizers: string;
+  activity_id: number;
+  is_received: number;
+  index: number;
+  apply: (event: ITouchEvent) => unknown;
 };
 
 const Reward = ({
   level,
   name,
-  organizer,
-  activity,
+  organizers,
+  activity_name,
   location,
-  received,
-  beginTime,
-  endTime,
+  is_received,
+  time_begin,
+  time_end,
+  apply,
 }: Props) => {
-  const handleReceiveReward = async () => {
-    const res = await Taro.showActionSheet({
-      itemList: ["确定"],
-      fail(e) {
-        // eslint-disable-next-line no-console
-        console.log(e);
-      },
-    });
-    if (res.tapIndex === 0) {
-      // TODO: request
-    }
-  };
-
   const renderBtn = () => {
-    if (now() > endTime)
+    if (now() > time_end)
       return (
         <Button disabled className={`${styles.btn} ${styles.btn_disabled}`}>
           已过期
         </Button>
       );
-    if (received)
+    if (is_received)
       return (
         <Button className={`${styles.btn} ${styles.btn_disabled}`}>
           已领取
         </Button>
       );
     return (
-      <Button className={styles.btn} onClick={handleReceiveReward}>
+      <Button className={styles.btn} onClick={apply}>
         领取奖品
       </Button>
     );
@@ -64,12 +55,12 @@ const Reward = ({
         <Text className={styles.title}>
           {level}等奖：{name}
         </Text>
-        <Text className={styles.organizer}>{organizer}</Text>
+        <Text className={styles.organizer}>{organizers}</Text>
       </View>
       <View className={styles.content}>
         <View className={styles.info}>
           <View className={styles.infoKey}>参与活动：</View>
-          <View className={styles.infoValue}>{activity}</View>
+          <View className={styles.infoValue}>{activity_name}</View>
         </View>
         <View className={styles.info}>
           <View className={styles.infoKey}>领取地点：</View>
@@ -78,8 +69,8 @@ const Reward = ({
         <View className={styles.info}>
           <View className={styles.infoKey}>领取时间：</View>
           <View className={styles.infoValue}>
-            {timestampToDateString(beginTime)} -{" "}
-            {timestampToDateString(endTime)}
+            {timestampToDateString(time_begin)} -{" "}
+            {timestampToDateString(time_end)}
           </View>
         </View>
       </View>

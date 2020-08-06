@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Image, Text, Button } from "@tarojs/components";
 import { redirectTo, useRouter } from "@tarojs/taro";
 import { resolvePage } from "@/common/helpers/utils";
+import { timestampToDateString } from "@/common/helpers/date";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
@@ -27,7 +28,7 @@ const VolunteerDetail = () => {
 
   const Popup = useContainer(PopupContext);
 
-  const { data: detail } = useQuery(
+  const { data } = useQuery(
     ["getVolunteerActivityDetail", params.id],
     getVolunteerActivityDetail
   );
@@ -80,67 +81,71 @@ const VolunteerDetail = () => {
   };
 
   return (
-    <View className={styles.wrapper}>
-      <NavBack title="志愿报名" background="#F6F6F9" />
-      <View className={styles.pic}>一张图片</View>
-      <View className={styles.card}>
-        <View className={styles.item1}>
-          <View className={styles.title}>
-            <View className={styles.name}>四月护花使者活动</View>
-            <View className={styles.status}>招募中</View>
-          </View>
-          <View className={styles.timeWrap}>
-            <View>报名截止时间</View>
-            <View className={styles.time}>2020.07.05 15:30 开抢</View>
-          </View>
-          <View className={styles.timeWrap}>
-            <View>志愿服务时间</View>
-            <View className={styles.time}>2020.07.05-2020.07.09</View>
-          </View>
-        </View>
+    <View>
+      {data ? (
+        <View className={styles.wrapper}>
+          <NavBack title="志愿报名" background="#F6F6F9" />
+          <View className={styles.pic}>一张图片</View>
+          <View className={styles.card}>
+            <View className={styles.item1}>
+              <View className={styles.title}>
+                <View className={styles.name}>{data.data.name}</View>
+                <View className={styles.status}>招募中</View>
+              </View>
+              <View className={styles.timeWrap}>
+                <View>报名截止时间:</View>
+                <View className={styles.time}>
+                  {timestampToDateString(data.data.last_date)}
+                </View>
+              </View>
+              <View className={styles.timeWrap}>
+                <View>志愿服务时间:</View>
+                <View className={styles.time}>
+                  {timestampToDateString(data.data.date)}
+                </View>
+              </View>
+            </View>
 
-        <View className={styles.item2}>
-          <View className={styles.subTitle}>
-            <Image src={icon1} className={styles.icon} />
-            <Text>活动介绍</Text>
+            <View className={styles.item2}>
+              <View className={styles.subTitle}>
+                <Image src={icon1} className={styles.icon} />
+                <Text>活动介绍</Text>
+              </View>
+              <View className={styles.text}>{data.data.description}</View>
+            </View>
+            <View className={styles.item2}>
+              <View className={styles.subTitle}>
+                <Image src={icon2} className={styles.icon} />
+                <Text>活动规则</Text>
+              </View>
+              <View className={styles.text}>{data.data.role}</View>
+            </View>
+            <View className={styles.item2}>
+              <View className={styles.subTitle}>
+                <Image src={icon3} className={styles.icon} />
+                <Text>活动时长</Text>
+              </View>
+              <View className={styles.text}>{data.data.hour}</View>
+            </View>
           </View>
-          <View className={styles.text}>
-            志愿者需要在选择的志愿时间内，在指定地点进行护花活动，对进行随意摘花的同学、游客进行提醒，并告诫摘花的坏处等。
-          </View>
+          <View />
+          <Button
+            className={styles.button}
+            onClick={() => {
+              handleShowPicker();
+            }}
+          >
+            立即报名
+          </Button>
+          <Picker
+            visible={showPicker}
+            onCancel={cancelShowPicker}
+            onOk={handleApply}
+            onTimeChange={timeChange}
+          />
+          <Popup.Comp />
         </View>
-        <View className={styles.item2}>
-          <View className={styles.subTitle}>
-            <Image src={icon2} className={styles.icon} />
-            <Text>活动规则</Text>
-          </View>
-          <View className={styles.text}>
-            志愿者需要在选择的志愿时间内，在指定地点进行护花活动，对进行随意摘花的同学、游客进行提醒，并告诫摘花的坏处等。
-          </View>
-        </View>
-        <View className={styles.item2}>
-          <View className={styles.subTitle}>
-            <Image src={icon3} className={styles.icon} />
-            <Text>活动时长</Text>
-          </View>
-          <View className={styles.text}>2时长</View>
-        </View>
-      </View>
-      <View />
-      <Button
-        className={styles.button}
-        onClick={() => {
-          handleShowPicker();
-        }}
-      >
-        立即报名
-      </Button>
-      <Picker
-        visible={showPicker}
-        onCancel={cancelShowPicker}
-        onOk={handleApply}
-        onTimeChange={timeChange}
-      />
-      <Popup.Comp />
+      ) : null}
     </View>
   );
 };

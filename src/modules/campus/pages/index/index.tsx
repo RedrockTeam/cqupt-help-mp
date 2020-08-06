@@ -20,7 +20,8 @@ const Campus = () => {
           link={resolvePage("campus", "safe-run")}
         />
       </View>
-      <View className={styles.block}>
+      {/* TODO:第一版可以暂时不上 */}
+      {/* <View className={styles.block}>
         <Text className={styles.title}>吃喝玩乐</Text>
         <Card
           img={iceCreamImg}
@@ -28,7 +29,7 @@ const Campus = () => {
           organization="红岩网校工作站"
           link={resolvePage("campus", "shark-it")}
         />
-      </View>
+      </View> */}
     </View>
   );
 };

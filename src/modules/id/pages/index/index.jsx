@@ -7,6 +7,7 @@ import { useQuery } from "react-query/dist/react-query.production.min";
 import Loading from "@/common/components/loading";
 import emptyImg from "@/static/images/empty.png";
 import PrimaryButton from "@/common/components/primary-button";
+import { IdCard } from "../../services/dto";
 import { getIdCardList } from "../../services";
 import styles from "./index.module.scss";
 
@@ -52,11 +53,15 @@ const IdIndex = () => {
       </View>
     );
   }
+  // TODO:时间处理
   return (
     <View className={styles.wrapper}>
       <NavBack title="身份有证" background="#FFFFFF" />
       {idCardListRes.identity_cards?.map((item) => (
-        <View className={styles.card} key={item.id}>
+        <View
+          className={styles.card}
+          key={item.name + item.team_name + item.collage}
+        >
           <View className={styles.top}>
             <OpenData
               className={styles.avator}
@@ -65,12 +70,12 @@ const IdIndex = () => {
             />
             <View className={styles.top_right}>
               <View className={styles.name}>{item.name}</View>
-              <View className={styles.info}>{item.title}</View>
+              <View className={styles.info}>{item.team_name}会员</View>
             </View>
           </View>
           <View className={styles.footer}>
-            <View className={styles.time}> {item.time}</View>
-            <View className={styles.department}>{item.department}</View>
+            <View className={styles.time}> {item.create_time}</View>
+            <View className={styles.department}>学生社团管理部</View>
           </View>
         </View>
       ))}

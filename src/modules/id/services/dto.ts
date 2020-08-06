@@ -8,7 +8,7 @@ export interface IdCard {
 }
 
 export interface GetIdCardRes extends BaseRes {
-  data: IdCard[];
+  identity_cards: IdCard[];
 }
 
 export type IdCardApplyRes = BaseRes;

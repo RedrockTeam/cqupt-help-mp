@@ -3,7 +3,6 @@ import { ReactQueryConfigProvider } from "react-query/dist/react-query.productio
 import { navTo, resolvePage, getToken } from "./common/helpers/utils";
 import PopupContext from "./stores/popup";
 import "./app.scss";
-import "./wdyr";
 
 getToken().then((token) => {
   if (!token) {
