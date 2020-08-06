@@ -10,3 +10,5 @@ export interface IdCard {
 export interface GetIdCardRes extends BaseRes {
   data: IdCard[];
 }
+
+export type IdCardApplyRes = BaseRes;

@@ -1,5 +1,5 @@
 import React from "react";
-import { timePart } from "@/common/helpers/constants";
+import { timePart } from "@/common/constants";
 import {
   View,
   Button,

@@ -1,41 +1,44 @@
 import React from "react";
 import { View, Image, Text } from "@tarojs/components";
-import { timestampToDateString } from "@/common/helpers/date";
+// import { timestampToDateString } from "@/common/helpers/date";
 import { navTo } from "@/common/helpers/utils";
 import styles from "./index.module.scss";
 
 type Props = {
-  remain: number;
+  id: number;
   name: string;
+  team_name: string;
+  time_done: number;
+  time: string;
+  introduction: string;
+  location: string;
+  rule: string;
+  registration: string;
   type: 1 | 2;
-  url: string;
-  org: string;
-  startTime: number;
-  endTime: number;
-  img: string;
+  image: string;
 };
 
+// TODO : 时间的处理
 const RecentActivity = ({
-  remain,
   name,
+  team_name: teamName,
+  time_done: timeDone,
+  time,
+  location,
   type,
-  url,
-  org,
-  startTime,
-  endTime,
-  img,
+  image,
 }: Props) => {
   return (
     <View
       className={styles.activity}
-      onClick={() => navTo({ url, title: name })}
+      onClick={() => navTo({ url: location, title: name })}
     >
       <View className={styles.left}>
-        <Image src={img} className={styles.img} />
+        <Image src={image} className={styles.img} />
         <View
-          className={`${styles.remainTime} ${remain > 3 ? styles.doing : ""}`}
+          className={`${styles.remainTime} ${timeDone > 3 ? styles.doing : ""}`}
         >
-          {remain > 3 ? "进行中" : `剩余 ${remain} 天`}
+          {timeDone > 3 ? "进行中" : `剩余 ${timeDone} 天`}
         </View>
       </View>
       <View className={styles.right}>
@@ -49,9 +52,10 @@ const RecentActivity = ({
             {type === 1 ? "线上" : "线下"}
           </View>
         </View>
-        <Text className={styles.text}>{org}</Text>
+        <Text className={styles.text}>{teamName}</Text>
         <Text className={styles.text}>
-          {timestampToDateString(startTime)} - {timestampToDateString(endTime)}
+          {/* {timestampToDateString(startTime)} - {timestampToDateString(endTime)} */}
+          {time}
         </Text>
       </View>
       <View className={styles.right} />

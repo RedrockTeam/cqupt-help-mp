@@ -11,6 +11,7 @@
     .img {
       width: 256px;
       height: 192px;
+      border-radius: 12px;
     }
     .remainTime {
       width: 112px;
@@ -22,16 +23,16 @@
       font-size: 22px;
       line-height: 32px;
       text-align: center;
-      color: #FFFFFF;
+      color: #ffffff;
       top: 0;
       left: 0;
-      background: rgba(255, 97, 149, .7);
+      background: rgba(255, 97, 149, 0.7);
       border: 2px solid rgba(255, 255, 255, 0.5);
       box-sizing: border-box;
       border-radius: 12px 0px 12px 0px;
     }
     .doing {
-      background: rgba(98, 90, 248, .7);
+      background: rgba(98, 90, 248, 0.7);
     }
   }
   .right {
@@ -45,7 +46,7 @@
       font-weight: bold;
       font-size: 32px;
       line-height: 36px;
-      color: #1C184C;
+      color: #1c184c;
       margin-top: 10px;
       margin-bottom: 68px;
       .tag {
@@ -63,12 +64,12 @@
         text-align: center;
       }
       .online {
-        border: 2px solid #625AF8;
-        color: #625AF8;
+        border: 2px solid #625af8;
+        color: #625af8;
       }
       .offline {
-        border: 2px solid #1678FE;
-        color: #1678FE;
+        border: 2px solid #1678fe;
+        color: #1678fe;
       }
     }
     .text {

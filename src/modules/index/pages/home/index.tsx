@@ -15,65 +15,67 @@ import homeYoungIcon from "@/static/images/home-young-icon.png";
 import homeIdIcon from "@/static/images/home-id-icon.png";
 import tmpHomeBanner from "@/static/images/tmp-home-banner.jpg";
 import tmpHomeBanner1 from "@/static/images/tmp-home-banner2.jpg";
-import tmpHomeRecent from "@/static/images/tmp-home-recent.jpg";
+// import tmpHomeRecent from "@/static/images/tmp-home-recent.jpg";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { resolvePage, navTo } from "@/common/helpers/utils";
+import { useQuery } from "react-query/dist/react-query.production.min";
+import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
 
 const list = [tmpHomeBanner, tmpHomeBanner1];
 
-const recentActivityList: {
-  remain: number;
-  name: string;
-  type: 1 | 2;
-  url: string;
-  org: string;
-  startTime: number;
-  endTime: number;
-  img: string;
-}[] = [
-  {
-    remain: 1,
-    name: "学长学姐教教我",
-    type: 1,
-    org: "红岩网校",
-    startTime: 1599999999,
-    endTime: 1600000000,
-    img: tmpHomeRecent,
-    url: "https://wx.redrock.team/game/help-form/",
-  },
-  {
-    remain: 3,
-    name: "学长学姐教教我2",
-    type: 2,
-    org: "红岩网校",
-    startTime: 1599999999,
-    endTime: 1600000000,
-    url: "https://wx.redrock.team/game/help-form/",
-    img: tmpHomeRecent,
-  },
-  {
-    remain: 5,
-    name: "学长学姐教教我3",
-    type: 1,
-    org: "红岩网校",
-    startTime: 1599999999,
-    endTime: 1600000000,
-    url: "/modules/feedback/pages/index/index",
-    img: tmpHomeRecent,
-  },
-  {
-    remain: 20,
-    name: "学长学姐教教我4",
-    type: 2,
-    org: "红岩网校",
-    startTime: 1599999999,
-    endTime: 1600000000,
-    url: "/modules/feedback/pages/index/index",
-    img: tmpHomeRecent,
-  },
-];
+// const recentActivityList: {
+//   remain: number;
+//   name: string;
+//   type: 1 | 2;
+//   url: string;
+//   org: string;
+//   startTime: number;
+//   endTime: number;
+//   img: string;
+// }[] = [
+//   {
+//     remain: 1,
+//     name: "学长学姐教教我",
+//     type: 1,
+//     org: "红岩网校",
+//     startTime: 1599999999,
+//     endTime: 1600000000,
+//     img: tmpHomeRecent,
+//     url: "https://wx.redrock.team/game/help-form/",
+//   },
+//   {
+//     remain: 3,
+//     name: "学长学姐教教我2",
+//     type: 2,
+//     org: "红岩网校",
+//     startTime: 1599999999,
+//     endTime: 1600000000,
+//     url: "https://wx.redrock.team/game/help-form/",
+//     img: tmpHomeRecent,
+//   },
+//   {
+//     remain: 5,
+//     name: "学长学姐教教我3",
+//     type: 1,
+//     org: "红岩网校",
+//     startTime: 1599999999,
+//     endTime: 1600000000,
+//     url: "/modules/feedback/pages/index/index",
+//     img: tmpHomeRecent,
+//   },
+//   {
+//     remain: 20,
+//     name: "学长学姐教教我4",
+//     type: 2,
+//     org: "红岩网校",
+//     startTime: 1599999999,
+//     endTime: 1600000000,
+//     url: "/modules/feedback/pages/index/index",
+//     img: tmpHomeRecent,
+//   },
+// ];
 
 export default function Index() {
   const [slidePercent, setSlidePercent] = useState(0);
@@ -82,6 +84,8 @@ export default function Index() {
   ) => {
     setSlidePercent((84 / e.detail.scrollWidth) * e.detail.scrollLeft);
   };
+  const { data } = useQuery("getHomeActivities ", getHomeActivities);
+
   return (
     <View className={styles.wrapper}>
       <Swiper
@@ -158,8 +162,8 @@ export default function Index() {
       </View>
       <View className={styles.recentActivitiesWrapper}>
         <Text className={styles.title}>热门活动</Text>
-        {recentActivityList.map((e) => (
-          <RecentActivity {...e} key={e.name} />
+        {data?.data.map((e) => (
+          <RecentActivity {...e} key={e.id} />
         ))}
       </View>
     </View>

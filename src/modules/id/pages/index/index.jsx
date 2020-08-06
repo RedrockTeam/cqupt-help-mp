@@ -35,15 +35,19 @@ const IdIndex = () => {
   if (idCardListRes.status !== 10000) {
     return "Error";
   }
-  if (idCardListRes.data.length === 0) {
+
+  if (idCardListRes.identity_cards.length === 0) {
     return (
       <View className={styles.emptyWrapper}>
         <NavBack title="身份有证" background="#FFFFFF" />
         <Image src={emptyImg} className={styles.img} />
-        <Text className={styles.text}>目前还没有社团证件哦~</Text>
-        <Text className={styles.text}>去看看其他活动吧</Text>
-        <PrimaryButton className={styles.btn} onClick={() => navigateBack()}>
-          查看活动
+        <Text className={styles.text}>证件空空如也哦～</Text>
+        <Text className={styles.text}>快去申请新的会员证吧</Text>
+        <PrimaryButton
+          className={styles.btn}
+          onClick={() => navTo({ url: resolvePage("id", "apply") })}
+        >
+          申请证件
         </PrimaryButton>
       </View>
     );
@@ -51,7 +55,7 @@ const IdIndex = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title="身份有证" background="#FFFFFF" />
-      {idCardListRes.data.map((item) => (
+      {idCardListRes.identity_cards?.map((item) => (
         <View className={styles.card} key={item.id}>
           <View className={styles.top}>
             <OpenData

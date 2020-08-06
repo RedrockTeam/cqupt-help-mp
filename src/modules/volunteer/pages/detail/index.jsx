@@ -90,11 +90,11 @@ const VolunteerDetail = () => {
             <View className={styles.status}>招募中</View>
           </View>
           <View className={styles.timeWrap}>
-            <View>报名时间</View>
+            <View>报名截止时间</View>
             <View className={styles.time}>2020.07.05 15:30 开抢</View>
           </View>
           <View className={styles.timeWrap}>
-            <View>志愿时间</View>
+            <View>志愿服务时间</View>
             <View className={styles.time}>2020.07.05-2020.07.09</View>
           </View>
         </View>
