@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "@tarojs/components";
 import { plates } from "@/common/constants";
 import { ToDateString } from "@/common/helpers/date";
-import Loading from "@/common/components/loading";
+import Loading from "@/common/components/placeholder";
 import styles from "./index.module.scss";
 
 type Props = {

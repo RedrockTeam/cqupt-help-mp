@@ -19,3 +19,11 @@ export type ActivitiesHome = Activity[];
 export interface ActivitiesHomeRes extends BaseRes {
   data: ActivitiesHome;
 }
+
+export interface ApplyActivityInfo {
+  team: string;
+  name: string;
+  time: string;
+}
+
+export type ApplyActivityRes = BaseRes;

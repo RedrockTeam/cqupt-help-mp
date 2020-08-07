@@ -13,6 +13,7 @@ import wait from "@/static/images/wait.png";
 
 import { useQuery } from "react-query/dist/react-query.production.min";
 import { useMutation } from "react-query";
+import Placeholder from "@/common/components/placeholder";
 import Picker from "../../components/picker/index";
 import {
   getVolunteerActivityDetail,
@@ -28,7 +29,7 @@ const VolunteerDetail = () => {
 
   const Popup = useContainer(PopupContext);
 
-  const { data } = useQuery(
+  const { data, isLoading, isError } = useQuery(
     ["getVolunteerActivityDetail", params.id],
     getVolunteerActivityDetail
   );
@@ -77,8 +78,10 @@ const VolunteerDetail = () => {
   const timeChange = (e) => {
     const timePart = e.detail.value[0];
     setSelectTime(timePart);
-    //
   };
+
+  if (isLoading) return <Placeholder title="志愿报名" />;
+  if (isError) return <Placeholder title="志愿报名" isError />;
 
   return (
     <View>

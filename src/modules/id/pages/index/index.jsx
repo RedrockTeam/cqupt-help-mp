@@ -4,7 +4,7 @@ import { View, Image, Button, Text, OpenData } from "@tarojs/components";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import NavBack from "@/common/components/nav-back";
 import { useQuery } from "react-query/dist/react-query.production.min";
-import Loading from "@/common/components/loading";
+import Loading from "@/common/components/placeholder";
 import emptyImg from "@/static/images/empty.png";
 import PrimaryButton from "@/common/components/primary-button";
 import { IdCard } from "../../services/dto";

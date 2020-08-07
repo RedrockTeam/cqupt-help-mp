@@ -16,3 +16,15 @@ export interface RobTicketListInfoRes extends BaseRes {
 }
 
 export type RobTicketRes = BaseRes;
+
+interface MyTicket {
+  id: number;
+  name: string;
+  play_time: string;
+  image: string;
+  location: string;
+  effective: boolean;
+}
+export interface MyTicketListRes extends BaseRes {
+  data: MyTicket[];
+}

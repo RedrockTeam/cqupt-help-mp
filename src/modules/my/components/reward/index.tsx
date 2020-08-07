@@ -1,42 +1,39 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { View, Text, Button, ITouchEvent } from "@tarojs/components";
 import { timestampToDateString, now } from "@/common/helpers/date";
 import styles from "./index.module.scss";
 
 type Props = {
-  activity_name: string;
+  activityName: string;
   name: string;
   level: number;
   location: string;
-  time_begin: number;
-  time_end: number;
-  organizers: string;
-  activity_id: number;
-  is_received: number;
-  index: number;
+  beginTime: number;
+  endTime: number;
+  organizer: string;
+  isReceived: number;
   apply: (event: ITouchEvent) => unknown;
 };
 
 const Reward = ({
   level,
   name,
-  organizers,
-  activity_name,
+  organizer,
+  activityName,
   location,
-  is_received,
-  time_begin,
-  time_end,
+  isReceived,
+  beginTime,
+  endTime,
   apply,
 }: Props) => {
   const renderBtn = () => {
-    if (now() > time_end)
+    if (now() > endTime)
       return (
         <Button disabled className={`${styles.btn} ${styles.btn_disabled}`}>
           已过期
         </Button>
       );
-    if (is_received)
+    if (isReceived)
       return (
         <Button className={`${styles.btn} ${styles.btn_disabled}`}>
           已领取
@@ -55,12 +52,12 @@ const Reward = ({
         <Text className={styles.title}>
           {level}等奖：{name}
         </Text>
-        <Text className={styles.organizer}>{organizers}</Text>
+        <Text className={styles.organizer}>{organizer}</Text>
       </View>
       <View className={styles.content}>
         <View className={styles.info}>
           <View className={styles.infoKey}>参与活动：</View>
-          <View className={styles.infoValue}>{activity_name}</View>
+          <View className={styles.infoValue}>{activityName}</View>
         </View>
         <View className={styles.info}>
           <View className={styles.infoKey}>领取地点：</View>
@@ -69,8 +66,8 @@ const Reward = ({
         <View className={styles.info}>
           <View className={styles.infoKey}>领取时间：</View>
           <View className={styles.infoValue}>
-            {timestampToDateString(time_begin)} -{" "}
-            {timestampToDateString(time_end)}
+            {timestampToDateString(beginTime)} -{" "}
+            {timestampToDateString(endTime)}
           </View>
         </View>
       </View>

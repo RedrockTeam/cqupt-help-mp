@@ -9,7 +9,7 @@ import { resolvePage, navTo } from "@/common/helpers/utils";
 import { isOpen } from "@/common/helpers/date";
 import Popup from "@/common/components/popup";
 import waitImg from "@/static/images/wait.png";
-import Loading from "@/common/components/loading";
+import Placeholder from "@/common/components/placeholder";
 import { getScan, getStatus } from "../../services/index";
 
 import styles from "./index.module.scss";
@@ -39,7 +39,7 @@ const SafeRun = () => {
     },
   });
 
-  const { data } = useQuery("getStatus", getStatus);
+  const { data, isLoading, isError } = useQuery("getStatus", getStatus);
 
   const goToHistroy = () => {
     navTo({
@@ -47,7 +47,7 @@ const SafeRun = () => {
     });
   };
 
-  const Scan = async () => {
+  const scan = async () => {
     Taro.scanCode({
       success({ result }) {
         const res = mutateScan(result);
@@ -55,12 +55,11 @@ const SafeRun = () => {
     });
   };
 
-  if (!data) {
-    return <Loading />;
-  }
+  if (isLoading) return <Placeholder title="天天护跑" />;
+  if (isError) return <Placeholder title="天天护跑" isError />;
 
-  if (data.number !== 0) {
-    return <SafeRunAway {...data} />;
+  if (data!.number !== 0) {
+    return <SafeRunAway number={data!.number} plate={data!.plate} />;
   }
 
   return (
@@ -71,7 +70,7 @@ const SafeRun = () => {
       </View>
       <View className={styles.scanWrapper}>
         <View className={styles.scan} />
-        <PrimaryButton className={styles.btn} onClick={Scan}>
+        <PrimaryButton className={styles.btn} onClick={scan}>
           扫一扫
         </PrimaryButton>
         <Text className={styles.text}>扫一扫，快速取号码牌</Text>

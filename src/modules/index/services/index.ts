@@ -1,6 +1,6 @@
 import { login, request as TaroRequest } from "@tarojs/taro";
 import request from "@/common/helpers/request";
-import { ActivitiesHomeRes } from "./dto";
+import { ActivitiesHomeRes, ApplyActivityInfo, ApplyActivityRes } from "./dto";
 
 export const bindReq = async ({ account, password }) => {
   const { code } = await login();
@@ -20,10 +20,8 @@ export const bindReq = async ({ account, password }) => {
 export const getHomeActivities = (_key: string) =>
   request<ActivitiesHomeRes>("/cyb-myactivities/allac");
 
-export const applyActivity = (id: number) =>
-  request("/cyb-myactivities/re", {
+export const applyActivity = (data: ApplyActivityInfo) =>
+  request<ApplyActivityRes, ApplyActivityInfo>("/cyb-myactivities/re", {
     method: "POST",
-    data: {
-      id,
-    },
+    data,
   });

@@ -24,9 +24,18 @@ const AcDetail = () => {
 
   const handleApply = async () => {
     try {
-      const res = await mutateApply(params.id)
-    } catch (e) {}
-  }
+      const res = await mutateApply({
+        team: params.team,
+        name: params.name,
+        time: params.time,
+      });
+      if (res.status === 10000) {
+        //
+      }
+    } catch (e) {
+      //
+    }
+  };
 
   return (
     <View>

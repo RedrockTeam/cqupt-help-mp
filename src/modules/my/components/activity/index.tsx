@@ -1,29 +1,21 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { View, Text } from "@tarojs/components";
 import { now, timestampToDateString } from "@/common/helpers/date";
 import styles from "./index.module.scss";
 
 type Props = {
-  id: number;
   name: string;
-  team_name: string;
-  time_done: number;
+  teamName: string;
+  timeDone: number;
   time: string;
-  introduction: string;
-  location: string;
-  rule: string;
-  registration: string;
   myregistration: number;
-  type: number;
-  image: string;
 };
 
 const Activity = ({
   time,
   name,
-  team_name,
-  time_done,
+  teamName,
+  timeDone,
   myregistration,
 }: Props) => {
   const [mounth, date] = timestampToDateString(myregistration)
@@ -39,7 +31,7 @@ const Activity = ({
       <View className={styles.right}>
         <View className={styles.header}>
           <Text>{name}</Text>
-          {now() > time_done ? (
+          {now() > timeDone ? (
             <Text className={styles.passed}>已结束</Text>
           ) : (
             <Text className={styles.doing}>进行中</Text>
@@ -47,7 +39,7 @@ const Activity = ({
         </View>
         <Text className={styles.info}>
           活动组织：
-          {team_name}
+          {teamName}
         </Text>
         <Text className={styles.info}>
           活动时间：

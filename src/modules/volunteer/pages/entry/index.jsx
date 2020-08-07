@@ -7,7 +7,7 @@ import {
   useMutation,
 } from "react-query/dist/react-query.production.min";
 import { resolvePage } from "@/common/helpers/utils";
-import Loading from "@/common/components/loading";
+import Placeholder from "@/common/components/placeholder";
 import styles from "./index.module.scss";
 import Popup from "../../components/popup";
 import { checkIsVolunteer, loginVolunteer } from "../../services";
@@ -71,7 +71,7 @@ const VolunteerEntry = () => {
   };
 
   if (!isVolunteerRes) {
-    return <Loading />;
+    return <Placeholder title="志愿报名" />;
   }
   if (isVolunteerRes.status === 10000) {
     if (isVolunteerRes.exist) {

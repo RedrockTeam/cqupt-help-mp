@@ -23,7 +23,7 @@ export default {
     resolvePage("feedback", "index"),
     resolvePage("feedback", "result"),
     resolvePage("index", "bind"),
-    resolvePage("index", "acDetail"),
+    resolvePage("index", "activity-detail"),
 
     "modules/webview/index",
   ],

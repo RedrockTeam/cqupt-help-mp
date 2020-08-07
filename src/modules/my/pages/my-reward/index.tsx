@@ -7,6 +7,7 @@ import { resolvePage } from "@/common/helpers/utils";
 import PrimaryButton from "@/common/components/primary-button";
 import NavBack from "@/common/components/nav-back";
 import emptyImg from "@/static/images/empty.png";
+import Placeholder from "@/common/components/placeholder";
 import Reward from "../../components/reward";
 import styles from "./index.module.scss";
 import { getMyRewards, applyMyRewards } from "../../services";
@@ -27,7 +28,7 @@ import { getMyRewards, applyMyRewards } from "../../services";
 // ];
 
 const MyReward = () => {
-  const { data } = useQuery(["getMyRewards"], getMyRewards);
+  const { data, isLoading, isError } = useQuery(["getMyRewards"], getMyRewards);
   const [mutateApplyMyReward] = useMutation(applyMyRewards, {
     onSuccess: () => queryCache.invalidateQueries("getMyRewards"),
   });
@@ -42,7 +43,7 @@ const MyReward = () => {
     });
     if (res.tapIndex === 0) {
       const res = await mutateApplyMyReward(id);
-      console.log(id);
+      // TODO
     }
   };
 
@@ -53,11 +54,18 @@ const MyReward = () => {
   const renderRewardList = () => (
     <View className={styles.wrapper}>
       <NavBack title="我的奖品" background="#F6F6F9" />
-      {data?.prizes.length &&
-        data?.prizes.map((e) => (
+      {data &&
+        data.prizes.map((e) => (
           <Reward
-            {...e}
-            key={`${e.activity_name}-${e.name}`}
+            activityName={e.activity_name}
+            name={e.name}
+            level={e.level}
+            location={e.location}
+            beginTime={e.time_begin}
+            endTime={e.time_end}
+            organizer={e.organizers}
+            isReceived={e.is_received}
+            key={e.activity_id}
             apply={() => handleReceiveReward(e.activity_id)}
           />
         ))}
@@ -74,6 +82,9 @@ const MyReward = () => {
       </PrimaryButton>
     </View>
   );
+
+  if (isLoading) return <Placeholder title="我的奖品" />;
+  if (isError) return <Placeholder title="我的奖品" isError />;
   return hasRewards ? renderRewardList() : renderEmpty();
 };
 

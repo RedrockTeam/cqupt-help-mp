@@ -14,11 +14,13 @@ import success from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
 import { plates } from "@/common/constants";
 import { useMutation } from "react-query";
-import { GetStatusRes } from "../../services/dto";
 import { returnPlate, getStatus } from "../../services";
 import styles from "./index.module.scss";
 
-type Props = GetStatusRes;
+type Props = {
+  number: number;
+  plate: string;
+};
 
 const SafeRunAway = ({ number, plate }: Props) => {
   const Popup = useContainer(PopupContext);

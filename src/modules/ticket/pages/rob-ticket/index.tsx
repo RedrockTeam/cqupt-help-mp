@@ -7,7 +7,7 @@ import { useQuery } from "react-query/dist/react-query.production.min";
 
 import PopupContext from "@/stores/popup";
 import NavBack from "@/common/components/nav-back";
-import Loading from "@/common/components/loading";
+import Loading from "@/common/components/placeholder";
 import PrimaryButton from "@/common/components/primary-button";
 import robSuccessImg from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";

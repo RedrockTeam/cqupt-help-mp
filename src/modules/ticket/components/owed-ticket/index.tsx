@@ -6,7 +6,7 @@ type Props = {
   name: string;
   img: string;
   location: string;
-  time: number;
+  time: string;
 };
 
 const OwedTicket = ({ name, img, location, time }: Props) => {
@@ -17,9 +17,9 @@ const OwedTicket = ({ name, img, location, time }: Props) => {
         <Image src={img} className={styles.img} mode="aspectFill" />
       </View>
       <View className={styles.bottom}>
-        <Text className={styles.subtitle}>放映时间</Text>
-        <Text className={styles.content}>{location}</Text>
         <Text className={styles.subtitle}>放映地点</Text>
+        <Text className={styles.content}>{location}</Text>
+        <Text className={styles.subtitle}>放映时间</Text>
         <Text className={styles.content}>{time}</Text>
       </View>
     </View>

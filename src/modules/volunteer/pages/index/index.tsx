@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
-import Loading from "@/common/components/loading";
+import Placeholder from "@/common/components/placeholder";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { gapDay } from "@/common/helpers/date";
 import { useQuery } from "react-query/dist/react-query.production.min";
@@ -14,10 +14,10 @@ const Volunteer = () => {
     getVolunteerActivityListInfo
   );
   if (!list) {
-    return <Loading />;
+    return <Placeholder title="志愿报名" />;
   }
   if (list.status !== 10000) {
-    return "Error"; // error
+    return <Placeholder title="志愿报名" isError />;
   }
   return (
     <View className={styles.wrapper}>

@@ -11,19 +11,19 @@ export const resolvePage = (module: string, page: string) =>
 
 export const navTo = ({
   url,
-  title = "",
   payload = {},
+  encode = false,
 }: {
   url: string;
-  title?: string;
   payload?: Record<string, string | number | boolean>;
+  encode?: boolean;
 }) => {
   if (/^https?:\/\//.test(url)) {
     navigateTo({
-      url: urlStringify("/modules/webview/index", { url, title, ...payload }),
+      url: urlStringify("/modules/webview/index", { url, ...payload }, encode),
     });
   } else {
-    navigateTo({ url: urlStringify(url, payload) });
+    navigateTo({ url: urlStringify(url, payload, encode) });
   }
   return null;
 };
@@ -31,7 +31,7 @@ export const navTo = ({
 function urlStringify(
   url: string,
   payload: Record<string, string | number | boolean>,
-  encode = true
+  encode: boolean
 ) {
   const arr = Object.keys(payload).map(
     (key) =>

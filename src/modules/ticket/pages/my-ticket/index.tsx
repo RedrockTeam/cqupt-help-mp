@@ -1,39 +1,20 @@
 import React from "react";
 import { View, Swiper, SwiperItem } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
-import tmpImg from "@/static/images/tmp-ticket-img.png";
 import PrimaryButton from "@/common/components/primary-button";
+import { useQuery } from "react-query/dist/react-query.production.min";
+import Placeholder from "@/common/components/placeholder";
 import styles from "./index.module.scss";
 import OwedTicket from "../../components/owed-ticket";
-
-const list = [
-  {
-    name: "隐秘的角落1",
-    img: tmpImg,
-    location: "重庆邮电大学科技会堂",
-    time: 1600000000,
-  },
-  {
-    name: "隐秘的角落2",
-    img: tmpImg,
-    location: "重庆邮电大学科技会堂",
-    time: 1600000000,
-  },
-  {
-    name: "隐秘的角落3",
-    img: tmpImg,
-    location: "重庆邮电大学科技会堂",
-    time: 1600000000,
-  },
-  {
-    name: "隐秘的角落4",
-    img: tmpImg,
-    location: "重庆邮电大学科技会堂",
-    time: 1600000000,
-  },
-];
+import { getMyTicketList } from "../../services";
 
 const MyTicket = () => {
+  const { data: myTicketListRes, isLoading, isError } = useQuery(
+    "getMyTiketList",
+    getMyTicketList
+  );
+  if (isLoading) return <Placeholder title="我的影皮" />;
+  if (isError) return <Placeholder title="我的影票" isError />;
   return (
     <View className={styles.wrapper}>
       <NavBack title="我的影票" background="#F6F6F9" />
@@ -43,9 +24,15 @@ const MyTicket = () => {
         indicatorActiveColor="#625AF8"
         indicatorDots
       >
-        {list.map((e) => (
-          <SwiperItem>
-            <OwedTicket {...e} key={e.name} />
+        {myTicketListRes?.data.map((e) => (
+          <SwiperItem key={e.name}>
+            <OwedTicket
+              img={e.image}
+              name={e.name}
+              location={e.location}
+              time={e.play_time}
+              key={e.name}
+            />
           </SwiperItem>
         ))}
       </Swiper>

@@ -34,11 +34,11 @@ const RecentActivity = ({
       className={styles.activity}
       onClick={() => {
         if (type === 1 /* 线上活动 */) {
-          navTo({ url: registration, title: name });
+          navTo({ url: registration, payload: { title: name } });
         } else {
           // 线下活动
           navTo({
-            url: resolvePage("index", "acDetail"),
+            url: resolvePage("index", "activity-detail"),
             payload: {
               name,
               time,

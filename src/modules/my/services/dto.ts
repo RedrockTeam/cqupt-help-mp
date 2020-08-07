@@ -1,21 +1,6 @@
 import { BaseRes } from "@/common/helpers/request";
 
 export interface MyActivity {
-  ID: number;
-  StuNum: number;
-  Name: string;
-  team: string;
-  time: string;
-  Registiontime: string;
-}
-
-export type MyActivities = MyActivity[];
-
-export interface MyActivitiesRes extends BaseRes {
-  data: MyActivities;
-}
-
-export interface Activity {
   id: number;
   name: string;
   team_name: string;
@@ -25,11 +10,18 @@ export interface Activity {
   location: string;
   rule: string;
   registration: string;
-  myregistration?: number;
+  myregistration: number;
   type: 1 | 2;
   image: string;
 }
 
+export type MyActivities = MyActivity[];
+
+export interface MyActivitiesRes extends BaseRes {
+  data: MyActivities;
+}
+
+type Activity = Omit<MyActivity, "myregistration">;
 export type Activities = Activity[];
 
 export interface ApplyActivities {

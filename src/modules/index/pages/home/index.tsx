@@ -20,63 +20,12 @@ import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import getUserInfo from "@/stores/user";
+import Placeholder from "@/common/components/placeholder";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
 
-const list = [tmpHomeBanner, tmpHomeBanner1];
-
-// const recentActivityList: {
-//   remain: number;
-//   name: string;
-//   type: 1 | 2;
-//   url: string;
-//   org: string;
-//   startTime: number;
-//   endTime: number;
-//   img: string;
-// }[] = [
-//   {
-//     remain: 1,
-//     name: "学长学姐教教我",
-//     type: 1,
-//     org: "红岩网校",
-//     startTime: 1599999999,
-//     endTime: 1600000000,
-//     img: tmpHomeRecent,
-//     url: "https://wx.redrock.team/game/help-form/",
-//   },
-//   {
-//     remain: 3,
-//     name: "学长学姐教教我2",
-//     type: 2,
-//     org: "红岩网校",
-//     startTime: 1599999999,
-//     endTime: 1600000000,
-//     url: "https://wx.redrock.team/game/help-form/",
-//     img: tmpHomeRecent,
-//   },
-//   {
-//     remain: 5,
-//     name: "学长学姐教教我3",
-//     type: 1,
-//     org: "红岩网校",
-//     startTime: 1599999999,
-//     endTime: 1600000000,
-//     url: "/modules/feedback/pages/index/index",
-//     img: tmpHomeRecent,
-//   },
-//   {
-//     remain: 20,
-//     name: "学长学姐教教我4",
-//     type: 2,
-//     org: "红岩网校",
-//     startTime: 1599999999,
-//     endTime: 1600000000,
-//     url: "/modules/feedback/pages/index/index",
-//     img: tmpHomeRecent,
-//   },
-// ];
+const list = [tmpHomeBanner, tmpHomeBanner1]; // 轮播图的图片
 
 export default function Index() {
   const userInfo = getUserInfo();
@@ -87,7 +36,32 @@ export default function Index() {
   ) => {
     setSlidePercent((84 / e.detail.scrollWidth) * e.detail.scrollLeft);
   };
-  const { data } = useQuery("getHomeActivities ", getHomeActivities);
+  const { data: homeActivityListRes, isLoading, isError } = useQuery(
+    "getHomeActivities ",
+    getHomeActivities
+  );
+
+  const renderHomeActivityList = () => {
+    if (isLoading) return <Placeholder />;
+    if (isError) return <Placeholder isError={isError} />;
+    return homeActivityListRes && homeActivityListRes.data.length !== 0
+      ? homeActivityListRes.data.map((e) => (
+          <RecentActivity
+            name={e.name}
+            key={e.id}
+            teamName={e.team_name}
+            timeDone={e.time_done}
+            time={e.time}
+            introduction={e.introduction}
+            location={e.location}
+            rule={e.rule}
+            registration={e.registration}
+            type={e.type}
+            image={e.image}
+          />
+        ))
+      : "暂无活动";
+  };
 
   return (
     <View className={styles.wrapper}>
@@ -140,8 +114,8 @@ export default function Index() {
             onClick={() =>
               navTo({
                 url: "https://wx.redrock.team/game/youyue/",
-                title: "青春邮约",
                 payload: {
+                  title: "青春邮约",
                   t: userInfo.token,
                 },
               })
@@ -171,23 +145,7 @@ export default function Index() {
       </View>
       <View className={styles.recentActivitiesWrapper}>
         <Text className={styles.title}>热门活动</Text>
-        {data?.data.length !== 0
-          ? data?.data.map((e) => (
-              <RecentActivity
-                name={e.name}
-                key={e.id}
-                teamName={e.team_name}
-                timeDone={e.time_done}
-                time={e.time}
-                introduction={e.introduction}
-                location={e.location}
-                rule={e.rule}
-                registration={e.registration}
-                type={e.type}
-                image={e.image}
-              />
-            ))
-          : "暂无活动"}
+        <View>{renderHomeActivityList()}</View>
       </View>
     </View>
   );
