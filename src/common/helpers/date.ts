@@ -37,3 +37,30 @@ export const gapDay = (param) => {
   const gap = param - now();
   return Math.floor(gap / 24 / 3600);
 };
+
+/**
+ * 天天护跑开放时间判断
+ * 19:50-22:10
+ */
+
+export const isOpen = () => {
+  const hour = new Date().getHours();
+  const minutes = new Date().getMinutes();
+  if (
+    (hour === 19 && minutes > 50) ||
+    (hour > 19 && hour < 22) ||
+    (hour === 22 && minutes < 10)
+  ) {
+    return true;
+  }
+  return false;
+};
+
+/**
+ * 时区时间转化
+ * "2020-08-06T05:55:11Z" => "2020.08.06 13:55"
+ */
+
+export const ToDateString = (param) => {
+  return dayjs(param).format("YYYY.MM.DD HH:mm");
+};

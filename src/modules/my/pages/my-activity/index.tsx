@@ -13,74 +13,18 @@ import styles from "./index.module.scss";
 
 const activityList = [
   {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1665360000,
-    name: "啦啦队大比拼1",
-    organizer: "红岩网校",
-  },
-  {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1665360000,
-    name: "啦啦队大比拼2",
-    organizer: "红岩网校",
-  },
-  {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1665360000,
-    name: "啦啦队大比拼3",
-    organizer: "红岩网校",
-  },
-  {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1665360000,
-    name: "啦啦队大比拼4",
-    organizer: "红岩网校",
-  },
-  {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1587484800,
-    name: "啦啦队大比拼5",
-    organizer: "红岩网校",
-  },
-  {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1587484800,
-    name: "啦啦队大比拼6",
-    organizer: "红岩网校",
-  },
-  {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1587484800,
-    name: "啦啦队大比拼7",
-    organizer: "红岩网校",
-  },
-  {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1665360000,
-    name: "啦啦队大比拼8",
-    organizer: "红岩网校",
-  },
-  {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1665360000,
-    name: "啦啦队大比拼9",
-    organizer: "红岩网校",
-  },
-  {
-    time: 1637484800,
-    beginTime: 1587484800,
-    endTime: 1665360000,
-    name: "啦啦队大比拼10",
-    organizer: "红岩网校",
+    id: 14,
+    name: "社团达人天秀",
+    team_name: "红岩网校工作站",
+    time_done: 1598889600,
+    time: "5月16日-5月17日",
+    introduction: "介绍",
+    location: "地点",
+    rule: "规则",
+    registration: "",
+    myregistration: 1596691976,
+    type: 2,
+    image: "http://img.zhengyua.cn/test.jpg",
   },
 ];
 
@@ -92,7 +36,9 @@ const MyActivity = () => {
 
   const handleNavigateToActivity = () =>
     switchTab({ url: resolvePage("index", "home") });
+
   const hasActivities = activityList.length !== 0;
+
   const renderActivityList = () => (
     <View className={styles.wrapper}>
       <NavBack title="我的活动" background="#F6F6F9" />

@@ -5,7 +5,7 @@ import icon from "@/static/images/account-icon.png";
 import error from "@/static/images/error.png";
 import apply from "@/static/images/apply.png";
 import { useContainer } from "unstated-next";
-import { useMutation } from "react-query/dist/react-query.production.min";
+import { useMutation } from "react-query";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
 import { applyIdCard } from "../../services";

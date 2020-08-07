@@ -16,13 +16,18 @@ export interface MyActivitiesRes extends BaseRes {
 }
 
 export interface Activity {
-  ID: number;
-  StuNum: number;
-  Name: string;
-  team: string;
+  id: number;
+  name: string;
+  team_name: string;
+  time_done: number;
   time: string;
-  Registiontime: string;
-  // TODO 剩余时间以及线上线下
+  introduction: string;
+  location: string;
+  rule: string;
+  registration: string;
+  myregistration?: number;
+  type: 1 | 2;
+  image: string;
 }
 
 export type Activities = Activity[];

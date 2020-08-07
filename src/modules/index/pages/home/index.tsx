@@ -162,7 +162,7 @@ export default function Index() {
       </View>
       <View className={styles.recentActivitiesWrapper}>
         <Text className={styles.title}>热门活动</Text>
-        {data?.data.map((e) => (
+        {data?.data?.map((e) => (
           <RecentActivity {...e} key={e.id} />
         ))}
       </View>

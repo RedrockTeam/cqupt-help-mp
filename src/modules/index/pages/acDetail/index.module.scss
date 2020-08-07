@@ -1,0 +1,105 @@
+.wrapper {
+  height: 100vh;
+  background: #ffffff;
+
+  .pic {
+    width: 100vw;
+    height: 376px;
+    background-color: pink;
+    margin-bottom: 0;
+  }
+
+  .card {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    background: #ffffff;
+    margin-top: -24px;
+  }
+  .item1 {
+    border-bottom: 1px solid #d8d8e1;
+    padding-bottom: 30px;
+    .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-top: 48px;
+      .name {
+        color: #1c184c;
+        font-family: PingFang SC;
+        font-weight: 500;
+        font-size: 40px;
+        text-align: left;
+        margin-right: 16px;
+      }
+      .status {
+        width: 94px;
+        height: 38px;
+        line-height: 38px;
+        border-radius: 16px;
+        background: #ebeaff;
+        color: #625af8;
+        font-family: PingFang SC;
+        font-weight: bold;
+        font-size: 20px;
+        text-align: center;
+      }
+    }
+    .timeWrap {
+      display: flex;
+      color: #777494;
+      font-family: PingFang SC;
+      font-weight: medium;
+      font-size: 28px;
+      margin-bottom: 12px;
+      .time {
+        margin-right: 0;
+        margin-left: auto;
+        letter-spacing: 3px;
+        font-family: DIN;
+      }
+    }
+  }
+}
+
+.item2 {
+  margin-top: 40px;
+  .subTitle {
+    color: #1c184c;
+    font-family: PingFang SC;
+    font-size: 28px;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  .text {
+    color: #9794ad;
+    font-family: PingFang SC;
+    font-weight: medium;
+    font-size: 28px;
+    text-align: left;
+  }
+}
+
+.button {
+  width: 360px;
+  height: 88px;
+  line-height: 88px;
+  text-align: center;
+  color: #ffffff;
+  font-family: PingFang SC;
+  font-size: 36px;
+  background: #625af8;
+  border-radius: 64px;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  margin-left: -180px;
+}
+
+.icon {
+  width: 40px;
+  height: 38px;
+  padding-right: 8px;
+  vertical-align: top;
+}
