@@ -2,7 +2,15 @@
 
 重邮帮小程序
 
+- [ ]: 首页活动报名
+
+- [ ]: Loading、Error、缺省页的优化
+
+- [ ]: 问题反馈接口
+
 - [ ]: 抽离应用中的实体，优化类型
+
+- [ ]: 重构优化
 
 ## 目录结构
 
@@ -139,5 +147,3 @@
    ```
 
    这是因为 taro 通过 App 的 props.children 注入页面，类似于伪代码 `<App children={<page>{loadPage(globalConfig.pages[0])}</page>} />` 而 page 之外的会忽略，所以不能只声明一个 Popup 组件，需要在每个页面都声明一遍
-
-TODO: 我的活动相关时间的处理

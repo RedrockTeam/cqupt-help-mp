@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Image, Text, OpenData } from "@tarojs/components";
-import { atob } from "Base64";
-import { resolvePage, navTo, getToken } from "@/common/helpers/utils";
+import { resolvePage, navTo } from "@/common/helpers/utils";
 import avator from "@/static/images/empty.png";
 import aboutIcon from "@/static/images/about-icon.png";
 import feedbackIcon from "@/static/images/feedback-icon.png";
@@ -10,17 +9,11 @@ import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
 // import { useQuery } from "react-query/dist/react-query.production.min";
+import getUserInfo from "@/stores/user";
 import styles from "./index.module.scss";
 
-const parseToken = (token) =>
-  JSON.parse(decodeURIComponent(escape(atob(token.split(".")[0]))));
-
-let userInfo;
-getToken().then((t) => {
-  userInfo = parseToken(t);
-});
-
 const MyIndex = () => {
+  const userInfo = getUserInfo();
   // const { data: userInfo } = useQuery("userInfo", () =>
   //   getToken().then((t) => parseToken(t))
   // );

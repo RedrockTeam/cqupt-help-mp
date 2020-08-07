@@ -9,7 +9,6 @@ getToken().then((token) => {
     navTo({ url: resolvePage("index", "bind") });
   }
 });
-
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
   // this.props.children 是将要会渲染的页面

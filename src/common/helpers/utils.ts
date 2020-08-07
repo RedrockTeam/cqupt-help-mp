@@ -19,7 +19,9 @@ export const navTo = ({
   payload?: Record<string, string | number | boolean>;
 }) => {
   if (/^https?:\/\//.test(url)) {
-    navigateTo({ url: urlStringify("/modules/webview/index", { url, title }) });
+    navigateTo({
+      url: urlStringify("/modules/webview/index", { url, title, ...payload }),
+    });
   } else {
     navigateTo({ url: urlStringify(url, payload) });
   }

@@ -19,6 +19,7 @@ import tmpHomeBanner1 from "@/static/images/tmp-home-banner2.jpg";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { useQuery } from "react-query/dist/react-query.production.min";
+import getUserInfo from "@/stores/user";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
@@ -78,6 +79,8 @@ const list = [tmpHomeBanner, tmpHomeBanner1];
 // ];
 
 export default function Index() {
+  const userInfo = getUserInfo();
+
   const [slidePercent, setSlidePercent] = useState(0);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
     e
@@ -135,7 +138,13 @@ export default function Index() {
           <View
             className={styles.slideItem}
             onClick={() =>
-              navTo({ url: "https://wx.redrock.team/game/help-form/" })
+              navTo({
+                url: "https://wx.redrock.team/game/youyue/",
+                title: "青春邮约",
+                payload: {
+                  t: userInfo.token,
+                },
+              })
             }
           >
             <Image src={homeYoungIcon} className={styles.slideImg} />
@@ -162,9 +171,23 @@ export default function Index() {
       </View>
       <View className={styles.recentActivitiesWrapper}>
         <Text className={styles.title}>热门活动</Text>
-        {data?.data?.map((e) => (
-          <RecentActivity {...e} key={e.id} />
-        ))}
+        {data?.data.length !== 0
+          ? data?.data.map((e) => (
+              <RecentActivity
+                name={e.name}
+                key={e.id}
+                teamName={e.team_name}
+                timeDone={e.time_done}
+                time={e.time}
+                introduction={e.introduction}
+                location={e.location}
+                rule={e.rule}
+                registration={e.registration}
+                type={e.type}
+                image={e.image}
+              />
+            ))
+          : "暂无活动"}
       </View>
     </View>
   );

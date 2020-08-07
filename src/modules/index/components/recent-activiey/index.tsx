@@ -1,14 +1,13 @@
 import React from "react";
 import { View, Image, Text } from "@tarojs/components";
 // import { timestampToDateString } from "@/common/helpers/date";
-import { navTo } from "@/common/helpers/utils";
+import { navTo, resolvePage } from "@/common/helpers/utils";
 import styles from "./index.module.scss";
 
 type Props = {
-  id: number;
   name: string;
-  team_name: string;
-  time_done: number;
+  teamName: string;
+  timeDone: number;
   time: string;
   introduction: string;
   location: string;
@@ -18,23 +17,43 @@ type Props = {
   image: string;
 };
 
-// TODO : 时间的处理
 const RecentActivity = ({
   name,
-  team_name: teamName,
-  time_done: timeDone,
+  teamName,
+  timeDone,
   time,
+  introduction,
   location,
+  rule,
+  registration,
   type,
   image,
 }: Props) => {
   return (
     <View
       className={styles.activity}
-      onClick={() => navTo({ url: location, title: name })}
+      onClick={() => {
+        if (type === 1 /* 线上活动 */) {
+          navTo({ url: registration, title: name });
+        } else {
+          // 线下活动
+          navTo({
+            url: resolvePage("index", "acDetail"),
+            payload: {
+              name,
+              time,
+              location,
+              introduction,
+              rule,
+              image,
+              registration,
+            },
+          });
+        }
+      }}
     >
       <View className={styles.left}>
-        <Image src={image} className={styles.img} />
+        <Image src={image} className={styles.img} mode="aspectFill" />
         <View
           className={`${styles.remainTime} ${timeDone > 3 ? styles.doing : ""}`}
         >

@@ -1,10 +1,10 @@
-import { login, request } from "@tarojs/taro";
-import requestCommon from "@/common/helpers/request";
+import { login, request as TaroRequest } from "@tarojs/taro";
+import request from "@/common/helpers/request";
 import { ActivitiesHomeRes } from "./dto";
 
 export const bindReq = async ({ account, password }) => {
   const { code } = await login();
-  return request({
+  return TaroRequest({
     url: `https://wx.redrock.team/magicloop/rushAb?code=${code}`,
     method: "POST",
     header: {
@@ -18,4 +18,12 @@ export const bindReq = async ({ account, password }) => {
 };
 
 export const getHomeActivities = (_key: string) =>
-  requestCommon<ActivitiesHomeRes>("/cyb-myactivities/allac");
+  request<ActivitiesHomeRes>("/cyb-myactivities/allac");
+
+export const applyActivity = (id: number) =>
+  request("/cyb-myactivities/re", {
+    method: "POST",
+    data: {
+      id,
+    },
+  });
