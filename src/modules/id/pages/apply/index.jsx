@@ -59,7 +59,7 @@ const Apply = () => {
       <View>
         <View className={styles.mid}>
           <View className={styles.iconWrap}>
-            <Image src={icon} className={styles.icon} />
+            <Image src={icon} className={styles.icon} mode="aspectFit" />
             <View>社团名称</View>
           </View>
           <Input
