@@ -4,20 +4,37 @@ import NavBack from "@/common/components/nav-back";
 import PrimaryButton from "@/common/components/primary-button";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
+import { redirectTo } from "@tarojs/taro";
+import Empty from "@/common/components/empty";
+import { resolvePage } from "@/common/helpers/utils";
 import styles from "./index.module.scss";
 import OwedTicket from "../../components/owed-ticket";
 import { getMyTicketList } from "../../services";
+
+const PAGE_TITLE = "我的影票";
 
 const MyTicket = () => {
   const { data: myTicketListRes, isLoading, isError } = useQuery(
     "getMyTiketList",
     getMyTicketList
   );
-  if (isLoading) return <Placeholder title="我的影皮" />;
-  if (isError) return <Placeholder title="我的影票" isError />;
+  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isError) return <Placeholder title={PAGE_TITLE} isError />;
+  if (myTicketListRes?.data.length === 0)
+    return (
+      <Empty
+        title={PAGE_TITLE}
+        detail="影票空空如也哦～"
+        suggestion="快去抢票吧"
+        btnContent="查看抢票"
+        onBtnClick={() =>
+          redirectTo({ url: resolvePage("ticket", "rob-ticket") })
+        }
+      />
+    );
   return (
     <View className={styles.wrapper}>
-      <NavBack title="我的影票" background="#F6F6F9" />
+      <NavBack title={PAGE_TITLE} background="#F6F6F9" />
       <Swiper
         className={styles.swiper}
         indicatorColor="#A7A3FF"

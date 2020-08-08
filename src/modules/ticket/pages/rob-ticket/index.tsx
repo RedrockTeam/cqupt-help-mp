@@ -1,21 +1,22 @@
 import React from "react";
 import { useContainer } from "unstated-next";
 import { navigateBack } from "@tarojs/taro";
-import { View, Image, Text } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import dayjs from "dayjs";
 import { useQuery } from "react-query/dist/react-query.production.min";
 
 import PopupContext from "@/stores/popup";
 import NavBack from "@/common/components/nav-back";
 import Placeholder from "@/common/components/placeholder";
-import PrimaryButton from "@/common/components/primary-button";
 import robSuccessImg from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
-import emptyImg from "@/static/images/empty.png";
 
+import Empty from "@/common/components/empty";
 import { getRobTicketListInfo, robTicket } from "../../services";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
+
+const PAGE_TITLE = "在线抢票";
 
 const RobTicket = () => {
   const Popup = useContainer(PopupContext);
@@ -57,24 +58,21 @@ const RobTicket = () => {
     }
   };
 
-  if (isLoading) return <Placeholder title="在线抢票" />;
-  if (isError) return <Placeholder title="在线抢票" isError />;
-  if (ticketList && ticketList.data.length === 0) {
+  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isError) return <Placeholder title={PAGE_TITLE} isError />;
+  if (ticketList && ticketList.data.length === 0)
     return (
-      <View className={styles.emptyWrapper}>
-        <NavBack title="在线抢票" background="#FFFFFF" />
-        <Image src={emptyImg} className={styles.img} />
-        <Text className={styles.text}>目前还没有影票哦~</Text>
-        <Text className={styles.text}>去看看其他活动吧</Text>
-        <PrimaryButton className={styles.btn} onClick={() => navigateBack()}>
-          查看活动
-        </PrimaryButton>
-      </View>
+      <Empty
+        title={PAGE_TITLE}
+        detail="近期还没有影票可以抢哦～"
+        suggestion="去首页看看活动吧"
+        btnContent="查看活动"
+        onBtnClick={() => navigateBack()}
+      />
     );
-  }
   return (
     <View className={styles.wrapper}>
-      <NavBack title="在线抢票" background="#F6F6F9" />
+      <NavBack title={PAGE_TITLE} background="#F6F6F9" />
       {ticketList
         ? ticketList.data.map((e) => (
             <Ticket

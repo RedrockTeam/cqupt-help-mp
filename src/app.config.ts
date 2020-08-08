@@ -14,7 +14,6 @@ export default {
     resolvePage("volunteer", "detail"),
     resolvePage("ticket", "rob-ticket"),
     resolvePage("id", "index"),
-    resolvePage("id", "empty"),
     resolvePage("id", "apply"),
     resolvePage("my", "index"),
     resolvePage("ticket", "my-ticket"),

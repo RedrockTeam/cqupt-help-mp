@@ -1,0 +1,35 @@
+.emptyPageWrapper {
+  min-height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 180px;
+}
+.emptyWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pageImg {
+  width: 384px;
+  height: 345px;
+  margin-bottom: 20px;
+}
+.img {
+  height: 220px;
+  margin-bottom: 20px;
+}
+.text {
+  color: #777494;
+  font-family: PingFang SC;
+  font-weight: medium;
+  font-size: 32px;
+  line-height: 56px;
+  letter-spacing: 4px;
+  text-align: center;
+}
+.btn {
+  margin-top: 316px;
+}

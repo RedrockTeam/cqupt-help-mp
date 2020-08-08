@@ -5,23 +5,35 @@ import Placeholder from "@/common/components/placeholder";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { gapDay } from "@/common/helpers/date";
 import { useQuery } from "react-query/dist/react-query.production.min";
+import Empty from "@/common/components/empty";
+import { navigateBack } from "@tarojs/taro";
 import { getVolunteerActivityListInfo } from "../../services";
 import styles from "./index.module.scss";
 
+const PAGE_TITLE = "志愿报名";
+
 const Volunteer = () => {
-  const { data: list } = useQuery(
+  const { data: list, isLoading, isError } = useQuery(
     "getVolunteerActivityListInfo",
     getVolunteerActivityListInfo
   );
-  if (!list) {
-    return <Placeholder title="志愿报名" />;
-  }
-  if (list.status !== 10000) {
-    return <Placeholder title="志愿报名" isError />;
-  }
+
+  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isError || list?.status !== 10000)
+    return <Placeholder title={PAGE_TITLE} isError />;
+  if (list.data.length === 0)
+    return (
+      <Empty
+        title={PAGE_TITLE}
+        detail="志愿活动空空如也哦～"
+        suggestion="去看看活动吧"
+        btnContent="查看活动"
+        onBtnClick={() => navigateBack()}
+      />
+    );
   return (
     <View className={styles.wrapper}>
-      <NavBack title="志愿报名" background="#F6F6F9" />
+      <NavBack title={PAGE_TITLE} background="#F6F6F9" />
       {list.data.map((item) => (
         <View
           className={styles.card}
