@@ -2,57 +2,47 @@ import React from "react";
 import { View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import { useQuery } from "react-query/dist/react-query.production.min";
+import Placeholder from "@/common/components/placeholder";
+import Empty from "@/common/components/empty";
+import { navigateBack } from "@tarojs/taro";
 import { getHistory } from "../../services";
 import styles from "./index.module.scss";
 import RunHistory from "../../components/run-history";
 
-// const list = [
-//   {
-//     num: "B97",
-//     place: "风华操场一号店",
-//     time: "2020-06-07",
-//     hasTaken: true,
-//   },
-//   {
-//     num: "B98",
-//     place: "风华操场一号店",
-//     time: "2020-06-07",
-//     hasTaken: false,
-//   },
-//   {
-//     num: "B99",
-//     place: "风华操场一号店",
-//     time: "2020-06-07",
-//     hasTaken: true,
-//   },
-//   {
-//     num: "B100",
-//     place: "风华操场一号店",
-//     time: "2020-06-07",
-//     hasTaken: true,
-//   },
-//   {
-//     num: "B101",
-//     place: "风华操场一号店",
-//     time: "2020-06-07",
-//     hasTaken: true,
-//   },
-//   {
-//     num: "B102",
-//     place: "风华操场一号店",
-//     time: "2020-06-07",
-//     hasTaken: true,
-//   },
-// ];
+const PAGE_TITLE = "取包记录";
 
 const SafeRunHistory = () => {
-  const { data } = useQuery(["getRecords", { page: 1 }], getHistory);
-  const list = data?.records;
+  const { data: historyListRes, isLoading, isError } = useQuery(
+    ["getRecords", { page: 1 }],
+    getHistory
+  );
+
+  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isError) return <Placeholder title={PAGE_TITLE} isError />;
+  if (historyListRes?.records.length === 0)
+    return (
+      <Empty
+        title={PAGE_TITLE}
+        detail="您还没有存过包～"
+        suggestion="去存包跑步吧"
+        btnContent="天天护跑"
+        onBtnClick={() => navigateBack()}
+      />
+    );
 
   return (
     <View className={styles.wrapper}>
-      <NavBack title="取包记录" background="#F6F6F9" />
-      {list?.length ? list.map((e) => <RunHistory key={e.ID} {...e} />) : null}
+      <NavBack title={PAGE_TITLE} background="#F6F6F9" />
+      {historyListRes?.records?.length
+        ? historyListRes.records.map((e) => (
+            <RunHistory
+              key={e.save_time}
+              num={e.id}
+              takeTime={e.take_time}
+              location={e.location}
+            />
+          ))
+        : null}
     </View>
   );
 };

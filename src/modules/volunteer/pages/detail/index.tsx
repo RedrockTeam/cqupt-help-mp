@@ -33,20 +33,10 @@ const VolunteerDetail = () => {
     ["getVolunteerActivityDetail", params.id],
     getVolunteerActivityDetail
   );
-  // TODO: 后端接口返回存在问题
 
-  const [mutateApply] = useMutation(applyVolunteerActivity);
-  const handleApply = async () => {
-    try {
-      const data = await mutateApply({ id: params.id, timePart: selectTime });
-      setShowPicker(false);
-      if (data.status === 10020) {
-        const hide = Popup.show({
-          title: "申请失败",
-          detail: "参数设置错误",
-        });
-        setTimeout(() => hide(), 3000);
-      } else {
+  const [mutateApply] = useMutation(applyVolunteerActivity, {
+    onSuccess(res) {
+      if (res.status === 10000) {
         const hide = Popup.show({
           title: "申请成功",
           detail: "申请结果将会通过重邮小帮手进行通知",
@@ -56,15 +46,26 @@ const VolunteerDetail = () => {
           hide();
           redirectTo({ url: resolvePage("volunteer", "index") });
         }, 3000);
-        return null;
+      } else {
+        const hide = Popup.show({
+          title: "申请失败",
+          detail: "错误",
+        });
+        setTimeout(() => hide(), 3000);
       }
-    } catch (e) {
+    },
+    onError(e) {
       const hide = Popup.show({
-        title: "登录失败",
+        title: "申请失败",
         detail: "网络错误",
       });
       setTimeout(() => hide(), 3000);
-    }
+    },
+  });
+
+  const handleApply = async () => {
+    setShowPicker(false);
+    await mutateApply({ id: params.id, timePart: selectTime });
   };
 
   const handleShowPicker = () => {
@@ -82,7 +83,6 @@ const VolunteerDetail = () => {
 
   if (isLoading) return <Placeholder title="志愿报名" />;
   if (isError) return <Placeholder title="志愿报名" isError />;
-
   return (
     <View>
       {data ? (

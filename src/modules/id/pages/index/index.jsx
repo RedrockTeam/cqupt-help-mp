@@ -38,7 +38,7 @@ const IdIndex = () => {
       {idCardListRes.identity_cards?.map((item) => (
         <View
           className={styles.card}
-          key={item.name + item.team_name + item.collage}
+          key={item.name + item.team_name + item.collage + item.create_time}
         >
           <View className={styles.top}>
             <OpenData

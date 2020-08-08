@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { navigateBack } from "@tarojs/taro";
 import { View, Image, Input } from "@tarojs/components";
 import PrimaryButton from "@/common/components/primary-button";
 import icon from "@/static/images/account-icon.png";
 import error from "@/static/images/error.png";
 import apply from "@/static/images/apply.png";
 import { useContainer } from "unstated-next";
-import { useMutation } from "react-query";
-import { resolvePage, navTo } from "@/common/helpers/utils";
+import { useMutation } from "react-query/dist/react-query.production.min";
 import PopupContext from "@/stores/popup";
 import { applyIdCard } from "../../services";
 import styles from "./index.module.scss";
@@ -31,7 +31,7 @@ const Apply = () => {
         setTimeout(() => {
           hide();
           setName();
-          navTo({ url: resolvePage("id", "index") });
+          navigateBack();
         }, 3000);
       } else {
         const hide = Popup.show({

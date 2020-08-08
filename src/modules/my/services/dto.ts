@@ -43,7 +43,7 @@ interface MyReward {
   time_end: number;
   organizers: string;
   activity_id: number;
-  is_received: number;
+  is_received: 0 | 1; // 1 是已领取，0 是未领取
   index: number;
 }
 

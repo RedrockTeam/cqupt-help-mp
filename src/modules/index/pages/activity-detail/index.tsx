@@ -7,6 +7,7 @@ import NavBack from "@/common/components/nav-back";
 import icon1 from "@/static/images/volunteer-icon1.png";
 import icon2 from "@/static/images/volunteer-icon2.png";
 import icon3 from "@/static/images/volunteer-icon3.png";
+import error from "@/static/images/error.png";
 
 import { useMutation } from "react-query/dist/react-query.production.min";
 import styles from "./index.module.scss";
@@ -30,10 +31,22 @@ const AcDetail = () => {
         time: params.time,
       });
       if (res.status === 10000) {
-        //
+        const hide = Popup.show({
+          title: "报名成功",
+        });
+        setTimeout(() => {
+          hide();
+        }, 3000);
       }
     } catch (e) {
-      //
+      const hide = Popup.show({
+        title: "报名失败",
+        detail: "错误",
+        img: error,
+      });
+      setTimeout(() => {
+        hide();
+      }, 3000);
     }
   };
 

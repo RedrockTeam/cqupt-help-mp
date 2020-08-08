@@ -38,13 +38,13 @@ export default function Index() {
     setSlidePercent((84 / e.detail.scrollWidth) * e.detail.scrollLeft);
   };
   const { data: homeActivityListRes, isLoading, isError } = useQuery(
-    "getHomeActivities ",
+    "getHomeActivities",
     getHomeActivities
   );
 
   const renderHomeActivityList = () => {
-    if (isLoading) return <Placeholder />;
     if (isError) return <Placeholder isError={isError} />;
+    if (isLoading) return <Placeholder />;
     return homeActivityListRes && homeActivityListRes.data.length !== 0 ? (
       homeActivityListRes.data.map((e) => (
         <RecentActivity

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image } from "@tarojs/components";
 import PrimaryButton from "@/common/components/primary-button";
 import clockIcon from "@/static/images/clock-icon.png";
-// import locateIcon from "@/static/images/locate-icon.png";
+import locateIcon from "@/static/images/locate-icon.png";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import PopupContext from "@/stores/popup";
 import { resolvePage } from "@/common/helpers/utils";
@@ -14,15 +14,17 @@ import success from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
 import { plates } from "@/common/constants";
 import { useMutation } from "react-query";
+import { ToDateString } from "@/common/helpers/date";
 import { returnPlate, getStatus } from "../../services";
 import styles from "./index.module.scss";
 
 type Props = {
   number: number;
   plate: string;
+  saveTime: number;
 };
 
-const SafeRunAway = ({ number, plate }: Props) => {
+const SafeRunAway = ({ number, plate, saveTime }: Props) => {
   const Popup = useContainer(PopupContext);
   const [mutateReturn] = useMutation(returnPlate);
   const { data } = useQuery("getStatus", getStatus);
@@ -37,7 +39,6 @@ const SafeRunAway = ({ number, plate }: Props) => {
     });
     if (res.tapIndex === 0) {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const data = await mutateReturn(hasPlate);
         if (data.status === 10000) {
           const hide = Popup.show({
@@ -81,11 +82,10 @@ const SafeRunAway = ({ number, plate }: Props) => {
           <Image mode="aspectFit" src={clockIcon} className={styles.icon} />
           {plates[plate] + number}号点
         </View>
-        {/* 原型图没有 */}
-        {/* <View className={styles.text}>
+        <View className={styles.text}>
           <Image mode="aspectFit" src={locateIcon} className={styles.icon} />
-          2020-06-17 17:30 存
-        </View> */}
+          {ToDateString(saveTime)} 存
+        </View>
       </View>
       <PrimaryButton className={styles.btn} onClick={handleTakeBag}>
         取包

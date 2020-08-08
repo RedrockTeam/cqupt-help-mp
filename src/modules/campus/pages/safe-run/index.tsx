@@ -3,13 +3,16 @@ import { View, Text } from "@tarojs/components";
 import Taro, { redirectTo } from "@tarojs/taro";
 import NavBack from "@/common/components/nav-back";
 import PrimaryButton from "@/common/components/primary-button";
-import { useQuery } from "react-query/dist/react-query.production.min";
-import { useMutation } from "react-query";
+import {
+  useQuery,
+  useMutation,
+} from "react-query/dist/react-query.production.min";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { isOpen } from "@/common/helpers/date";
 import Popup from "@/common/components/popup";
 import waitImg from "@/static/images/wait.png";
 import Placeholder from "@/common/components/placeholder";
+import dayjs from "dayjs";
 import { getScan, getStatus } from "../../services/index";
 
 import styles from "./index.module.scss";
@@ -59,7 +62,13 @@ const SafeRun = () => {
   if (isError) return <Placeholder title="天天护跑" isError />;
 
   if (data!.number !== 0) {
-    return <SafeRunAway number={data!.number} plate={data!.plate} />;
+    return (
+      <SafeRunAway
+        number={data!.number}
+        plate={data!.plate}
+        saveTime={dayjs(data!.save_time).unix()}
+      />
+    );
   }
 
   return (

@@ -1,16 +1,17 @@
 import React from "react";
 import { switchTab } from "@tarojs/taro";
-import { View, Image, Text } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
-import PrimaryButton from "@/common/components/primary-button";
-import emptyImg from "@/static/images/empty.png";
 import { resolvePage } from "@/common/helpers/utils";
 
 import { useQuery } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
+import Empty from "@/common/components/empty";
 import { getMyActivities } from "../../services/index";
 import Activity from "../../components/activity";
 import styles from "./index.module.scss";
+
+const PAGE_TITLE = "我的活动";
 
 const MyActivity = () => {
   const { data: activityListRes, isLoading, isError } = useQuery(
@@ -18,19 +19,23 @@ const MyActivity = () => {
     getMyActivities
   );
 
-  if (isLoading) return <Placeholder title="我的活动" />;
-  if (isError) return <Placeholder title="我的活动" isError />;
-
-  const handleNavigateToActivity = () =>
-    switchTab({ url: resolvePage("index", "home") });
-
-  const hasActivities = activityListRes?.data.length !== 0;
-
-  const renderActivityList = () => (
+  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isError) return <Placeholder title={PAGE_TITLE} isError />;
+  if (activityListRes?.data.length === 0)
+    return (
+      <Empty
+        title={PAGE_TITLE}
+        detail="活动空空如也哦～"
+        suggestion="快去参加活动领取奖品吧"
+        onBtnClick={() => switchTab({ url: resolvePage("index", "home") })}
+        btnContent="查看活动"
+      />
+    );
+  return (
     <View className={styles.wrapper}>
-      <NavBack title="我的活动" background="#F6F6F9" />
-      {hasActivities &&
-        activityListRes?.data.map((e) => (
+      <NavBack title={PAGE_TITLE} background="#F6F6F9" />
+      {activityListRes &&
+        activityListRes.data.map((e) => (
           <Activity
             name={e.name}
             teamName={e.team_name}
@@ -42,18 +47,6 @@ const MyActivity = () => {
         ))}
     </View>
   );
-  const renderEmpty = () => (
-    <View className={styles.emptyWrapper}>
-      <NavBack title="我的活动" background="#FFFFFF" />
-      <Image src={emptyImg} className={styles.img} />
-      <Text className={styles.text}>活动空空如也哦~</Text>
-      <Text className={styles.text}>快去参加活动领取奖品吧</Text>
-      <PrimaryButton className={styles.btn} onClick={handleNavigateToActivity}>
-        查看活动
-      </PrimaryButton>
-    </View>
-  );
-  return hasActivities ? renderActivityList() : renderEmpty();
 };
 
 export default MyActivity;

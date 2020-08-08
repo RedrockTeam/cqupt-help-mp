@@ -1,23 +1,19 @@
 import { BaseRes } from "../../../common/helpers/request";
 
-export interface Status {
-  number: number;
-  plate: string;
-}
-
 export interface GetStatusRes extends BaseRes {
   number: number; // 0 表示没有存包
   plate: string;
+  save_time: string;
 }
 
 export interface HistoryItem {
-  ID: number;
-  SaveTime: string;
-  TakeTime: string;
-  Location: string;
-  StuNum: number;
-  StuName: string;
-  SportTime: number;
+  id: number; // 号码牌，憨批后端
+  save_time: string;
+  take_time: string;
+  location: string;
+  stu_num: number;
+  stu_name: string;
+  sport_time: number;
 }
 
 export type HistoryList = HistoryItem[];

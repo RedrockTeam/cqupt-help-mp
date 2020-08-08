@@ -1,61 +1,96 @@
 import React from "react";
 import Taro, { switchTab } from "@tarojs/taro";
-import { View, Text, Image } from "@tarojs/components";
-import { useQuery } from "react-query/dist/react-query.production.min";
-import { useMutation, queryCache } from "react-query";
+import { View } from "@tarojs/components";
+import {
+  useQuery,
+  useQueryCache,
+  useMutation,
+} from "react-query/dist/react-query.production.min";
+import error from "@/static/images/error.png";
 import { resolvePage } from "@/common/helpers/utils";
-import PrimaryButton from "@/common/components/primary-button";
 import NavBack from "@/common/components/nav-back";
-import emptyImg from "@/static/images/empty.png";
 import Placeholder from "@/common/components/placeholder";
+import Empty from "@/common/components/empty";
+import PopupContext from "@/stores/popup";
+import { useContainer } from "unstated-next";
 import Reward from "../../components/reward";
 import styles from "./index.module.scss";
 import { getMyRewards, applyMyRewards } from "../../services";
+import { MyRewardsRes } from "../../services/dto";
 
-// const rewardList = [
-//   {
-//     activity_name: "社团达人秀",
-//     name: "2de",
-//     level: 2,
-//     location: "红岩网校A区",
-//     time_begin: 1590746384,
-//     time_end: 1598889600,
-//     organizers: "红岩网校",
-//     activity_id: 13,
-//     is_received: 1,
-//     index: 0,
-//   },
-// ];
+const PAGE_TITLE = "我的奖品";
 
 const MyReward = () => {
-  const { data, isLoading, isError } = useQuery(["getMyRewards"], getMyRewards);
+  const cache = useQueryCache();
+  const { data: myRewardListRes, isLoading, isError } = useQuery(
+    ["getMyRewards"],
+    getMyRewards
+  );
+  const Popup = useContainer(PopupContext);
   const [mutateApplyMyReward] = useMutation(applyMyRewards, {
-    onSuccess: () => queryCache.invalidateQueries("getMyRewards"),
+    onSuccess(res, id) {
+      if (res.status === 10000) {
+        cache.setQueryData<MyRewardsRes>("getMyRewards", (oldRes) => {
+          if (!oldRes) return;
+          return {
+            ...oldRes,
+            prizes: oldRes.prizes.map((p) =>
+              p.activity_id === id ? { ...p, is_received: 1 } : p
+            ),
+          };
+        });
+      } else {
+        const hide = Popup.show({
+          title: "领取失败",
+          detail: "错误",
+          img: error,
+        });
+        setTimeout(() => {
+          hide();
+        }, 3000);
+      }
+    },
+    onError(e) {
+      const hide = Popup.show({
+        title: "领取失败",
+        detail: "网络错误",
+        img: error,
+      });
+      setTimeout(() => {
+        hide();
+      }, 3000);
+    },
   });
 
   const handleReceiveReward = async (id: number) => {
     const res = await Taro.showActionSheet({
       itemList: ["确定"],
       fail(e) {
-        // eslint-disable-next-line no-console
         console.log(e);
       },
     });
     if (res.tapIndex === 0) {
-      const res = await mutateApplyMyReward(id);
-      // TODO
+      await mutateApplyMyReward(id);
     }
   };
 
-  const handleNavigateToActivity = () =>
-    switchTab({ url: resolvePage("index", "home") });
-  const hasRewards = data?.prizes.length !== 0;
-
-  const renderRewardList = () => (
+  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isError) return <Placeholder title={PAGE_TITLE} isError />;
+  if (myRewardListRes?.prizes.length === 0)
+    return (
+      <Empty
+        title={PAGE_TITLE}
+        detail="奖品空空如也哦～"
+        suggestion="快去参加活动领取奖品吧"
+        onBtnClick={() => switchTab({ url: resolvePage("index", "home") })}
+        btnContent="查看活动"
+      />
+    );
+  return (
     <View className={styles.wrapper}>
-      <NavBack title="我的奖品" background="#F6F6F9" />
-      {data &&
-        data.prizes.map((e) => (
+      <NavBack title={PAGE_TITLE} background="#F6F6F9" />
+      {myRewardListRes &&
+        myRewardListRes.prizes.map((e) => (
           <Reward
             activityName={e.activity_name}
             name={e.name}
@@ -71,21 +106,6 @@ const MyReward = () => {
         ))}
     </View>
   );
-  const renderEmpty = () => (
-    <View className={styles.emptyWrapper}>
-      <NavBack title="我的奖品" background="#FFFFFF" />
-      <Image src={emptyImg} className={styles.img} />
-      <Text className={styles.text}>奖品空空如也哦~</Text>
-      <Text className={styles.text}>快去参加活动领取奖品吧</Text>
-      <PrimaryButton className={styles.btn} onClick={handleNavigateToActivity}>
-        查看活动
-      </PrimaryButton>
-    </View>
-  );
-
-  if (isLoading) return <Placeholder title="我的奖品" />;
-  if (isError) return <Placeholder title="我的奖品" isError />;
-  return hasRewards ? renderRewardList() : renderEmpty();
 };
 
 export default MyReward;
