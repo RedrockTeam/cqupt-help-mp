@@ -7,7 +7,7 @@ import { useQuery } from "react-query/dist/react-query.production.min";
 
 import PopupContext from "@/stores/popup";
 import NavBack from "@/common/components/nav-back";
-import Loading from "@/common/components/placeholder";
+import Placeholder from "@/common/components/placeholder";
 import PrimaryButton from "@/common/components/primary-button";
 import robSuccessImg from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
@@ -20,7 +20,7 @@ import styles from "./index.module.scss";
 const RobTicket = () => {
   const Popup = useContainer(PopupContext);
 
-  const { data: ticketList } = useQuery(
+  const { data: ticketList, isLoading, isError } = useQuery(
     "robTicketListInfo",
     getRobTicketListInfo,
     {
@@ -57,14 +57,8 @@ const RobTicket = () => {
     }
   };
 
-  if (!ticketList) {
-    return (
-      <View className={styles.emptyWrapper}>
-        <NavBack title="在线抢票" background="#F6F6F9" />
-        <Loading />
-      </View>
-    );
-  }
+  if (isLoading) return <Placeholder title="在线抢票" />;
+  if (isError) return <Placeholder title="在线抢票" isError />;
   if (ticketList && ticketList.data.length === 0) {
     return (
       <View className={styles.emptyWrapper}>

@@ -4,7 +4,7 @@ import { View, Image, Button, Text, OpenData } from "@tarojs/components";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import NavBack from "@/common/components/nav-back";
 import { useQuery } from "react-query/dist/react-query.production.min";
-import Loading from "@/common/components/placeholder";
+import Placeholder from "@/common/components/placeholder";
 import emptyImg from "@/static/images/empty.png";
 import PrimaryButton from "@/common/components/primary-button";
 import { IdCard } from "../../services/dto";
@@ -29,13 +29,14 @@ import styles from "./index.module.scss";
 // ];
 
 const IdIndex = () => {
-  const { data: idCardListRes } = useQuery("getIdCardList", getIdCardList);
-  if (!idCardListRes) {
-    return <Loading />;
-  }
-  if (idCardListRes.status !== 10000) {
-    return "Error";
-  }
+  const { data: idCardListRes, isLoading, isError } = useQuery(
+    "getIdCardList",
+    getIdCardList
+  );
+
+  if (isLoading) return <Placeholder title="身份有证" />;
+  if (isError || idCardListRes.status !== 10000)
+    return <Placeholder title="身份有证" isError />;
 
   if (idCardListRes.identity_cards.length === 0) {
     return (

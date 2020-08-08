@@ -132,15 +132,15 @@ export default function Index() {
             <Text className={styles.slideText}>身份有证</Text>
           </View>
         </ScrollView>
-        <View className={styles.scrollBar}>
-          <View className={styles.scrollBarBg}>
-            <View
-              className={styles.scrollBarSlide}
-              style={{
-                left: slidePercent,
-              }}
-            />
-          </View>
+      </View>
+      <View className={styles.scrollBar}>
+        <View className={styles.scrollBarBg}>
+          <View
+            className={styles.scrollBarSlide}
+            style={{
+              left: slidePercent,
+            }}
+          />
         </View>
       </View>
       <View className={styles.recentActivitiesWrapper}>
