@@ -59,14 +59,14 @@ const SafeRun = () => {
   };
 
   if (isLoading) return <Placeholder title="天天护跑" />;
-  if (isError) return <Placeholder title="天天护跑" isError />;
+  if (isError || !data) return <Placeholder title="天天护跑" isError />;
 
-  if (data!.number !== 0) {
+  if (data.number !== 0) {
     return (
       <SafeRunAway
-        number={data!.number}
-        plate={data!.plate}
-        saveTime={dayjs(data!.save_time).unix()}
+        number={data.number}
+        plate={data.plate}
+        saveTime={dayjs(data.save_time).unix()}
       />
     );
   }
@@ -108,7 +108,6 @@ const SafeRun = () => {
       />
     </View>
   );
-  // return <SafeRunAway />;
 };
 
 export default SafeRun;

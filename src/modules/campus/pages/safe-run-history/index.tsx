@@ -18,8 +18,9 @@ const SafeRunHistory = () => {
   );
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
-  if (isError) return <Placeholder title={PAGE_TITLE} isError />;
-  if (historyListRes?.records.length === 0)
+  if (isError || !historyListRes)
+    return <Placeholder title={PAGE_TITLE} isError />;
+  if (historyListRes.records.length === 0)
     return (
       <Empty
         title={PAGE_TITLE}
@@ -33,16 +34,14 @@ const SafeRunHistory = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      {historyListRes?.records?.length
-        ? historyListRes.records.map((e) => (
-            <RunHistory
-              key={e.save_time}
-              num={e.id}
-              takeTime={e.take_time}
-              location={e.location}
-            />
-          ))
-        : null}
+      {historyListRes.records.map((e) => (
+        <RunHistory
+          key={e.save_time}
+          num={e.id}
+          takeTime={e.take_time}
+          location={e.location}
+        />
+      ))}
     </View>
   );
 };

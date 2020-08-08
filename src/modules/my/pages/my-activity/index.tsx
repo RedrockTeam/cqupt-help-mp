@@ -20,8 +20,9 @@ const MyActivity = () => {
   );
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
-  if (isError) return <Placeholder title={PAGE_TITLE} isError />;
-  if (activityListRes?.data.length === 0)
+  if (isError || !activityListRes)
+    return <Placeholder title={PAGE_TITLE} isError />;
+  if (activityListRes.data.length === 0)
     return (
       <Empty
         title={PAGE_TITLE}
@@ -34,17 +35,16 @@ const MyActivity = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      {activityListRes &&
-        activityListRes.data.map((e) => (
-          <Activity
-            name={e.name}
-            teamName={e.team_name}
-            timeDone={e.time_done}
-            time={e.time}
-            myregistration={e.myregistration}
-            key={e.id}
-          />
-        ))}
+      {activityListRes.data.map((e) => (
+        <Activity
+          name={e.name}
+          teamName={e.team_name}
+          timeDone={e.time_done}
+          time={e.time}
+          myregistration={e.myregistration}
+          key={e.id}
+        />
+      ))}
     </View>
   );
 };

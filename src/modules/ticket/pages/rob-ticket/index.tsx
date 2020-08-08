@@ -3,7 +3,11 @@ import { useContainer } from "unstated-next";
 import { navigateBack } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import dayjs from "dayjs";
-import { useQuery } from "react-query/dist/react-query.production.min";
+import {
+  useQuery,
+  useMutation,
+  useQueryCache,
+} from "react-query/dist/react-query.production.min";
 
 import PopupContext from "@/stores/popup";
 import NavBack from "@/common/components/nav-back";
@@ -20,6 +24,7 @@ const PAGE_TITLE = "在线抢票";
 
 const RobTicket = () => {
   const Popup = useContainer(PopupContext);
+  const queryCache = useQueryCache();
 
   const { data: ticketList, isLoading, isError } = useQuery(
     "robTicketListInfo",
@@ -29,13 +34,17 @@ const RobTicket = () => {
     }
   );
 
+  const [mutateRobTicket] = useMutation(robTicket, {
+    onSuccess: () => queryCache.invalidateQueries("robTicketListInfo"),
+  });
+
   const handleRobTicket = async (id: number) => {
-    const res = await robTicket(id);
+    const res = await mutateRobTicket(id);
     if (res.status === 10000) {
       Popup.show({
         img: robSuccessImg,
         title: "恭喜您！抢票成功！",
-        detail: "电影票卡卷已存入“我的”页面”我的影票“中。赶紧去领电影票吧!",
+        detail: "电影票卡卷已存入“我的”页面”我的影票“中！",
       });
     } else {
       let detail: string;
@@ -59,8 +68,8 @@ const RobTicket = () => {
   };
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
-  if (isError) return <Placeholder title={PAGE_TITLE} isError />;
-  if (ticketList && ticketList.data.length === 0)
+  if (isError || !ticketList) return <Placeholder title={PAGE_TITLE} isError />;
+  if (ticketList.data.length === 0)
     return (
       <Empty
         title={PAGE_TITLE}
@@ -73,22 +82,20 @@ const RobTicket = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      {ticketList
-        ? ticketList.data.map((e) => (
-            <Ticket
-              id={e.id}
-              playTime={dayjs(e.play_time).unix()}
-              robTime={dayjs(e.begin_time).unix()}
-              location={e.location}
-              remain={e.left}
-              image={e.image}
-              name={e.name}
-              isReceived={e.is_received}
-              onRobTicket={handleRobTicket}
-              key={e.id}
-            />
-          ))
-        : null}
+      {ticketList.data.map((e) => (
+        <Ticket
+          id={e.id}
+          playTime={dayjs(e.play_time).unix()}
+          robTime={dayjs(e.begin_time).unix()}
+          location={e.location}
+          remain={e.left}
+          image={e.image}
+          name={e.name}
+          isReceived={e.is_received}
+          onRobTicket={handleRobTicket}
+          key={e.id}
+        />
+      ))}
       <Popup.Comp />
     </View>
   );

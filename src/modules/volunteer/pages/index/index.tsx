@@ -19,8 +19,7 @@ const Volunteer = () => {
   );
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
-  if (isError || list?.status !== 10000)
-    return <Placeholder title={PAGE_TITLE} isError />;
+  if (isError || !list) return <Placeholder title={PAGE_TITLE} isError />;
   if (list.data.length === 0)
     return (
       <Empty

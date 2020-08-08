@@ -82,73 +82,69 @@ const VolunteerDetail = () => {
   };
 
   if (isLoading) return <Placeholder title="志愿报名" />;
-  if (isError) return <Placeholder title="志愿报名" isError />;
+  if (isError || !data) return <Placeholder title="志愿报名" isError />;
   return (
-    <View>
-      {data ? (
-        <View className={styles.wrapper}>
-          <NavBack title="志愿报名" background="#F6F6F9" />
-          <View className={styles.pic}>一张图片</View>
-          <View className={styles.card}>
-            <View className={styles.item1}>
-              <View className={styles.title}>
-                <View className={styles.name}>{data.data.name}</View>
-                <View className={styles.status}>招募中</View>
-              </View>
-              <View className={styles.timeWrap}>
-                <View>报名截止时间:</View>
-                <View className={styles.time}>
-                  {timestampToDateString(data.data.last_date)}
-                </View>
-              </View>
-              <View className={styles.timeWrap}>
-                <View>志愿服务时间:</View>
-                <View className={styles.time}>
-                  {timestampToDateString(data.data.date)}
-                </View>
-              </View>
-            </View>
-
-            <View className={styles.item2}>
-              <View className={styles.subTitle}>
-                <Image src={icon1} className={styles.icon} />
-                <Text>活动介绍</Text>
-              </View>
-              <View className={styles.text}>{data.data.description}</View>
-            </View>
-            <View className={styles.item2}>
-              <View className={styles.subTitle}>
-                <Image src={icon2} className={styles.icon} />
-                <Text>活动规则</Text>
-              </View>
-              <View className={styles.text}>{data.data.role}</View>
-            </View>
-            <View className={styles.item2}>
-              <View className={styles.subTitle}>
-                <Image src={icon3} className={styles.icon} />
-                <Text>活动时长</Text>
-              </View>
-              <View className={styles.text}>{data.data.hour}</View>
+    <View className={styles.wrapper}>
+      <NavBack title="志愿报名" background="#F6F6F9" />
+      <View className={styles.pic}>一张图片</View>
+      <View className={styles.card}>
+        <View className={styles.item1}>
+          <View className={styles.title}>
+            <View className={styles.name}>{data.data.name}</View>
+            <View className={styles.status}>招募中</View>
+          </View>
+          <View className={styles.timeWrap}>
+            <View>报名截止时间:</View>
+            <View className={styles.time}>
+              {timestampToDateString(data.data.last_date)}
             </View>
           </View>
-          <View />
-          <Button
-            className={styles.button}
-            onClick={() => {
-              handleShowPicker();
-            }}
-          >
-            立即报名
-          </Button>
-          <Picker
-            visible={showPicker}
-            onCancel={cancelShowPicker}
-            onOk={handleApply}
-            onTimeChange={timeChange}
-          />
-          <Popup.Comp />
+          <View className={styles.timeWrap}>
+            <View>志愿服务时间:</View>
+            <View className={styles.time}>
+              {timestampToDateString(data.data.date)}
+            </View>
+          </View>
         </View>
-      ) : null}
+
+        <View className={styles.item2}>
+          <View className={styles.subTitle}>
+            <Image src={icon1} className={styles.icon} />
+            <Text>活动介绍</Text>
+          </View>
+          <View className={styles.text}>{data.data.description}</View>
+        </View>
+        <View className={styles.item2}>
+          <View className={styles.subTitle}>
+            <Image src={icon2} className={styles.icon} />
+            <Text>活动规则</Text>
+          </View>
+          <View className={styles.text}>{data.data.role}</View>
+        </View>
+        <View className={styles.item2}>
+          <View className={styles.subTitle}>
+            <Image src={icon3} className={styles.icon} />
+            <Text>活动时长</Text>
+          </View>
+          <View className={styles.text}>{data.data.hour}</View>
+        </View>
+      </View>
+      <View />
+      <Button
+        className={styles.button}
+        onClick={() => {
+          handleShowPicker();
+        }}
+      >
+        立即报名
+      </Button>
+      <Picker
+        visible={showPicker}
+        onCancel={cancelShowPicker}
+        onOk={handleApply}
+        onTimeChange={timeChange}
+      />
+      <Popup.Comp />
     </View>
   );
 };

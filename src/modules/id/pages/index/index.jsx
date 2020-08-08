@@ -18,7 +18,7 @@ const IdIndex = () => {
   );
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
-  if (isError || idCardListRes.status !== 10000)
+  if (isError || !idCardListRes)
     return <Placeholder title={PAGE_TITLE} isError />;
 
   if (idCardListRes.identity_cards.length === 0) {

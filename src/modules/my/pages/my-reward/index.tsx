@@ -16,29 +16,20 @@ import { useContainer } from "unstated-next";
 import Reward from "../../components/reward";
 import styles from "./index.module.scss";
 import { getMyRewards, applyMyRewards } from "../../services";
-import { MyRewardsRes } from "../../services/dto";
 
 const PAGE_TITLE = "我的奖品";
 
 const MyReward = () => {
-  const cache = useQueryCache();
+  const queryCache = useQueryCache();
   const { data: myRewardListRes, isLoading, isError } = useQuery(
-    ["getMyRewards"],
+    "getMyRewards",
     getMyRewards
   );
   const Popup = useContainer(PopupContext);
   const [mutateApplyMyReward] = useMutation(applyMyRewards, {
-    onSuccess(res, id) {
+    onSuccess(res) {
       if (res.status === 10000) {
-        cache.setQueryData<MyRewardsRes>("getMyRewards", (oldRes) => {
-          if (!oldRes) return;
-          return {
-            ...oldRes,
-            prizes: oldRes.prizes.map((p) =>
-              p.activity_id === id ? { ...p, is_received: 1 } : p
-            ),
-          };
-        });
+        queryCache.invalidateQueries("getMyRewards");
       } else {
         const hide = Popup.show({
           title: "领取失败",
@@ -75,8 +66,9 @@ const MyReward = () => {
   };
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
-  if (isError) return <Placeholder title={PAGE_TITLE} isError />;
-  if (myRewardListRes?.prizes.length === 0)
+  if (isError || !myRewardListRes)
+    return <Placeholder title={PAGE_TITLE} isError />;
+  if (myRewardListRes.prizes.length === 0)
     return (
       <Empty
         title={PAGE_TITLE}
@@ -89,21 +81,20 @@ const MyReward = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      {myRewardListRes &&
-        myRewardListRes.prizes.map((e) => (
-          <Reward
-            activityName={e.activity_name}
-            name={e.name}
-            level={e.level}
-            location={e.location}
-            beginTime={e.time_begin}
-            endTime={e.time_end}
-            organizer={e.organizers}
-            isReceived={e.is_received}
-            key={e.activity_id}
-            apply={() => handleReceiveReward(e.activity_id)}
-          />
-        ))}
+      {myRewardListRes.prizes.map((e) => (
+        <Reward
+          activityName={e.activity_name}
+          name={e.name}
+          level={e.level}
+          location={e.location}
+          beginTime={e.time_begin}
+          endTime={e.time_end}
+          organizer={e.organizers}
+          isReceived={e.is_received}
+          key={e.activity_id}
+          apply={() => handleReceiveReward(e.activity_id)}
+        />
+      ))}
     </View>
   );
 };

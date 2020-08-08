@@ -43,9 +43,10 @@ export default function Index() {
   );
 
   const renderHomeActivityList = () => {
-    if (isError) return <Placeholder isError={isError} />;
     if (isLoading) return <Placeholder />;
-    return homeActivityListRes && homeActivityListRes.data.length !== 0 ? (
+    if (isError || !homeActivityListRes)
+      return <Placeholder isError={isError} />;
+    return homeActivityListRes.data.length !== 0 ? (
       homeActivityListRes.data.map((e) => (
         <RecentActivity
           name={e.name}

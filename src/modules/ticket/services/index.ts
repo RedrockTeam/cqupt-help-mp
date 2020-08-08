@@ -16,3 +16,11 @@ export const robTicket = (id: number) =>
 
 export const getMyTicketList = (_key: string) =>
   request<MyTicketListRes>("/cyb-secondKill/ticket/myTicket");
+
+export const checkTicket = (id: number) =>
+  request("/cyb-secondKill/ticket/updateEffective", {
+    method: "POST",
+    data: {
+      product_id: id,
+    },
+  });
