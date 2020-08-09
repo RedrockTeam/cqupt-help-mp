@@ -9,7 +9,7 @@ export default {
     resolvePage("campus", "safe-run"),
     resolvePage("campus", "safe-run-history"),
     resolvePage("campus", "shark-it"),
-    resolvePage("volunteer", "entry"),
+    resolvePage("volunteer", "bind"),
     resolvePage("volunteer", "index"),
     resolvePage("volunteer", "detail"),
     resolvePage("ticket", "rob-ticket"),

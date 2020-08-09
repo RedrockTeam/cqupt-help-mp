@@ -17,6 +17,10 @@ import { redirectTo, showActionSheet } from "@tarojs/taro";
 import Empty from "@/common/components/empty";
 import { resolvePage } from "@/common/helpers/utils";
 import { SwiperProps } from "@tarojs/components/types/Swiper";
+import PopupContext from "@/stores/popup";
+import robSuccessImg from "@/static/images/rob-success.png";
+import error from "@/static/images/error.png";
+import { useContainer } from "unstated-next";
 import styles from "./index.module.scss";
 import OwedTicket from "../../components/owed-ticket";
 import { getMyTicketList, checkTicket } from "../../services";
@@ -24,6 +28,7 @@ import { getMyTicketList, checkTicket } from "../../services";
 const PAGE_TITLE = "我的影票";
 
 const MyTicket = () => {
+  const Popup = useContainer(PopupContext);
   const { data: myTicketListRes, isLoading, isError } = useQuery(
     "getMyTiketList",
     getMyTicketList
@@ -41,7 +46,29 @@ const MyTicket = () => {
     });
     if (res.tapIndex === 0) {
       if (!myTicketListRes) return;
-      await mutateCheckTicket(myTicketListRes.data[current].id);
+      try {
+        const res = await mutateCheckTicket(myTicketListRes.data[current].id);
+        if (res.status === 200) {
+          // 憨批后端
+          Popup.show({
+            img: robSuccessImg,
+            title: "恭喜您！验票成功！",
+            detail: "快去看电影吧～",
+          });
+        } else {
+          Popup.show({
+            img: error,
+            title: "验票失败...",
+            detail: "错误",
+          });
+        }
+      } catch (e) {
+        Popup.show({
+          img: error,
+          title: "验票失败...",
+          detail: "网络错误",
+        });
+      }
     }
   };
   const [current, setCurrent] = useState(0);

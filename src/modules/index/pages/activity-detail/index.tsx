@@ -30,7 +30,8 @@ const AcDetail = () => {
         name: params.name,
         time: params.time,
       });
-      if (res.status === 10000) {
+      if (res.status === 200) {
+        // 憨批后端
         const hide = Popup.show({
           title: "报名成功",
         });

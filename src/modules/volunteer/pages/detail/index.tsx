@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Image, Text, Button } from "@tarojs/components";
-import { redirectTo, useRouter } from "@tarojs/taro";
-import { resolvePage } from "@/common/helpers/utils";
+import { useRouter, navigateBack } from "@tarojs/taro";
 import { timestampToDateString } from "@/common/helpers/date";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
@@ -44,7 +43,7 @@ const VolunteerDetail = () => {
         });
         setTimeout(() => {
           hide();
-          redirectTo({ url: resolvePage("volunteer", "index") });
+          navigateBack();
         }, 3000);
       } else {
         const hide = Popup.show({

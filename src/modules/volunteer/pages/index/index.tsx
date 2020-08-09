@@ -6,17 +6,29 @@ import { resolvePage, navTo } from "@/common/helpers/utils";
 import { gapDay } from "@/common/helpers/date";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import Empty from "@/common/components/empty";
-import { navigateBack } from "@tarojs/taro";
-import { getVolunteerActivityListInfo } from "../../services";
+import { navigateBack, redirectTo } from "@tarojs/taro";
+import { getVolunteerActivityListInfo, checkIsVolunteer } from "../../services";
 import styles from "./index.module.scss";
 
 const PAGE_TITLE = "志愿报名";
 
 const Volunteer = () => {
+  const { data: isVolunteerRes } = useQuery(
+    "checkIsVolunteer",
+    checkIsVolunteer
+  );
   const { data: list, isLoading, isError } = useQuery(
     "getVolunteerActivityListInfo",
     getVolunteerActivityListInfo
   );
+  if (!isVolunteerRes) {
+    return <Placeholder title="志愿报名" />;
+  }
+  if (isVolunteerRes.status === 10000) {
+    if (!isVolunteerRes.exist) {
+      redirectTo({ url: resolvePage("volunteer", "bind") });
+    }
+  }
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !list) return <Placeholder title={PAGE_TITLE} isError />;

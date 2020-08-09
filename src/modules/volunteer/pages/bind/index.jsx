@@ -2,22 +2,13 @@ import React, { useState } from "react";
 import { redirectTo } from "@tarojs/taro";
 import { View, Text, Button, Input } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
-import {
-  useQuery,
-  useMutation,
-} from "react-query/dist/react-query.production.min";
+import { useMutation } from "react-query/dist/react-query.production.min";
 import { resolvePage } from "@/common/helpers/utils";
-import Placeholder from "@/common/components/placeholder";
 import styles from "./index.module.scss";
 import Popup from "../../components/popup";
-import { checkIsVolunteer, loginVolunteer } from "../../services";
+import { loginVolunteer } from "../../services";
 
-const VolunteerEntry = () => {
-  const { data: isVolunteerRes } = useQuery(
-    "checkIsVolunteer",
-    checkIsVolunteer
-  );
-
+const VolunteerBind = () => {
   const [mutateBindVolunteer] = useMutation(loginVolunteer);
   const [phone, setPhone] = useState();
   const [idCardNum, setIdCardNum] = useState();
@@ -70,15 +61,6 @@ const VolunteerEntry = () => {
     }
   };
 
-  if (!isVolunteerRes) {
-    return <Placeholder title="志愿报名" />;
-  }
-  if (isVolunteerRes.status === 10000) {
-    if (isVolunteerRes.exist) {
-      redirectTo({ url: resolvePage("volunteer", "index") });
-      return null;
-    }
-  }
   return (
     <View>
       <View className={styles.wrapper}>
@@ -141,4 +123,4 @@ const VolunteerEntry = () => {
   );
 };
 
-export default VolunteerEntry;
+export default VolunteerBind;
