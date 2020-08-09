@@ -9,16 +9,16 @@ import icon1 from "@/static/images/volunteer-icon1.png";
 import icon2 from "@/static/images/volunteer-icon2.png";
 import icon3 from "@/static/images/volunteer-icon3.png";
 import wait from "@/static/images/wait.png";
-
-import { useQuery } from "react-query/dist/react-query.production.min";
-import { useMutation } from "react-query";
+import {
+  useQuery,
+  useMutation,
+} from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
 import Picker from "../../components/picker/index";
 import {
   getVolunteerActivityDetail,
   applyVolunteerActivity,
 } from "../../services";
-
 import styles from "./index.module.scss";
 
 const VolunteerDetail = () => {

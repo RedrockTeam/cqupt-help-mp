@@ -2,11 +2,9 @@
 
 重邮帮小程序
 
-- [ ] 首页活动报名
-
-- [ ] Loading、Error、缺省页的优化
-
 - [ ] 问题反馈接口
+
+- [ ] 完善样式，过渡动画，UX
 
 - [ ] 重构优化
 
@@ -23,63 +21,64 @@
 ├── config
 │   ├── dev.js
 │   ├── index.js
-│   └── prod.js
+│   ├── prod.js
+│   └── upload.js # 小程序 CI
 ├── global.d.ts
 ├── package.json
 ├── project.config.json
 ├── src
 │   ├── app.config.ts
 │   ├── app.scss
-│   ├── app.ts
+│   ├── app.tsx
 │   ├── common
 │   │   ├── components
-│   │   │   ├── nav-back
-│   │   │   │   └── index.tsx
-│   │   │   └── primary-button
-│   │   │       ├── index.module.scss
-│   │   │       └── index.tsx
 │   │   ├── constants
 │   │   └── helpers
-│   │       └── date.ts
 │   ├── index.html
 │   ├── modules
-│   │   ├── my-activity
+│   │   ├── campus
 │   │   │   ├── components
-│   │   │   │   └── activity
-│   │   │   │       ├── index.module.scss
-│   │   │   │       └── index.tsx
+│   │   │   ├── pages
+│   │   │   │   ├── index
+│   │   │   │   ├── safe-run
+│   │   │   │   ├── safe-run-away
+│   │   │   │   ├── safe-run-history
+│   │   │   │   └── shark-it
+│   │   │   └── services
+│   │   ├── feedback
 │   │   │   └── pages
-│   │   │       └── index
-│   │   │           ├── index.config.ts
-│   │   │           ├── index.module.scss
-│   │   │           └── index.tsx
-│   │   ├── my-reward
-│   │   │   ├── components
-│   │   │   │   └── reward
-│   │   │   │       ├── index.module.scss
-│   │   │   │       └── index.tsx
+│   │   │       ├── index
+│   │   │       └── result
+│   │   ├── id
 │   │   │   └── pages
+│   │   │       ├── apply
 │   │   │       └── index
-│   │   │           ├── index.config.ts
-│   │   │           ├── index.module.scss
-│   │   │           └── index.tsx
-│   │   └── volunteer
-│   │       └── pages
-│   │           ├── detail
-│   │           │   ├── index.config.ts
-│   │           │   ├── index.jsx
-│   │           │   └── index.module.scss
-│   │           ├── entry
-│   │           │   ├── index.config.ts
-│   │           │   ├── index.jsx
-│   │           │   └── index.module.scss
-│   │           └── index
-│   │               ├── index.config.ts
-│   │               ├── index.jsx
-│   │               └── index.module.scss
-│   └── static
-│       ├── images
-│       └── styles
+│   │   ├── index
+│   │   │   └── pages
+│   │   │       ├── activity-detail
+│   │   │       ├── bind
+│   │   │       └── home
+│   │   ├── my
+│   │   │   └── pages
+│   │   │       ├── index
+│   │   │       ├── my-activity
+│   │   │       └── my-reward
+│   │   ├── ticket
+│   │   │   └── pages
+│   │   │       ├── my-ticket
+│   │   │       └── rob-ticket
+│   │   ├── volunteer
+│   │   │   └── pages
+│   │   │       ├── bind
+│   │   │       ├── detail
+│   │   │       └── index
+│   │   └── webview
+│   ├── static
+│   │   ├── images
+│   │   └── styles
+│   └── stores
+│       ├── popup.tsx # 命令式 popup 组件
+│       └── user.tsx # 用户信息
 ├── tsconfig.json
 └── yarn.lock
 ```
@@ -110,13 +109,11 @@
 
 ## 注意
 
-1. 大部分页面底色都是 `#F6F6F9`，所以全局样式 `page` 设置了 `min-height` 和 `background-color`，有个别页面底色是白色需要自己设置 `wrapper` 样式
+1. 大部分页面底色都是 `#F6F6F9`，所以全局样式 `page` 设置了 `min-height` 和 `background-color`，有个别页面底色是白色需要自己设置样式
 
-2. 目前我的奖品的缺省页、我的活动的缺省页、影票的缺省页都是一样的，考虑三个页面并不耦合并且之后可能会改，目前先分别写了一遍，之后可以考虑抽离成组件，内部进行判断再渲染对应页面缺省页
+2. 由于编写时自定义 navbar 使用的库 `taro-navigationbar` 并没有支持 taro3，所以自己 fork 了一份发布到 npm 上，名为 `taro3-navigationbar`，等之后作者支持了可以更换回去。同时编译警告 `chunk common [mini-css-extract-plugin] Conflicting order between: ...` 因为 scss 引入顺序问题冲突，并无大碍，目前 taro 官方 issue 也有提到，之后再完善
 
-3. 由于编写时自定义 navbar 使用的库 `taro-navigationbar` 并没有支持 taro3，所以自己 fork 了一份发布到 npm 上，名为 `taro3-navigationbar`，等之后作者支持了可以更换回去。同时编译警告 `chunk common [mini-css-extract-plugin] Conflicting order between: ...` 因为 scss 引入顺序问题冲突，并无大碍，目前 taro 官方 issue 也有提到，之后再完善
-
-4. 请求库使用了 react-query，由于 taro 在小程序环境下 webpack providePlugin 跳过 .mjs 文件，导致 react-query 所需要的全局变量的丢失，所以需要
+3. 请求库使用了 react-query，由于 taro 在小程序环境下 webpack providePlugin 跳过 .mjs 文件，导致 react-query 所需要的全局变量的丢失，所以需要
 
    ```ts
    import { useQuery } from "react-query/dist/react-query.production.min";
@@ -130,7 +127,7 @@
    }
    ```
 
-5. popup 通过 context 进行封装，可以通过命令式调用弹出
+4. popup 通过 context 进行封装，可以通过命令式调用弹出
 
    ```ts
    const Popup = useContainer(PopupContext);
@@ -150,4 +147,4 @@
 
    这是因为 taro 通过 App 的 props.children 注入页面，类似于伪代码 `<App children={<page>{loadPage(globalConfig.pages[0])}</page>} />` 而 page 之外的会忽略，所以不能只声明一个 Popup 组件，需要在每个页面都声明一遍
 
-6. 由于小程序访问元素位置为异步 API，因此小程序中无法使用 react-transition-group，volunteer/picker 的过渡动画手写实现，也可以考虑 react-spring
+5. 由于小程序访问元素位置为异步 API，因此小程序中无法使用 react-transition-group，volunteer/picker 的过渡动画手写实现，也可以考虑 react-spring

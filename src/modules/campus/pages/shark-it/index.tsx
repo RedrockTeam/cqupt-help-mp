@@ -7,7 +7,7 @@ import eatOn from "@/static/images/eat-on.png";
 import eat from "@/static/images/eat.png";
 import drinkOn from "@/static/images/drink-on.png";
 import drink from "@/static/images/drink.png";
-import Popup from "./components/index";
+import Popup from "../../components/popup";
 
 import styles from "./index.module.scss";
 
