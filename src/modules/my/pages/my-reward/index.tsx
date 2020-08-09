@@ -41,7 +41,7 @@ const MyReward = () => {
         }, 3000);
       }
     },
-    onError(e) {
+    onError() {
       const hide = Popup.show({
         title: "领取失败",
         detail: "网络错误",
@@ -57,6 +57,7 @@ const MyReward = () => {
     const res = await Taro.showActionSheet({
       itemList: ["确定"],
       fail(e) {
+        // eslint-disable-next-line no-console
         console.log(e);
       },
     });

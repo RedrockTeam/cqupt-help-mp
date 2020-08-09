@@ -41,6 +41,7 @@ const MyTicket = () => {
     const res = await showActionSheet({
       itemList: ["确定"],
       fail(e) {
+        // eslint-disable-next-line no-console
         console.log(e);
       },
     });

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import runImg from "@/static/images/run-icon.png";
-import iceCreamImg from "@/static/images/ice-cream-icon.png";
+// import iceCreamImg from "@/static/images/ice-cream-icon.png";
 import { resolvePage } from "@/common/helpers/utils";
 import Card from "../../components/card";
 import styles from "./index.module.scss";

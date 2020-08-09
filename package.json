@@ -26,7 +26,8 @@
     "dev:rn": "npm run build:rn -- --watch",
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
-    "dev:quickapp": "npm run build:quickapp -- --watch"
+    "dev:quickapp": "npm run build:quickapp -- --watch",
+    "upload": "node ./config/upload.js"
   },
   "browserslist": [
     "last 3 versions",
@@ -43,6 +44,7 @@
     "@welldone-software/why-did-you-render": "^4.2.7",
     "Base64": "^1.1.0",
     "dayjs": "^1.8.30",
+    "miniprogram-ci": "^1.0.60",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
     "react-query": "^2.5.11",

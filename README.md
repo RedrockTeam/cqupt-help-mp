@@ -149,3 +149,5 @@
    ```
 
    这是因为 taro 通过 App 的 props.children 注入页面，类似于伪代码 `<App children={<page>{loadPage(globalConfig.pages[0])}</page>} />` 而 page 之外的会忽略，所以不能只声明一个 Popup 组件，需要在每个页面都声明一遍
+
+6. 由于小程序访问元素位置为异步 API，因此小程序中无法使用 react-transition-group，volunteer/picker 的过渡动画手写实现，也可以考虑 react-spring

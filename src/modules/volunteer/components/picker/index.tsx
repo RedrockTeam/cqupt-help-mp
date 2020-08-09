@@ -19,13 +19,15 @@ type Props = {
 };
 
 const Picker = ({ visible, onCancel, onOk, onTimeChange }: Props) => {
-  // const onTimeChange = (e) => {
-  //   console.log(e.detail);
-  // };
-
-  return visible ? (
-    <View className={styles.mask}>
-      <View className={styles.verify}>
+  return (
+    <View
+      className={`${styles.mask} ${
+        visible ? styles.maskShow : styles.maskHide
+      }`}
+    >
+      <View
+        className={`${styles.verify} ${visible ? styles.show : styles.hide}`}
+      >
         <View className={styles.vTop}>
           <View className={styles.vTitle}>选择时间</View>
           <Image src={cancel} className={styles.vIcon} onClick={onCancel} />
@@ -52,7 +54,7 @@ const Picker = ({ visible, onCancel, onOk, onTimeChange }: Props) => {
         </Button>
       </View>
     </View>
-  ) : null;
+  );
 };
 
 export default Picker;

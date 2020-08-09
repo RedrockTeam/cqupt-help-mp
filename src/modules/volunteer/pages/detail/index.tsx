@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { View, Image, Text, Button } from "@tarojs/components";
+import React, { useState, Fragment } from "react";
+import { View, Image, Text, Button, ITouchEvent } from "@tarojs/components";
 import { useRouter, navigateBack } from "@tarojs/taro";
-import { timestampToDateString } from "@/common/helpers/date";
+import { timestampToDateString, now } from "@/common/helpers/date";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
@@ -53,7 +53,7 @@ const VolunteerDetail = () => {
         setTimeout(() => hide(), 3000);
       }
     },
-    onError(e) {
+    onError() {
       const hide = Popup.show({
         title: "申请失败",
         detail: "网络错误",
@@ -75,7 +75,7 @@ const VolunteerDetail = () => {
     setShowPicker(false);
   };
 
-  const timeChange = (e) => {
+  const timeChange = (e: ITouchEvent) => {
     const timePart = e.detail.value[0];
     setSelectTime(timePart);
   };
@@ -129,20 +129,24 @@ const VolunteerDetail = () => {
         </View>
       </View>
       <View />
-      <Button
-        className={styles.button}
-        onClick={() => {
-          handleShowPicker();
-        }}
-      >
-        立即报名
-      </Button>
-      <Picker
-        visible={showPicker}
-        onCancel={cancelShowPicker}
-        onOk={handleApply}
-        onTimeChange={timeChange}
-      />
+      {data.data.last_date > now() ? (
+        <Fragment>
+          <Button
+            className={styles.button}
+            onClick={() => {
+              handleShowPicker();
+            }}
+          >
+            立即报名
+          </Button>
+          <Picker
+            visible={showPicker}
+            onCancel={cancelShowPicker}
+            onOk={handleApply}
+            onTimeChange={timeChange}
+          />
+        </Fragment>
+      ) : null}
       <Popup.Comp />
     </View>
   );
