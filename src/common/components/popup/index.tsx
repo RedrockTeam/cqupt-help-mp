@@ -12,8 +12,8 @@ export type Props = {
 };
 
 const Popup = ({ isShow, img, title, detail, bottom, className }: Props) => {
-  return isShow ? (
-    <View className={styles.wrapper}>
+  return (
+    <View className={`${styles.wrapper} ${isShow ? styles.show : styles.hide}`}>
       <View className={`${styles.content} ${className}`}>
         {img ? (
           <Image src={img} mode="aspectFit" className={styles.img} />
@@ -23,7 +23,7 @@ const Popup = ({ isShow, img, title, detail, bottom, className }: Props) => {
         {bottom}
       </View>
     </View>
-  ) : null;
+  );
 };
 
 export default Popup;
