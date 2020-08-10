@@ -5,6 +5,7 @@ const resolvePage = (module: string, page: string) =>
 export default {
   pages: [
     resolvePage("index", "home"),
+    resolvePage("index", "activity-detail"),
     resolvePage("campus", "index"),
     resolvePage("campus", "safe-run"),
     resolvePage("campus", "safe-run-history"),
@@ -16,14 +17,13 @@ export default {
     resolvePage("id", "index"),
     resolvePage("id", "apply"),
     resolvePage("my", "index"),
-    resolvePage("ticket", "my-ticket"),
     resolvePage("my", "my-activity"),
     resolvePage("my", "my-reward"),
+    resolvePage("ticket", "my-ticket"),
     resolvePage("feedback", "index"),
     resolvePage("feedback", "result"),
-    resolvePage("index", "bind"),
-    resolvePage("index", "activity-detail"),
 
+    resolvePage("index", "bind"),
     "modules/webview/index",
   ],
   window: {

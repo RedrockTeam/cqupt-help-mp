@@ -13,7 +13,7 @@ import passwordIcon from "@/static/images/password-icon.png";
 import passwordTitleIcon from "@/static/images/password-title-icon.png";
 import accountIcon from "@/static/images/account-icon.png";
 import { useMutation } from "react-query";
-import { switchTab } from "@tarojs/taro";
+import { switchTab, requestSubscribeMessage, showModal } from "@tarojs/taro";
 import { resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
 import styles from "./index.module.scss";
@@ -44,8 +44,22 @@ const Bind = () => {
         });
         setTimeout(() => hide(), 3000);
       } else {
-        switchTab({ url: resolvePage("index", "home") });
-        return null;
+        requestSubscribeMessage({
+          tmplIds: [
+            "fM1Jx8XieAXy4VGNHCptnVTlwLjcT-tr0adXY9w9rU8",
+            "RzdGZvkrZCXjIepcPzjfLYugkckhKLxVW9WClFJhZ3Q",
+          ],
+          complete() {
+            showModal({
+              title: "提示",
+              content: "之后可以点击右上角进入设置进行修改",
+              showCancel: false,
+              success() {
+                switchTab({ url: resolvePage("index", "home") });
+              },
+            });
+          },
+        });
       }
     } catch (e) {
       const hide = Popup.show({
