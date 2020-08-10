@@ -4,6 +4,7 @@ import { View, Text, Button, Input } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import { resolvePage } from "@/common/helpers/utils";
+import error from "@/static/images/error.png";
 import styles from "./index.module.scss";
 import Popup from "../../components/popup";
 import { loginVolunteer } from "../../services";
@@ -56,6 +57,7 @@ const VolunteerBind = () => {
       const hide = Popup.show({
         title: "登录失败",
         detail: "网络错误",
+        img: error,
       });
       setTimeout(() => hide(), 3000);
     }

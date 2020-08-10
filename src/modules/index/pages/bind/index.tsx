@@ -11,6 +11,7 @@ import { useContainer } from "unstated-next";
 import PrimaryButton from "@/common/components/primary-button";
 import passwordIcon from "@/static/images/password-icon.png";
 import passwordTitleIcon from "@/static/images/password-title-icon.png";
+import error from "@/static/images/error.png";
 import accountIcon from "@/static/images/account-icon.png";
 import { useMutation } from "react-query";
 import { switchTab, requestSubscribeMessage, showModal } from "@tarojs/taro";
@@ -65,6 +66,7 @@ const Bind = () => {
       const hide = Popup.show({
         title: "登录失败",
         detail: "网络错误",
+        img: error,
       });
       setTimeout(() => hide(), 3000);
     }

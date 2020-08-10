@@ -52,6 +52,7 @@ const SafeRunAway = ({ number, plate, saveTime }: Props) => {
           }, 3000);
         } else {
           const hide = Popup.show({
+            img: error,
             title: "取包失败",
             detail: "请稍后再试",
           });

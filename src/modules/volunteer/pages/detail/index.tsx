@@ -8,7 +8,9 @@ import NavBack from "@/common/components/nav-back";
 import icon1 from "@/static/images/volunteer-icon1.png";
 import icon2 from "@/static/images/volunteer-icon2.png";
 import icon3 from "@/static/images/volunteer-icon3.png";
+import error from "@/static/images/error.png";
 import wait from "@/static/images/wait.png";
+import volunteerImg from "@/static/images/volunteer-img.jpeg";
 import {
   useQuery,
   useMutation,
@@ -49,6 +51,7 @@ const VolunteerDetail = () => {
         const hide = Popup.show({
           title: "申请失败",
           detail: "错误",
+          img: error,
         });
         setTimeout(() => hide(), 3000);
       }
@@ -57,6 +60,7 @@ const VolunteerDetail = () => {
       const hide = Popup.show({
         title: "申请失败",
         detail: "网络错误",
+        img: error,
       });
       setTimeout(() => hide(), 3000);
     },
@@ -85,7 +89,7 @@ const VolunteerDetail = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title="志愿报名" background="#F6F6F9" />
-      <View className={styles.pic}>一张图片</View>
+      <Image className={styles.pic} mode="aspectFill" src={volunteerImg} />
       <View className={styles.card}>
         <View className={styles.item1}>
           <View className={styles.title}>

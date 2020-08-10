@@ -24,15 +24,19 @@ const SafeRun = () => {
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();
 
-  // useEffect(() => {
-  //   if (!isOpen()) {
-  //     Popup.show({
-  //       title: "温馨提示",
-  //       detail: "请在20点到22点之间使用该功能~",
-  //       img: waitImg,
-  //     });
-  //   }
-  // }, [Popup]);
+  useEffect(() => {
+    let hide: undefined | (() => void);
+    if (!isOpen()) {
+      hide = Popup.show({
+        title: "温馨提示",
+        detail: "请在20点到22点之间使用该功能~",
+        img: waitImg,
+      });
+    }
+    return () => {
+      if (hide) hide();
+    };
+  }, [Popup]);
 
   const [mutateScan] = useMutation(getScan, {
     onSuccess: (res) => {

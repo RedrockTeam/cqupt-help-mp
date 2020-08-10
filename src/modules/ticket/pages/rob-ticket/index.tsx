@@ -41,11 +41,12 @@ const RobTicket = () => {
   const handleRobTicket = async (id: number) => {
     const res = await mutateRobTicket(id);
     if (res.status === 10000) {
-      Popup.show({
+      const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！抢票成功！",
         detail: "电影票卡卷已存入“我的”页面”我的影票“中！",
       });
+      setTimeout(() => hide(), 3000);
     } else {
       let detail: string;
       if (res.status === 10004) {
@@ -59,11 +60,12 @@ const RobTicket = () => {
       } else {
         detail = "出错了...";
       }
-      Popup.show({
+      const hide = Popup.show({
         img: error,
         title: "抢票失败...",
         detail,
       });
+      setTimeout(() => hide(), 3000);
     }
   };
 

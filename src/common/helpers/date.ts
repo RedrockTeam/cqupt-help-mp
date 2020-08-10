@@ -61,6 +61,6 @@ export const isOpen = () => {
  * "2020-08-06T05:55:11Z" => "2020.08.06 13:55"
  */
 
-export const timestampToTimeString = (param) => {
+export const timestampToTimeString = (param: number) => {
   return dayjs.unix(param).format("YYYY.MM.DD HH:mm");
 };

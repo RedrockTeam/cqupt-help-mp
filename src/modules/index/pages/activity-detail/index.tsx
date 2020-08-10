@@ -34,6 +34,16 @@ const AcDetail = () => {
         // 憨批后端
         const hide = Popup.show({
           title: "报名成功",
+          img: error,
+        });
+        setTimeout(() => {
+          hide();
+        }, 3000);
+      } else {
+        const hide = Popup.show({
+          title: "报名失败",
+          detail: "错误",
+          img: error,
         });
         setTimeout(() => {
           hide();
@@ -42,7 +52,7 @@ const AcDetail = () => {
     } catch (e) {
       const hide = Popup.show({
         title: "报名失败",
-        detail: "错误",
+        detail: "网络错误",
         img: error,
       });
       setTimeout(() => {

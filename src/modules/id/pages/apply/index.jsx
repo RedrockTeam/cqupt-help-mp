@@ -37,6 +37,7 @@ const Apply = () => {
         const hide = Popup.show({
           title: "申请失败",
           detail: "请稍后再试",
+          img: error,
         });
         setTimeout(() => hide(), 3000);
       }

@@ -51,24 +51,27 @@ const MyTicket = () => {
         const res = await mutateCheckTicket(myTicketListRes.data[current].id);
         if (res.status === 200) {
           // 憨批后端
-          Popup.show({
+          const hide = Popup.show({
             img: robSuccessImg,
             title: "恭喜您！验票成功！",
             detail: "快去看电影吧～",
           });
+          setTimeout(() => hide(), 3000);
         } else {
-          Popup.show({
+          const hide = Popup.show({
             img: error,
             title: "验票失败...",
             detail: "错误",
           });
+          setTimeout(() => hide(), 3000);
         }
       } catch (e) {
-        Popup.show({
+        const hide = Popup.show({
           img: error,
           title: "验票失败...",
           detail: "网络错误",
         });
+        setTimeout(() => hide(), 3000);
       }
     }
   };
