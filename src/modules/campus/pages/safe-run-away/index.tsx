@@ -14,7 +14,7 @@ import success from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
 import { plates } from "@/common/constants";
 import { useMutation } from "react-query";
-import { ToDateString } from "@/common/helpers/date";
+import { timestampToTimeString } from "@/common/helpers/date";
 import { returnPlate, getStatus } from "../../services";
 import styles from "./index.module.scss";
 
@@ -44,12 +44,12 @@ const SafeRunAway = ({ number, plate, saveTime }: Props) => {
           const hide = Popup.show({
             img: success,
             title: "取包成功",
-            detail: "5s之后自动返回",
+            detail: "3s之后自动返回",
           });
           setTimeout(() => {
             hide();
             switchTab({ url: resolvePage("index", "home") });
-          }, 5000);
+          }, 3000);
         } else {
           const hide = Popup.show({
             title: "取包失败",
@@ -61,7 +61,7 @@ const SafeRunAway = ({ number, plate, saveTime }: Props) => {
       } catch (e) {
         const hide = Popup.show({
           img: error,
-          title: "登录失败",
+          title: "取包失败",
           detail: "网络错误",
         });
         setTimeout(() => hide(), 3000);
@@ -84,7 +84,7 @@ const SafeRunAway = ({ number, plate, saveTime }: Props) => {
         </View>
         <View className={styles.text}>
           <Image mode="aspectFit" src={locateIcon} className={styles.icon} />
-          {ToDateString(saveTime)} 存
+          {timestampToTimeString(saveTime)} 存
         </View>
       </View>
       <PrimaryButton className={styles.btn} onClick={handleTakeBag}>

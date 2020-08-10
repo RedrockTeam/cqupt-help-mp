@@ -5,6 +5,7 @@ import { useQuery } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
 import Empty from "@/common/components/empty";
 import { navigateBack } from "@tarojs/taro";
+import dayjs from "dayjs";
 import { getHistory } from "../../services";
 import styles from "./index.module.scss";
 import RunHistory from "../../components/run-history";
@@ -38,7 +39,7 @@ const SafeRunHistory = () => {
         <RunHistory
           key={e.save_time}
           num={e.id}
-          takeTime={e.take_time}
+          takeTime={dayjs(e.take_time).unix()}
           location={e.location}
         />
       ))}

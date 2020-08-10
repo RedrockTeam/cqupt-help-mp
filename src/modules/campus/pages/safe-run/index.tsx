@@ -1,42 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "@tarojs/components";
-import Taro, { redirectTo } from "@tarojs/taro";
+import { scanCode } from "@tarojs/taro";
 import NavBack from "@/common/components/nav-back";
 import PrimaryButton from "@/common/components/primary-button";
 import {
   useQuery,
   useMutation,
+  useQueryCache,
 } from "react-query/dist/react-query.production.min";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { isOpen } from "@/common/helpers/date";
-import Popup from "@/common/components/popup";
 import waitImg from "@/static/images/wait.png";
 import Placeholder from "@/common/components/placeholder";
 import dayjs from "dayjs";
+import PopupContext from "@/stores/popup";
+import { useContainer } from "unstated-next";
 import { getScan, getStatus } from "../../services/index";
 
 import styles from "./index.module.scss";
 import SafeRunAway from "../safe-run-away";
 
 const SafeRun = () => {
-  const [fullShow, setFullShow] = useState(false); // 号码牌是否用完
-  const [timeShow, setTimeShow] = useState(false); // 是否到可取时间
+  const Popup = useContainer(PopupContext);
+  const queryCache = useQueryCache();
 
   // useEffect(() => {
   //   if (!isOpen()) {
-  //     setTimeShow(true);
+  //     Popup.show({
+  //       title: "温馨提示",
+  //       detail: "请在20点到22点之间使用该功能~",
+  //       img: waitImg,
+  //     });
   //   }
-  // }, []);
+  // }, [Popup]);
 
   const [mutateScan] = useMutation(getScan, {
     onSuccess: (res) => {
-      if (res.status === 1000) {
-        if (res.plate_num.indexOf("-1")) {
-          setFullShow(true);
-        } else {
-          redirectTo({
-            url: resolvePage("campus", "safe-run"),
+      if (res.status === 10000) {
+        if (res.plate_num.includes("-1")) {
+          const hide = Popup.show({
+            detail: "号码牌已发完,请耐心等待！",
+            img: waitImg,
           });
+          setTimeout(() => hide(), 3000);
+        } else {
+          queryCache.invalidateQueries("getStatus");
         }
       }
     },
@@ -51,9 +59,9 @@ const SafeRun = () => {
   };
 
   const scan = async () => {
-    Taro.scanCode({
-      success({ result }) {
-        const res = mutateScan(result);
+    scanCode({
+      async success({ result }) {
+        await mutateScan(result);
       },
     });
   };
@@ -94,18 +102,7 @@ const SafeRun = () => {
           3.我们将在十点10之前离开互跑点，每个点会留一位志愿者看管未取走的包裹直到晚上10点15，若逾期仍未取消，并出现包丢失的情况，青协将不承担任何责任，望大家理解。
         </Text>
       </View>
-      <Popup
-        title="温馨提示"
-        detail="请在20点到22点之间使用该功能~"
-        img={waitImg}
-        isShow={timeShow}
-        className={styles.popup}
-      />
-      <Popup
-        img={waitImg}
-        detail="号码牌已发完,请耐心等待！"
-        isShow={fullShow}
-      />
+      <Popup.Comp />
     </View>
   );
 };

@@ -17,7 +17,10 @@ showModal({
   success(res) {
     if (res.confirm) {
       requestSubscribeMessage({
-        tmplIds: ["fM1Jx8XieAXy4VGNHCptnVTlwLjcT-tr0adXY9w9rU8"],
+        tmplIds: [
+          "fM1Jx8XieAXy4VGNHCptnVTlwLjcT-tr0adXY9w9rU8",
+          "RzdGZvkrZCXjIepcPzjfLYugkckhKLxVW9WClFJhZ3Q",
+        ],
       });
     } else if (res.cancel) {
       console.log("用户点击取消");

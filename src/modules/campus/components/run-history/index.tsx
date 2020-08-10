@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text } from "@tarojs/components";
 import { plates } from "@/common/constants";
-import { ToDateString } from "@/common/helpers/date";
+import { timestampToTimeString } from "@/common/helpers/date";
+import dayjs from "dayjs";
 import styles from "./index.module.scss";
 
 type Props = {
   num: number;
-  takeTime: string;
+  takeTime: number;
   location: string;
 };
 
@@ -23,7 +24,9 @@ const RunHistory = ({ num, location, takeTime }: Props) => {
             {plates[location]} {num}号点
           </Text>
         </View>
-        <View className={styles.time}>{ToDateString(takeTime)}取</View>
+        <View className={styles.time}>
+          {timestampToTimeString(takeTime)} 取
+        </View>
       </View>
       {/* 后端没做 */}
       {/* <View className={`${styles.right} ${styles.taken}`}>已领取</View> */}
