@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Taro from "@tarojs/taro";
+import Taro, { navigateBack } from "@tarojs/taro";
 import {
   View,
   Button,
@@ -9,7 +9,12 @@ import {
   Image,
 } from "@tarojs/components";
 import deletePng from "@/static/images/delete.png";
+import error from "@/static/images/error.png";
 import NavBack from "@/common/components/nav-back";
+import PopupContext from "@/stores/popup";
+import { useContainer } from "unstated-next";
+import { useMutation } from "react-query/dist/react-query.production.min";
+import { pushFeedback, uploadImg } from "../../services";
 import styles from "./index.module.scss";
 
 const Feedback = () => {
@@ -18,6 +23,10 @@ const Feedback = () => {
   const [content, setContent] = useState();
   const [contentNum, setContentNum] = useState(0);
   const [picNum, setPicNum] = useState(0);
+
+  const [mutatePush] = useMutation(pushFeedback);
+  const [mutateUpload] = useMutation(uploadImg);
+  const Popup = useContainer(PopupContext);
 
   const titleChange = (e) => {
     const { value } = e.detail;
@@ -43,8 +52,21 @@ const Feedback = () => {
         sourceType: ["album", "camera"], // 可以指定来源是相册还是相机，默认二者都有，在H5浏览器端支持使用 `user` 和 `environment`分别指定为前后摄像头
         success(res) {
           const { tempFilePaths } = res; // 是个数组 tempFilePath可以作为img标签的src属性显示图片
-          setPicSrcs(tempFilePaths);
-          setPicNum(tempFilePaths.length);
+          if (picSrcs.length) {
+            const tempLength = picSrcs.length + tempFilePaths.length;
+            if (tempLength > 4) {
+              Taro.showModal({
+                title: "提示",
+                content: "最多添加四张图片",
+              });
+            }
+            picSrcs.push(tempFilePaths);
+            setPicSrcs([...picSrcs]);
+            setPicNum(tempLength);
+          } else {
+            setPicSrcs(tempFilePaths);
+            setPicNum(tempFilePaths.length);
+          }
         },
       });
     }
@@ -53,6 +75,39 @@ const Feedback = () => {
   const deletePic = (index) => {
     picSrcs.splice(index, 1);
     setPicSrcs([...picSrcs]);
+  };
+
+  const handlePushFeedback = async () => {
+    try {
+      const res = await mutatePush({ title, detail: content });
+      console.log(res);
+      if (res.status === 200) {
+        const hide = Popup.show({
+          title: "提交成功",
+          detail: "信息已上传，我们会尽力解决哒～",
+        });
+        setTimeout(() => {
+          hide();
+          setTitle();
+          setContent();
+          setContentNum();
+          navigateBack();
+        }, 3000);
+      } else {
+        const hide = Popup.show({
+          title: "申请失败",
+          detail: "请稍后再试",
+        });
+        setTimeout(() => hide(), 3000);
+      }
+    } catch (e) {
+      const hide = Popup.show({
+        img: error,
+        title: "申请失败",
+        detail: "网络错误",
+      });
+      setTimeout(() => hide(), 3000);
+    }
   };
 
   return (
@@ -111,6 +166,7 @@ const Feedback = () => {
       <Button
         className={title && content ? styles.buttonPush : styles.button}
         disabled={!(title && content)}
+        onClick={handlePushFeedback}
       >
         提交反馈
       </Button>
