@@ -26,6 +26,7 @@ const Apply = () => {
       if (res.status === 10000) {
         const hide = Popup.show({
           img: apply,
+          title: "申请成功",
           detail: "信息已上传，请耐心等待审核",
         });
         setTimeout(() => {

@@ -108,6 +108,7 @@ const VolunteerBind = () => {
               ? styles.buttonPush
               : styles.button
           }
+          disabled={!phone || !idCardNum || !volunteerNum}
           onClick={handleShowVerify}
         >
           登录

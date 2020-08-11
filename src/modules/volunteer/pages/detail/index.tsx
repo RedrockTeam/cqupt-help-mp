@@ -10,7 +10,7 @@ import icon2 from "@/static/images/volunteer-icon2.png";
 import icon3 from "@/static/images/volunteer-icon3.png";
 import error from "@/static/images/error.png";
 import wait from "@/static/images/wait.png";
-import volunteerImg from "@/static/images/volunteer-img.jpeg";
+import volunteerImg from "@/static/images/volunteer-img.jpg";
 import {
   useQuery,
   useMutation,

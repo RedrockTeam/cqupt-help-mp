@@ -1,26 +1,52 @@
 .wrapper {
   padding: 22px 30px;
   .inputWrapper {
+    border-radius: 16px;
     background-color: #ffffff;
     margin-bottom: 90px;
     padding: 22px;
     .title {
       border-bottom: 1px solid #d8d8e1;
       padding: 26px 16px;
-      color: #494670;
-      font-family: PingFang SC;
-      font-weight: 500;
-      font-size: 28px;
-      text-align: left;
+      .titleInput {
+        color: #494670;
+        font-weight: 500;
+        font-size: 28px;
+        text-align: left;
+        font-weight: normal;
+        font-family: PingFang SC;
+      }
+      .titleInputHolder {
+        color: #C9C8D2;
+        font-weight: 500;
+        font-size: 28px;
+        text-align: left;
+        font-weight: normal;
+        font-family: PingFang SC;
+      }
     }
     .textWrap {
       padding: 32px 16px;
       border-bottom: 1px solid #d8d8e1;
-      color: #494670;
-      font-family: PingFang SC;
-      font-size: 26px;
       text-align: left;
       height: 384px;
+      .text {
+        width: 614px;
+        color: #494670;
+        font-family: PingFang SC;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 36px;
+      }
+      .textHolder {
+        color: #C9C8D2;
+        font-family: PingFang SC;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 36px;
+      }
       .textNum {
         text-align: right;
         color: #a4a3b7;

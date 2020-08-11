@@ -108,7 +108,6 @@ const Bind = () => {
               onInput={handlePasswordInput}
               placeholder="身份证后六位"
             />
-            <Image src={passwordIcon} className={styles.icon} />
           </View>
         </View>
         <PrimaryButton className={styles.btn} onClick={handleBind}>

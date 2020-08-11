@@ -6,14 +6,32 @@ const usePopup = (initialIsShow = false) => {
   const [isShow, setIsShow] = useState(initialIsShow);
   const [data, setData] = useState<Omit<Props, "isShow">>({});
 
-  const show = useCallback((data: Omit<Props, "isShow">) => {
-    setData((oldDate) => Object.assign(oldDate, data));
-    setIsShow(true);
-    return () => {
-      setIsShow(false);
-      setData({});
-    };
-  }, []);
+  // 解构传默认空值，懒清空之前数据，保证上次数据不会影响这一次
+  // 同时实现了 popup 消失时过渡效果不会有内容突然消失
+  const show = useCallback(
+    ({
+      title = "",
+      img = "",
+      detail = "",
+      bottom = null,
+      className = "",
+    }: Omit<Props, "isShow">) => {
+      setData((oldDate) =>
+        Object.assign(oldDate, {
+          title,
+          img,
+          detail,
+          bottom,
+          className,
+        })
+      );
+      setIsShow(true);
+      return () => {
+        setIsShow(false);
+      };
+    },
+    []
+  );
 
   const Comp = useCallback(
     () => (
