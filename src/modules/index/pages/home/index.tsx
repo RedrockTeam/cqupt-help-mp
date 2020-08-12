@@ -44,7 +44,13 @@ export default function Index() {
   );
 
   const renderHomeActivityList = () => {
-    if (isLoading) return <Placeholder />;
+    if (isLoading)
+      return (
+        <View className={styles.holder}>
+          <Placeholder />
+        </View>
+      );
+
     if (isError || !homeActivityListRes)
       return <Placeholder isError={isError} />;
     return homeActivityListRes.data.length !== 0 ? (
