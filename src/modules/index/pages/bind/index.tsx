@@ -74,7 +74,7 @@ const Bind = () => {
 
   return (
     <View className={styles.wrapper}>
-      <View className={styles.title}>登录</View>
+      <View className={styles.title}>欢迎登录</View>
       <View className={styles.form}>
         <View className={styles.formItem}>
           <View className={styles.formTitle}>

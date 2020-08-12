@@ -7,5 +7,13 @@ export default function () {
   setNavigationBarTitle({
     title: decodeURIComponent(router.params.title || ""),
   });
-  return <WebView src={decodeURIComponent(router.params.url || "")} />;
+  const params = Object.entries(router.params)
+    .map(([key, value]) =>
+      key === "url" || key === "title" ? "" : `${key}=${value}`
+    )
+    .filter((c) => c !== "")
+    .join("&");
+  return (
+    <WebView src={`${decodeURIComponent(router.params.url || "")}?${params}`} />
+  );
 }

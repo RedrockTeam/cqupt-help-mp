@@ -122,6 +122,7 @@ export default function Index() {
                   title: "青春邮约",
                   t: userInfo.token,
                 },
+                encode: true,
               })
             }
           >
