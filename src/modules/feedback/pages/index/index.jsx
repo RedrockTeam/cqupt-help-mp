@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Taro, { navigateBack, removeStorageSync } from "@tarojs/taro";
+import Taro, { removeStorageSync } from "@tarojs/taro";
 import { resolvePage, navTo, getToken } from "@/common/helpers/utils";
-
 import {
   View,
   Button,
@@ -91,18 +90,7 @@ const Feedback = () => {
       photo4,
     });
     if (res.status === 200) {
-      const hide = Popup.show({
-        title: "提交成功",
-        detail: "信息已上传，我们会尽力解决哒～",
-      });
-
-      setTimeout(() => {
-        hide();
-        setTitle();
-        setContent();
-        setContentNum();
-        navTo({ url: resolvePage("feedback", "result") });
-      }, 3000);
+      navTo({ url: resolvePage("feedback", "result") });
     } else {
       const hide = Popup.show({
         title: "申请失败",
@@ -115,7 +103,7 @@ const Feedback = () => {
     const n = picSrcs.length;
     Taro.uploadFile({
       url:
-        "https://cyxbsmobile.redrock.team/wxapi/cyb-permissioncenter/upload/file", // 仅为示例，非真实的接口地址
+        "https://cyxbsmobile.redrock.team/wxapi/cyb-permissioncenter/upload/file",
       filePath: picSrcs[index],
       name: "file",
       header: {
@@ -217,7 +205,7 @@ const Feedback = () => {
       >
         提交反馈
       </Button>
-      <View className={styles.tips}>了解更多反馈情况请加QQ群：2576373041</View>
+      <View className={styles.tips}>了解更多反馈情况请加QQ群：948304245</View>
     </View>
   );
 };

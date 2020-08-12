@@ -17,8 +17,8 @@
       text-align: center;
       color: #494670;
       font-family: PingFang SC;
-      font-weight: bold;
-      font-size: 40px;
+      font-weight: 500;
+      font-size: 40rpx;
       line-height: 40px;
       margin-right: 5px;
     }
@@ -29,9 +29,9 @@
       text-align: center;
       color: #494670;
       font-family: PingFang SC;
-      font-weight: bold;
-      font-size: 24px;
-      line-height: 30px;      
+      font-weight: 500;
+      font-size: 24rpx;
+      line-height: 30px;
     }
   }
   .right {
@@ -41,31 +41,31 @@
     height: 210px;
     padding: 36px 30px 40px;
     border-radius: 16px;
-    background: #FFFFFF;
+    background: #ffffff;
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #1C184C;
+      color: #1c184c;
       font-family: PingFang SC;
-      font-weight: bold;
-      font-size: 32px;
+      font-weight: 500;
+      font-size: 32rpx;
       margin-bottom: 5px;
       .passed {
-        color: #CDCCE0;
-        font-size: 28px;
+        color: #cdcce0;
+        font-size: 28rpx;
       }
       .doing {
-        color: #625AF8;
-        font-size: 28px;
+        color: #625af8;
+        font-size: 28rpx;
       }
     }
     .info {
       margin-top: 10px;
       color: #777494;
       font-family: PingFang SC;
-      font-weight: medium;
-      font-size: 28px;
+      font-weight: 400;
+      font-size: 28rpx;
       line-height: 32px;
     }
   }

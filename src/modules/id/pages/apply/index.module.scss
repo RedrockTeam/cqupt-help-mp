@@ -1,3 +1,8 @@
+.contain {
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+}
 .wrap {
   padding-top: 40px;
   padding-left: 64px;
@@ -5,9 +10,10 @@
     .title {
       font-family: PingFang SC;
       font-style: normal;
-      font-weight: bold;
-      font-size: 48px;
+      font-weight: 500;
+      font-size: 48rpx;
       line-height: 36px;
+      color: #1c184c;
       letter-spacing: 0.04em;
       margin-bottom: 20px;
     }
@@ -15,7 +21,7 @@
       font-family: PingFang SC;
       font-style: normal;
       font-weight: normal;
-      font-size: 28px;
+      font-size: 28rpx;
       line-height: 36px;
       letter-spacing: 0.04em;
       color: #a4a3b7;
@@ -27,6 +33,7 @@
     .iconWrap {
       display: flex;
       align-items: center;
+      color: #494670;
       margin-bottom: 16px;
       .icon {
         width: 46px;
@@ -41,11 +48,12 @@
       border-radius: 122px;
       width: 622px;
       height: 88px;
+      color: #1c184c;
       padding-left: 52px;
       font-family: PingFang SC;
       font-style: normal;
       font-weight: normal;
-      font-size: 30px;
+      font-size: 30rpx;
       line-height: 48px;
     }
   }

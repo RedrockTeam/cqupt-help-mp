@@ -1,25 +1,25 @@
 .wrapper {
   padding: 22px 30px;
   .inputWrapper {
-    border-radius: 16px;
+    border-radius: 20px;
     background-color: #ffffff;
-    margin-bottom: 90px;
-    padding: 22px;
+    margin-bottom: 160px;
+    padding: 22px 34px 44px;
     .title {
       border-bottom: 1px solid #f2f2f2;
       padding: 26px 16px;
       .titleInput {
         color: #494670;
         font-weight: 500;
-        font-size: 28px;
+        font-size: 28rpx;
         text-align: left;
         font-weight: normal;
         font-family: PingFang SC;
       }
       .titleInputHolder {
-        color: #C9C8D2;
+        color: #c9c8d2;
         font-weight: 500;
-        font-size: 28px;
+        font-size: 28rpx;
         text-align: left;
         font-weight: normal;
         font-family: PingFang SC;
@@ -29,20 +29,21 @@
       padding: 32px 16px;
       border-bottom: 1px solid #f2f2f2;
       text-align: left;
-      height: 384px;
+      height: 346px;
       .text {
         width: 614px;
         color: #494670;
         font-family: PingFang SC;
-        font-size: 26px;
+        font-size: 26rpx;
         font-style: normal;
         font-weight: normal;
         line-height: 36px;
+        height: 260px;
       }
       .textHolder {
-        color: #C9C8D2;
+        color: #c9c8d2;
         font-family: PingFang SC;
-        font-size: 26px;
+        font-size: 26rpx;
         font-style: normal;
         font-weight: normal;
         line-height: 36px;
@@ -50,6 +51,7 @@
       .textNum {
         text-align: right;
         color: #a4a3b7;
+        font-size: 28rpx;
       }
     }
     .pic {
@@ -57,9 +59,10 @@
         padding: 32px 16px 24px;
         color: #a4a3b7;
         font-family: PingFang SC;
-        font-weight: medium;
-        font-size: 28px;
+        font-weight: 400;
+        font-size: 28rpx;
         display: flex;
+        letter-spacing: 3px;
         .picNum {
           margin-right: 0;
           margin-left: auto;
@@ -131,9 +134,9 @@
     background: #cecde8;
     color: #ffffff;
     font-family: PingFang SC;
-    font-weight: medium;
-    font-size: 36px;
-    margin: 0 auto 96px;
+    font-weight: 400;
+    font-size: 36rpx;
+    margin: 0 auto 48px;
   }
   .buttonPush {
     width: 572px;
@@ -142,15 +145,15 @@
     background: #625af8;
     color: #ffffff;
     font-family: PingFang SC;
-    font-weight: medium;
-    font-size: 36px;
-    margin: 0 auto 96px;
+    font-weight: 400;
+    font-size: 36rpx;
+    margin: 0 auto 48px;
   }
   .tips {
     color: #a4a3b7;
     font-family: PingFang SC;
-    font-weight: medium;
-    font-size: 28px;
+    font-weight: 400;
+    font-size: 28rpx;
     text-align: center;
   }
 }

@@ -4,7 +4,7 @@
     position: relative;
     width: 690px;
     height: 290px;
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 16px;
     padding-top: 80px;
     .num {
@@ -13,9 +13,9 @@
       font-family: DIN;
       font-style: normal;
       font-weight: 500;
-      font-size: 80px;
+      font-size: 80rpx;
       line-height: 70px;
-      color: #1C184C;
+      color: #1c184c;
     }
     .tip {
       width: 100%;
@@ -24,9 +24,9 @@
       font-family: PingFang SC;
       font-style: normal;
       font-weight: normal;
-      font-size: 28px;
+      font-size: 28rpx;
       line-height: 32px;
-      color: #625AF8;
+      color: #625af8;
     }
     .left {
       width: 18px;
@@ -47,15 +47,15 @@
     margin-top: 16px;
     width: 690px;
     height: 290px;
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 16px;
     padding-left: 58px;
     padding-top: 100px;
     .text {
       font-family: PingFang SC;
       font-style: normal;
-      font-weight: bold;
-      font-size: 36px;
+      font-weight: 500;
+      font-size: 36rpx;
       line-height: 36px;
       color: #494670;
       margin-bottom: 40px;
@@ -74,8 +74,8 @@
     font-family: PingFang SC;
     font-style: normal;
     font-weight: normal;
-    font-size: 36px;
-    color: #FFFFFF;
+    font-size: 36rpx;
+    color: #ffffff;
     margin: 300px auto 0;
   }
 }

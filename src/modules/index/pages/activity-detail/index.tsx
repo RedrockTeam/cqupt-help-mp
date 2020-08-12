@@ -74,11 +74,11 @@ const AcDetail = () => {
               <View className={styles.status}>招募中</View>
             </View>
             <View className={styles.timeWrap}>
-              <View>活动时间：</View>
+              <View className={styles.label}>活动时间：</View>
               <View className={styles.time}>{params.time}</View>
             </View>
             <View className={styles.timeWrap}>
-              <View>活动地点：</View>
+              <View className={styles.label}>活动地点：</View>
               <View className={styles.time}>{params.location}</View>
             </View>
           </View>

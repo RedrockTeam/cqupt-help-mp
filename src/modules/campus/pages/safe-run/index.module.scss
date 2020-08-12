@@ -3,8 +3,8 @@
   .history {
     color: #494670;
     font-family: PingFang SC;
-    font-weight: bold;
-    font-size: 28px;
+    font-weight: 500;
+    font-size: 28rpx;
     line-height: 36px;
     text-align: right;
     margin-bottom: 32px;
@@ -14,12 +14,12 @@
     flex-direction: column;
     align-items: center;
     border-radius: 16px;
-    background: #FFFFFF;
+    background: #ffffff;
     .scan {
       width: 190px;
       height: 190px;
-      margin-top: 94px;
-      margin-bottom: 130px;
+      margin-top: 100px;
+      margin-bottom: 80px;
       background-image: url(../../../../static/images/scan-img.png);
       background-size: 190px 190px;
       // $blue: #625AF8;
@@ -39,40 +39,43 @@
     .btn {
       width: 360px;
       height: 80px;
-      color: #FFFFFF;
+      color: #ffffff;
       font-family: PingFang SC;
-      font-weight: medium;
-      font-size: 36px;
+      font-weight: 400;
+      font-size: 36rpx;
       line-height: 36px;
     }
     .text {
-      color: #A4A3B7;
+      color: #a4a3b7;
       font-family: PingFang SC;
-      font-weight: medium;
-      font-size: 28px;
+      font-weight: 400;
+      font-size: 28rpx;
       line-height: 48px;
       margin-top: 20px;
-      margin-bottom: 40px;   
+      margin-bottom: 76px;
     }
   }
   .bottom {
-    margin-top: 48px;
+    margin-top: 56px;
     display: flex;
     flex-direction: column;
     .title {
       color: #494670;
       font-family: PingFang SC;
-      font-weight: bold;
-      font-size: 28px;
-      padding-bottom: 22px;
+      font-weight: 500;
+      font-size: 30rpx;
+      padding-bottom: 18px;
     }
     .text {
       color: #777494;
       font-family: PingFang SC;
-      font-weight: medium;
-      font-size: 24px;
+      font-weight: 400;
+      font-size: 26rpx;
       line-height: 44px;
-      padding-bottom: 18px; 
+      padding-bottom: 18px;
+    }
+    .strong {
+      color: #ff6195;
     }
   }
   .popup {
@@ -84,10 +87,10 @@
     margin-top: 42px;
     font-family: PingFang SC;
     font-style: normal;
-    font-weight: bold;
-    font-size: 36px;
+    font-weight: 500;
+    font-size: 36rpx;
     line-height: 116px;
-    color: #625AF8;
+    color: #625af8;
     border-top: 2px solid #f8f8f8;
   }
 }

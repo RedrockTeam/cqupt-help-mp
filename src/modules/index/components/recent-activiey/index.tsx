@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Image, Text } from "@tarojs/components";
-// import { timestampToDateString } from "@/common/helpers/date";
+import { gapDay } from "@/common/helpers/date";
 import { navTo, resolvePage } from "@/common/helpers/utils";
 import styles from "./index.module.scss";
 
@@ -29,6 +29,9 @@ const RecentActivity = ({
   type,
   image,
 }: Props) => {
+  if (gapDay(timeDone) < 0) {
+    return null;
+  }
   return (
     <View
       className={styles.activity}
@@ -55,9 +58,11 @@ const RecentActivity = ({
       <View className={styles.left}>
         <Image src={image} className={styles.img} mode="aspectFill" />
         <View
-          className={`${styles.remainTime} ${timeDone > 3 ? styles.doing : ""}`}
+          className={`${styles.remainTime} ${
+            gapDay(timeDone) > 3 ? styles.doing : ""
+          }`}
         >
-          {timeDone > 3 ? "进行中" : `剩余 ${timeDone} 天`}
+          {gapDay(timeDone) > 3 ? "进行中" : `剩余 ${gapDay(timeDone)} 天`}
         </View>
       </View>
       <View className={styles.right}>

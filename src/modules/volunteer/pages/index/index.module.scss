@@ -13,13 +13,13 @@
         color: #1c184c;
         font-family: PingFang SC;
         font-weight: 400;
-        font-size: 32px;
+        font-size: 32rpx;
         text-align: left;
       }
       .cardTime {
         color: #ff6195;
         font-family: PingFang SC;
-        font-size: 28px;
+        font-size: 28rpx;
         text-align: left;
         margin-right: 0;
         margin-left: auto;
@@ -29,16 +29,17 @@
         margin-right: 0;
         margin-left: auto;
         font-family: PingFang SC;
-        font-size: 28px;
+        font-size: 28rpx;
         text-align: left;
       }
     }
     .cardInfo {
       color: #b1aec1;
       font-family: PingFang SC;
-      font-weight: medium;
-      font-size: 28px;
+      font-weight: 400;
+      font-size: 28rpx;
       text-align: left;
+      color: #777494;
     }
   }
 }

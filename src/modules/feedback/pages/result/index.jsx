@@ -1,6 +1,7 @@
 import React from "react";
-import Taro from "@tarojs/taro";
+import Taro, { switchTab } from "@tarojs/taro";
 import { View, Text, Button, Image } from "@tarojs/components";
+import { resolvePage } from "@/common/helpers/utils";
 import NavBack from "@/common/components/nav-back";
 import feedback from "@/static/images/feedback.png";
 import copyPng from "@/static/images/copy.png";
@@ -28,7 +29,16 @@ const FeedbackResult = () => {
           }}
         />
       </View>
-      <Button className={styles.button}>知道了</Button>
+      <Button
+        className={styles.button}
+        onClick={() => {
+          switchTab({
+            url: resolvePage("my", "index"),
+          });
+        }}
+      >
+        知道了
+      </Button>
     </View>
   );
 };

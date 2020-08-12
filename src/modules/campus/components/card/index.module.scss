@@ -1,38 +1,42 @@
 .wrapper {
   display: flex;
   align-items: center;
-  padding: 40px 22px;
+  padding-top: 44px;
+  padding-bottom: 44px;
+  padding-right: 32px;
+  padding-left: 26px;
   background-color: #ffffff;
   border-radius: 20px;
-  margin: 16px 0;
+  margin: 24px 0;
   .img {
-    width: 88px;
-    height: 88px;
+    width: 120px;
+    height: 120px;
   }
   .info {
     display: flex;
-    align-self: stretch;
     flex-direction: column;
     justify-content: space-between;
-    margin-left: 20px;
+    margin-left: 16px;
+    margin-top: 8px;
     .title {
-      color: #1C184C;
+      color: #1c184c;
       font-family: PingFang SC;
-      font-weight: bold;
-      font-size: 32px;
+      font-weight: 500;
+      font-size: 34rpx;
       line-height: 36px;
+      margin-bottom: 16px;
     }
     .organization {
-      color: #A4A3B7;
+      color: #a4a3b7;
       font-family: PingFang SC;
-      font-weight: medium;
-      font-size: 28px;
-      line-height: 32px;      
+      font-weight: 400;
+      font-size: 30rpx;
+      line-height: 32px;
     }
   }
   .icon {
     margin-left: auto;
-    width: 30px;
-    height: 40px;
+    width: 16px;
+    height: 28px;
   }
 }

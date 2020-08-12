@@ -1,7 +1,7 @@
 .itemWrapper {
   padding: 80px 88px;
   .top {
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 2px 4px 4px rgba(98, 90, 248, 0.05);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -11,7 +11,7 @@
       position: absolute;
       bottom: -20px;
       left: -20px;
-      background-color: #F6F6F9;
+      background-color: #f6f6f9;
       box-shadow: inset -2px 0 4px rgba(98, 90, 248, 0.05);
       width: 40px;
       height: 40px;
@@ -22,7 +22,7 @@
       position: absolute;
       bottom: -20px;
       right: -20px;
-      background-color: #F6F6F9;
+      background-color: #f6f6f9;
       box-shadow: inset 2px 0 4px rgba(98, 90, 248, 0.05);
       width: 40px;
       height: 40px;
@@ -32,10 +32,10 @@
       padding-left: 32px;
       font-family: PingFang SC;
       font-style: normal;
-      font-weight: bold;
-      font-size: 36px;
+      font-weight: 500;
+      font-size: 36rpx;
       line-height: 100px;
-      color: #1C184C;
+      color: #1c184c;
     }
     .img {
       width: 576px;
@@ -44,11 +44,11 @@
     }
   }
   .bottom {
-    border-top: 2px dashed #CECDE8;
+    border-top: 2px dashed #cecde8;
     padding: 32px 48px 10px;
     display: flex;
     flex-direction: column;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: 2px 4px 4px rgba(98, 90, 248, 0.05);
@@ -56,7 +56,7 @@
       font-family: PingFang SC;
       font-style: normal;
       font-weight: normal;
-      font-size: 28px;
+      font-size: 28rpx;
       line-height: 32px;
       color: #777494;
       margin-bottom: 12px;
@@ -64,8 +64,8 @@
     .content {
       font-family: PingFang SC;
       font-style: normal;
-      font-weight: bold;
-      font-size: 32px;
+      font-weight: 500;
+      font-size: 32rpx;
       line-height: 36px;
       color: #494670;
       margin-bottom: 34px;

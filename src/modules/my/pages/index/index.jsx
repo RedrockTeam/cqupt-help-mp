@@ -36,19 +36,19 @@ const MyIndex = () => {
         </View>
         <View className={styles.top_bottom}>
           <View onClick={() => navTo({ url: resolvePage("my", "my-reward") })}>
-            <Image className={styles.pic} src={prizeIcon} />
+            <Image className={styles.pic1} src={prizeIcon} />
             <Text className={styles.text}>我的奖品</Text>
           </View>
           <View
             onClick={() => navTo({ url: resolvePage("my", "my-activity") })}
           >
-            <Image className={styles.pic} src={campusIcon} />
+            <Image className={styles.pic2} src={campusIcon} />
             <Text className={styles.text}>我的活动</Text>
           </View>
           <View
             onClick={() => navTo({ url: resolvePage("ticket", "my-ticket") })}
           >
-            <Image className={styles.pic} src={ticketIcon} />
+            <Image className={styles.pic3} src={ticketIcon} />
             <Text className={styles.text}>我的影票</Text>
           </View>
         </View>

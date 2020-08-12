@@ -6,10 +6,10 @@
   flex-direction: column;
   align-items: center;
   .title {
-    color: #1C184C;
+    color: #1c184c;
     font-family: PingFang SC;
     font-weight: 500;
-    font-size: 48px;
+    font-size: 48rpx;
     line-height: 76px;
     align-self: flex-start;
     margin-bottom: 32px;
@@ -23,8 +23,8 @@
         align-items: center;
         color: #494670;
         font-family: PingFang SC;
-        font-weight: bold;
-        font-size: 28px;
+        font-weight: 500;
+        font-size: 28rpx;
         line-height: 48px;
         .titleIcon {
           margin-right: 9px;
@@ -36,7 +36,7 @@
       .itemWrapper {
         height: 84px;
         border-radius: 122px;
-        border: 2px solid #CDCCE0;
+        border: 2px solid #cdcce0;
         margin: 8px 0;
         margin-bottom: 56px;
         display: flex;
@@ -47,15 +47,15 @@
         .input {
           height: 40px;
           line-height: 40px;
-          color: #1C184C;
+          color: #1c184c;
           font-family: PingFang SC;
-          font-weight: bold;
-          font-size: 32px;
+          font-weight: 500;
+          font-size: 32rpx;
         }
         .placeholder {
-          color: #A4A3B7;
+          color: #a4a3b7;
           font-family: PingFang SC;
-          font-size: 30px;
+          font-size: 30rpx;
           line-height: 48px;
         }
         .icon {
@@ -68,10 +68,10 @@
   .btn {
     margin-top: 56px;
     width: 622px;
-    color: #FFFFFF;
+    color: #ffffff;
     font-family: PingFang SC;
-    font-weight: medium;
-    font-size: 36px;
+    font-weight: 400;
+    font-size: 36rpx;
     line-height: 36px;
   }
   .copyright {
@@ -79,8 +79,8 @@
     margin-bottom: 56px;
     color: #777494;
     font-family: PingFang SC;
-    font-weight: medium;
-    font-size: 24px;
+    font-weight: 400;
+    font-size: 24rpx;
     line-height: 48px;
   }
 }

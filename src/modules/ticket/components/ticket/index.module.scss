@@ -1,5 +1,5 @@
 .wrapper {
-  padding: 0 24px;
+  padding: 0 26px;
   background-color: #ffffff;
   border-radius: 20px;
   margin-bottom: 24px;
@@ -14,13 +14,13 @@
     .dateImg {
       width: 30px;
       height: 32px;
-      margin-right: 10px;
+      margin-right: 15px;
     }
     .robTime {
-      color: #A4A3B7;
+      color: #a4a3b7;
       font-family: PingFang SC;
-      font-weight: bold;
-      font-size: 30px;
+      font-weight: 500;
+      font-size: 30rpx;
       line-height: 32px;
     }
   }
@@ -41,33 +41,33 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: #1C184C;
+        color: #1c184c;
         font-family: PingFang SC;
-        font-weight: bold;
-        font-size: 32px;
+        font-weight: 500;
+        font-size: 32rpx;
         line-height: 36px;
         margin-bottom: 20px;
         .remain {
-          color: #FF684E;
+          color: #ff6195;
           font-family: PingFang SC;
-          font-weight: medium;
-          font-size: 28px;
-          line-height: 32px;          
+          font-weight: 400;
+          font-size: 28rpx;
+          line-height: 32px;
         }
       }
       .text {
         margin-bottom: 10px;
         color: #777494;
         font-family: PingFang SC;
-        font-weight: medium;
-        font-size: 28px;
+        font-weight: 400;
+        font-size: 28rpx;
         line-height: 32px;
       }
       .btn {
         margin-top: 40px;
         width: 458px;
         height: 72px;
-        font-size: 32px;
+        font-size: 32rpx;
       }
     }
   }

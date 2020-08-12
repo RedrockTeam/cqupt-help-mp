@@ -12,18 +12,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #CDCCE0;
+    border-bottom: 2px solid #cdcce0;
     .title {
-      color: #1C184C;
+      color: #1c184c;
       font-family: PingFang SC;
-      font-weight: bold;
-      font-size: 32px;
+      font-weight: 500;
+      font-size: 32rpx;
     }
     .organizer {
-      color: #CDCCE0;
+      color: #cdcce0;
       font-family: PingFang SC;
-      font-weight: bold;
-      font-size: 28px;     
+      font-weight: 500;
+      font-size: 28rpx;
     }
   }
 
@@ -34,18 +34,18 @@
       display: flex;
       justify-content: space-between;
       .infoKey {
-        color: #A4A3B7;
+        color: #a4a3b7;
         font-family: PingFang SC;
-        font-weight: medium;
+        font-weight: 400;
         line-height: 32px;
-        font-size: 28px;        
+        font-size: 28rpx;
       }
       .infoValue {
         color: #777494;
         font-family: PingFang SC;
-        font-weight: bold;
+        font-weight: 500;
         line-height: 32px;
-        font-size: 28px;        
+        font-size: 28rpx;
       }
     }
   }
@@ -58,17 +58,17 @@
       width: 240px;
       height: 72px;
       border-radius: 64px;
-      background: #FFFFFF;
-      border: 2px solid #625AF8;
-      color: #625AF8;
+      background: #ffffff;
+      border: 2px solid #625af8;
+      color: #625af8;
       font-family: PingFang SC;
-      font-weight: medium;
-      font-size: 32px;
+      font-weight: 400;
+      font-size: 32rpx;
       line-height: 70px;
       text-align: center;
       &_disabled {
-        color: #CDCCE0;
-        border: 2px solid #CDCCE0;
+        color: #cdcce0;
+        border: 2px solid #cdcce0;
       }
     }
   }

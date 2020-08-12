@@ -97,13 +97,13 @@ const VolunteerDetail = () => {
             <View className={styles.status}>招募中</View>
           </View>
           <View className={styles.timeWrap}>
-            <View>报名截止时间:</View>
+            <View className={styles.label}>报名截止时间:</View>
             <View className={styles.time}>
               {timestampToDateString(data.data.last_date)}
             </View>
           </View>
           <View className={styles.timeWrap}>
-            <View>志愿服务时间:</View>
+            <View className={styles.label}>志愿服务时间:</View>
             <View className={styles.time}>
               {timestampToDateString(data.data.date)}
             </View>

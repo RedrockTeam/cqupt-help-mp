@@ -28,7 +28,6 @@ const SafeRun = () => {
     let hide: undefined | (() => void);
     if (!isOpen()) {
       hide = Popup.show({
-        title: "温馨提示",
         detail: "请在20点到22点之间使用该功能~",
         img: waitImg,
       });
@@ -100,10 +99,13 @@ const SafeRun = () => {
         <Text className={styles.title}>存包规则</Text>
         <Text className={styles.text}>1. 贵重物品还请自行妥善保。</Text>
         <Text className={styles.text}>
-          2. 护跑时间从晚上8点到10点，请在9:45之前，根据自身情况来将存包拿。
+          2. 护跑时间从晚上<Text className={styles.strong}>8点到10点</Text>
+          ，请在<Text className={styles.strong}>9:45</Text>
+          之前，根据自身情况来将存包拿。
         </Text>
         <Text className={styles.text}>
-          3.我们将在十点10之前离开互跑点，每个点会留一位志愿者看管未取走的包裹直到晚上10点15，若逾期仍未取消，并出现包丢失的情况，青协将不承担任何责任，望大家理解。
+          3.我们将在<Text className={styles.strong}>22:10</Text>
+          之前离开互跑点，每个点会留一位志愿者看管未取走的包裹直到晚上10点15，若逾期仍未取消，并出现包丢失的情况，青协将不承担任何责任，望大家理解。
         </Text>
       </View>
       <Popup.Comp />
