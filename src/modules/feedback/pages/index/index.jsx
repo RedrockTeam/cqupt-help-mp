@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import Taro, { navigateBack } from "@tarojs/taro";
+import Taro, { navigateBack, removeStorageSync } from "@tarojs/taro";
+import { resolvePage, navTo, getToken } from "@/common/helpers/utils";
+
 import {
   View,
   Button,
@@ -14,7 +16,7 @@ import NavBack from "@/common/components/nav-back";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import { useMutation } from "react-query/dist/react-query.production.min";
-import { pushFeedback, uploadImg } from "../../services";
+import { pushFeedback } from "../../services";
 import styles from "./index.module.scss";
 
 const Feedback = () => {
@@ -23,9 +25,9 @@ const Feedback = () => {
   const [content, setContent] = useState();
   const [contentNum, setContentNum] = useState(0);
   const [picNum, setPicNum] = useState(0);
+  const [picRes, setPicRes] = useState([]);
 
   const [mutatePush] = useMutation(pushFeedback);
-  const [mutateUpload] = useMutation(uploadImg);
   const Popup = useContainer(PopupContext);
 
   const titleChange = (e) => {
@@ -77,29 +79,73 @@ const Feedback = () => {
     setPicSrcs([...picSrcs]);
   };
 
+  const handlePushText = async (picRes) => {
+    const [photo1, photo2, photo3, photo4] = picRes;
+
+    const res = await mutatePush({
+      title,
+      detail: content,
+      photo1,
+      photo2,
+      photo3,
+      photo4,
+    });
+    if (res.status === 200) {
+      const hide = Popup.show({
+        title: "提交成功",
+        detail: "信息已上传，我们会尽力解决哒～",
+      });
+
+      setTimeout(() => {
+        hide();
+        setTitle();
+        setContent();
+        setContentNum();
+        navTo({ url: resolvePage("feedback", "result") });
+      }, 3000);
+    } else {
+      const hide = Popup.show({
+        title: "申请失败",
+        detail: "请稍后再试",
+      });
+      setTimeout(() => hide(), 3000);
+    }
+  };
+  const handleUploadImg = (picSrcs, index, token, picRes) => {
+    const n = picSrcs.length;
+    Taro.uploadFile({
+      url:
+        "https://cyxbsmobile.redrock.team/wxapi/cyb-permissioncenter/upload/file", // 仅为示例，非真实的接口地址
+      filePath: picSrcs[index],
+      name: "file",
+      header: {
+        Authorization: `Bearer ${token}`,
+      },
+      success(res) {
+        const { data } = res;
+        const info = JSON.parse(data);
+        picRes.push(info.data.name);
+        setPicRes([...picRes]);
+        // do something
+      },
+      complete() {
+        // index 表示下标 ; n 表示数组长度
+        if (index + 1 < n) {
+          handleUploadImg(picSrcs, index + 1, token, picRes);
+        }
+        if (index + 1 === n) {
+          handlePushText(picRes);
+        }
+      },
+    });
+  };
+
   const handlePushFeedback = async () => {
     try {
-      const res = await mutatePush({ title, detail: content });
-      console.log(res);
-      if (res.status === 200) {
-        const hide = Popup.show({
-          title: "提交成功",
-          detail: "信息已上传，我们会尽力解决哒～",
-        });
-        setTimeout(() => {
-          hide();
-          setTitle();
-          setContent();
-          setContentNum();
-          navigateBack();
-        }, 3000);
-      } else {
-        const hide = Popup.show({
-          title: "申请失败",
-          detail: "请稍后再试",
-        });
-        setTimeout(() => hide(), 3000);
-      }
+      const token = await getToken().catch((e) =>
+        removeStorageSync("cqupt-help-mp-token-key")
+      );
+      handleUploadImg(picSrcs, 0, token, picRes);
     } catch (e) {
       const hide = Popup.show({
         img: error,
