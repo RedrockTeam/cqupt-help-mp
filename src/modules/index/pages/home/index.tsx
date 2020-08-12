@@ -117,7 +117,7 @@ export default function Index() {
             className={styles.slideItem}
             onClick={() =>
               navTo({
-                url: "https://wx.redrock.team/game/youyue/",
+                url: "https://wx.redrock.team/game/youyue/#/",
                 payload: {
                   title: "青春邮约",
                   t: userInfo.token,

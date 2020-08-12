@@ -24,6 +24,7 @@ const Volunteer = () => {
   if (!isVolunteerRes) {
     return <Placeholder title="志愿报名" />;
   }
+  console.log(isVolunteerRes, isVolunteerRes.exist)
   if (isVolunteerRes.status === 10000) {
     if (!isVolunteerRes.exist) {
       redirectTo({ url: resolvePage("volunteer", "bind") });
