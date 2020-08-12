@@ -1,5 +1,24 @@
-.mask {
+.show {
+  transition: all 0.3s ease-in-out;
+  transform: translateY(0);
+}
+.hide {
+  transition: all 0.3s ease-in-out;
+  transform: translateY(100%);
+}
+.maskShow {
+  transition: all 0.3s ease-in-out;
   z-index: 100;
+  opacity: 1;
+  background-color: rgba($color: #000000, $alpha: 0.25);
+}
+.maskHide {
+  transition: all 0.3s ease-in-out;
+  z-index: -1;
+  opacity: 0;
+}
+
+.mask {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -26,7 +45,7 @@
       .vTitle {
         font-family: PingFang SC;
         font-style: normal;
-        font-size: 32rpx;
+        font-size: 32px;
         line-height: 36px;
         font-weight: 500;
         letter-spacing: 0.06em;
@@ -48,7 +67,7 @@
           font-family: PingFang SC;
           font-style: normal;
           font-weight: normal;
-          font-size: 32rpx;
+          font-size: 32px;
           line-height: 36px;
           letter-spacing: 0.06em;
           color: #777494;
@@ -56,7 +75,7 @@
         .vInfoC {
           font-family: PingFang SC;
           font-style: normal;
-          font-size: 32rpx;
+          font-size: 32px;
           line-height: 36px;
           letter-spacing: 0.06em;
           margin-left: auto;
@@ -71,7 +90,7 @@
       background: #625af8;
       border-radius: 64px;
       font-family: PingFang SC;
-      font-size: 36rpx;
+      font-size: 36px;
       line-height: 88px;
       color: #ffffff;
     }

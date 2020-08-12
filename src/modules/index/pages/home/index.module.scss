@@ -44,12 +44,13 @@
         .slideImg {
           width: 116px;
           height: 82px;
+          margin-bottom: -5px;
         }
         .slideText {
           font-family: PingFang SC;
           font-style: normal;
           font-weight: 400;
-          font-size: 24rpx;
+          font-size: 24px;
           line-height: 32px;
           color: #a4a3b7;
           text-align: center;
@@ -62,8 +63,8 @@
     margin-bottom: 56px;
     .scrollBarBg {
       position: relative;
-      width: 84rpx;
-      height: 8rpx;
+      width: 84px;
+      height: 8px;
       background: #e8e8ed;
       border-radius: 5px;
       margin: 0 auto;
@@ -87,9 +88,17 @@
       font-family: PingFang SC;
       font-style: normal;
       font-weight: 900;
-      font-size: 36rpx;
+      font-size: 36px;
       line-height: 36px;
       color: #1c184c;
     }
   }
+}
+
+.newIcon {
+  width: 45px;
+  height: 32px;
+  position: relative;
+  bottom: 130px;
+  left: 50px;
 }

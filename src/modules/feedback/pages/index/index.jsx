@@ -96,7 +96,7 @@ const Feedback = () => {
         title: "申请失败",
         detail: "请稍后再试",
       });
-      setTimeout(() => hide(), 3000);
+      setTimeout(() => hide(), 1500);
     }
   };
   const handleUploadImg = (picSrcs, index, token, picRes) => {
@@ -140,7 +140,7 @@ const Feedback = () => {
         title: "申请失败",
         detail: "网络错误",
       });
-      setTimeout(() => hide(), 3000);
+      setTimeout(() => hide(), 1500);
     }
   };
 

@@ -56,14 +56,14 @@ const MyTicket = () => {
             title: "恭喜您！验票成功！",
             detail: "快去看电影吧～",
           });
-          setTimeout(() => hide(), 3000);
+          setTimeout(() => hide(), 1500);
         } else {
           const hide = Popup.show({
             img: error,
             title: "验票失败...",
             detail: "错误",
           });
-          setTimeout(() => hide(), 3000);
+          setTimeout(() => hide(), 1500);
         }
       } catch (e) {
         const hide = Popup.show({
@@ -71,7 +71,7 @@ const MyTicket = () => {
           title: "验票失败...",
           detail: "网络错误",
         });
-        setTimeout(() => hide(), 3000);
+        setTimeout(() => hide(), 1500);
       }
     }
   };

@@ -45,7 +45,7 @@ const SafeRun = () => {
             detail: "号码牌已发完,请耐心等待！",
             img: waitImg,
           });
-          setTimeout(() => hide(), 3000);
+          setTimeout(() => hide(), 1500);
         } else {
           queryCache.invalidateQueries("getStatus");
         }

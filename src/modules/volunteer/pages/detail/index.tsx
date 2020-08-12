@@ -46,14 +46,14 @@ const VolunteerDetail = () => {
         setTimeout(() => {
           hide();
           navigateBack();
-        }, 3000);
+        }, 1500);
       } else {
         const hide = Popup.show({
           title: "申请失败",
           detail: "错误",
           img: error,
         });
-        setTimeout(() => hide(), 3000);
+        setTimeout(() => hide(), 1500);
       }
     },
     onError() {
@@ -62,7 +62,7 @@ const VolunteerDetail = () => {
         detail: "网络错误",
         img: error,
       });
-      setTimeout(() => hide(), 3000);
+      setTimeout(() => hide(), 1500);
     },
   });
 

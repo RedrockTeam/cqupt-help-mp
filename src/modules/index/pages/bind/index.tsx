@@ -43,7 +43,7 @@ const Bind = () => {
           title: "登录失败",
           detail: "已绑定，不能重复绑定",
         });
-        setTimeout(() => hide(), 3000);
+        setTimeout(() => hide(), 1500);
       } else {
         requestSubscribeMessage({
           tmplIds: [
@@ -68,7 +68,7 @@ const Bind = () => {
         detail: "网络错误",
         img: error,
       });
-      setTimeout(() => hide(), 3000);
+      setTimeout(() => hide(), 1500);
     }
   };
 

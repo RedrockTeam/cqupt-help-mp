@@ -4,13 +4,16 @@ import { View, Text, Button, Input } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import { resolvePage } from "@/common/helpers/utils";
+import PopupContext from "@/stores/popup";
+import { useContainer } from "unstated-next";
 import error from "@/static/images/error.png";
 import styles from "./index.module.scss";
-import Popup from "../../components/popup";
+import PopupBottom from "../../components/popup";
 import { loginVolunteer } from "../../services";
 
 const VolunteerBind = () => {
   const [mutateBindVolunteer] = useMutation(loginVolunteer);
+  const Popup = useContainer(PopupContext);
   const [phone, setPhone] = useState();
   const [idCardNum, setIdCardNum] = useState();
   const [volunteerNum, setVolunteerNUm] = useState();
@@ -29,7 +32,14 @@ const VolunteerBind = () => {
   };
 
   const handleShowVerify = () => {
-    setShowVerify(true);
+    if (!/^1[3|4|5|7|8]\d{9}$/.test(phone)) {
+      const hide = Popup.show({
+        detail: "请输入正确的电话号码",
+      });
+      setTimeout(() => hide(), 1500);
+    } else {
+      setShowVerify(true);
+    }
   };
 
   const cancelPopup = () => {
@@ -48,7 +58,7 @@ const VolunteerBind = () => {
           title: "登录失败",
           detail: "已绑定，不能重复绑定",
         });
-        setTimeout(() => hide(), 3000);
+        setTimeout(() => hide(), 1500);
       } else {
         redirectTo({ url: resolvePage("volunteer", "index") });
         return null;
@@ -59,7 +69,7 @@ const VolunteerBind = () => {
         detail: "网络错误",
         img: error,
       });
-      setTimeout(() => hide(), 3000);
+      setTimeout(() => hide(), 1500);
     }
   };
 
@@ -114,7 +124,8 @@ const VolunteerBind = () => {
           登录
         </Button>
       </View>
-      <Popup
+      <Popup.Comp />
+      <PopupBottom
         visible={showVerify}
         phone={phone}
         idCardNum={idCardNum}

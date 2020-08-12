@@ -45,36 +45,38 @@ const Volunteer = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      {list.data.map((item) => (
-        <View
-          className={styles.card}
-          key={item.id}
-          onClick={() =>
-            navTo({
-              url: `${resolvePage("volunteer", "detail")}?id=${item.id}`,
-            })
-          }
-        >
-          <View className={styles.cardTop}>
-            <View className={styles.cardName}>{item.name}</View>
-            <View
-              className={
-                gapDay(item.last_date) <= 0
-                  ? styles.cardTimeGray
-                  : styles.cardTime
-              }
-            >
-              {gapDay(item.last_date) <= 0
-                ? "已结束"
-                : `距报名结束:${gapDay(item.last_date)}天`}
+      {list.data
+        .sort((a, b) => b.last_date - a.last_date)
+        .map((item) => (
+          <View
+            className={styles.card}
+            key={item.id}
+            onClick={() =>
+              navTo({
+                url: `${resolvePage("volunteer", "detail")}?id=${item.id}`,
+              })
+            }
+          >
+            <View className={styles.cardTop}>
+              <View className={styles.cardName}>{item.name}</View>
+              <View
+                className={
+                  gapDay(item.last_date) <= 0
+                    ? styles.cardTimeGray
+                    : styles.cardTime
+                }
+              >
+                {gapDay(item.last_date) <= 0
+                  ? "已结束"
+                  : `距报名结束:${gapDay(item.last_date)}天`}
+              </View>
+            </View>
+            <View className={styles.cardInfo}>
+              活动简介：
+              {item.description}
             </View>
           </View>
-          <View className={styles.cardInfo}>
-            活动简介：
-            {item.description}
-          </View>
-        </View>
-      ))}
+        ))}
     </View>
   );
 };

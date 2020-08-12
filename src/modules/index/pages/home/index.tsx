@@ -21,6 +21,7 @@ import { resolvePage, navTo } from "@/common/helpers/utils";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import getUserInfo from "@/stores/user";
 import Placeholder from "@/common/components/placeholder";
+import newIcon from "@/static/images/new-icon.png";
 import Empty from "@/common/components/empty";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
@@ -47,21 +48,23 @@ export default function Index() {
     if (isError || !homeActivityListRes)
       return <Placeholder isError={isError} />;
     return homeActivityListRes.data.length !== 0 ? (
-      homeActivityListRes.data.map((e) => (
-        <RecentActivity
-          name={e.name}
-          key={e.id}
-          teamName={e.team_name}
-          timeDone={e.time_done}
-          time={e.time}
-          introduction={e.introduction}
-          location={e.location}
-          rule={e.rule}
-          registration={e.registration}
-          type={e.type}
-          image={e.image}
-        />
-      ))
+      homeActivityListRes.data
+        .sort((a, b) => a.time_done - b.time_done)
+        .map((e) => (
+          <RecentActivity
+            name={e.name}
+            key={e.id}
+            teamName={e.team_name}
+            timeDone={e.time_done}
+            time={e.time}
+            introduction={e.introduction}
+            location={e.location}
+            rule={e.rule}
+            registration={e.registration}
+            type={e.type}
+            image={e.image}
+          />
+        ))
     ) : (
       <Empty detail="暂无活动" />
     );
@@ -128,6 +131,7 @@ export default function Index() {
           >
             <Image src={homeYoungIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>青春邮约</Text>
+            <Image className={styles.newIcon} src={newIcon} />
           </View>
           <View
             className={styles.slideItem}

@@ -38,7 +38,7 @@ const MyReward = () => {
         });
         setTimeout(() => {
           hide();
-        }, 3000);
+        }, 1500);
       }
     },
     onError() {
@@ -49,7 +49,7 @@ const MyReward = () => {
       });
       setTimeout(() => {
         hide();
-      }, 3000);
+      }, 1500);
     },
   });
 

@@ -49,14 +49,14 @@ const SafeRunAway = ({ number, plate, saveTime }: Props) => {
           setTimeout(() => {
             hide();
             switchTab({ url: resolvePage("index", "home") });
-          }, 3000);
+          }, 1500);
         } else {
           const hide = Popup.show({
             img: error,
             title: "取包失败",
             detail: "请稍后再试",
           });
-          setTimeout(() => hide(), 3000);
+          setTimeout(() => hide(), 1500);
           return null;
         }
       } catch (e) {
@@ -65,7 +65,7 @@ const SafeRunAway = ({ number, plate, saveTime }: Props) => {
           title: "取包失败",
           detail: "网络错误",
         });
-        setTimeout(() => hide(), 3000);
+        setTimeout(() => hide(), 1500);
       }
     }
   };

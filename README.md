@@ -6,37 +6,37 @@
 
 - [ ] 修复隐藏 bug
 
-    - [ ] id 申请，重复申请响应为空，导致前端 popup 提示不准确
+  - [ ] id 申请，重复申请响应为空，导致前端 popup 提示不准确
 
 - [ ] 完善样式，过渡动画，UX
 
-    - [x] 去掉 bind 小眼睛
+  - [x] 去掉 bind 小眼睛
 
-    - [ ] Loading 小一点，首页的往下点
+  - [x] Loading 小一点，首页的往下点
 
-    - [ ] 首页青春有约 hot 上标
+  - [x] 首页青春有约 hot 上标
 
-    - [ ] 活动页、志愿页 icon 扁了，招募中全圆角，字体加粗
+  - [x] 活动页、志愿页 icon 扁了，招募中全圆角，字体加粗
 
-    - [ ] 在线抢票日期、剩余字体变细
+  - [x] 在线抢票日期、剩余字体变细
 
-    - [ ] 首页 banner 字体变细，字体 icon 近一点
+  - [x] 首页 banner 字体变细，字体 icon 近一点
 
-    - [ ] 问题反馈线变浅，placehoder（和 bind 页）样式 bug
+  - [x] 问题反馈线变浅，placehoder（和 bind 页）样式 bug
 
-    - [ ] 申请会员页、bind 页、我的页面 icon 糊了
+  - [x] 申请会员页、bind 页、我的页面 icon 糊了
 
-    - [ ] 换志愿页图片
+  - [x] 换志愿页图片
 
-    - [ ] 青春有约头部字体
+  - [x] 青春有约头部字体
 
-    - [ ] 首页活动左上角字体居中
+  - [x] 首页活动左上角字体居中
 
 - [ ] 重构优化
 
-    - [ ] 抽离应用中的实体，优化类型
+  - [ ] 抽离应用中的实体，优化类型
 
-    - [ ] 使用 Suspense、ErrorBoundary 处理请求和异常，统一请求格式（useQuery、useMutation）
+  - [ ] 使用 Suspense、ErrorBoundary 处理请求和异常，统一请求格式（useQuery、useMutation）
 
 ## 目录结构
 
@@ -162,7 +162,7 @@
      title: "登录失败",
      detail: "已绑定，不能重复绑定",
    });
-   setTimeout(() => hide(), 3000);
+   setTimeout(() => hide(), 1500);
    ```
 
    以此弹出的 Popup 组件的状态都是在 `stores/popup.ts` 中的，是同一个，但组件需要在每个用到的页面声明
