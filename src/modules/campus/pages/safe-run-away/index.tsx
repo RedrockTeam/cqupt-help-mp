@@ -80,11 +80,11 @@ const SafeRunAway = ({ number, plate, saveTime }: Props) => {
       </View>
       <View className={styles.bottom}>
         <View className={styles.text}>
-          <Image mode="aspectFit" src={clockIcon} className={styles.icon} />
+          <Image mode="aspectFit" src={locateIcon} className={styles.icon} />
           {plates[plate] + number}号点
         </View>
         <View className={styles.text}>
-          <Image mode="aspectFit" src={locateIcon} className={styles.icon} />
+          <Image mode="aspectFit" src={clockIcon} className={styles.icon} />
           {timestampToTimeString(saveTime)} 存
         </View>
       </View>

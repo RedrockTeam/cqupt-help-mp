@@ -7,7 +7,7 @@
     width: 690px;
     height: 328px;
     border-radius: 16px;
-    margin: 0 auto 84px;
+    margin: 0 auto 54px;
     background-color: pink;
     padding: 32px;
     box-sizing: border-box;
@@ -38,14 +38,15 @@
     }
     .top_right {
       padding-left: 26px;
-      padding-top: 14px;
+      padding-top: 10px;
       .name {
         font-family: PingFang SC;
         font-style: normal;
-        font-weight: 900;
+        font-weight: bold;
         font-size: 40px;
         line-height: 36px;
         color: #ffffff;
+        margin-bottom: 8px;
       }
       .info {
         font-family: PingFang SC;

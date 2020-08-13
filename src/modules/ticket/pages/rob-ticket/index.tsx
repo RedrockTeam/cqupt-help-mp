@@ -85,7 +85,7 @@ const RobTicket = () => {
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
       {ticketList.data
-        .sort((a, b) => dayjs(a.play_time).unix() - dayjs(b.play_time).unix())
+        .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
         .map((e) => (
           <Ticket
             id={e.id}

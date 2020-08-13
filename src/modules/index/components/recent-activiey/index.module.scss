@@ -47,7 +47,7 @@
       line-height: 36px;
       color: #1c184c;
       margin-top: 10px;
-      margin-bottom: 60px;
+      margin-bottom: 50px;
       .tag {
         margin-left: 12px;
         width: 64px;
@@ -55,6 +55,7 @@
         border-top-right-radius: 15px;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
+        border-top-left-radius: 4px;
         font-family: PingFang SC;
         font-style: normal;
         font-weight: bold;
@@ -72,7 +73,7 @@
       }
     }
     .text {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       font-family: PingFang SC;
       font-style: normal;
       font-weight: normal;

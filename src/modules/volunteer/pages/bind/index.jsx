@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { redirectTo } from "@tarojs/taro";
-import { View, Text, Button, Input } from "@tarojs/components";
+import { View, Text, Button, Input, Image } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import { resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import error from "@/static/images/error.png";
+import passwordTitleIcon from "@/static/images/password-title-icon.png";
+import accountIcon from "@/static/images/account-icon.png";
 import styles from "./index.module.scss";
 import PopupBottom from "../../components/popup";
 import { loginVolunteer } from "../../services";
@@ -78,39 +80,64 @@ const VolunteerBind = () => {
       <View className={styles.wrapper}>
         <NavBack title="志愿报名" background="#F6F6F9" />
         <View className={styles.title}>
-          <View>欢迎使用</View>
-          <View>志愿报名系统</View>
+          <View>欢迎登录</View>
         </View>
         <View className={styles.form}>
-          <View className={styles.formLabel}>电话号码:</View>
-          <Input
-            className={styles.formInput}
-            value={phone}
-            onInput={(e) => {
-              changePhone(e);
-            }}
-          />
-          <View className={styles.formLabel}>身份证号:</View>
-          <Input
-            className={styles.formInput}
-            value={idCardNum}
-            onInput={(e) => {
-              changeIdCardNum(e);
-            }}
-          />
-          <View className={styles.formLabel}>志愿者账号:</View>
-          <Input
-            className={styles.formInput}
-            value={volunteerNum}
-            onInput={(e) => {
-              changeVolunteerNum(e);
-            }}
-          />
-        </View>
-        <View className={styles.tips}>
-          注意：请仔细输入信息，该信息将影响
-          <Text style={{ color: "rgba(254,145,125)" }}>志愿时长</Text>
-          的统计！
+          <View className={styles.formItem}>
+            <View className={styles.formTitle}>
+              <Image src={accountIcon} className={styles.titleIcon} />
+              电话号码
+            </View>
+            <View className={styles.itemWrapper}>
+              <Input
+                className={styles.input}
+                type="text"
+                value={phone}
+                onInput={(e) => {
+                  changePhone(e);
+                }}
+                placeholder="电话号码"
+                placeholderClass={styles.placeholder}
+              />
+            </View>
+          </View>
+          <View className={styles.formItem}>
+            <View className={styles.formTitle}>
+              <Image src={passwordTitleIcon} className={styles.titleIcon} />
+              身份证号
+            </View>
+            <View className={styles.itemWrapper}>
+              <Input
+                className={styles.input}
+                placeholderClass={styles.placeholder}
+                password
+                value={idCardNum}
+                onInput={(e) => {
+                  changeIdCardNum(e);
+                }}
+                placeholder="请输入身份证号"
+              />
+            </View>
+          </View>
+          <View className={styles.formItem}>
+            <View className={styles.formTitle}>
+              <Image src={accountIcon} className={styles.titleIcon} />
+              志愿者账号
+            </View>
+            <View className={styles.itemWrapper}>
+              <Input
+                className={styles.input}
+                type="text"
+                maxlength={10}
+                value={volunteerNum}
+                onInput={(e) => {
+                  changeVolunteerNum(e);
+                }}
+                placeholder="请输入志愿者账号"
+                placeholderClass={styles.placeholder}
+              />
+            </View>
+          </View>
         </View>
         <Button
           className={
@@ -123,6 +150,11 @@ const VolunteerBind = () => {
         >
           登录
         </Button>
+        <View className={styles.tips}>
+          注意：请仔细输入信息，该信息将影响
+          <Text style={{ color: "rgba(254,145,125)" }}>志愿时长</Text>
+          的统计！
+        </View>
       </View>
       <Popup.Comp />
       <PopupBottom

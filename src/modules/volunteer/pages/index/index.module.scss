@@ -3,7 +3,7 @@
   .card {
     border-radius: 20px;
     background: #ffffff;
-    padding: 40px 30px 36px 34px;
+    padding: 40px 30px 36px 40px;
     margin-bottom: 24px;
     .cardTop {
       display: flex;
@@ -12,7 +12,7 @@
       .cardName {
         color: #1c184c;
         font-family: PingFang SC;
-        font-weight: 400;
+        font-weight: bold;
         font-size: 32px;
         text-align: left;
       }

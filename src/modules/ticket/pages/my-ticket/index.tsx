@@ -13,7 +13,9 @@ import {
   useQueryCache,
 } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
-import { redirectTo, showActionSheet } from "@tarojs/taro";
+import { redirectTo } from "@tarojs/taro";
+import { now } from "@/common/helpers/date";
+import dayjs from "dayjs";
 import Empty from "@/common/components/empty";
 import { resolvePage } from "@/common/helpers/utils";
 import { SwiperProps } from "@tarojs/components/types/Swiper";
@@ -124,9 +126,15 @@ const MyTicket = () => {
       <PrimaryButton
         onClick={handleCheck}
         className={styles.btn}
-        disabled={!myTicketListRes.data[current].effective}
+        disabled={
+          dayjs(myTicketListRes.data[current].play_time).unix() < now() ||
+          !myTicketListRes.data[current].effective
+        }
       >
-        {myTicketListRes.data[current].effective ? "点击验票" : "已失效"}
+        {dayjs(myTicketListRes.data[current].play_time).unix() < now() ||
+        !myTicketListRes.data[current].effective
+          ? "已失效"
+          : "点击验票"}
       </PrimaryButton>
       <PopupSelf visible={visible} onCancel={handleConcel} onOk={handleOk} />
       <Popup.Comp />
