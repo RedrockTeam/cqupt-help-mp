@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { View, Image, Text, Button, ITouchEvent } from "@tarojs/components";
 import { useRouter, navigateBack } from "@tarojs/taro";
-import { timestampToDateString, now } from "@/common/helpers/date";
+import { timestampToDateString, now, gapDay } from "@/common/helpers/date";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
@@ -94,7 +94,9 @@ const VolunteerDetail = () => {
         <View className={styles.item1}>
           <View className={styles.title}>
             <View className={styles.name}>{data.data.name}</View>
-            <View className={styles.status}>招募中</View>
+            <View className={styles.status}>
+              {data.data.last_date > now() ? "招募中" : "已结束"}
+            </View>
           </View>
           <View className={styles.timeWrap}>
             <View className={styles.label}>报名截止时间:</View>

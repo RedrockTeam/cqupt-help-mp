@@ -26,12 +26,12 @@
       color: #ffffff;
       top: 0;
       left: 0;
-      background: rgba(255, 97, 149, 0.7);
+      background: rgba(255, 97, 149);
       box-sizing: border-box;
       border-radius: 12px 0px 12px 0px;
     }
     .doing {
-      background: rgba(98, 90, 248, 0.7);
+      background: rgba(98, 90, 248);
     }
   }
   .right {
@@ -42,7 +42,7 @@
       align-items: center;
       font-family: PingFang SC;
       font-style: normal;
-      font-weight: 500;
+      font-weight: bold;
       font-size: 32px;
       line-height: 36px;
       color: #1c184c;
@@ -57,7 +57,7 @@
         border-bottom-right-radius: 15px;
         font-family: PingFang SC;
         font-style: normal;
-        font-weight: 500;
+        font-weight: bold;
         font-size: 18px;
         line-height: 28px;
         text-align: center;

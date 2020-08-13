@@ -24,12 +24,12 @@
       display: flex;
       align-items: center;
       margin-bottom: 18px;
-      font-weight: 500;
+      font-weight: bold;
       padding-top: 48px;
       .name {
         color: #1c184c;
         font-family: PingFang SC;
-        font-weight: 500;
+        font-weight: bold;
         font-size: 40px;
         text-align: left;
         margin-right: 16px;
@@ -45,7 +45,7 @@
         background: #ebeaff;
         color: #625af8;
         font-family: PingFang SC;
-        font-weight: 500;
+        font-weight: bold;
         font-size: 20px;
         text-align: center;
       }
@@ -64,7 +64,7 @@
         margin-right: 0;
         margin-left: auto;
         font-size: 28px;
-        font-weight: 500;
+        font-weight: bold;
         letter-spacing: 3px;
         font-family: DIN;
       }
@@ -79,7 +79,7 @@
     font-family: PingFang SC;
     font-size: 30px;
     text-align: left;
-    font-weight: 500;
+    font-weight: bold;
     margin-bottom: 10px;
   }
   .text {

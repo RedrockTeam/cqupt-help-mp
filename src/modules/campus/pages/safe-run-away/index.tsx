@@ -44,7 +44,7 @@ const SafeRunAway = ({ number, plate, saveTime }: Props) => {
           const hide = Popup.show({
             img: success,
             title: "取包成功",
-            detail: "3s之后自动返回",
+            detail: "1.5s之后自动返回",
           });
           setTimeout(() => {
             hide();
@@ -74,7 +74,7 @@ const SafeRunAway = ({ number, plate, saveTime }: Props) => {
       <NavBack title="天天护跑" background="#F6F6F9" />
       <View className={styles.top}>
         <View className={styles.num}>{plate + number}</View>
-        <View className={styles.tip}>请务必在 9 点 30 前取出</View>
+        <View className={styles.tip}>请务必在 9:30 前取出</View>
         <Image src={connectIcon} className={styles.left} />
         <Image src={connectIcon} className={styles.right} />
       </View>

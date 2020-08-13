@@ -28,11 +28,12 @@
       height: 220px;
       display: flex;
       overflow-x: auto;
-      padding-top: 46px;
+      padding-top: 40px;
       .slideItem {
         width: 116px;
         height: 130px;
         padding-right: 69px;
+        padding-top: 6px;
         text-align: center;
         box-sizing: content-box;
         &:first-child {
@@ -96,11 +97,11 @@
 }
 
 .newIcon {
-  width: 45px;
+  width: 58px;
   height: 32px;
   position: relative;
-  bottom: 130px;
-  left: 50px;
+  bottom: 140px;
+  left: 55px;
 }
 
 .holder {

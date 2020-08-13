@@ -84,20 +84,22 @@ const RobTicket = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      {ticketList.data.map((e) => (
-        <Ticket
-          id={e.id}
-          playTime={dayjs(e.play_time).unix()}
-          robTime={dayjs(e.begin_time).unix()}
-          location={e.location}
-          remain={e.left}
-          image={e.image}
-          name={e.name}
-          isReceived={e.is_received}
-          onRobTicket={handleRobTicket}
-          key={e.id}
-        />
-      ))}
+      {ticketList.data
+        .sort((a, b) => dayjs(a.play_time).unix() - dayjs(b.play_time).unix())
+        .map((e) => (
+          <Ticket
+            id={e.id}
+            playTime={dayjs(e.play_time).unix()}
+            robTime={dayjs(e.begin_time).unix()}
+            location={e.location}
+            remain={e.left}
+            image={e.image}
+            name={e.name}
+            isReceived={e.is_received}
+            onRobTicket={handleRobTicket}
+            key={e.id}
+          />
+        ))}
       <Popup.Comp />
     </View>
   );
