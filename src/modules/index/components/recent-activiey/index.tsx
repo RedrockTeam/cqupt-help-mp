@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Image, Text } from "@tarojs/components";
 import { gapDay } from "@/common/helpers/date";
-import { navTo, resolvePage } from "@/common/helpers/utils";
+import { getString, navTo, resolvePage } from "@/common/helpers/utils";
+
 import styles from "./index.module.scss";
 
 type Props = {
@@ -76,7 +77,7 @@ const RecentActivity = ({
             {type === 1 ? "线上" : "线下"}
           </View>
         </View>
-        <Text className={styles.text}>{teamName}</Text>
+        <Text className={styles.text}>{getString(teamName)}</Text>
         <Text className={styles.text}>
           {/* {timestampToDateString(startTime)} - {timestampToDateString(endTime)} */}
           {time}

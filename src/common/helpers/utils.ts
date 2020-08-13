@@ -58,3 +58,11 @@ export const getToken = async (): Promise<string | undefined> => {
     }
   }
 };
+
+export const getString = (param: string) => {
+  const index = param.lastIndexOf("—");
+  if (index === -1) return param;
+  console.log(index);
+  console.log(param.substring(0, index));
+  return param.substring(0, index);
+};

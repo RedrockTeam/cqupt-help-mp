@@ -79,6 +79,7 @@ const MyTicket = () => {
   };
 
   const [current, setCurrent] = useState(0);
+
   const handleSwiperChange: BaseEventOrigFunction<SwiperProps.onChangeEventDeatil> = (
     e
   ) => setCurrent(e.detail.current);
@@ -120,10 +121,15 @@ const MyTicket = () => {
           </SwiperItem>
         ))}
       </Swiper>
-      <PrimaryButton onClick={handleCheck} className={styles.btn}>
-        点击验票
+      <PrimaryButton
+        onClick={handleCheck}
+        className={styles.btn}
+        disabled={!myTicketListRes.data[current].effective}
+      >
+        {myTicketListRes.data[current].effective ? "点击验票" : "已失效"}
       </PrimaryButton>
       <PopupSelf visible={visible} onCancel={handleConcel} onOk={handleOk} />
+      <Popup.Comp />
     </View>
   );
 };

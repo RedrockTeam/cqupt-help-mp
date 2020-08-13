@@ -76,6 +76,7 @@ const Feedback = () => {
   const deletePic = (index) => {
     picSrcs.splice(index, 1);
     setPicSrcs([...picSrcs]);
+    setPicNum([...picSrcs].length);
   };
 
   const handlePushText = async (picRes) => {

@@ -32,7 +32,7 @@ const VolunteerBind = () => {
   };
 
   const handleShowVerify = () => {
-    if (!/^1[3|4|5|7|8]\d{9}$/.test(phone)) {
+    if (!/^1[0-9]{10}$/.test(phone)) {
       const hide = Popup.show({
         detail: "请输入正确的电话号码",
       });

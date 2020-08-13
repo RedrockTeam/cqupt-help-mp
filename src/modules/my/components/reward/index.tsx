@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Button, ITouchEvent } from "@tarojs/components";
+import { getString } from "@/common/helpers/utils";
 import { timestampToDateString, now } from "@/common/helpers/date";
 import styles from "./index.module.scss";
 
@@ -52,7 +53,7 @@ const Reward = ({
         <Text className={styles.title}>
           {level}等奖：{name}
         </Text>
-        <Text className={styles.organizer}>{organizer}</Text>
+        <Text className={styles.organizer}>{getString(organizer)}</Text>
       </View>
       <View className={styles.content}>
         <View className={styles.info}>
