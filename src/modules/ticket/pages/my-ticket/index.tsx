@@ -23,7 +23,7 @@ import PopupContext from "@/stores/popup";
 import robSuccessImg from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
 import { useContainer } from "unstated-next";
-import PopupSelf from "../../components/popup";
+import BottomPop from "@/common/components/bottomPop";
 import styles from "./index.module.scss";
 import OwedTicket from "../../components/owed-ticket";
 import { getMyTicketList, checkTicket } from "../../services";
@@ -127,16 +127,24 @@ const MyTicket = () => {
         onClick={handleCheck}
         className={styles.btn}
         disabled={
-          dayjs(myTicketListRes.data[current].play_time).unix() < now() ||
-          !myTicketListRes.data[current].effective
+          dayjs(myTicketListRes.data[current].play_time).unix() - 1800 <
+            now() || !myTicketListRes.data[current].effective
         }
       >
-        {dayjs(myTicketListRes.data[current].play_time).unix() < now() ||
+        {dayjs(myTicketListRes.data[current].play_time).unix() - 1800 < now() ||
         !myTicketListRes.data[current].effective
           ? "已失效"
           : "点击验票"}
       </PrimaryButton>
-      <PopupSelf visible={visible} onCancel={handleConcel} onOk={handleOk} />
+      <View className={styles.tips}>
+        影票在开场30分钟后失效，请在工作人员指示下使用!
+      </View>
+      <BottomPop
+        isShow={visible}
+        onCancel={handleConcel}
+        onOk={handleOk}
+        title="确认使用该影票？"
+      />
       <Popup.Comp />
     </View>
   );

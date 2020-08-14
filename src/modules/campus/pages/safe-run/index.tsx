@@ -101,7 +101,7 @@ const SafeRun = () => {
         <Text className={styles.text}>
           2. 护跑时间从晚上<Text className={styles.strong}>8点到10点</Text>
           ，请在<Text className={styles.strong}>9:45</Text>
-          之前，根据自身情况来将存包拿。
+          之前，根据自身情况来将寄存物品拿走。
         </Text>
         <Text className={styles.text}>
           3.我们将在<Text className={styles.strong}>22:10</Text>

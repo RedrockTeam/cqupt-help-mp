@@ -72,6 +72,7 @@ const Apply = () => {
             <Input
               className={styles.input}
               value={name}
+              maxlength={10}
               onInput={InputChange}
               placeholder="请输入社团全称"
             />

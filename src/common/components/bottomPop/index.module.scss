@@ -32,7 +32,7 @@
   background-color: rgba($color: #000000, $alpha: 0.25);
   .verify {
     width: 100vw;
-    height: 424px;
+    height: 384px;
     background-color: #ffffff;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
@@ -40,18 +40,8 @@
     bottom: 0;
     padding: 40px 0;
     .Top {
-      .tips {
-        text-align: center;
-        font-family: PingFang SC;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 28px;
-        line-height: 36px;
-        letter-spacing: 0.04em;
-        color: #ff6195;
-        padding: 0 10px 30px;
-        border-bottom: 3px solid rgba(0, 0, 0, 0.05);
-      }
+      padding-right: 10px;
+      padding-left: 10px;
       .title {
         text-align: center;
         color: #a4a3b7;
@@ -59,7 +49,8 @@
         font-weight: normal;
         font-size: 32px;
         line-height: 36px;
-        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: 3px solid rgba(0, 0, 0, 0.05);
       }
     }
 

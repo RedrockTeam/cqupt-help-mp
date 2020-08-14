@@ -7,11 +7,11 @@ export interface GetStatusRes extends BaseRes {
 }
 
 export interface HistoryItem {
-  id: number; // 号码牌，憨批后端
+  id: number;
   save_time: string;
   take_time: string;
   location: string;
-  stu_num: number;
+  plate_num: number;
   stu_name: string;
   sport_time: number;
 }

@@ -2,37 +2,13 @@
 
 重邮帮小程序
 
-- [ ] 问题反馈接口
-
 - [ ] 修复隐藏 bug
 
   - [ ] id 申请，重复申请响应为空，导致前端 popup 提示不准确
 
-- [ ] 完善样式，过渡动画，UX
-
-  - [ ] popup 组件提取 共同组件
-
-  - [x] 去掉 bind 小眼睛
-
-  - [x] Loading 小一点，首页的往下点
-
-  - [x] 首页青春有约 hot 上标
-
-  - [x] 活动页、志愿页 icon 扁了，招募中全圆角，字体加粗
-
-  - [x] 在线抢票日期、剩余字体变细
-
-  - [x] 首页 banner 字体变细，字体 icon 近一点
-
-  - [x] 问题反馈线变浅，placehoder（和 bind 页）样式 bug
-
-  - [x] 申请会员页、bind 页、我的页面 icon 糊了
-
-  - [x] 换志愿页图片
-
-  - [x] 青春有约头部字体
-
-  - [x] 首页活动左上角字体居中
+* [ ] 静态资源图片的引用
+* [ ] 天天护跑时间暂时为全天开放
+* [ ] 完善文档
 
 - [ ] 重构优化
 
@@ -176,3 +152,18 @@
    这是因为 taro 通过 App 的 props.children 注入页面，类似于伪代码 `<App children={<page>{loadPage(globalConfig.pages[0])}</page>} />` 而 page 之外的会忽略，所以不能只声明一个 Popup 组件，需要在每个页面都声明一遍
 
 5. 由于小程序访问元素位置为异步 API，因此小程序中无法使用 react-transition-group，volunteer/picker 的过渡动画手写实现，也可以考虑 react-spring
+
+## 组件整理
+
+- empty 缺省页（具有有标题 和 无标题 两种状态）
+  引用：我的奖品 我的活动
+
+- placeholder 加载/错误 组件 （具有 loading 和 error 两种状态）
+  引用：每个功能加载时 ，借助 react-query 提供的请求状态 从而显示
+
+- navback 上文已经提到
+
+- popup （位于页面居中的提示信息弹窗）
+
+- bottomPop (从页面底部弹出的需要用户进行下一步操作的信息弹窗)
+  引用：护跑领包 ; 影票验票
