@@ -79,7 +79,7 @@ const Feedback = () => {
     setPicNum([...picSrcs].length);
   };
 
-  const handlePushText = async (picRes) => {
+  const handlePushWithImg = async (picRes) => {
     const [photo1, photo2, photo3, photo4] = picRes;
 
     const res = await mutatePush({
@@ -100,8 +100,26 @@ const Feedback = () => {
       setTimeout(() => hide(), 1500);
     }
   };
+
+  const handlePush = async () => {
+    const res = await mutatePush({
+      title,
+      detail: content,
+    });
+    if (res.status === 200) {
+      navTo({ url: resolvePage("feedback", "result") });
+    } else {
+      const hide = Popup.show({
+        title: "申请失败",
+        detail: "请稍后再试",
+      });
+      setTimeout(() => hide(), 1500);
+    }
+  };
+
   const handleUploadImg = (picSrcs, index, token, picRes) => {
     const n = picSrcs.length;
+    if (!n) handlePush();
     Taro.uploadFile({
       url:
         "https://cyxbsmobile.redrock.team/wxapi/cyb-permissioncenter/upload/file",
@@ -123,7 +141,7 @@ const Feedback = () => {
           handleUploadImg(picSrcs, index + 1, token, picRes);
         }
         if (index + 1 === n) {
-          handlePushText(picRes);
+          handlePushWithImg(picRes);
         }
       },
     });
