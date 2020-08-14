@@ -13,8 +13,6 @@ import homeCampusIcon from "@/static/images/home-campus-icon.png";
 import homeVolunteerIcon from "@/static/images/home-volunteer-icon.png";
 import homeYoungIcon from "@/static/images/home-young-icon.png";
 import homeIdIcon from "@/static/images/home-id-icon.png";
-import tmpHomeBanner from "@/static/images/tmp-home-banner.jpg";
-import tmpHomeBanner1 from "@/static/images/tmp-home-banner2.jpg";
 // import tmpHomeRecent from "@/static/images/tmp-home-recent.jpg";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { resolvePage, navTo } from "@/common/helpers/utils";
@@ -27,7 +25,13 @@ import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
 
-const list = [tmpHomeBanner, tmpHomeBanner1]; // 轮播图的图片
+const list = [
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img1.jpg",
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img2.jpg",
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img3.jpg",
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img4.jpg",
+]; // 轮播图的图片
 
 export default function Index() {
   const userInfo = getUserInfo();
