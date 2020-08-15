@@ -37,6 +37,17 @@ const Apply = () => {
           setName();
           navigateBack();
         }, 1500);
+      } else if (res.status === 10010) {
+        const hide = Popup.show({
+          img: error,
+          title: "申请失败",
+          detail: "不可重复申请信息",
+        });
+        setTimeout(() => {
+          hide();
+          setName();
+          navigateBack();
+        }, 1500);
       } else {
         const hide = Popup.show({
           title: "申请失败",
