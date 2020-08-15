@@ -65,7 +65,7 @@ const Volunteer = () => {
                 }
               >
                 {item.last_date < now()
-                  ? "已结束"
+                  ? "报名已结束"
                   : `距报名结束:${gapDay(item.last_date)}天`}
               </View>
             </View>
