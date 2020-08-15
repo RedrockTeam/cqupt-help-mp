@@ -3,10 +3,10 @@ import { BaseRes } from "@/common/helpers/request";
 export interface FeedbackInfo {
   title: string;
   content: string;
-  photo1?: any;
-  photo2?: any;
-  photo3?: any;
-  photo4?: any;
+  photo1?: string | undefined;
+  photo2?: string | undefined;
+  photo3?: string | undefined;
+  photo4?: string | undefined;
 }
 
 export type FeedbackInfoRes = BaseRes;

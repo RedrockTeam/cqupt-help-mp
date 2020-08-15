@@ -25,6 +25,7 @@ const Feedback = () => {
   const [contentNum, setContentNum] = useState(0);
   const [picNum, setPicNum] = useState(0);
   const [picRes, setPicRes] = useState([]);
+  const [loading, setLoding] = useState(false);
 
   const [mutatePush] = useMutation(pushFeedback);
   const Popup = useContainer(PopupContext);
@@ -92,6 +93,13 @@ const Feedback = () => {
     });
     if (res.status === 200) {
       navTo({ url: resolvePage("feedback", "result") });
+      setPicNum(0);
+      setPicRes();
+      setPicSrcs([]);
+      setTitle();
+      setContent();
+      setContentNum();
+      setLoding(false);
     } else {
       const hide = Popup.show({
         title: "申请失败",
@@ -108,6 +116,10 @@ const Feedback = () => {
     });
     if (res.status === 200) {
       navTo({ url: resolvePage("feedback", "result") });
+      setTitle();
+      setContent();
+      setContentNum();
+      setLoding(false);
     } else {
       const hide = Popup.show({
         title: "申请失败",
@@ -119,32 +131,80 @@ const Feedback = () => {
 
   const handleUploadImg = (picSrcs, index, token, picRes) => {
     const n = picSrcs.length;
-    if (!n) handlePush();
-    Taro.uploadFile({
-      url:
-        "https://cyxbsmobile.redrock.team/wxapi/cyb-permissioncenter/upload/file",
-      filePath: picSrcs[index],
-      name: "file",
-      header: {
-        Authorization: `Bearer ${token}`,
-      },
-      success(res) {
-        const { data } = res;
-        const info = JSON.parse(data);
-        picRes.push(info.data.name);
-        setPicRes([...picRes]);
-        // do something
-      },
-      complete() {
-        // index 表示下标 ; n 表示数组长度
-        if (index + 1 < n) {
-          handleUploadImg(picSrcs, index + 1, token, picRes);
-        }
-        if (index + 1 === n) {
+
+    if (n) {
+      const promises = picSrcs.map((picSrc) =>
+        Taro.uploadFile({
+          url:
+            "https://cyxbsmobile.redrock.team/wxapi/cyb-permissioncenter/upload/file",
+          filePath: picSrc,
+          name: "file",
+          header: {
+            Authorization: `Bearer ${token}`,
+          },
+          success(res) {
+            const { data } = res;
+            const info = JSON.parse(data);
+            picRes.push(info.data.name);
+            setPicRes([...picRes]);
+            // do something
+          },
+        })
+      );
+
+      Promise.all(promises)
+        .then(function (res) {
+          for (let i = 0; i < res.length; i++) {
+            console.log(res[i]);
+            if (res[i].statusCode !== 200) {
+              const hide = Popup.show({
+                title: "反馈失败",
+                detail: "请稍后再试",
+              });
+              setTimeout(() => hide(), 1500);
+              return;
+            }
+          }
           handlePushWithImg(picRes);
-        }
-      },
-    });
+        })
+        .catch(function (err) {
+          setLoding(false);
+          const hide = Popup.show({
+            title: "网络异常",
+            detail: "请稍后再试",
+            img: error,
+          });
+          setTimeout(() => hide(), 1500);
+        });
+    } else {
+      handlePush();
+    }
+
+    // Taro.uploadFile({
+    //   url:
+    //     "https://cyxbsmobile.redrock.team/wxapi/cyb-permissioncenter/upload/file",
+    //   filePath: picSrcs[index],
+    //   name: "file",
+    //   header: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   success(res) {
+    //     const { data } = res;
+    //     const info = JSON.parse(data);
+    //     picRes.push(info.data.name);
+    //     setPicRes([...picRes]);
+    //     // do something
+    //   },
+    //   complete() {
+    //     // index 表示下标 ; n 表示数组长度
+    //     if (index + 1 < n) {
+    //       handleUploadImg(picSrcs, index + 1, token, picRes);
+    //     }
+    //     if (index + 1 === n) {
+    //       handlePushWithImg(picRes);
+    //     }
+    //   },
+    // });
   };
 
   const handlePushFeedback = async () => {
@@ -153,6 +213,7 @@ const Feedback = () => {
         removeStorageSync("cqupt-help-mp-token-key")
       );
       handleUploadImg(picSrcs, 0, token, picRes);
+      setLoding(true);
     } catch (e) {
       const hide = Popup.show({
         img: error,
@@ -222,9 +283,10 @@ const Feedback = () => {
         disabled={!(title && content)}
         onClick={handlePushFeedback}
       >
-        提交反馈
+        {loading ? "提交中..." : "提交反馈"}
       </Button>
       <View className={styles.tips}>了解更多反馈情况请加QQ群：948304245</View>
+      <Popup.Comp />
     </View>
   );
 };
