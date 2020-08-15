@@ -9,14 +9,14 @@ import {
 import { InputProps } from "@tarojs/components/types/Input";
 import { useContainer } from "unstated-next";
 import PrimaryButton from "@/common/components/primary-button";
-import passwordIcon from "@/static/images/password-icon.png";
 import passwordTitleIcon from "@/static/images/password-title-icon.png";
 import error from "@/static/images/error.png";
 import accountIcon from "@/static/images/account-icon.png";
 import { useMutation } from "react-query";
-import { switchTab, requestSubscribeMessage, showModal } from "@tarojs/taro";
+import { switchTab } from "@tarojs/taro";
 import { resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
+import { checkToken } from "@/stores/user";
 import styles from "./index.module.scss";
 import { bindReq } from "../../services";
 
@@ -45,23 +45,25 @@ const Bind = () => {
         });
         setTimeout(() => hide(), 1500);
       } else {
-        requestSubscribeMessage({
-          tmplIds: [
-            "fM1Jx8XieAXy4VGNHCptnVTlwLjcT-tr0adXY9w9rU8",
-            "RzdGZvkrZCXjIepcPzjfLYugkckhKLxVW9WClFJhZ3Q",
-          ],
-          complete() {
-            showModal({
-              title: "提示",
-              content: "之后可以点击右上角进入设置进行修改",
-              showCancel: false,
-              success() {
-                switchTab({ url: resolvePage("index", "home") });
-              },
-            });
-          },
-        });
+        await checkToken();
+        switchTab({ url: resolvePage("index", "home") });
       }
+      // requestSubscribeMessage({ // 长期订阅的逻辑，但是现在不能申请到长期订阅，等 wx 开放
+      //   tmplIds: [
+      //     "fM1Jx8XieAXy4VGNHCptnVTlwLjcT-tr0adXY9w9rU8",
+      //     "RzdGZvkrZCXjIepcPzjfLYugkckhKLxVW9WClFJhZ3Q",
+      //   ],
+      //   complete() {
+      // showModal({
+      //   title: "提示",
+      //   content: "之后可以点击右上角进入设置进行修改",
+      //   showCancel: false,
+      //   success() {
+      //     switchTab({ url: resolvePage("index", "home") });
+      //   },
+      // });
+      // },
+      // });
     } catch (e) {
       const hide = Popup.show({
         title: "登录失败",

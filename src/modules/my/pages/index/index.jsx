@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Image, Text, OpenData } from "@tarojs/components";
+import { View, Image, Text, OpenData, Button } from "@tarojs/components";
 import { resolvePage, navTo } from "@/common/helpers/utils";
+import request from "@/common/helpers/request";
 import avator from "@/static/images/empty.png";
 import aboutIcon from "@/static/images/about-icon.png";
 import feedbackIcon from "@/static/images/feedback-icon.png";
@@ -8,6 +9,7 @@ import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
+
 // import { useQuery } from "react-query/dist/react-query.production.min";
 import getUserInfo from "@/stores/user";
 import styles from "./index.module.scss";
@@ -17,6 +19,16 @@ const MyIndex = () => {
   // const { data: userInfo } = useQuery("userInfo", () =>
   //   getToken().then((t) => parseToken(t))
   // );
+
+  const handleLoginout = async () => {
+    const res = await request("https://wx.redrock.team/magicloop/unbind/");
+    if (res.status === 10000) {
+      navTo({
+        url: resolvePage("index", "bind"),
+      });
+    }
+  };
+
   return (
     <View>
       <View className={styles.top}>
@@ -77,6 +89,13 @@ const MyIndex = () => {
           <Image src={enter} className={styles.enter} />
         </View>
       </View>
+      <Button
+        onClick={() => {
+          handleLoginout();
+        }}
+      >
+        切换账号
+      </Button>
     </View>
   );
 };

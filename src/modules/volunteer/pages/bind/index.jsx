@@ -7,8 +7,9 @@ import { resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import error from "@/static/images/error.png";
-import passwordTitleIcon from "@/static/images/password-title-icon.png";
 import accountIcon from "@/static/images/account-icon.png";
+import phoneIcon from "@/static/images/phone-icon.png";
+import idIcon from "@/static/images/id-icon.png";
 import styles from "./index.module.scss";
 import PopupBottom from "../../components/popup";
 import { loginVolunteer } from "../../services";
@@ -85,7 +86,7 @@ const VolunteerBind = () => {
         <View className={styles.form}>
           <View className={styles.formItem}>
             <View className={styles.formTitle}>
-              <Image src={accountIcon} className={styles.titleIcon} />
+              <Image src={phoneIcon} className={styles.titleIcon} />
               电话号码
             </View>
             <View className={styles.itemWrapper}>
@@ -103,7 +104,7 @@ const VolunteerBind = () => {
           </View>
           <View className={styles.formItem}>
             <View className={styles.formTitle}>
-              <Image src={passwordTitleIcon} className={styles.titleIcon} />
+              <Image src={idIcon} className={styles.titleIcon} />
               身份证号
             </View>
             <View className={styles.itemWrapper}>

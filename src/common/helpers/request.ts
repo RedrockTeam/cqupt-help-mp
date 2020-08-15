@@ -1,6 +1,6 @@
-import { request as req, removeStorageSync } from "@tarojs/taro";
+import { request as req } from "@tarojs/taro";
+import getUserInfo from "@/stores/user";
 import { API } from "../constants";
-import { getToken } from "./utils";
 
 const request = async <ResType = any, ReqType = any>(
   key: string,
@@ -10,10 +10,7 @@ const request = async <ResType = any, ReqType = any>(
     data,
   }: Pick<req.Option<ReqType>, "method" | "header" | "data"> = {}
 ) => {
-  const token = await getToken().catch((e) =>
-    removeStorageSync("cqupt-help-mp-token-key")
-  );
-
+  const { token } = getUserInfo();
   const res = await req<ResType, ReqType>({
     url: `${API}${key}`,
     method,
