@@ -1,5 +1,5 @@
 import { request as req } from "@tarojs/taro";
-import getUserInfo from "@/stores/user";
+import { getToken } from "@/stores/user";
 import { API } from "../constants";
 
 const request = async <ResType = any, ReqType = any>(
@@ -10,9 +10,9 @@ const request = async <ResType = any, ReqType = any>(
     data,
   }: Pick<req.Option<ReqType>, "method" | "header" | "data"> = {}
 ) => {
-  const { token } = getUserInfo();
+  const token = await getToken();
   const res = await req<ResType, ReqType>({
-    url: `${API}${key}`,
+    url: /^https?:\/\//.test(key) ? key : `${API}${key}`,
     method,
     header: { ...header, Authorization: `Bearer ${token}` },
     data,

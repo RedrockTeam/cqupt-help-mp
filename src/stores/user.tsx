@@ -2,9 +2,11 @@ import { atob } from "Base64";
 import { login, request } from "@tarojs/taro";
 import { navTo, resolvePage } from "@/common/helpers/utils";
 
-const getToken = async (): Promise<string | undefined> => {
+export const getToken = async (
+  refresh = false
+): Promise<string | undefined> => {
   let token: string | undefined;
-  if (token) {
+  if (!refresh && token) {
     return token;
   }
   const { code } = await login();
@@ -30,21 +32,16 @@ type UserInfo = {
 let userInfo: UserInfo;
 
 // export 出在 app 调用一次，获取 token 并初始化用户信息
-export const checkToken = async () => {
-  const token = await getToken();
+export const checkToken = async (refresh = false) => {
+  const token = await getToken(refresh);
   if (!token) {
     navTo({ url: resolvePage("index", "bind") });
   } else {
     userInfo = parseToken(token);
     userInfo.token = token;
+    console.log(userInfo)
   }
 };
 
-const getUserInfo = () => {
-  while (!userInfo) {
-    // 阻塞，保证 userInfo 已初始化
-    console.log("zz");
-  }
-  return userInfo;
-};
+const getUserInfo = () => userInfo;
 export default getUserInfo;

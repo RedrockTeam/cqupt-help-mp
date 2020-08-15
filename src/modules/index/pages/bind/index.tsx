@@ -45,7 +45,7 @@ const Bind = () => {
         });
         setTimeout(() => hide(), 1500);
       } else {
-        await checkToken();
+        await checkToken(true);
         switchTab({ url: resolvePage("index", "home") });
       }
       // requestSubscribeMessage({ // 长期订阅的逻辑，但是现在不能申请到长期订阅，等 wx 开放

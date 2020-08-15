@@ -15,7 +15,7 @@ import NavBack from "@/common/components/nav-back";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import { useMutation } from "react-query/dist/react-query.production.min";
-import getUserInfo from "@/stores/user";
+import getUserInfo, { getToken } from "@/stores/user";
 import { pushFeedback } from "../../services";
 import styles from "./index.module.scss";
 
@@ -210,7 +210,7 @@ const Feedback = () => {
 
   const handlePushFeedback = async () => {
     try {
-      const { token } = getUserInfo();
+      const token = await getToken();
       handleUploadImg(picSrcs, 0, token, picRes);
       setLoding(true);
     } catch (e) {

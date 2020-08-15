@@ -21,7 +21,7 @@ const MyIndex = () => {
   // );
 
   const handleLoginout = async () => {
-    const res = await request("https://wx.redrock.team/magicloop/unbind/");
+    const res = await request("https://wx.redrock.team/magicloop/unbind/xcx");
     if (res.status === 10000) {
       navTo({
         url: resolvePage("index", "bind"),
