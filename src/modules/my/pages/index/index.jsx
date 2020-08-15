@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Image, Text, OpenData, Button } from "@tarojs/components";
+import { View, Image, Text, OpenData } from "@tarojs/components";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import request from "@/common/helpers/request";
 import avator from "@/static/images/empty.png";
 import aboutIcon from "@/static/images/about-icon.png";
+import loginOut from "@/static/images/loginOut.png";
 import feedbackIcon from "@/static/images/feedback-icon.png";
 import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";
@@ -89,13 +90,10 @@ const MyIndex = () => {
           <Image src={enter} className={styles.enter} />
         </View>
       </View>
-      <Button
-        onClick={() => {
-          handleLoginout();
-        }}
-      >
-        切换账号
-      </Button>
+      <View className={styles.loginOut} onClick={() => handleLoginout()}>
+        <Image className={styles.icon} src={loginOut} />
+        <Text className={styles.text}>切换账号</Text>
+      </View>
     </View>
   );
 };

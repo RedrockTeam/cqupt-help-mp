@@ -127,11 +127,11 @@ const MyTicket = () => {
         onClick={handleCheck}
         className={styles.btn}
         disabled={
-          dayjs(myTicketListRes.data[current].play_time).unix() - 1800 <
+          dayjs(myTicketListRes.data[current].play_time).unix() + 1800 <
             now() || !myTicketListRes.data[current].effective
         }
       >
-        {dayjs(myTicketListRes.data[current].play_time).unix() - 1800 < now() ||
+        {dayjs(myTicketListRes.data[current].play_time).unix() + 1800 < now() ||
         !myTicketListRes.data[current].effective
           ? "已失效"
           : "点击验票"}
