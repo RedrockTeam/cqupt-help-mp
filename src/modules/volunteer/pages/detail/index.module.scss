@@ -18,17 +18,18 @@
     margin-top: -24px;
   }
   .item1 {
-    border-bottom: 1px solid #d8d8e1;
+    border-bottom: 1px solid #f2f2f2;
     padding-bottom: 30px;
     .title {
       display: flex;
       align-items: center;
       margin-bottom: 18px;
+      font-weight: bold;
       padding-top: 48px;
       .name {
         color: #1c184c;
         font-family: PingFang SC;
-        font-weight: 500;
+        font-weight: bold;
         font-size: 40px;
         text-align: left;
         margin-right: 16px;
@@ -37,7 +38,10 @@
         width: 94px;
         height: 38px;
         line-height: 38px;
-        border-radius: 16px;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 16px;
         background: #ebeaff;
         color: #625af8;
         font-family: PingFang SC;
@@ -50,12 +54,17 @@
       display: flex;
       color: #777494;
       font-family: PingFang SC;
-      font-weight: medium;
+      font-weight: 400;
       font-size: 28px;
       margin-bottom: 12px;
+      .label {
+        font-size: 28px;
+      }
       .time {
         margin-right: 0;
         margin-left: auto;
+        font-size: 28px;
+        font-weight: bold;
         letter-spacing: 3px;
         font-family: DIN;
       }
@@ -68,14 +77,15 @@
   .subTitle {
     color: #1c184c;
     font-family: PingFang SC;
-    font-size: 28px;
+    font-size: 30px;
     text-align: left;
+    font-weight: bold;
     margin-bottom: 10px;
   }
   .text {
-    color: #9794ad;
+    color: #777494;
     font-family: PingFang SC;
-    font-weight: medium;
+    font-weight: 400;
     font-size: 28px;
     text-align: left;
   }
@@ -91,15 +101,15 @@
   font-size: 36px;
   background: #625af8;
   border-radius: 64px;
-  position: absolute;
+  position: fixed;
   bottom: 40px;
   left: 50%;
   margin-left: -180px;
 }
 
 .icon {
-  width: 50px;
-  height: 38px;
+  width: 48px;
+  height: 42px;
   padding-right: 8px;
   vertical-align: top;
 }

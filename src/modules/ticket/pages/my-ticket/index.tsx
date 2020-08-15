@@ -13,7 +13,9 @@ import {
   useQueryCache,
 } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
-import { redirectTo, showActionSheet } from "@tarojs/taro";
+import { redirectTo } from "@tarojs/taro";
+import { now } from "@/common/helpers/date";
+import dayjs from "dayjs";
 import Empty from "@/common/components/empty";
 import { resolvePage } from "@/common/helpers/utils";
 import { SwiperProps } from "@tarojs/components/types/Swiper";
@@ -21,6 +23,7 @@ import PopupContext from "@/stores/popup";
 import robSuccessImg from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
 import { useContainer } from "unstated-next";
+import BottomPop from "@/common/components/bottomPop";
 import styles from "./index.module.scss";
 import OwedTicket from "../../components/owed-ticket";
 import { getMyTicketList, checkTicket } from "../../services";
@@ -34,48 +37,51 @@ const MyTicket = () => {
     getMyTicketList
   );
   const queryCache = useQueryCache();
+  const [visible, setVisible] = useState(false);
+
+  const handleConcel = () => {
+    setVisible(false);
+  };
+
+  const handleOk = async () => {
+    setVisible(false);
+    if (!myTicketListRes) return;
+    try {
+      const res = await mutateCheckTicket(myTicketListRes.data[current].id);
+      if (res.status === 200) {
+        // 憨批后端
+        const hide = Popup.show({
+          img: robSuccessImg,
+          title: "恭喜您！验票成功！",
+          detail: "快去看电影吧～",
+        });
+        setTimeout(() => hide(), 1500);
+      } else {
+        const hide = Popup.show({
+          img: error,
+          title: "验票失败...",
+          detail: "错误",
+        });
+        setTimeout(() => hide(), 1500);
+      }
+    } catch (e) {
+      const hide = Popup.show({
+        img: error,
+        title: "验票失败...",
+        detail: "网络错误",
+      });
+      setTimeout(() => hide(), 1500);
+    }
+  };
   const [mutateCheckTicket] = useMutation(checkTicket, {
     onSuccess: () => queryCache.invalidateQueries("getMyTiketList"),
   });
   const handleCheck = async () => {
-    const res = await showActionSheet({
-      itemList: ["确定"],
-      fail(e) {
-        // eslint-disable-next-line no-console
-        console.log(e);
-      },
-    });
-    if (res.tapIndex === 0) {
-      if (!myTicketListRes) return;
-      try {
-        const res = await mutateCheckTicket(myTicketListRes.data[current].id);
-        if (res.status === 200) {
-          // 憨批后端
-          const hide = Popup.show({
-            img: robSuccessImg,
-            title: "恭喜您！验票成功！",
-            detail: "快去看电影吧～",
-          });
-          setTimeout(() => hide(), 3000);
-        } else {
-          const hide = Popup.show({
-            img: error,
-            title: "验票失败...",
-            detail: "错误",
-          });
-          setTimeout(() => hide(), 3000);
-        }
-      } catch (e) {
-        const hide = Popup.show({
-          img: error,
-          title: "验票失败...",
-          detail: "网络错误",
-        });
-        setTimeout(() => hide(), 3000);
-      }
-    }
+    setVisible(true);
   };
+
   const [current, setCurrent] = useState(0);
+
   const handleSwiperChange: BaseEventOrigFunction<SwiperProps.onChangeEventDeatil> = (
     e
   ) => setCurrent(e.detail.current);
@@ -117,9 +123,29 @@ const MyTicket = () => {
           </SwiperItem>
         ))}
       </Swiper>
-      <PrimaryButton onClick={handleCheck} className={styles.btn}>
-        点击验票
+      <PrimaryButton
+        onClick={handleCheck}
+        className={styles.btn}
+        disabled={
+          dayjs(myTicketListRes.data[current].play_time).unix() - 1800 <
+            now() || !myTicketListRes.data[current].effective
+        }
+      >
+        {dayjs(myTicketListRes.data[current].play_time).unix() - 1800 < now() ||
+        !myTicketListRes.data[current].effective
+          ? "已失效"
+          : "点击验票"}
       </PrimaryButton>
+      <View className={styles.tips}>
+        影票在开场30分钟后失效，请在工作人员指示下使用!
+      </View>
+      <BottomPop
+        isShow={visible}
+        onCancel={handleConcel}
+        onOk={handleOk}
+        title="确认使用该影票？"
+      />
+      <Popup.Comp />
     </View>
   );
 };

@@ -39,7 +39,7 @@ const AcDetail = () => {
         });
         setTimeout(() => {
           hide();
-        }, 3000);
+        }, 1500);
       } else {
         const hide = Popup.show({
           title: "报名失败",
@@ -48,7 +48,7 @@ const AcDetail = () => {
         });
         setTimeout(() => {
           hide();
-        }, 3000);
+        }, 1500);
       }
     } catch (e) {
       const hide = Popup.show({
@@ -58,7 +58,7 @@ const AcDetail = () => {
       });
       setTimeout(() => {
         hide();
-      }, 3000);
+      }, 1500);
     }
   };
 
@@ -74,11 +74,11 @@ const AcDetail = () => {
               <View className={styles.status}>招募中</View>
             </View>
             <View className={styles.timeWrap}>
-              <View>活动时间：</View>
+              <View className={styles.label}>活动时间：</View>
               <View className={styles.time}>{params.time}</View>
             </View>
             <View className={styles.timeWrap}>
-              <View>活动地点：</View>
+              <View className={styles.label}>活动地点：</View>
               <View className={styles.time}>{params.location}</View>
             </View>
           </View>
@@ -106,9 +106,10 @@ const AcDetail = () => {
           </View>
         </View>
         <View />
-        <Button onClick={handleApply} className={styles.button}>
+        {/* 暂不需要 */}
+        {/* <Button onClick={handleApply} className={styles.button}>
           立即报名
-        </Button>
+        </Button> */}
       </View>
 
       <Popup.Comp />

@@ -7,21 +7,21 @@
     width: 690px;
     height: 328px;
     border-radius: 16px;
-    margin: 0 auto 84px;
+    margin: 0 auto 54px;
     background-color: pink;
     padding: 32px;
     box-sizing: border-box;
     background-size: cover;
-    &:nth-child(1) {
+    &:nth-child(4n + 1) {
       background-image: url("../../../../static/images/id1.png");
     }
-    &:nth-child(2) {
+    &:nth-child(4n + 2) {
       background-image: url("../../../../static/images/id2.png");
     }
-    &:nth-child(3) {
+    &:nth-child(4n + 3) {
       background-image: url("../../../../static/images/id3.png");
     }
-    &:nth-child(4) {
+    &:nth-child(4n + 4) {
       background-image: url("../../../../static/images/id4.png");
     }
   }
@@ -38,14 +38,15 @@
     }
     .top_right {
       padding-left: 26px;
-      padding-top: 14px;
+      padding-top: 10px;
       .name {
         font-family: PingFang SC;
         font-style: normal;
-        font-weight: 900;
+        font-weight: bold;
         font-size: 40px;
         line-height: 36px;
         color: #ffffff;
+        margin-bottom: 8px;
       }
       .info {
         font-family: PingFang SC;
@@ -89,7 +90,9 @@
   .btn {
     width: 360px;
     height: 88px;
-    margin: 246px auto 0;
+    position: fixed;
+    bottom: 40px;
+    left: 25%;
     background: #625af8;
     border-radius: 64px;
     font-family: PingFang SC;
@@ -116,7 +119,7 @@
   .text {
     color: #777494;
     font-family: PingFang SC;
-    font-weight: medium;
+    font-weight: 400;
     font-size: 32px;
     line-height: 56px;
     letter-spacing: 4px;

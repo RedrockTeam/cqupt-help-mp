@@ -46,7 +46,7 @@ const RobTicket = () => {
         title: "恭喜您！抢票成功！",
         detail: "电影票卡卷已存入“我的”页面”我的影票“中！",
       });
-      setTimeout(() => hide(), 3000);
+      setTimeout(() => hide(), 1500);
     } else {
       let detail: string;
       if (res.status === 10004) {
@@ -65,7 +65,7 @@ const RobTicket = () => {
         title: "抢票失败...",
         detail,
       });
-      setTimeout(() => hide(), 3000);
+      setTimeout(() => hide(), 1500);
     }
   };
 
@@ -84,20 +84,22 @@ const RobTicket = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      {ticketList.data.map((e) => (
-        <Ticket
-          id={e.id}
-          playTime={dayjs(e.play_time).unix()}
-          robTime={dayjs(e.begin_time).unix()}
-          location={e.location}
-          remain={e.left}
-          image={e.image}
-          name={e.name}
-          isReceived={e.is_received}
-          onRobTicket={handleRobTicket}
-          key={e.id}
-        />
-      ))}
+      {ticketList.data
+        .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
+        .map((e) => (
+          <Ticket
+            id={e.id}
+            playTime={dayjs(e.play_time).unix()}
+            robTime={dayjs(e.begin_time).unix()}
+            location={e.location}
+            remain={e.left}
+            image={e.image}
+            name={e.name}
+            isReceived={e.is_received}
+            onRobTicket={handleRobTicket}
+            key={e.id}
+          />
+        ))}
       <Popup.Comp />
     </View>
   );

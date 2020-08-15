@@ -38,7 +38,7 @@ const SafeRunHistory = () => {
       {historyListRes.records.map((e) => (
         <RunHistory
           key={e.save_time}
-          num={e.id}
+          num={e.plate_num}
           takeTime={dayjs(e.take_time).unix()}
           location={e.location}
         />

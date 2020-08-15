@@ -1,6 +1,7 @@
 import React from "react";
-import Taro from "@tarojs/taro";
+import Taro, { switchTab } from "@tarojs/taro";
 import { View, Text, Button, Image } from "@tarojs/components";
+import { resolvePage } from "@/common/helpers/utils";
 import NavBack from "@/common/components/nav-back";
 import feedback from "@/static/images/feedback.png";
 import copyPng from "@/static/images/copy.png";
@@ -9,7 +10,7 @@ import styles from "./index.module.scss";
 const FeedbackResult = () => {
   const copy = () => {
     Taro.setClipboardData({
-      data: "2576373041",
+      data: "948304245",
     });
   };
   return (
@@ -19,9 +20,7 @@ const FeedbackResult = () => {
       <View className={styles.tips1}>了解更多反馈情况或咨询问题可添加 </View>
       <View className={styles.tips2}>
         QQ群:
-        <Text style={{ color: "#625af8", paddingLeft: "15px" }}>
-          2576373041
-        </Text>
+        <Text style={{ color: "#625af8", paddingLeft: "15px" }}>948304245</Text>
         <Image
           src={copyPng}
           className={styles.copyPng}
@@ -30,7 +29,16 @@ const FeedbackResult = () => {
           }}
         />
       </View>
-      <Button className={styles.button}>知道了</Button>
+      <Button
+        className={styles.button}
+        onClick={() => {
+          switchTab({
+            url: resolvePage("my", "index"),
+          });
+        }}
+      >
+        知道了
+      </Button>
     </View>
   );
 };

@@ -1,3 +1,8 @@
+.contain {
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+}
 .wrap {
   padding-top: 40px;
   padding-left: 64px;
@@ -8,6 +13,7 @@
       font-weight: bold;
       font-size: 48px;
       line-height: 36px;
+      color: #1c184c;
       letter-spacing: 0.04em;
       margin-bottom: 20px;
     }
@@ -27,6 +33,7 @@
     .iconWrap {
       display: flex;
       align-items: center;
+      color: #494670;
       margin-bottom: 16px;
       .icon {
         width: 46px;
@@ -41,6 +48,7 @@
       border-radius: 122px;
       width: 622px;
       height: 88px;
+      color: #1c184c;
       padding-left: 52px;
       font-family: PingFang SC;
       font-style: normal;

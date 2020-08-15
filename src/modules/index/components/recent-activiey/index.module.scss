@@ -15,24 +15,23 @@
     }
     .remainTime {
       width: 112px;
-      height: 36px;
+      height: 40px;
       position: absolute;
       font-family: PingFang SC;
       font-style: normal;
       font-weight: normal;
       font-size: 22px;
-      line-height: 32px;
+      line-height: 40px;
       text-align: center;
       color: #ffffff;
       top: 0;
       left: 0;
-      background: rgba(255, 97, 149, 0.7);
-      border: 2px solid rgba(255, 255, 255, 0.5);
+      background: #ff6195;
       box-sizing: border-box;
       border-radius: 12px 0px 12px 0px;
     }
     .doing {
-      background: rgba(98, 90, 248, 0.7);
+      background: #625af8;
     }
   }
   .right {
@@ -48,7 +47,7 @@
       line-height: 36px;
       color: #1c184c;
       margin-top: 10px;
-      margin-bottom: 68px;
+      margin-bottom: 50px;
       .tag {
         margin-left: 12px;
         width: 64px;
@@ -56,6 +55,7 @@
         border-top-right-radius: 15px;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
+        border-top-left-radius: 4px;
         font-family: PingFang SC;
         font-style: normal;
         font-weight: bold;
@@ -73,7 +73,7 @@
       }
     }
     .text {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       font-family: PingFang SC;
       font-style: normal;
       font-weight: normal;

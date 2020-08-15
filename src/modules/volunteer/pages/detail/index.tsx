@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { View, Image, Text, Button, ITouchEvent } from "@tarojs/components";
 import { useRouter, navigateBack } from "@tarojs/taro";
-import { timestampToDateString, now } from "@/common/helpers/date";
+import { timestampToDateString, now, gapDay } from "@/common/helpers/date";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
@@ -46,14 +46,14 @@ const VolunteerDetail = () => {
         setTimeout(() => {
           hide();
           navigateBack();
-        }, 3000);
+        }, 1500);
       } else {
         const hide = Popup.show({
           title: "申请失败",
           detail: "错误",
           img: error,
         });
-        setTimeout(() => hide(), 3000);
+        setTimeout(() => hide(), 1500);
       }
     },
     onError() {
@@ -62,7 +62,7 @@ const VolunteerDetail = () => {
         detail: "网络错误",
         img: error,
       });
-      setTimeout(() => hide(), 3000);
+      setTimeout(() => hide(), 1500);
     },
   });
 
@@ -94,16 +94,18 @@ const VolunteerDetail = () => {
         <View className={styles.item1}>
           <View className={styles.title}>
             <View className={styles.name}>{data.data.name}</View>
-            <View className={styles.status}>招募中</View>
+            <View className={styles.status}>
+              {data.data.last_date > now() ? "招募中" : "已结束"}
+            </View>
           </View>
           <View className={styles.timeWrap}>
-            <View>报名截止时间:</View>
+            <View className={styles.label}>报名截止时间:</View>
             <View className={styles.time}>
               {timestampToDateString(data.data.last_date)}
             </View>
           </View>
           <View className={styles.timeWrap}>
-            <View>志愿服务时间:</View>
+            <View className={styles.label}>志愿服务时间:</View>
             <View className={styles.time}>
               {timestampToDateString(data.data.date)}
             </View>

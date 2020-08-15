@@ -44,7 +44,8 @@ const Ticket = ({
           已领取
         </PrimaryButton>
       );
-    if (nowTimestamp >= robTime) {
+
+    if (nowTimestamp >= robTime && playTime >= nowTimestamp) {
       if (remain <= 0)
         return (
           <PrimaryButton disabled className={styles.btn}>
@@ -57,18 +58,28 @@ const Ticket = ({
         </PrimaryButton>
       );
     }
-    const leftTime = Math.round((robTime - nowTimestamp) / 60);
-    if (leftTime < 120)
+    if (nowTimestamp > playTime) {
       return (
         <PrimaryButton disabled className={styles.btn}>
-          距离抢票还有 {leftTime} min
+          已失效
         </PrimaryButton>
       );
-    return (
-      <PrimaryButton disabled className={styles.btn}>
-        等待开抢
-      </PrimaryButton>
-    );
+    }
+    if (robTime > nowTimestamp) {
+      const leftTime = Math.round((robTime - nowTimestamp) / 60);
+      if (leftTime < 120) {
+        return (
+          <PrimaryButton disabled className={styles.btn}>
+            距离抢票还有 {leftTime} min
+          </PrimaryButton>
+        );
+      }
+      return (
+        <PrimaryButton disabled className={styles.btn}>
+          等待开抢
+        </PrimaryButton>
+      );
+    }
   };
 
   return (

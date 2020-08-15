@@ -22,7 +22,6 @@ export default {
     resolvePage("ticket", "my-ticket"),
     resolvePage("feedback", "index"),
     resolvePage("feedback", "result"),
-
     resolvePage("index", "bind"),
     "modules/webview/index",
   ],

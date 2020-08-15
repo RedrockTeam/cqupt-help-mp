@@ -13,20 +13,25 @@ import homeCampusIcon from "@/static/images/home-campus-icon.png";
 import homeVolunteerIcon from "@/static/images/home-volunteer-icon.png";
 import homeYoungIcon from "@/static/images/home-young-icon.png";
 import homeIdIcon from "@/static/images/home-id-icon.png";
-import tmpHomeBanner from "@/static/images/tmp-home-banner.jpg";
-import tmpHomeBanner1 from "@/static/images/tmp-home-banner2.jpg";
 // import tmpHomeRecent from "@/static/images/tmp-home-recent.jpg";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import getUserInfo from "@/stores/user";
 import Placeholder from "@/common/components/placeholder";
+import newIcon from "@/static/images/new-icon.png";
 import Empty from "@/common/components/empty";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
 
-const list = [tmpHomeBanner, tmpHomeBanner1]; // 轮播图的图片
+const list = [
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img1.jpg",
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img2.jpg",
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img3.jpg",
+  "https://wx.redrock.team/game/cqupt-help-mp/slider-img4.jpg",
+]; // 轮播图的图片
 
 export default function Index() {
   const userInfo = getUserInfo();
@@ -43,25 +48,33 @@ export default function Index() {
   );
 
   const renderHomeActivityList = () => {
-    if (isLoading) return <Placeholder />;
+    if (isLoading)
+      return (
+        <View className={styles.holder}>
+          <Placeholder />
+        </View>
+      );
+
     if (isError || !homeActivityListRes)
       return <Placeholder isError={isError} />;
     return homeActivityListRes.data.length !== 0 ? (
-      homeActivityListRes.data.map((e) => (
-        <RecentActivity
-          name={e.name}
-          key={e.id}
-          teamName={e.team_name}
-          timeDone={e.time_done}
-          time={e.time}
-          introduction={e.introduction}
-          location={e.location}
-          rule={e.rule}
-          registration={e.registration}
-          type={e.type}
-          image={e.image}
-        />
-      ))
+      homeActivityListRes.data
+        .sort((a, b) => a.time_done - b.time_done)
+        .map((e) => (
+          <RecentActivity
+            name={e.name}
+            key={e.id}
+            teamName={e.team_name}
+            timeDone={e.time_done}
+            time={e.time}
+            introduction={e.introduction}
+            location={e.location}
+            rule={e.rule}
+            registration={e.registration}
+            type={e.type}
+            image={e.image}
+          />
+        ))
     ) : (
       <Empty detail="暂无活动" />
     );
@@ -128,6 +141,7 @@ export default function Index() {
           >
             <Image src={homeYoungIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>青春邮约</Text>
+            <Image className={styles.newIcon} src={newIcon} />
           </View>
           <View
             className={styles.slideItem}

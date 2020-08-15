@@ -3,7 +3,7 @@
   padding-right: 32px;
   .title {
     width: 288px;
-    height: 152px;
+    height: 76px;
     margin-top: 62px;
     margin-bottom: 16px;
     color: #1c184c;
@@ -13,33 +13,60 @@
     text-align: left;
   }
   .form {
-    height: 522px;
-    border-radius: 20px;
-    background: #ffffff;
-    padding-top: 64px;
-    padding-left: 58px;
-    .formLabel {
-      color: #a4a3b7;
-      font-family: PingFang SC;
-      font-weight: medium;
-      font-size: 28px;
-      text-align: left;
-      margin-bottom: 16px;
-    }
-    .formInput {
-      height: 40px;
-      margin-bottom: 48px;
-      color: #494670;
-      font-family: DIN;
-      font-weight: medium;
-      font-size: 32px;
-      text-align: left;
+    display: flex;
+    flex-direction: column;
+    .formItem {
+      .formTitle {
+        display: flex;
+        align-items: center;
+        color: #494670;
+        font-family: PingFang SC;
+        font-weight: bold;
+        font-size: 28px;
+        line-height: 48px;
+        .titleIcon {
+          margin-right: 9px;
+          margin-left: 18px;
+          width: 32px;
+          height: 32px;
+        }
+      }
+      .itemWrapper {
+        height: 84px;
+        border-radius: 122px;
+        border: 2px solid #cdcce0;
+        margin: 8px 0;
+        margin-bottom: 56px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 52px;
+        padding-right: 32px;
+        .input {
+          height: 40px;
+          line-height: 40px;
+          color: #1c184c;
+          font-family: PingFang SC;
+          font-weight: bold;
+          font-size: 32px;
+        }
+        .placeholder {
+          color: #a4a3b7;
+          font-family: PingFang SC;
+          font-size: 30px;
+          line-height: 48px;
+        }
+        .icon {
+          width: 42px;
+          height: 36px;
+        }
+      }
     }
   }
   .tips {
     color: #a4a3b7;
     font-family: PingFang SC;
-    font-weight: medium;
+    font-weight: 400;
     font-size: 26px;
     padding-left: 22px;
     margin-top: 32px;

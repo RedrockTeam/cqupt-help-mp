@@ -20,9 +20,15 @@ const Popup = ({
   onCancel,
   onOk,
 }: Props) => {
-  return visible ? (
-    <View className={styles.mask}>
-      <View className={styles.verify}>
+  return (
+    <View
+      className={`${styles.mask} ${
+        visible ? styles.maskShow : styles.maskHide
+      }`}
+    >
+      <View
+        className={`${styles.verify} ${visible ? styles.show : styles.hide}`}
+      >
         <View className={styles.vTop}>
           <View className={styles.vTitle}>信息核对</View>
           <Image src={cancel} className={styles.vIcon} onClick={onCancel} />
@@ -46,7 +52,7 @@ const Popup = ({
         </Button>
       </View>
     </View>
-  ) : null;
+  );
 };
 
 export default Popup;
