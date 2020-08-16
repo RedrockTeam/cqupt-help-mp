@@ -3,7 +3,10 @@ import { View, Image } from "@tarojs/components";
 import PrimaryButton from "@/common/components/primary-button";
 import clockIcon from "@/static/images/clock-icon.png";
 import locateIcon from "@/static/images/locate-icon.png";
-import { useQuery } from "react-query/dist/react-query.production.min";
+import {
+  useQuery,
+  useMutation,
+} from "react-query/dist/react-query.production.min";
 import PopupContext from "@/stores/popup";
 import { resolvePage } from "@/common/helpers/utils";
 import { switchTab } from "@tarojs/taro";
@@ -14,7 +17,6 @@ import NavBack from "@/common/components/nav-back";
 import success from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
 import { plates } from "@/common/constants";
-import { useMutation } from "react-query";
 import { timestampToTimeString } from "@/common/helpers/date";
 import { returnPlate, getStatus } from "../../services";
 import styles from "./index.module.scss";

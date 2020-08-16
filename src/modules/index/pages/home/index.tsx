@@ -17,7 +17,7 @@ import homeIdIcon from "@/static/images/home-id-icon.png";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { useQuery } from "react-query/dist/react-query.production.min";
-import { getToken, useUserInfo } from "@/stores/user";
+import { useUserInfo } from "@/stores/user";
 import Placeholder from "@/common/components/placeholder";
 import newIcon from "@/static/images/new-icon.png";
 import Empty from "@/common/components/empty";

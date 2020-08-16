@@ -12,11 +12,11 @@ import PrimaryButton from "@/common/components/primary-button";
 import passwordTitleIcon from "@/static/images/password-title-icon.png";
 import error from "@/static/images/error.png";
 import accountIcon from "@/static/images/account-icon.png";
-import { useMutation } from "react-query";
+import { useMutation } from "react-query/dist/react-query.production.min";
 import { switchTab } from "@tarojs/taro";
 import { resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
-import { getUserInfo } from "@/stores/user";
+import { setToken } from "@/stores/user";
 import styles from "./index.module.scss";
 import { bindReq } from "../../services";
 
@@ -45,7 +45,7 @@ const Bind = () => {
         });
         setTimeout(() => hide(), 1500);
       } else if (data.status === "10000") {
-        await getUserInfo(data.data.token);
+        setToken(data.data.token);
         switchTab({ url: resolvePage("index", "home") });
       }
       // requestSubscribeMessage({ // 长期订阅的逻辑，但是现在不能申请到长期订阅，等 wx 开放

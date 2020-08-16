@@ -1,5 +1,6 @@
 import { atob } from "Base64";
 import { login, request } from "@tarojs/taro";
+import { useQuery } from "react-query/dist/react-query.production.min";
 
 let TOKEN: string | undefined;
 
@@ -56,7 +57,6 @@ export const getUserInfo = (token: string | undefined) => {
 };
 
 export const useUserInfo = () => {
-  const userInfo = getUserInfo(TOKEN);
-  console.log("useQuery", userInfo);
-  return userInfo;
+  const { data } = useQuery("getToken", getToken);
+  return getUserInfo(data);
 };
