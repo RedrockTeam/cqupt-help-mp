@@ -11,6 +11,7 @@ import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
 import { useUserInfo } from "@/stores/user";
+import { redirectTo } from "@tarojs/taro";
 import styles from "./index.module.scss";
 
 const MyIndex = () => {
@@ -19,7 +20,7 @@ const MyIndex = () => {
   const handleLoginout = async () => {
     const res = await request("https://wx.redrock.team/magicloop/unbind/xcx");
     if (res.status === 10000) {
-      navTo({
+      redirectTo({
         url: resolvePage("index", "bind"),
       });
     }

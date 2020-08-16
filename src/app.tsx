@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { ReactQueryConfigProvider } from "react-query/dist/react-query.production.min";
-import { getUserInfo } from "@/stores/user";
+import { getToken } from "@/stores/user";
+import { redirectTo } from "@tarojs/taro";
+import { resolvePage } from "./common/helpers/utils";
 import PopupContext from "./stores/popup";
 import "./app.scss";
 
-getUserInfo();
+getToken().then((token) => {
+  if (!token) {
+    redirectTo({ url: resolvePage("index", "bind") });
+  }
+});
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {

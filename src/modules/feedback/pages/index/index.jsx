@@ -15,12 +15,12 @@ import NavBack from "@/common/components/nav-back";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import { useMutation } from "react-query/dist/react-query.production.min";
-import { useUserInfo } from "@/stores/user";
+import { getToken } from "@/stores/user";
 import { pushFeedback } from "../../services";
 import styles from "./index.module.scss";
 
 const Feedback = () => {
-  const { token } = useUserInfo();
+  const token = getToken();
   const [picSrcs, setPicSrcs] = useState([]);
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
