@@ -1,5 +1,5 @@
 import { request as req } from "@tarojs/taro";
-import { getToken } from "@/stores/user";
+import { getTokenFunc } from "@/stores/user";
 import { API } from "../constants";
 
 const request = async <ResType = any, ReqType = any>(
@@ -10,7 +10,7 @@ const request = async <ResType = any, ReqType = any>(
     data,
   }: Pick<req.Option<ReqType>, "method" | "header" | "data"> = {}
 ) => {
-  const token = await getToken();
+  const token = await getTokenFunc();
   const res = await req<ResType, ReqType>({
     url: /^https?:\/\//.test(key) ? key : `${API}${key}`,
     method,

@@ -16,7 +16,7 @@ import { useMutation } from "react-query";
 import { switchTab } from "@tarojs/taro";
 import { resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
-import { checkToken } from "@/stores/user";
+import { getUserInfo } from "@/stores/user";
 import styles from "./index.module.scss";
 import { bindReq } from "../../services";
 
@@ -44,8 +44,8 @@ const Bind = () => {
           detail: "已绑定，不能重复绑定",
         });
         setTimeout(() => hide(), 1500);
-      } else {
-        await checkToken(true);
+      } else if (data.status === "10000") {
+        await getUserInfo(data.data.token);
         switchTab({ url: resolvePage("index", "home") });
       }
       // requestSubscribeMessage({ // 长期订阅的逻辑，但是现在不能申请到长期订阅，等 wx 开放

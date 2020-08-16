@@ -9,16 +9,11 @@ import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
-
-// import { useQuery } from "react-query/dist/react-query.production.min";
-import getUserInfo from "@/stores/user";
+import { useUserInfo } from "@/stores/user";
 import styles from "./index.module.scss";
 
 const MyIndex = () => {
-  const userInfo = getUserInfo();
-  // const { data: userInfo } = useQuery("userInfo", () =>
-  //   getToken().then((t) => parseToken(t))
-  // );
+  const userInfo = useUserInfo();
 
   const handleLoginout = async () => {
     const res = await request("https://wx.redrock.team/magicloop/unbind/xcx");

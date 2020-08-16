@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { ReactQueryConfigProvider } from "react-query/dist/react-query.production.min";
-import { checkToken } from "@/stores/user";
+import { getUserInfo } from "@/stores/user";
 import PopupContext from "./stores/popup";
 import "./app.scss";
 
-checkToken();
+getUserInfo();
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {

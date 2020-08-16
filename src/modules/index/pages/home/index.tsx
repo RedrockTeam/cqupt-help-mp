@@ -17,10 +17,11 @@ import homeIdIcon from "@/static/images/home-id-icon.png";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { useQuery } from "react-query/dist/react-query.production.min";
-import getUserInfo from "@/stores/user";
+import { useUserInfo } from "@/stores/user";
 import Placeholder from "@/common/components/placeholder";
 import newIcon from "@/static/images/new-icon.png";
 import Empty from "@/common/components/empty";
+import { useContainer } from "unstated-next";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
@@ -34,7 +35,7 @@ const list = [
 ]; // 轮播图的图片
 
 export default function Index() {
-  const userInfo = getUserInfo();
+  const userInfo = useUserInfo();
 
   const [slidePercent, setSlidePercent] = useState(0);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
@@ -133,7 +134,7 @@ export default function Index() {
                 url: "https://wx.redrock.team/game/youyue/#/",
                 payload: {
                   title: "青春邮约",
-                  t: userInfo.token,
+                  t: userInfo?.token ?? "",
                 },
                 encode: true,
               })
