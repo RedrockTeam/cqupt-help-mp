@@ -97,13 +97,13 @@ const AcDetail = () => {
             </View>
             <View className={styles.text}>{params.rule}</View>
           </View>
-          <View className={styles.item2}>
+          {/* <View className={styles.item2}>
             <View className={styles.subTitle}>
               <Image src={icon3} className={styles.icon} />
               <Text>报名方式</Text>
             </View>
             <View className={styles.text}>{params.registration}</View>
-          </View>
+          </View> */}
         </View>
         <View />
         {/* 暂不需要 */}
