@@ -4,7 +4,7 @@ import { resolvePage, navTo } from "@/common/helpers/utils";
 import request from "@/common/helpers/request";
 import avator from "@/static/images/empty.png";
 import aboutIcon from "@/static/images/about-icon.png";
-import loginOut from "@/static/images/loginOut.png";
+import loginOut from "@/static/images/login-out-icon.png";
 import feedbackIcon from "@/static/images/feedback-icon.png";
 import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";

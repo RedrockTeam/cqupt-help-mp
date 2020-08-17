@@ -1,7 +1,12 @@
 import React, { useState, Fragment } from "react";
 import { View, Image, Text, Button, ITouchEvent } from "@tarojs/components";
 import { useRouter, navigateBack } from "@tarojs/taro";
-import { timestampToDateString, now, gapDay } from "@/common/helpers/date";
+import {
+  timestampToFormString,
+  timestampToDateString,
+  now,
+  gapDay,
+} from "@/common/helpers/date";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
@@ -101,7 +106,7 @@ const VolunteerDetail = () => {
           <View className={styles.timeWrap}>
             <View className={styles.label}>报名截止时间:</View>
             <View className={styles.time}>
-              {timestampToDateString(data.data.last_date)}
+              {timestampToFormString(data.data.last_date)}
             </View>
           </View>
           <View className={styles.timeWrap}>

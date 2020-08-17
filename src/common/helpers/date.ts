@@ -19,6 +19,14 @@ export const timestampToDayjs = (timestamp: number) => dayjs.unix(timestamp);
 export const timestampToDateString = (timestamp: number) =>
   timestampToDayjs(timestamp).format("YYYY.MM.DD");
 
+/**
+ * 名字乱取的
+ * 十位时间戳 转化
+ * @param timestamp
+ */
+export const timestampToFormString = (timestamp: number) =>
+  timestampToDayjs(timestamp).format("YYYY.MM.DD HH:mm");
+
 export const timestampToTimeCNString = (timestamp: number) =>
   timestampToDayjs(timestamp).format("MM 月 DD 日 HH:mm");
 
