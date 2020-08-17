@@ -42,7 +42,7 @@ export default function Index() {
   ) => {
     setSlidePercent((84 / e.detail.scrollWidth) * e.detail.scrollLeft);
   };
-  const { data: homeActivityListRes, isLoading, isError } = useQuery(
+  const { data: homeActivityListRes, isError, isLoading } = useQuery(
     "getHomeActivities",
     getHomeActivities
   );
