@@ -34,7 +34,7 @@ const Reward = ({
           已过期
         </Button>
       );
-    if (isReceived)
+    if (isReceived === 0)
       return (
         <Button className={`${styles.btn} ${styles.btn_disabled}`}>
           已领取
