@@ -13,5 +13,8 @@ export const getMyRewards = (_key: string) =>
 export const applyMyRewards = (activity_id: number) =>
   request<MyRewardsApplyRes>("/cyb-prize/getGift", {
     method: "POST",
-    data: activity_id,
+    data: { activity_id },
+    header: {
+      "content-type": "application/x-www-form-urlencoded",
+    },
   });

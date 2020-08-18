@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Button, ITouchEvent } from "@tarojs/components";
 import { getString } from "@/common/helpers/utils";
-import { timestampToDateString, now } from "@/common/helpers/date";
+import { timestampToFormString, now } from "@/common/helpers/date";
 import styles from "./index.module.scss";
 
 type Props = {
@@ -32,6 +32,12 @@ const Reward = ({
       return (
         <Button disabled className={`${styles.btn} ${styles.btn_disabled}`}>
           已过期
+        </Button>
+      );
+    if (now() < beginTime)
+      return (
+        <Button disabled className={`${styles.btn} ${styles.btn_disabled}`}>
+          未到领取时间
         </Button>
       );
     if (isReceived === 0)
@@ -67,8 +73,8 @@ const Reward = ({
         <View className={styles.info}>
           <View className={styles.infoKey}>领取时间：</View>
           <View className={styles.infoValue}>
-            {timestampToDateString(beginTime)} -{" "}
-            {timestampToDateString(endTime)}
+            {timestampToFormString(beginTime)} -{" "}
+            {timestampToFormString(endTime)}
           </View>
         </View>
       </View>
