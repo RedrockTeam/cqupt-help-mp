@@ -62,9 +62,14 @@ const VolunteerBind = () => {
           detail: "已绑定，不能重复绑定",
         });
         setTimeout(() => hide(), 1500);
-      } else {
+      } else if (data.status === 10000) {
         redirectTo({ url: resolvePage("volunteer", "index") });
-        return null;
+      } else {
+        const hide = Popup.show({
+          title: "登录失败",
+          detail: "错误",
+        });
+        setTimeout(() => hide(), 1500);
       }
     } catch (e) {
       const hide = Popup.show({
@@ -111,7 +116,6 @@ const VolunteerBind = () => {
               <Input
                 className={styles.input}
                 placeholderClass={styles.placeholder}
-                password
                 value={idCardNum}
                 onInput={(e) => {
                   changeIdCardNum(e);
@@ -129,12 +133,11 @@ const VolunteerBind = () => {
               <Input
                 className={styles.input}
                 type="text"
-                maxlength={10}
                 value={volunteerNum}
                 onInput={(e) => {
                   changeVolunteerNum(e);
                 }}
-                placeholder="请输入志愿者账号"
+                placeholder="例如：CQUPT+学号"
                 placeholderClass={styles.placeholder}
               />
             </View>
