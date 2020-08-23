@@ -61,7 +61,7 @@ export const isOpen = () => {
   ) {
     return true;
   }
-  return true;
+  return false;
 };
 
 /**
