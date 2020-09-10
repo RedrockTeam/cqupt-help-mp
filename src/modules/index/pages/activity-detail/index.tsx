@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Text, Button } from "@tarojs/components";
+import { View, Image, Text } from "@tarojs/components";
 import { useRouter } from "@tarojs/taro";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
@@ -75,11 +75,15 @@ const AcDetail = () => {
             </View>
             <View className={styles.timeWrap}>
               <View className={styles.label}>活动时间：</View>
-              <View className={styles.time}>{params.time}</View>
+              <Text selectable className={styles.time}>
+                {params.time}
+              </Text>
             </View>
             <View className={styles.timeWrap}>
-              <View className={styles.label}>活动地点：</View>
-              <View className={styles.time}>{params.location}</View>
+              <View className={styles.label}>参与方式：</View>
+              <Text selectable className={styles.time}>
+                {params.location}
+              </Text>
             </View>
           </View>
 
@@ -88,14 +92,18 @@ const AcDetail = () => {
               <Image src={icon1} className={styles.icon} />
               <Text>活动介绍</Text>
             </View>
-            <View className={styles.text}>{params.introduction}</View>
+            <Text selectable className={styles.text}>
+              {params.introduction}
+            </Text>
           </View>
           <View className={styles.item2}>
             <View className={styles.subTitle}>
               <Image src={icon2} className={styles.icon} />
               <Text>活动规则</Text>
             </View>
-            <View className={styles.text}>{params.rule}</View>
+            <Text selectable className={styles.text}>
+              {params.rule}
+            </Text>
           </View>
           {/* <View className={styles.item2}>
             <View className={styles.subTitle}>

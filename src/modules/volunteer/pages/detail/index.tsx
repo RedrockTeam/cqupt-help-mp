@@ -105,15 +105,15 @@ const VolunteerDetail = () => {
           </View>
           <View className={styles.timeWrap}>
             <View className={styles.label}>报名截止时间:</View>
-            <View className={styles.time}>
+            <Text selectable className={styles.time}>
               {timestampToFormString(data.data.last_date)}
-            </View>
+            </Text>
           </View>
           <View className={styles.timeWrap}>
             <View className={styles.label}>志愿服务时间:</View>
-            <View className={styles.time}>
+            <Text selectable className={styles.time}>
               {timestampToDateString(data.data.date)}
-            </View>
+            </Text>
           </View>
         </View>
 
@@ -122,21 +122,27 @@ const VolunteerDetail = () => {
             <Image src={icon1} className={styles.icon} />
             <Text>活动介绍</Text>
           </View>
-          <View className={styles.text}>{data.data.description}</View>
+          <Text selectable className={styles.text}>
+            {data.data.description}
+          </Text>
         </View>
         <View className={styles.item2}>
           <View className={styles.subTitle}>
             <Image src={icon2} className={styles.icon} />
             <Text>活动规则</Text>
           </View>
-          <View className={styles.text}>{data.data.role}</View>
+          <Text selectable className={styles.text}>
+            {data.data.role}
+          </Text>
         </View>
         <View className={styles.item2}>
           <View className={styles.subTitle}>
             <Image src={icon3} className={styles.icon} />
             <Text>活动时长</Text>
           </View>
-          <View className={styles.text}>{data.data.hour}</View>
+          <Text selectable className={styles.text}>
+            {data.data.hour}
+          </Text>
         </View>
       </View>
       <View />

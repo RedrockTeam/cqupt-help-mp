@@ -15,16 +15,18 @@ const PAGE_TITLE = "志愿报名";
 const Volunteer = () => {
   const { data: isVolunteerRes } = useQuery(
     "checkIsVolunteer",
-    checkIsVolunteer
+    checkIsVolunteer,
+    {
+      cacheTime: 0,
+    }
   );
   const { data: list, isLoading, isError } = useQuery(
     "getVolunteerActivityListInfo",
     getVolunteerActivityListInfo
   );
   if (!isVolunteerRes) {
-    return <Placeholder title="志愿报名" />;
+    return <Placeholder title={PAGE_TITLE} />;
   }
-  console.log(isVolunteerRes, isVolunteerRes.exist);
   if (isVolunteerRes.status === 10000) {
     if (!isVolunteerRes.exist) {
       redirectTo({ url: resolvePage("volunteer", "bind") });
