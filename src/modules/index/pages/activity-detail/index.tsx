@@ -75,13 +75,13 @@ const AcDetail = () => {
             </View>
             <View className={styles.timeWrap}>
               <View className={styles.label}>活动时间：</View>
-              <Text selectable className={styles.time}>
+              <Text userSelect className={styles.time}>
                 {params.time}
               </Text>
             </View>
             <View className={styles.timeWrap}>
               <View className={styles.label}>参与方式：</View>
-              <Text selectable className={styles.time}>
+              <Text userSelect selectable className={styles.time}>
                 {params.location}
               </Text>
             </View>
@@ -92,7 +92,7 @@ const AcDetail = () => {
               <Image src={icon1} className={styles.icon} />
               <Text>活动介绍</Text>
             </View>
-            <Text selectable className={styles.text}>
+            <Text userSelect selectable className={styles.text}>
               {params.introduction}
             </Text>
           </View>
@@ -101,7 +101,7 @@ const AcDetail = () => {
               <Image src={icon2} className={styles.icon} />
               <Text>活动规则</Text>
             </View>
-            <Text selectable className={styles.text}>
+            <Text userSelect selectable className={styles.text}>
               {params.rule}
             </Text>
           </View>

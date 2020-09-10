@@ -2,7 +2,7 @@
 
 重邮帮小程序
 
-* [ ] 完善文档
+- [ ] 完善文档
 
 - [ ] 重构优化
 
@@ -146,6 +146,8 @@
    这是因为 taro 通过 App 的 props.children 注入页面，类似于伪代码 `<App children={<page>{loadPage(globalConfig.pages[0])}</page>} />` 而 page 之外的会忽略，所以不能只声明一个 Popup 组件，需要在每个页面都声明一遍
 
 5. 由于小程序访问元素位置为异步 API，因此小程序中无法使用 react-transition-group，volunteer/picker 的过渡动画手写实现，也可以考虑 react-spring
+
+6. Text 组件的 userSelect 是让文本可复制，小程序在基础库 2.12.1 实现，目前 Taro 还没有跟进，跟 selectable 一起写上，保证兼容
 
 ## 组件整理
 
