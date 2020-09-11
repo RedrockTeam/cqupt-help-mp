@@ -78,8 +78,10 @@ const AcDetail = () => {
               <View className={styles.time}>{params.time}</View>
             </View>
             <View className={styles.timeWrap}>
-              <View className={styles.label}>活动地点：</View>
-              <View className={styles.time}>{params.location}</View>
+              <View className={styles.label}>参与方式：</View>
+              <Text selectable className={styles.time}>
+                {params.location}
+              </Text>
             </View>
           </View>
 

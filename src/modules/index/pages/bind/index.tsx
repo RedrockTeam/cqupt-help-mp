@@ -41,7 +41,13 @@ const Bind = () => {
       if (data.errcode === "10010") {
         const hide = Popup.show({
           title: "登录失败",
-          detail: "已绑定，不能重复绑定",
+          detail: "账号与密码不匹配哦！",
+        });
+        setTimeout(() => hide(), 1500);
+      } else if (data.errcode === "10012") {
+        const hide = Popup.show({
+          title: "登录失败",
+          detail: "账号与密码不匹配哦！",
         });
         setTimeout(() => hide(), 1500);
       } else if (data.status === "10000") {
@@ -108,10 +114,13 @@ const Bind = () => {
               maxlength={6}
               value={password}
               onInput={handlePasswordInput}
-              placeholder="身份证后六位"
+              placeholder="身份证/统一认证码后六位"
             />
           </View>
         </View>
+        <Text className={styles.tips}>
+          20届学生登陆密码为统一认证码后六位，其余同学密码为身份证后6位。
+        </Text>
         <PrimaryButton className={styles.btn} onClick={handleBind}>
           {isLoading ? "Loading..." : "登录"}
         </PrimaryButton>
