@@ -52,6 +52,7 @@ const RecentActivity = ({
               image,
               registration,
             },
+            encode: true,
           });
         }
       }}
