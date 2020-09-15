@@ -86,6 +86,9 @@
 `common` 目录放置高可复用代码
 
 > `common` 复用、`modules` 业务、`static` 静态资源
+> 目前项目还比较简单，modules 目录下的每个业务模块都只有 pages、components、services，以后复杂了可能有一些只是与业务相关的，其他模块不能复用的 helpers 等，都可以放到 modules 相关模块的目录下
+> **common 目录下的可复用代码因为是所有人都有可能会使用到的，所以要严格使用 TypeScript 编写，并使用 JSDoc 注释写好描述**。modules 目录下仅 pages 目录下的代码可以使用 JavaScript 编写，因为 components、services、helpers 仍然是模块下可复用的
+> **不要为了抽象而抽象，抽象并不一定会使得代码可读性更高、更好维护，本项目是需要长期维护的，可读性可维护性是第一考虑！**
 
 ## 规范
 
@@ -97,11 +100,15 @@
 
    - master：主分支。对项目进行 tag 或发布版本等操作
 
-   - develop：开发分支。团队成员分别从该分支检出自己的 feat-\* 分支，开发完成后将 feat-\* 分支上的改动 merge 回 develop 分支
+   - develop：开发分支。从该分支检出其他临时分支，临时分支开发完成后推送到远端，并发起 PR，团队成员进行 code review 后由 Leader 进行合并，merge 回 develop 分支
 
-   - feat-\*：功能分支。团队成员中每个人都维护一个自己的功能分支，并进行开发，开发完成后将此分支 merge 回 develop 分支。此分支一般用来开发新功能或进行项目维护等
+   - feat-\*：功能分支。用于新功能开发，完成后将其删除，属于临时性分支
 
-   - fix-\*：补丁分支。用作 bug 修复，bug 修复完成需 merge 回 develop 分支，并将其删除，属于临时性分支
+   - fix-\*：补丁分支。用作 bug 修复，完成后将其删除，属于临时性分支
+
+   - refactor-\*：重构分支。完成后将其删除，属于临时性分支
+
+   - chore-\*：杂项分支。lint 工具配置，工程化配置，编写 docs 等。完成后将其删除，属于临时性分支
 
 3. 代码编写要保证在 eslint 通过后再进行 commit
 
