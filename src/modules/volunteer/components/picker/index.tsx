@@ -1,5 +1,4 @@
 import React from "react";
-import { timePart } from "@/common/constants";
 import {
   View,
   Button,
@@ -8,6 +7,7 @@ import {
   PickerViewColumn,
   ITouchEvent,
 } from "@tarojs/components";
+import { timetampToHMString } from "@/common/helpers/date";
 import cancel from "@/static/images/cancel.png";
 import styles from "./index.module.scss";
 
@@ -18,7 +18,7 @@ type Props = {
   onTimeChange: (event: ITouchEvent) => unknown;
 };
 
-const Picker = ({ visible, onCancel, onOk, onTimeChange }: Props) => {
+const Picker = ({ visible, onCancel, onOk, onTimeChange, value }: Props) => {
   return (
     <View
       className={`${styles.mask} ${
@@ -39,10 +39,12 @@ const Picker = ({ visible, onCancel, onOk, onTimeChange }: Props) => {
             onChange={onTimeChange}
           >
             <PickerViewColumn>
-              {timePart.map((item) => {
+              {value.map((item) => {
                 return (
-                  <View style={{ lineHeight: "58px" }} key={item}>
-                    {item}
+                  <View style={{ lineHeight: "58px" }} key={item.begin_time}>
+                    {`${timetampToHMString(
+                      item.begin_time
+                    )} - ${timetampToHMString(item.end_time)}`}
                   </View>
                 );
               })}

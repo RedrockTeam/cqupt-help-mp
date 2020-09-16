@@ -1,5 +1,10 @@
 import { BaseRes } from "@/common/helpers/request";
 
+export interface timeValue {
+  begin_time: number | null;
+  end_time: number | null;
+}
+
 export interface CheckIsVolunteerRes extends BaseRes {
   exist: boolean;
 }
@@ -30,7 +35,9 @@ export interface VolunteerActivityDetail {
   role: string; // 这是rule 后端命名的锅
   date: number; // 截止志愿活动时间戳
   hour: string;
+  start_date: number;
   last_date: number; // 截止报名的时间戳
+  time_part: timeValue[];
 }
 
 export interface VolunteerActivityDetailRes extends BaseRes {

@@ -91,6 +91,39 @@ const VolunteerDetail = () => {
 
   if (isLoading) return <Placeholder title="志愿报名" />;
   if (isError || !data) return <Placeholder title="志愿报名" isError />;
+
+  // const renderRobBtn = () => {
+  //   const nowTimestamp = now();
+
+  //   if (data.data.last_date > nowTimestamp) {
+  //     const leftTime = Math.round((data.data.last_date - nowTimestamp) / 60);
+  //     if (leftTime < 120) {
+  //       return (
+  //         <PrimaryButton disabled className={styles.btn}>
+  //           距离抢票还有 {leftTime} min
+  //         </PrimaryButton>
+  //       );
+  //     }
+  //     return (
+  //       <Fragment>
+  //         <Button
+  //           className={styles.button}
+  //           onClick={() => {
+  //             handleShowPicker();
+  //           }}
+  //         >
+  //           立即报名
+  //         </Button>
+  //         <Picker
+  //           visible={showPicker}
+  //           onCancel={cancelShowPicker}
+  //           onOk={handleApply}
+  //           onTimeChange={timeChange}
+  //         />
+  //       </Fragment>
+  //     );
+  //   }
+  // };
   return (
     <View className={styles.wrapper}>
       <NavBack title="志愿报名" background="#F6F6F9" />
@@ -102,6 +135,12 @@ const VolunteerDetail = () => {
             <View className={styles.status}>
               {data.data.last_date > now() ? "招募中" : "已结束"}
             </View>
+          </View>
+          <View className={styles.timeWrap}>
+            <View className={styles.label}>报名开始时间:</View>
+            <Text userSelect selectable className={styles.time}>
+              {timestampToFormString(data.data.start_date)}
+            </Text>
           </View>
           <View className={styles.timeWrap}>
             <View className={styles.label}>报名截止时间:</View>
@@ -157,6 +196,7 @@ const VolunteerDetail = () => {
             立即报名
           </Button>
           <Picker
+            value={data.data.time_part}
             visible={showPicker}
             onCancel={cancelShowPicker}
             onOk={handleApply}

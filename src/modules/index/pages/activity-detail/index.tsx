@@ -71,7 +71,7 @@ const AcDetail = () => {
           <View className={styles.item1}>
             <View className={styles.title}>
               <View className={styles.name}>{params.name}</View>
-              <View className={styles.status}>招募中</View>
+              <View className={styles.status}>活动中</View>
             </View>
             <View className={styles.timeWrap}>
               <View className={styles.label}>活动时间：</View>
