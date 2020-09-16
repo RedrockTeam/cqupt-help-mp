@@ -1,8 +1,8 @@
 import { BaseRes } from "@/common/helpers/request";
 
-export interface timeValue {
-  begin_time: number | null;
-  end_time: number | null;
+export interface TimePart {
+  begin_time: number;
+  end_time: number;
 }
 
 export interface CheckIsVolunteerRes extends BaseRes {
@@ -37,7 +37,7 @@ export interface VolunteerActivityDetail {
   hour: string;
   start_date: number;
   last_date: number; // 截止报名的时间戳
-  time_part: timeValue[];
+  time_part: TimePart[];
 }
 
 export interface VolunteerActivityDetailRes extends BaseRes {

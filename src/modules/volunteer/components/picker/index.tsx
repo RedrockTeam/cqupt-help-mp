@@ -7,15 +7,20 @@ import {
   PickerViewColumn,
   ITouchEvent,
 } from "@tarojs/components";
-import { timetampToHMString } from "@/common/helpers/date";
 import cancel from "@/static/images/cancel.png";
+import { timestampToDayjs } from "@/common/helpers/date";
 import styles from "./index.module.scss";
+import { TimePart } from "../../services/dto";
+
+const timetampToHMString = (timestamp: number) =>
+  timestampToDayjs(timestamp).format("HH:mm");
 
 type Props = {
   visible: boolean;
   onCancel: (event: ITouchEvent) => unknown;
   onOk: (event: ITouchEvent) => unknown;
   onTimeChange: (event: ITouchEvent) => unknown;
+  value: TimePart[];
 };
 
 const Picker = ({ visible, onCancel, onOk, onTimeChange, value }: Props) => {
@@ -41,7 +46,10 @@ const Picker = ({ visible, onCancel, onOk, onTimeChange, value }: Props) => {
             <PickerViewColumn>
               {value.map((item) => {
                 return (
-                  <View style={{ lineHeight: "58px" }} key={item.begin_time}>
+                  <View
+                    style={{ lineHeight: "58px" }}
+                    key={`${item.begin_time} + ${item.end_time}`}
+                  >
                     {`${timetampToHMString(
                       item.begin_time
                     )} - ${timetampToHMString(item.end_time)}`}

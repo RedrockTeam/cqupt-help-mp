@@ -30,8 +30,6 @@ export const timestampToFormString = (timestamp: number) =>
 export const timestampToTimeCNString = (timestamp: number) =>
   timestampToDayjs(timestamp).format("MM 月 DD 日 HH:mm");
 
-export const timetampToHMString = (timestamp: number) =>
-  timestampToDayjs(timestamp).format("HH:mm");
 /**
  * 现在时间的十位 Unix 时间戳
  */
