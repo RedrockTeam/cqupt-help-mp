@@ -5,7 +5,6 @@ import {
   timestampToFormString,
   timestampToDateString,
   now,
-  gapDay,
 } from "@/common/helpers/date";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
@@ -21,6 +20,7 @@ import {
   useMutation,
 } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
+import PrimaryButton from "@/common/components/primary-button";
 import Picker from "../../components/picker/index";
 import {
   getVolunteerActivityDetail,
@@ -31,7 +31,7 @@ import styles from "./index.module.scss";
 const VolunteerDetail = () => {
   const { params } = useRouter();
   const [showPicker, setShowPicker] = useState(false);
-  const [selectTime, setSelectTime] = useState(0);
+  const [timePartIndex, setTimePartIndex] = useState<number>(0);
 
   const Popup = useContainer(PopupContext);
 
@@ -73,7 +73,14 @@ const VolunteerDetail = () => {
 
   const handleApply = async () => {
     setShowPicker(false);
-    await mutateApply({ id: params.id, timePart: selectTime });
+    if (data) {
+      const timePart = data.data.time_part[timePartIndex];
+      await mutateApply({
+        id: params.id,
+        begin_time: timePart.begin_time,
+        end_time: timePart.end_time,
+      });
+    }
   };
 
   const handleShowPicker = () => {
@@ -85,45 +92,61 @@ const VolunteerDetail = () => {
   };
 
   const timeChange = (e: ITouchEvent) => {
-    const timePart = e.detail.value[0];
-    setSelectTime(timePart);
+    const index = e.detail.value[0]; // 要更改才生效
+    setTimePartIndex(index);
   };
 
   if (isLoading) return <Placeholder title="志愿报名" />;
   if (isError || !data) return <Placeholder title="志愿报名" isError />;
 
-  // const renderRobBtn = () => {
-  //   const nowTimestamp = now();
+  const renderRobBtn = () => {
+    const nowTimestamp = now();
+    if (data.data.start_date > nowTimestamp) {
+      const leftTime = Math.round((data.data.start_date - nowTimestamp) / 60);
+      if (leftTime < 30) {
+        return (
+          <Button disabled className={styles.dis_button}>
+            距离报名还有 {leftTime} min
+          </Button>
+        );
+      }
+      return (
+        <Button disabled className={styles.dis_button}>
+          报名还未开始
+        </Button>
+      );
+    }
 
-  //   if (data.data.last_date > nowTimestamp) {
-  //     const leftTime = Math.round((data.data.last_date - nowTimestamp) / 60);
-  //     if (leftTime < 120) {
-  //       return (
-  //         <PrimaryButton disabled className={styles.btn}>
-  //           距离抢票还有 {leftTime} min
-  //         </PrimaryButton>
-  //       );
-  //     }
-  //     return (
-  //       <Fragment>
-  //         <Button
-  //           className={styles.button}
-  //           onClick={() => {
-  //             handleShowPicker();
-  //           }}
-  //         >
-  //           立即报名
-  //         </Button>
-  //         <Picker
-  //           visible={showPicker}
-  //           onCancel={cancelShowPicker}
-  //           onOk={handleApply}
-  //           onTimeChange={timeChange}
-  //         />
-  //       </Fragment>
-  //     );
-  //   }
-  // };
+    if (
+      data.data.last_date > nowTimestamp &&
+      data.data.start_date < nowTimestamp
+    ) {
+      return (
+        <Fragment>
+          <Button
+            className={styles.button}
+            onClick={() => {
+              handleShowPicker();
+            }}
+          >
+            立即报名
+          </Button>
+          <Picker
+            value={data.data.time_part}
+            visible={showPicker}
+            onCancel={cancelShowPicker}
+            onOk={handleApply}
+            onTimeChange={timeChange}
+          />
+        </Fragment>
+      );
+    }
+    return (
+      <Button disabled className={styles.dis_button}>
+        报名已截止
+      </Button>
+    );
+  };
   return (
     <View className={styles.wrapper}>
       <NavBack title="志愿报名" background="#F6F6F9" />
@@ -185,7 +208,8 @@ const VolunteerDetail = () => {
         </View>
       </View>
       <View />
-      {data.data.last_date > now() ? (
+      {renderRobBtn()}
+      {/* {data.data.last_date > now() ? (
         <Fragment>
           <Button
             className={styles.button}
@@ -203,7 +227,7 @@ const VolunteerDetail = () => {
             onTimeChange={timeChange}
           />
         </Fragment>
-      ) : null}
+      ) : null} */}
       <Popup.Comp />
     </View>
   );

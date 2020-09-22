@@ -46,7 +46,8 @@ export interface VolunteerActivityDetailRes extends BaseRes {
 
 export interface VolunteerActivityApply {
   id: string;
-  timePart: number;
+  begin_time: number;
+  end_time: number;
 }
 
 export type VolunteerActivityApplyRes = BaseRes;

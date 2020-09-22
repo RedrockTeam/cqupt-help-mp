@@ -22,13 +22,11 @@ export const loginVolunteer = (info: VolunteerInfo) =>
   });
 
 export const getVolunteerActivityListInfo = (_key: string) =>
-  request<VolunteerActivityListInfoRes>(
-    "/cyb-volunteer/volunteer/activities/test"
-  );
+  request<VolunteerActivityListInfoRes>("/cyb-volunteer/volunteer/activities");
 
 export const getVolunteerActivityDetail = (_key: string, id: string) =>
   request<VolunteerActivityDetailRes>(
-    "/cyb-volunteer/volunteer/activity/info/test",
+    "/cyb-volunteer/volunteer/activity/info",
     {
       method: "POST",
       data: { id },
