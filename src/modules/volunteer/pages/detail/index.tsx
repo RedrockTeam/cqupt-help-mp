@@ -9,9 +9,9 @@ import {
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
-import icon1 from "@/static/images/volunteer-icon1.png";
-import icon2 from "@/static/images/volunteer-icon2.png";
-import icon3 from "@/static/images/volunteer-icon3.png";
+// import icon1 from "@/static/images/volunteer-icon1.png";
+// import icon2 from "@/static/images/volunteer-icon2.png";
+// import icon3 from "@/static/images/volunteer-icon3.png";
 import error from "@/static/images/error.png";
 import wait from "@/static/images/wait.png";
 import volunteerImg from "@/static/images/volunteer-img.jpg";
@@ -20,13 +20,15 @@ import {
   useMutation,
 } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
-import PrimaryButton from "@/common/components/primary-button";
+// import PrimaryButton from "@/common/components/primary-button";
 import Picker from "../../components/picker/index";
 import {
   getVolunteerActivityDetail,
   applyVolunteerActivity,
 } from "../../services";
 import styles from "./index.module.scss";
+
+import VolunteerActivityDetail from "../../../../mock/VolunteerActivityDetail.json";
 
 const VolunteerDetail = () => {
   const { params } = useRouter();
@@ -35,11 +37,10 @@ const VolunteerDetail = () => {
 
   const Popup = useContainer(PopupContext);
 
-  const { data, isLoading, isError } = useQuery(
+  let { data, isLoading, isError } = useQuery(
     ["getVolunteerActivityDetail", params.id],
     getVolunteerActivityDetail
   );
-
   const [mutateApply] = useMutation(applyVolunteerActivity, {
     onSuccess(res) {
       if (res.status === 10000) {
@@ -160,28 +161,50 @@ const VolunteerDetail = () => {
             </View>
           </View>
           <View className={styles.timeWrap}>
-            <View className={styles.label}>报名开始时间:</View>
+            <View className={styles.label}>招募开始:</View>
             <Text userSelect selectable className={styles.time}>
-              {timestampToFormString(data.data.start_date)}
+              {timestampToFormString(data.data.start_date) + "开抢"}
             </Text>
           </View>
           <View className={styles.timeWrap}>
-            <View className={styles.label}>报名截止时间:</View>
+            <View className={styles.label}>报名截至:</View>
             <Text userSelect selectable className={styles.time}>
-              {timestampToFormString(data.data.last_date)}
-            </Text>
-          </View>
-          <View className={styles.timeWrap}>
-            <View className={styles.label}>志愿服务时间:</View>
-            <Text userSelect selectable className={styles.time}>
-              {timestampToDateString(data.data.date)}
+              {`${timestampToDateString(
+                data.data.start_date
+              )} - ${timestampToDateString(data.data.last_date)}`}
             </Text>
           </View>
         </View>
-
+        <View className={styles.border}>
+          <View className={styles.item2}>
+            <View className={styles.subTitle}>
+              <Text>活动时间</Text>
+            </View>
+            <Text userSelect selectable className={styles.text}>
+              {`${timestampToDateString(
+                data.data.start_date
+              )} - ${timestampToDateString(data.data.last_date)}`}
+            </Text>
+          </View>
+          <View className={styles.item2}>
+            <View className={styles.subTitle}>
+              <Text>志愿时长</Text>
+            </View>
+            <Text userSelect selectable className={styles.text}>
+              {data.data.hour}
+            </Text>
+          </View>
+          <View className={styles.item2}>
+            <View className={styles.subTitle}>
+              <Text>招募人数</Text>
+            </View>
+            <Text userSelect selectable className={styles.text}>
+              {data.data.num}
+            </Text>
+          </View>
+        </View>
         <View className={styles.item2}>
           <View className={styles.subTitle}>
-            <Image src={icon1} className={styles.icon} />
             <Text>活动介绍</Text>
           </View>
           <Text userSelect selectable className={styles.text}>
@@ -190,25 +213,15 @@ const VolunteerDetail = () => {
         </View>
         <View className={styles.item2}>
           <View className={styles.subTitle}>
-            <Image src={icon2} className={styles.icon} />
             <Text>活动规则</Text>
           </View>
           <Text userSelect selectable className={styles.text}>
             {data.data.role}
           </Text>
         </View>
-        <View className={styles.item2}>
-          <View className={styles.subTitle}>
-            <Image src={icon3} className={styles.icon} />
-            <Text>活动时长</Text>
-          </View>
-          <Text userSelect selectable className={styles.text}>
-            {data.data.hour}
-          </Text>
-        </View>
+        {renderRobBtn()}
       </View>
       <View />
-      {renderRobBtn()}
       {/* {data.data.last_date > now() ? (
         <Fragment>
           <Button

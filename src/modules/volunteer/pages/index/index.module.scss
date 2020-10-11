@@ -1,5 +1,38 @@
 .wrapper {
   padding: 22px 20px;
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    margin-bottom: 24px;
+    .title {
+      font-weight: bold;
+      font-size: 34px;
+      letter-spacing: 0.06em;
+      color: #a4a3b7;
+      opacity: 0.9;
+      padding: 48px 0;
+
+      &.active {
+        color: #1c184c;
+        position: relative;
+        &::after {
+          position: absolute;
+          content: "";
+          background-image: url("../../../../static/images/underline.png");
+          width: 52px;
+          height: 18px;
+          background-repeat: no-repeat;
+          background-size: 100%;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-26px);
+        }
+      }
+    }
+  }
   .card {
     border-radius: 20px;
     background: #ffffff;

@@ -126,7 +126,7 @@ export default function Index() {
             <Image src={homeVolunteerIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>志愿报名</Text>
           </View>
-          <View
+          {/* <View
             className={styles.slideItem}
             onClick={() =>
               navTo({
@@ -142,7 +142,7 @@ export default function Index() {
             <Image src={homeYoungIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>青春邮约</Text>
             <Image className={styles.newIcon} src={newIcon} />
-          </View>
+          </View> */}
           <View
             className={styles.slideItem}
             onClick={() => navTo({ url: resolvePage("id", "index") })}
@@ -157,6 +157,8 @@ export default function Index() {
           <View
             className={styles.scrollBarSlide}
             style={{
+              //FIXME: 大于四个的时候删掉下面这行
+              width: "100%",
               left: slidePercent,
             }}
           />

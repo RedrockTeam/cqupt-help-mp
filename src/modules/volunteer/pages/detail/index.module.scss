@@ -1,7 +1,6 @@
 .wrapper {
   height: 100vh;
   background: #ffffff;
-
   .pic {
     width: 100vw;
     height: 376px;
@@ -16,9 +15,9 @@
     padding-right: 40px;
     background: #ffffff;
     margin-top: -24px;
+    padding-bottom: 48px;
   }
   .item1 {
-    border-bottom: 1px solid #f2f2f2;
     padding-bottom: 30px;
     .title {
       display: flex;
@@ -71,9 +70,13 @@
     }
   }
 }
-
+.border {
+  border-top: 6px solid rgba(28, 24, 76, 0.03);
+  border-bottom: 6px solid rgba(28, 24, 76, 0.03);
+}
 .item2 {
-  margin-top: 40px;
+  margin: 40px 0;
+
   .subTitle {
     color: #1c184c;
     font-family: PingFang SC;
@@ -101,10 +104,7 @@
   font-size: 36px;
   background: #625af8;
   border-radius: 64px;
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  margin-left: -180px;
+  margin: 52px auto 0;
 }
 
 .dis_button {
@@ -117,10 +117,8 @@
   font-size: 36px;
   background: #cecde8;
   border-radius: 64px;
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  margin-left: -229px;
+  margin-top: 52px;
+  margin: 52px auto 0;
 }
 
 .icon {
