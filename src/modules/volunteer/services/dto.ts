@@ -37,6 +37,7 @@ export interface VolunteerActivityDetail {
   hour: string;
   start_date: number;
   last_date: number; // 截止报名的时间戳
+  num: string;
   time_part: TimePart[];
 }
 

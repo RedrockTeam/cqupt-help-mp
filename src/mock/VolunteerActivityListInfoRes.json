@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": 0,
+      "name": "志愿活动",
+      "description": "志愿活动的描述",
+      "date": 1601974919,
+      "last_date": 1601974919
+    },
+    {
+      "id": 1,
+      "name": "志愿活动",
+      "description": "志愿活动的描述",
+      "date": 1601974919,
+      "last_date": 1601974919
+    }
+  ],
+  "info": "success",
+  "status": 10000
+}
