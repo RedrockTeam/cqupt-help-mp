@@ -1,13 +1,21 @@
 .wrapper {
-  background-image: radial-gradient(
-    ellipse at top,
-    #fff,
-    #fff 90%,
-    #f6f6f9 90%
-  );
+  background-image: radial-gradient(ellipse at top, #fff, #fff 90%, #f6f6f9 90%);
   background-size: 900px 250px;
   background-position: center top;
   background-repeat: no-repeat;
+
+  .mark70 {
+    position: absolute;
+    width: 750px;
+    height: 1334px;
+    top: 50vh;
+    transform: translateY(-50%);
+    background-image: url("http://cdn.redrock.team/cqupt-help-mp_popup.png");
+    background-size: cover;
+    z-index: 999;
+    touch-action: none;
+  }
+
   .swiper {
     width: 710px;
     height: 322px;

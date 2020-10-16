@@ -37,6 +37,7 @@ export default function Index() {
   const { token } = useUserInfo();
 
   const [slidePercent, setSlidePercent] = useState(0);
+  const [show, setshow] = useState(true);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
     e
   ) => {
@@ -76,11 +77,12 @@ export default function Index() {
           />
         ))
     ) : (
-      <Empty detail="暂无活动" />
-    );
+        <Empty detail="暂无活动" />
+      );
   };
 
   return (
+
     <View className={styles.wrapper}>
       <Swiper
         className={styles.swiper}
@@ -89,7 +91,7 @@ export default function Index() {
         indicatorDots
         circular
         autoplay
-        // TODO: 修改 dot 样式
+      // TODO: 修改 dot 样式
       >
         {list.map((e) => (
           <SwiperItem key={e}>
@@ -167,6 +169,10 @@ export default function Index() {
       <View className={styles.recentActivitiesWrapper}>
         <Text className={styles.title}>热门活动</Text>
         <View>{renderHomeActivityList()}</View>
+      </View>
+      <View className={show ? styles.mark70 : ''} onClick={(e) => {
+        setshow(false);
+      }} >
       </View>
     </View>
   );
