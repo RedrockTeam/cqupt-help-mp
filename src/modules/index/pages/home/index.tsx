@@ -37,7 +37,7 @@ export default function Index() {
   const { token } = useUserInfo();
 
   const [slidePercent, setSlidePercent] = useState(0);
-  const [show, setshow] = useState(true);
+  const [show, setShow] = useState(true);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
     e
   ) => {
@@ -171,7 +171,7 @@ export default function Index() {
         <View>{renderHomeActivityList()}</View>
       </View>
       <View className={show ? styles.mark70 : ''} onClick={(e) => {
-        setshow(false);
+        setShow(false);
       }} >
       </View>
     </View>
