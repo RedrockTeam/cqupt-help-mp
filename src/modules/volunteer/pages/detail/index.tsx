@@ -102,8 +102,10 @@ const VolunteerDetail = () => {
 
   const renderRobBtn = () => {
     const nowTimestamp = now();
-    if (data.data.start_date > nowTimestamp) {
-      const leftTime = Math.round((data.data.start_date - nowTimestamp) / 60);
+    if (data.data.sign_up_start > nowTimestamp) {
+      const leftTime = Math.round(
+        (data.data.sign_up_start - nowTimestamp) / 60
+      );
       if (leftTime < 30) {
         return (
           <Button disabled className={styles.dis_button}>
@@ -119,8 +121,8 @@ const VolunteerDetail = () => {
     }
 
     if (
-      data.data.last_date > nowTimestamp &&
-      data.data.start_date < nowTimestamp
+      data.data.sign_up_last > nowTimestamp &&
+      data.data.sign_up_start < nowTimestamp
     ) {
       return (
         <Fragment>
@@ -163,15 +165,15 @@ const VolunteerDetail = () => {
           <View className={styles.timeWrap}>
             <View className={styles.label}>招募开始:</View>
             <Text userSelect selectable className={styles.time}>
-              {timestampToFormString(data.data.start_date) + "开抢"}
+              {timestampToFormString(data.data.sign_up_start) + "开抢"}
             </Text>
           </View>
           <View className={styles.timeWrap}>
             <View className={styles.label}>报名截至:</View>
             <Text userSelect selectable className={styles.time}>
               {`${timestampToDateString(
-                data.data.start_date
-              )} - ${timestampToDateString(data.data.last_date)}`}
+                data.data.sign_up_start
+              )} - ${timestampToDateString(data.data.sign_up_last)}`}
             </Text>
           </View>
         </View>
