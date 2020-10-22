@@ -28,7 +28,7 @@ import RecentActivity from "../../components/recent-activiey";
 const list = [
   "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",
   "https://wx.redrock.team/game/cqupt-help-mp/slider-img1.jpg",
-  "https://wx.redrock.team/game/cqupt-help-mp/slider-img2.jpg",
+  "http://cdn.redrock.team/cqupt-help-mp_banner.png",
   "https://wx.redrock.team/game/cqupt-help-mp/slider-img3.jpg",
   "https://wx.redrock.team/game/cqupt-help-mp/slider-img4.jpg",
 ]; // 轮播图的图片
@@ -76,8 +76,8 @@ export default function Index() {
           />
         ))
     ) : (
-      <Empty detail="暂无活动" />
-    );
+        <Empty detail="暂无活动" />
+      );
   };
 
   return (
@@ -89,7 +89,7 @@ export default function Index() {
         indicatorDots
         circular
         autoplay
-        // TODO: 修改 dot 样式
+      // TODO: 修改 dot 样式
       >
         {list.map((e) => (
           <SwiperItem key={e}>
