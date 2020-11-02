@@ -72,3 +72,15 @@ export const isOpen = () => {
 export const timestampToTimeString = (param: number) => {
   return dayjs.unix(param).format("YYYY.MM.DD HH:mm");
 };
+
+export const leftTime = (timestamp: number) => {
+  const now = +new Date() / 1000;
+  const interval = timestamp - now;
+  const h = Math.floor(interval / 60 / 60);
+  const m = Math.floor((interval / 60) % 60);
+  if (h > 0) {
+    return `${h}小时${m}分钟`;
+  } else {
+    return `${m}分钟`;
+  }
+};
