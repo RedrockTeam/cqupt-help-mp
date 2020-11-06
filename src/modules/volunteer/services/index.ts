@@ -7,6 +7,7 @@ import {
   VolunteerActivityDetailRes,
   VolunteerActivityApply,
   VolunteerActivityApplyRes,
+  VolunteerActivityApplicationRes,
 } from "./dto";
 
 export const checkIsVolunteer = (_key: string) =>
@@ -44,3 +45,13 @@ export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
       },
     }
   );
+
+export const getVolunteerActivityApllication = (_key: string, id: string) =>
+  request<VolunteerActivityApplicationRes>(
+    // url,
+    '/cyb-volunteer/volunteer/activity/application',
+    {
+      method: "GET",
+      data: { id }
+    }
+  )

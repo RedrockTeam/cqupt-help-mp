@@ -1,18 +1,34 @@
 import { BaseRes } from "@/common/helpers/request";
 
+// export interface MyActivity {
+//   id: number;
+//   name: string;
+//   team_name: string;
+//   time_done: number;
+//   time: string;
+//   introduction: string;
+//   location: string;
+//   rule: string;
+//   registration: string;
+//   myregistration: number;
+//   type: 0 | 1; // 0 表示普通活动， 1 表示志愿活动
+//   image: string;
+// }
 export interface MyActivity {
   id: number;
+  type: 0 | 1; // 0 表示普通活动， 1 表示志愿活动
   name: string;
   team_name: string;
-  time_done: number;
-  time: string;
-  introduction: string;
-  location: string;
-  rule: string;
-  registration: string;
+  description: string;
+  sign_up_start: number;
+  sign_up_last: number;
+  last_date: number;
+  start_date: number;
   myregistration: number;
-  type: 1 | 2;
-  image: string;
+  time_part: {
+    begin_time: number;
+    end_time: number;
+  }
 }
 
 export type MyActivities = MyActivity[];
@@ -54,3 +70,14 @@ export interface MyRewardsRes extends BaseRes {
 }
 
 export type MyRewardsApplyRes = BaseRes;
+
+interface MyRead {
+  number: number;
+  unread: number;
+}
+
+export type MyReads = MyRead[];
+
+export interface MyReadsRes extends BaseRes {
+  data: MyRead
+}
