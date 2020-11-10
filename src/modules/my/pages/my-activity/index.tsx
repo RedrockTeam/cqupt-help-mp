@@ -86,11 +86,13 @@ const MyActivity = () => {
                 id={e.id}
                 type={e.type}
                 name={e.name}
-                teamName={e.team_name}
+                team_name={e.team_name}
                 start_date={e.start_date}
                 last_date={e.last_date}
                 key={e.id}
-                myregistration={e.myregistration}
+                registration_time={e.registration_time}
+                time_part={e.time_part}
+                if_read={e.if_read}
               />
             )
             ))}
@@ -117,26 +119,19 @@ const MyActivity = () => {
                 id={e.id}
                 type={e.type}
                 name={e.name}
-                teamName={e.team_name}
+                team_name={e.team_name}
                 start_date={e.start_date}
                 last_date={e.last_date}
                 key={e.id}
-                myregistration={e.myregistration}
+                registration_time={e.registration_time}
+                result={e.result}
+                time_part={e.time_part}
+                date={e.date}
+                if_read={e.if_read}
               />
             )
             ))}
       </View>
-
-      {/* {activityListRes.data.map((e) => (
-        <Activity
-          name={e.name}
-          teamName={e.team_name}
-          timeDone={e.time_done}
-          time={e.time}
-          myregistration={e.myregistration}
-          key={e.id}
-        />
-      ))} */}
     </View>
   );
 };

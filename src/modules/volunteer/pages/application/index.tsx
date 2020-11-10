@@ -1,15 +1,13 @@
-import React from 'react'
-import { View, Text } from '@tarojs/components'
-import NavBack from '@/common/components/nav-back';
-import { useQuery } from 'react-query/dist/react-query.production.min';
-import Placeholder from "@/common/components/placeholder";
-
-
+import React from "react";
+import { View, Text, Image } from "@tarojs/components";
+import NavBack from "@/common/components/nav-back";
 import styles from "./index.module.scss";
-import { useRouter } from '@tarojs/taro';
-import { getVolunteerActivityApllication } from '../../services';
-import { VolunteerActivityApplication } from '../../services/dto';
-import { useUserInfo } from '@/stores/user';
+import Taro, { useRouter } from "@tarojs/taro";
+import { useUserInfo } from "@/stores/user";
+import copyPng from "@/static/images/volunteer-copy.png";
+import { useQuery } from "react-query/dist/react-query.production.min";
+import { getVolunteerActivityApllication } from "../../services";
+
 
 
 
@@ -17,28 +15,52 @@ const PAGE_TITLE = '报名结果'
 
 const VolunteerApply = () => {
     const { params } = useRouter();
-    const userInfo = useUserInfo();
+    const { name, pass, concat, date, registration_time } = params
+    const { realName } = useUserInfo();
 
-    const { data: applicationRes, isLoading, isError } = useQuery(
-        ['getVolunteerActivityApllication', params.id],
+    useQuery(
+        ["getVolunteerActivityApllication", registration_time],
         getVolunteerActivityApllication
-    );
+      );
 
-    const desc = '恭喜您通过了xx志愿活动，9月25日 13:00-18:00的志愿报名，请你尽快加入到我们的志愿活动qq群，了解本次志愿活动的详细信息，群号为xxxx'
+    const copy = () => {
+        Taro.setClipboardData({
+            data: concat,
+        });
+    };
 
-    if (isLoading) return <Placeholder title={PAGE_TITLE} />;
-    if (isError || !applicationRes)
-        return <Placeholder title={PAGE_TITLE} isError />;
 
-    const application: VolunteerActivityApplication = applicationRes.data
+    let desc;
+
+    switch (pass) {
+        case '1':
+            desc = `恭喜您通过了${name}志愿活动，${date}的志愿报名，请你尽快加入到我们的志愿活动qq群，了解本次志愿活动的详细信息，群号为${concat}`;
+            break;
+
+        default:
+            desc = '很遗憾，您未成功抢到本次志愿活动的机会，不过也请不要气馁，时常查看”青协志愿者协会”或志愿者服务群，能快速获取志愿活动报名的时间，相信您下次一定能够成功参与志愿活动！'
+            break;
+    }
+
+
 
     return (
         <View className={styles.wrapper}>
-            <NavBack title={PAGE_TITLE} background="#F6F6F9"/>
+            <NavBack title={PAGE_TITLE} background="#F6F6F9" />
             <View className={styles.container}>
                 <View className={styles.content}>
-                    <Text className={styles.appellation}>亲爱的{userInfo.realName}同学:</Text>
-                    <Text className={styles.desc}>{desc}</Text>
+                    <Text className={styles.appellation}>亲爱的{realName}同学:</Text>
+                    <View className={styles.desc}>
+                        {desc}
+                        <Image
+                            src={copyPng}
+                            className={styles.copyPng}
+                            onClick={() => {
+                                copy();
+                            }}
+                        />
+                    </View>
+
                 </View>
             </View>
         </View>
