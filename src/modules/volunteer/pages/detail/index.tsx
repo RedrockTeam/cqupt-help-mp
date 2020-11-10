@@ -38,18 +38,13 @@ const VolunteerDetail = () => {
   const Popup = useContainer(PopupContext);
 
   let { data, isLoading, isError } = useQuery(
-    ["getVolunteerActivityDetail", params.id],
+    ["getVolunteerActivityDetail", params.rely_id],
     getVolunteerActivityDetail
   );
   let info = null;
   let pickerValue = null;
   if (data) {
     info = data.data[0];
-    const timeInfoList = data.data.map((item) => ({
-      id: item.id,
-      date: item.date,
-      timePartInfo: item.time_part_info,
-    }));
     const dateList = data.data.map((item) => item.date);
     const timePartList = data.data.map((item) => item.time_part_info);
     pickerValue = {
@@ -125,7 +120,7 @@ const VolunteerDetail = () => {
   const renderRobBtn = () => {
     const nowTimestamp = now();
     if (info.sign_up_start > nowTimestamp) {
-      const leftTime = Math.round((info.sign_up_start - nowTimestamp) / 60);
+      const leftTime = Math.ceil((info.sign_up_start - nowTimestamp) / 60);
       if (leftTime < 30) {
         return (
           <Button disabled className={styles.dis_button}>

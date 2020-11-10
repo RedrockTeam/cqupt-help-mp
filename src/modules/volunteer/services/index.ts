@@ -24,10 +24,10 @@ export const loginVolunteer = (info: VolunteerInfo) =>
 export const getVolunteerActivityListInfo = (_key: string) =>
   request<VolunteerActivityListInfoRes>("/cyb-volunteer/new/voaces/test");
 
-export const getVolunteerActivityDetail = (_key: string, id: string) =>
+export const getVolunteerActivityDetail = (_key: string, rely_id: string) =>
   request<VolunteerActivityDetailRes>("/cyb-volunteer/new/voactail/test", {
     method: "POST",
-    data: { id },
+    data: { rely_id },
     header: {
       "content-type": "application/x-www-form-urlencoded",
     },

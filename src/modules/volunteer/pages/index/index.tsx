@@ -109,7 +109,7 @@ const Volunteer = () => {
                 key={item.rely_id}
                 onClick={() =>
                   navTo({
-                    url: `${resolvePage("volunteer", "detail")}?id=${
+                    url: `${resolvePage("volunteer", "detail")}?rely_id=${
                       item.rely_id
                     }`,
                   })
@@ -157,7 +157,7 @@ const Volunteer = () => {
                 key={item.rely_id}
                 onClick={() =>
                   navTo({
-                    url: `${resolvePage("volunteer", "detail")}?id=${
+                    url: `${resolvePage("volunteer", "detail")}?rely_id=${
                       item.rely_id
                     }`,
                   })
