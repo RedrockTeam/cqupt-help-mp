@@ -21,7 +21,7 @@ const VolunteerApply = () => {
     useQuery(
         ["getVolunteerActivityApllication", registration_time],
         getVolunteerActivityApllication
-      );
+    );
 
     const copy = () => {
         Taro.setClipboardData({
@@ -52,13 +52,17 @@ const VolunteerApply = () => {
                     <Text className={styles.appellation}>亲爱的{realName}同学:</Text>
                     <View className={styles.desc}>
                         {desc}
-                        <Image
-                            src={copyPng}
-                            className={styles.copyPng}
-                            onClick={() => {
-                                copy();
-                            }}
-                        />
+                        {
+                            pass === '1' ? (
+                                <Image
+                                    src={copyPng}
+                                    className={styles.copyPng}
+                                    onClick={() => {
+                                        copy();
+                                    }}
+                                />
+                            ) : null
+                        }
                     </View>
 
                 </View>
