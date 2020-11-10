@@ -10,7 +10,6 @@ import {
 import cancel from "@/static/images/cancel.png";
 import { timestampToDayjs, timestampToDateString } from "@/common/helpers/date";
 import styles from "./index.module.scss";
-import { TimePart } from "../../services/dto";
 
 const timetampToHMString = (timestamp: number) =>
   timestampToDayjs(timestamp - 8 * 60 * 60).format("HH:mm");
