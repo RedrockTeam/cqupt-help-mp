@@ -65,7 +65,7 @@ const Activity = ({
           <Button className={`${styles.btn} ${styles.btn_detail}`}
             onClick={() =>
               navTo({
-                url: `${resolvePage("volunteer", "detail")}?id=${id}`,
+                url: `${resolvePage("volunteer", "detail")}?rely_id=${id}`,
               })
             }
           >
