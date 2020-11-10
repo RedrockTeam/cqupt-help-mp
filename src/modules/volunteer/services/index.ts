@@ -7,6 +7,7 @@ import {
   VolunteerActivityDetailRes,
   VolunteerActivityApply,
   VolunteerActivityApplyRes,
+  VolunteerActivityApplicationRes,
 } from "./dto";
 
 export const checkIsVolunteer = (_key: string) =>
@@ -44,3 +45,15 @@ export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
       },
     }
   );
+
+export const getVolunteerActivityApllication = (_key: string, registration_time: string, ) =>
+  request<VolunteerActivityApplicationRes>(
+    '/cyb-myactivities/test/read',
+    {
+      method: "POST",
+      data: { registration_time },
+      header: {
+        "content-type": "application/x-www-form-urlencoded",
+      },
+    }
+  )

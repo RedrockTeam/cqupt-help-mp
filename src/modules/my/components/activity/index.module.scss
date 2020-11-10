@@ -1,9 +1,10 @@
-.wrapper {
+.commonWrapper {
   width: 698px;
   display: flex;
   justify-content: space-between;
   margin: 24px 0;
-  .left {
+
+  .commonLeft {
     width: 100px;
     display: flex;
     padding-top: 6px;
@@ -11,6 +12,7 @@
     background-size: 4px 153px;
     background-repeat: no-repeat;
     background-position: 14px 58px;
+
     .big {
       width: 48px;
       height: 40px;
@@ -22,6 +24,7 @@
       line-height: 40px;
       margin-right: 5px;
     }
+
     .small {
       margin-top: 10px;
       width: 30px;
@@ -34,7 +37,8 @@
       line-height: 30px;
     }
   }
-  .right {
+
+  .commonRight {
     display: flex;
     flex-direction: column;
     width: 598px;
@@ -42,6 +46,7 @@
     padding: 36px 30px 40px;
     border-radius: 16px;
     background: #ffffff;
+
     .header {
       display: flex;
       justify-content: space-between;
@@ -51,15 +56,18 @@
       font-weight: bold;
       font-size: 32px;
       margin-bottom: 5px;
+
       .passed {
         color: #cdcce0;
         font-size: 28px;
       }
+
       .doing {
         color: #625af8;
         font-size: 28px;
       }
     }
+
     .info {
       margin-top: 10px;
       color: #777494;
@@ -67,6 +75,94 @@
       font-weight: 400;
       font-size: 28px;
       line-height: 32px;
+    }
+  }
+}
+
+
+.volunteerWrapper {
+  width: 698px;
+  margin: 24px 0;
+
+  .volunteer {
+    display: flex;
+    flex-direction: column;
+    height: 378px;
+    padding: 40px 24px 40px;
+    border-radius: 16px;
+    background: #ffffff;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1c184c;
+    font-family: PingFang SC;
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 5px;
+
+    .passed {
+      color: #cdcce0;
+      font-size: 28px;
+    }
+
+    .doing {
+      color: #625af8;
+      font-size: 28px;
+    }
+  }
+
+  .info {
+    margin-top: 10px;
+    color: #777494;
+    font-family: PingFang SC;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+
+  .btnWrapper {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 88px;
+    position: relative;
+
+    .btn {
+      width: 240px;
+      height: 72px;
+      border-radius: 64px;
+      background: #ffffff;
+      border: 2px solid #625af8;
+      color: #625af8;
+      font-family: PingFang SC;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 70px;
+      text-align: center;
+      margin-left: 25px;
+
+      &_waitting {
+        color: #cdcce0;
+        border: 2px solid #cdcce0;
+      }
+
+      &_detail {
+        color: #1678FE;
+        border: 2px solid #1678FE;
+      }
+    }
+
+    .btn_red_point {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #FF6195;
+      top: 80px;
+      right: 0;
     }
   }
 }

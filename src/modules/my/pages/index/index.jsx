@@ -13,6 +13,10 @@ import prizeIcon from "@/static/images/prize-icon.png";
 import { useUserInfo } from "@/stores/user";
 import { redirectTo } from "@tarojs/taro";
 import styles from "./index.module.scss";
+import { useQuery } from "react-query/dist/react-query.production.min";
+import { getMyReads } from "../../services";
+import Placeholder from "@/common/components/placeholder";
+
 
 const MyIndex = () => {
   const userInfo = useUserInfo();
@@ -26,8 +30,24 @@ const MyIndex = () => {
     }
   };
 
+  const { data: myReadsRes, isLoading, isError } = useQuery(
+    ["getMyReads"],
+    getMyReads
+  )
+
+  if (isLoading) return (
+    <View className={styles.holder}>
+      <Placeholder />
+    </View>
+  )
+  if (isError || !myReadsRes)
+    return <Placeholder isError />;
+
+
+  const { number, unread } = myReadsRes.data
+
   return (
-    <View>
+    <View className={styles.wrapper}>
       <View className={styles.top}>
         <View className={styles.top_top}>
           <View>
@@ -46,19 +66,38 @@ const MyIndex = () => {
         <View className={styles.top_bottom}>
           <View onClick={() => navTo({ url: resolvePage("my", "my-reward") })}>
             <Image className={styles.pic1} src={prizeIcon} />
-            <Text className={styles.text}>我的奖品</Text>
+            <View className={styles.desc}>
+              <Text className={styles.text}>我的奖品</Text>
+            </View>
           </View>
           <View
             onClick={() => navTo({ url: resolvePage("my", "my-activity") })}
           >
+            {unread ? (
+              <View className={styles.hint_point}>{unread}</View>
+            ) : null
+            }
             <Image className={styles.pic2} src={campusIcon} />
-            <Text className={styles.text}>我的活动</Text>
+            <View className={styles.desc}>
+              <Text className={styles.text}>
+                我的活动
+            </Text>
+              {
+                number === undefined ? (
+                  <Text className={styles.hint_number}>0</Text>
+                ) : (
+                    <Text className={styles.hint_number}>{number}</Text>
+                  )
+              }
+            </View>
           </View>
           <View
             onClick={() => navTo({ url: resolvePage("ticket", "my-ticket") })}
           >
             <Image className={styles.pic3} src={ticketIcon} />
-            <Text className={styles.text}>我的影票</Text>
+            <View className={styles.desc}>
+              <Text className={styles.text}>我的影票</Text>
+            </View>
           </View>
         </View>
       </View>

@@ -13,6 +13,7 @@ export default {
     resolvePage("volunteer", "bind"),
     resolvePage("volunteer", "index"),
     resolvePage("volunteer", "detail"),
+    resolvePage("volunteer", "application"),
     resolvePage("ticket", "rob-ticket"),
     resolvePage("id", "index"),
     resolvePage("id", "apply"),
