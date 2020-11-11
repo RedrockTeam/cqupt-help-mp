@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, Text, OpenData } from "@tarojs/components";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import request from "@/common/helpers/request";
@@ -11,14 +11,15 @@ import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
 import { useUserInfo } from "@/stores/user";
-import { redirectTo } from "@tarojs/taro";
+import { onError, redirectTo, useDidShow } from "@tarojs/taro";
 import styles from "./index.module.scss";
-import { useQuery } from "react-query/dist/react-query.production.min";
+import { useQuery, useMutation } from "react-query/dist/react-query.production.min";
 import { getMyReads } from "../../services";
 import Placeholder from "@/common/components/placeholder";
 
 
-const MyIndex = () => {
+function MyIndex () {
+
   const userInfo = useUserInfo();
 
   const handleLoginout = async () => {
@@ -30,10 +31,23 @@ const MyIndex = () => {
     }
   };
 
-  const { data: myReadsRes, isLoading, isError } = useQuery(
-    ["getMyReads"],
-    getMyReads
-  )
+
+  let [myReadsRes, setReadsRes] = useState(null)
+  let [isLoading, setLoading] = useState(true)
+  let [isError, setError] = useState(false)
+
+  const [mutateReadRes] = useMutation(getMyReads, {
+    onSuccess(myReadsRes) {
+      setReadsRes(myReadsRes);
+      setLoading(false);
+    },
+    onError() {
+      setError(true)
+    }
+  })
+  useDidShow(() => {
+    mutateReadRes();
+    })
 
   if (isLoading) return (
     <View className={styles.holder}>

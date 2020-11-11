@@ -1,4 +1,3 @@
-import { VolunteerActivity, VolunteerActivityApplyRes } from './dto';
 import { BaseRes } from "@/common/helpers/request";
 
 export interface TimePart {

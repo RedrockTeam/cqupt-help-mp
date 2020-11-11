@@ -45,6 +45,9 @@ const MyActivity = () => {
     volunteerList = []
   }
 
+  console.log( typeof volunteerList[0].result?.qq);
+  
+
 
   return (
     <View className={styles.wrapper}>
