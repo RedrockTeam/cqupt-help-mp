@@ -6,7 +6,7 @@ import Taro, { useRouter } from "@tarojs/taro";
 import { useUserInfo } from "@/stores/user";
 import copyPng from "@/static/images/volunteer-copy.png";
 import { useQuery } from "react-query/dist/react-query.production.min";
-import { getVolunteerActivityApllication } from "../../services";
+import { postVolunteerActivityRead } from "../../services";
 
 
 
@@ -19,8 +19,8 @@ const VolunteerApply = () => {
     const { realName } = useUserInfo();
 
     useQuery(
-        ["getVolunteerActivityApllication", registration_time],
-        getVolunteerActivityApllication
+        ["postVolunteerActivityRead", registration_time],
+        postVolunteerActivityRead
     );
 
     const copy = () => {

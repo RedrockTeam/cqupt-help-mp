@@ -53,10 +53,3 @@ export interface VolunteerActivityApply {
 
 export type VolunteerActivityApplyRes = BaseRes;
 
-export interface VolunteerActivityApplication {
-
-}
-
-export interface VolunteerActivityApplicationRes extends BaseRes {
-  data: VolunteerActivityApplication;
-}

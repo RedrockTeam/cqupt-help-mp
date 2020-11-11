@@ -46,8 +46,8 @@ export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
     }
   );
 
-export const getVolunteerActivityApllication = (_key: string, registration_time: string, ) =>
-  request<VolunteerActivityApplicationRes>(
+export const postVolunteerActivityRead = (_key: string, registration_time: string, ) =>
+  request(
     '/cyb-myactivities/test/read',
     {
       method: "POST",
