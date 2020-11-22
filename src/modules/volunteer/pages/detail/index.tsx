@@ -44,9 +44,9 @@ const VolunteerDetail = () => {
   let info = null;
   let pickerValue = null;
   if (data) {
-    info = data.data[0];
-    const dateList = data.data.map((item) => item.date);
-    const timePartList = data.data.map((item) => item.time_part_info);
+    info = data.data;
+    const dateList = data.data.detail.map((item) => item.date);
+    const timePartList = data.data.detail.map((item) => item.time_part_info);
     pickerValue = {
       dateList,
       timePartList,
@@ -87,8 +87,17 @@ const VolunteerDetail = () => {
   const handleApply = async () => {
     setShowPicker(false);
     if (data) {
-      const date = data.data[dateIndex];
+      const date = data.data.detail[dateIndex];
       const timePart = date.time_part_info[timePartIndex];
+      if (timePart.now >= timePart.max + 10) {
+        const hide = Popup.show({
+          title: "申请失败",
+          detail: "报名人数已满",
+          img: error,
+        });
+        setTimeout(() => hide(), 1500);
+        return;
+      }
       await mutateApply({
         id: date.id,
         begin_time: timePart.begin_time,
