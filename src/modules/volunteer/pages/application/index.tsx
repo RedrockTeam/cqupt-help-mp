@@ -6,7 +6,7 @@ import Taro, { useRouter } from "@tarojs/taro";
 import { useUserInfo } from "@/stores/user";
 import copyPng from "@/static/images/volunteer-copy.png";
 import { useQuery } from "react-query/dist/react-query.production.min";
-import { getVolunteerActivityApllication } from "../../services";
+import { postVolunteerActivityRead } from "../../services";
 
 
 
@@ -19,9 +19,9 @@ const VolunteerApply = () => {
     const { realName } = useUserInfo();
 
     useQuery(
-        ["getVolunteerActivityApllication", registration_time],
-        getVolunteerActivityApllication
-      );
+        ["postVolunteerActivityRead", registration_time],
+        postVolunteerActivityRead
+    );
 
     const copy = () => {
         Taro.setClipboardData({
@@ -52,13 +52,17 @@ const VolunteerApply = () => {
                     <Text className={styles.appellation}>亲爱的{realName}同学:</Text>
                     <View className={styles.desc}>
                         {desc}
-                        <Image
-                            src={copyPng}
-                            className={styles.copyPng}
-                            onClick={() => {
-                                copy();
-                            }}
-                        />
+                        {
+                            pass === '1' ? (
+                                <Image
+                                    src={copyPng}
+                                    className={styles.copyPng}
+                                    onClick={() => {
+                                        copy();
+                                    }}
+                                />
+                            ) : null
+                        }
                     </View>
 
                 </View>

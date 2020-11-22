@@ -1,4 +1,3 @@
-import { VolunteerActivity, VolunteerActivityApplyRes } from './dto';
 import { BaseRes } from "@/common/helpers/request";
 
 export interface TimePart {
@@ -54,10 +53,3 @@ export interface VolunteerActivityApply {
 
 export type VolunteerActivityApplyRes = BaseRes;
 
-export interface VolunteerActivityApplication {
-
-}
-
-export interface VolunteerActivityApplicationRes extends BaseRes {
-  data: VolunteerActivityApplication;
-}

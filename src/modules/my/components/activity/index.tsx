@@ -65,7 +65,7 @@ const Activity = ({
           <Button className={`${styles.btn} ${styles.btn_detail}`}
             onClick={() =>
               navTo({
-                url: `${resolvePage("volunteer", "detail")}?id=${id}`,
+                url: `${resolvePage("volunteer", "detail")}?rely_id=${id}`,
               })
             }
           >
@@ -87,7 +87,7 @@ const Activity = ({
           <Button className={`${styles.btn} ${styles.btn_check}`}
             onClick={() => {
               navTo({
-                url: `${resolvePage("volunteer", "application")}?name=${name}&concat=${result.qq}&pass=${result.pass}&date=${time_area}&registration_time=${registration_time}`,
+                url: `${resolvePage("volunteer", "application")}?name=${name}&concat=${result?.qq}&pass=${result?.pass}&date=${time_area}&registration_time=${registration_time}`,
               })
               console.log('go to application', id);
             }
@@ -104,7 +104,9 @@ const Activity = ({
    * @param{return 1 | 2}  1:等待结果，2:查看结果
    */
   const ifChecked = (): 1 | 2 => {
-    return result.pass === 0 ? 1 : 2
+    console.log('pass:', typeof result?.pass);
+    
+    return result?.pass === '0' ? 1 : 2
   }
 
 

@@ -26,8 +26,8 @@ export interface MyActivity {
   start_date: number;
   registration_time: number; // 用户报名的当天时间
   result?: {
-    pass: 0 | 1 | 2; // 0: 等待结果， 1: 录取通过， 2: 录取不通过
-    qq?: number;
+    pass: '0' | '1' | '2'; // 0: 等待结果， 1: 录取通过， 2: 录取不通过
+    qq?: string;
   };
   time_part: { // 用户选择参加活动的 时间段（秒）
     begin_time: number;

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { switchTab } from "@tarojs/taro";
+import { switchTab, useDidShow } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import { resolvePage } from "@/common/helpers/utils";
 
-import { useQuery } from "react-query/dist/react-query.production.min";
+import { useMutation, useQuery } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
 import Empty from "@/common/components/empty";
 import { getMyActivities } from "../../services/index";
@@ -17,33 +17,44 @@ const PAGE_TITLE = "我的活动";
 const MyActivity = () => {
   const [active, setActive] = useState<number>(0);
 
-  let { data: activityListRes, isLoading, isError } = useQuery(
-    ["getMyActivities"],
-    getMyActivities
-  );
+  let [activityListRes, setActivityListRes] = useState({})
+  let [commonList, setCommonList] = useState<MyActivities>([])
+  let [volunteerList, setVolunteerList] = useState<MyActivities>([])
+  let [isLoading, setLoading] = useState(true)
+  let [isError, setError] = useState(false)
+
+  const [mutateActivityListRes] = useMutation(getMyActivities, {
+    onSuccess(activityListRes) {
+      setActivityListRes(activityListRes);
+      setLoading(false);
+
+      const activityList: MyActivities = activityListRes.data;
+      if (activityList) {
+        console.log('activityList: ', activityList);
+
+        setCommonList(activityList.filter((activity) => activity.type === 0));
+        setVolunteerList(activityList.filter((activity) => activity.type === 1));
+        console.log("普通活动", commonList);
+        console.log("志愿活动", volunteerList);
+        
+      } else {
+        setCommonList([]);
+        setVolunteerList([]);
+      }
+    },
+    onError() {
+      setError(true)
+    }
+  })
+  useDidShow(() => {
+    mutateActivityListRes();
+  })
+
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !activityListRes)
     return <Placeholder title={PAGE_TITLE} isError />;
 
-
-  let commonList: MyActivities
-  let volunteerList: MyActivities
-
-  console.log('activityListRes: ', activityListRes);
-
-  const activityList: MyActivities = activityListRes.data;
-  if (activityList) {
-    console.log('activityList: ', activityList);
-
-    commonList = activityList.filter((activity) => activity.type === 0);
-    volunteerList = activityList.filter((activity) => activity.type === 1);
-    console.log("普通活动", commonList);
-    console.log("志愿活动", volunteerList);
-  } else {
-    commonList = [];
-    volunteerList = []
-  }
 
 
   return (
@@ -67,9 +78,9 @@ const MyActivity = () => {
 
       {/* 普通活动 */}
       <View style={{
-          display: active === 0 && commonList.length === 0 ? 'block' :
-            active === 0 ? 'flex' : 'none'
-        }}
+        display: active === 0 && commonList.length === 0 ? 'block' :
+          active === 0 ? 'flex' : 'none'
+      }}
         className={styles.container}
       >
         {commonList.length === 0 ? (
@@ -100,9 +111,9 @@ const MyActivity = () => {
 
       {/* 志愿活动 */}
       <View style={{
-          display: active === 1 && volunteerList.length === 0 ? 'block' :
-            active === 1 ? 'flex' : 'none'
-        }}
+        display: active === 1 && volunteerList.length === 0 ? 'block' :
+          active === 1 ? 'flex' : 'none'
+      }}
         className={styles.container}
       >
         {volunteerList.length === 0 ? (
