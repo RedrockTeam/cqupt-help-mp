@@ -66,7 +66,7 @@ const Ticket = ({
       );
     }
     if (robTime > nowTimestamp) {
-      const leftTime = Math.round((robTime - nowTimestamp) / 60);
+      const leftTime = Math.ceil((robTime - nowTimestamp) / 60);
       if (leftTime < 120) {
         return (
           <PrimaryButton disabled className={styles.btn}>
