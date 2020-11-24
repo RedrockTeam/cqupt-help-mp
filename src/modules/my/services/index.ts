@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import request from "@/common/helpers/request";
-import { MyActivitiesRes, MyRewardsRes, MyRewardsApplyRes, MyReadsRes } from "./dto";
+import {
+  MyActivitiesRes,
+  MyRewardsRes,
+  MyRewardsApplyRes,
+  MyReadsRes,
+} from "./dto";
 
 // export const getMyActivities = (_key: string) =>
 //   request<MyActivitiesRes>("/cyb-myactivities/ac");
 
 export const getMyActivities = (_key: string) =>
-  request<MyActivitiesRes>("/cyb-myactivities/test/myactive");
+  request<MyActivitiesRes>("/cyb-myactivities/myactive");
 
 export const getMyRewards = (_key: string) =>
   request<MyRewardsRes>("/cyb-prize/lookPrize", {
@@ -22,8 +27,7 @@ export const applyMyRewards = (activity_id: number) =>
     },
   });
 
-
 export const getMyReads = (_key: string) =>
-  request<MyReadsRes>("/cyb-myactivities/test/showread", {
+  request<MyReadsRes>("/cyb-myactivities/showread", {
     method: "GET",
   });

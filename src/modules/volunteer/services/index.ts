@@ -23,10 +23,10 @@ export const loginVolunteer = (info: VolunteerInfo) =>
   });
 
 export const getVolunteerActivityListInfo = (_key: string) =>
-  request<VolunteerActivityListInfoRes>("/cyb-volunteer/new/voaces/test");
+  request<VolunteerActivityListInfoRes>("/cyb-volunteer/new/voaces");
 
 export const getVolunteerActivityDetail = (_key: string, rely_id: string) =>
-  request<VolunteerActivityDetailRes>("/cyb-volunteer/new/voactail/test", {
+  request<VolunteerActivityDetailRes>("/cyb-volunteer/new/voactail", {
     method: "POST",
     data: { rely_id },
     header: {
@@ -46,14 +46,14 @@ export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
     }
   );
 
-export const postVolunteerActivityRead = (_key: string, registration_time: string, ) =>
-  request(
-    '/cyb-myactivities/test/read',
-    {
-      method: "POST",
-      data: { registration_time },
-      header: {
-        "content-type": "application/x-www-form-urlencoded",
-      },
-    }
-  )
+export const postVolunteerActivityRead = (
+  _key: string,
+  registration_time: string
+) =>
+  request("/cyb-myactivities/read", {
+    method: "POST",
+    data: { registration_time },
+    header: {
+      "content-type": "application/x-www-form-urlencoded",
+    },
+  });
