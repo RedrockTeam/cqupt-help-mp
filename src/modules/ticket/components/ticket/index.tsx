@@ -98,9 +98,9 @@ const Ticket = ({
             <Text className={styles.remain}>剩余 {remain} 张</Text>
           </View>
           <Text className={styles.text}>
-            放映时间：{timestampToTimeCNString(playTime)}
+            活动时间：{timestampToTimeCNString(playTime)}
           </Text>
-          <Text className={styles.text}>放映地点：{location}</Text>
+          <Text className={styles.text}>活动地点：{location}</Text>
           {renderRobBtn()}
         </View>
       </View>
