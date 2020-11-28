@@ -9,9 +9,6 @@ interface RobTicketInfo {
   location: string;
   image: string;
   is_received: boolean;
-  start_take: string;
-  end_take: string;
-  place_take: string;
 }
 
 export interface RobTicketListInfoRes extends BaseRes {

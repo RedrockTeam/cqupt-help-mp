@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useContainer } from "unstated-next";
 import { navigateBack } from "@tarojs/taro";
 import { View } from "@tarojs/components";
@@ -33,28 +33,20 @@ const RobTicket = () => {
       refetchInterval: 2000,
     }
   );
-  const [isRobing, setIsRobing] = useState(false);
+
   const [mutateRobTicket] = useMutation(robTicket, {
     onSuccess: () => queryCache.invalidateQueries("robTicketListInfo"),
   });
 
   const handleRobTicket = async (id: number) => {
-    let res: any;
-    if (!isRobing) {
-      setIsRobing(true);
-      res = await mutateRobTicket(id);
-      setIsRobing(false);
-    } else {
-      return;
-    }
-    const item = ticketList.data.filter((item) => item.id === id)[0];
+    const res = await mutateRobTicket(id);
     if (res.status === 10000) {
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！抢票成功！",
-        detail: `电影票卡卷已存入“我的”页面”我的影票“中。请在${item.start_take}-${item.end_take}在${item.place_take}领取实体票，无实体票将无法观看电影!赶紧去领电影票吧！`,
+        detail: "电影票卡卷已存入“我的”页面”我的影票“中！",
       });
-      setTimeout(() => hide(), 10000);
+      setTimeout(() => hide(), 1500);
     } else {
       let detail: string;
       if (res.status === 10004) {

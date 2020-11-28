@@ -3,17 +3,13 @@ import { View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import Placeholder from "@/common/components/placeholder";
 import { resolvePage, navTo } from "@/common/helpers/utils";
-import {
-  now,
-  gapDay,
-  timestampToTimeString,
-  leftTime,
-} from "@/common/helpers/date";
+import { now, gapDay } from "@/common/helpers/date";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import Empty from "@/common/components/empty";
 import { navigateBack, redirectTo } from "@tarojs/taro";
 import { getVolunteerActivityListInfo, checkIsVolunteer } from "../../services";
 import styles from "./index.module.scss";
+import VolunteerActivityListInfo from "../../../../mock/VolunteerActivityListInfoRes.json";
 const PAGE_TITLE = "志愿报名";
 
 const Volunteer = () => {
@@ -53,16 +49,6 @@ const Volunteer = () => {
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !list) return <Placeholder title={PAGE_TITLE} isError />;
-  const activitySignUpStatus = (start, last) => {
-    const nowTimeStamp = now();
-    if (start > nowTimeStamp) {
-      return `距报名开始${leftTime(start)}`;
-    } else if (start < nowTimeStamp && nowTimeStamp < last) {
-      return "正在报名ing";
-    } else {
-      return "报名已截止";
-    }
-  };
   // if (list.data.length !== 0)
   //   return (
   //     <Empty
@@ -102,16 +88,14 @@ const Volunteer = () => {
           />
         ) : (
           xiaojiList
-            .sort((a, b) => b.sign_up_start - a.sign_up_start)
+            .sort((a, b) => b.sign_up_last - a.sign_up_last)
             .map((item) => (
               <View
                 className={styles.card}
-                key={item.rely_id}
+                key={item.id}
                 onClick={() =>
                   navTo({
-                    url: `${resolvePage("volunteer", "detail")}?rely_id=${
-                      item.rely_id
-                    }`,
+                    url: `${resolvePage("volunteer", "detail")}?id=${item.id}`,
                   })
                 }
               >
@@ -124,10 +108,9 @@ const Volunteer = () => {
                         : styles.cardTime
                     }
                   >
-                    {activitySignUpStatus(
-                      item.sign_up_start,
-                      item.sign_up_last
-                    )}
+                    {item.sign_up_last < now()
+                      ? "报名已结束"
+                      : `距报名结束:${gapDay(item.sign_up_last)}天`}
                   </View>
                 </View>
                 <View className={styles.cardInfo}>
@@ -150,16 +133,14 @@ const Volunteer = () => {
           />
         ) : (
           yuanjiList
-            .sort((a, b) => b.sign_up_start - a.sign_up_start)
+            .sort((a, b) => b.sign_up_last - a.sign_up_last)
             .map((item) => (
               <View
                 className={styles.card}
-                key={item.rely_id}
+                key={item.id}
                 onClick={() =>
                   navTo({
-                    url: `${resolvePage("volunteer", "detail")}?rely_id=${
-                      item.rely_id
-                    }`,
+                    url: `${resolvePage("volunteer", "detail")}?id=${item.id}`,
                   })
                 }
               >
@@ -172,10 +153,9 @@ const Volunteer = () => {
                         : styles.cardTime
                     }
                   >
-                    {activitySignUpStatus(
-                      item.sign_up_start,
-                      item.sign_up_last
-                    )}
+                    {item.sign_up_last < now()
+                      ? "报名已结束"
+                      : `距报名结束:${gapDay(item.sign_up_last)}天`}
                   </View>
                 </View>
                 <View className={styles.cardInfo}>

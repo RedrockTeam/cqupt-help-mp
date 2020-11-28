@@ -1,0 +1,202 @@
+.list{
+    font-family: PingFang SC;
+    .title{
+        position: absolute;
+        top: 60px;
+        left: 86px;
+        margin-bottom: 16px;
+        font-style: normal;
+        font-weight: bold;
+        color: #494670;
+        .reset{
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+        }
+    }
+    .input{
+        width: 622px;
+        height: 88px;
+        border-radius: 44px;
+        border-left: 52px;
+        background-color: #ffffff;
+        border: 1.5px solid #CDCCE0;
+        position: absolute;
+        left: 64px;
+        top: 116px;
+        display: flex;
+        align-items: center;
+        .inputcontent{
+            width: 542px;
+            height: 88px;
+            color: #A4A3B7;
+            margin:0 40px;
+        }
+    }
+    .forget {
+        color: #777494;
+        position: absolute;
+        right: 62px;
+        top: 216px;
+    }
+}
+
+.newpass{
+    position: absolute;
+    top: 62px;
+    left: 62px;
+    .prompt{
+        color: #FF6195;
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+}
+.renewpass{
+    position: absolute;
+    top: 288px;
+    left: 62px;
+    .prompt{
+        color: #FF6195;
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+}
+.confirm{
+    position: absolute;
+    left: 62px;
+    top: 652px;
+    width: 622px;
+    height: 92px;
+    border-radius: 64px;
+    background: #CECDE8;
+    color: #ffffff;
+}
+.confirmActive{
+    position: absolute;
+    left: 62px;
+    top: 652px;
+    width: 622px;
+    height: 92px;
+    border-radius: 64px;
+    background: #CECDE8;
+    color: #ffffff;
+    background: #625AF8;
+}
+.next{
+    position: absolute;
+    top: 412px;
+    left: 64px;
+    width: 622px;
+    height: 92px;
+    color:#ffffff;
+    background-color: #CECDE8;
+    border-radius: 64px;
+}
+.nextActive{
+    position: absolute;
+    top: 412px;
+    left: 64px;
+    width: 622px;
+    height: 92px;
+    color:#ffffff;
+    background-color: #625AF8;
+    border-radius: 64px;
+}
+.cover{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.25);
+    position: absolute;
+    top: 0; 
+    z-index: 999;
+}
+.popup{
+    position: absolute;
+    width: 510px;
+    height: 374px;
+    z-index: 1000;
+    left: 124px;
+    top: 292px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    .success{
+        margin: 80px 80px 80px 100px;
+        width: 340px;
+        height: 146px;
+    }
+    .txt{
+        position: absolute;
+        top: 264px;
+        left: 150px;
+    }
+}
+.popWindow{
+    width: 100vw;
+    background-color: #ffffff;
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+    font-family: PingFang SC;
+    position: fixed;
+    transform: translate3d(0, 150%, 0);
+    transition: transform 0.2s ease-in-out;
+    bottom: 0;
+    z-index: 1000;
+    .title{
+        font-size: 28px;
+        color: #777494;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .reinput{
+        font-size: 32px;
+        color: #494670;
+        font-weight: bold;
+        padding-top: 45px;
+        padding-bottom: 45px;
+        border-bottom:20px solid #f5f5f5;
+    }
+    .forgetpass{
+    padding-top: 45px;
+    padding-bottom: 45px;
+    font-size: 32px;
+    color: #A4A3B7;
+    font-weight: bold;
+    border-bottom: solid 1px #1c184c;
+    }
+}
+.popWindowActive{
+    width: 100vw;
+    background-color: #ffffff;
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+    font-family: PingFang SC;
+    position: fixed;
+    bottom: 0;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease-in-out;
+    z-index: 1000;
+    .title{
+        font-size: 28px;
+        color: #777494;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .reinput{
+        font-size: 32px;
+        color: #494670;
+        font-weight: bold;
+        padding-top: 45px;
+        padding-bottom: 45px;
+        border-bottom:20px solid #f5f5f5;
+    }
+    .forgetpass{
+    padding-top: 45px;
+    padding-bottom: 45px;
+    font-size: 32px;
+    color: #A4A3B7;
+    font-weight: bold;
+    border-bottom: solid 1px #1c184c;
+    }
+}

@@ -33,26 +33,14 @@ import VolunteerActivityDetail from "../../../../mock/VolunteerActivityDetail.js
 const VolunteerDetail = () => {
   const { params } = useRouter();
   const [showPicker, setShowPicker] = useState(false);
-  const [dateIndex, setDateIndex] = useState<number>(0);
   const [timePartIndex, setTimePartIndex] = useState<number>(0);
+
   const Popup = useContainer(PopupContext);
 
   let { data, isLoading, isError } = useQuery(
-    ["getVolunteerActivityDetail", params.rely_id],
+    ["getVolunteerActivityDetail", params.id],
     getVolunteerActivityDetail
   );
-  let info = null;
-  let pickerValue = null;
-  if (data) {
-    info = data.data;
-    const dateList = data.data.detail.map((item) => item.date);
-    const timePartList = data.data.detail.map((item) => item.time_part_info);
-    pickerValue = {
-      dateList,
-      timePartList,
-    };
-  }
-
   const [mutateApply] = useMutation(applyVolunteerActivity, {
     onSuccess(res) {
       if (res.status === 10000) {
@@ -87,19 +75,9 @@ const VolunteerDetail = () => {
   const handleApply = async () => {
     setShowPicker(false);
     if (data) {
-      const date = data.data.detail[dateIndex];
-      const timePart = date.time_part_info[timePartIndex];
-      if (timePart.now >= timePart.max + 10) {
-        const hide = Popup.show({
-          title: "申请失败",
-          detail: "报名人数已满",
-          img: error,
-        });
-        setTimeout(() => hide(), 1500);
-        return;
-      }
+      const timePart = data.data.time_part[timePartIndex];
       await mutateApply({
-        id: date.id,
+        id: params.id,
         begin_time: timePart.begin_time,
         end_time: timePart.end_time,
       });
@@ -115,12 +93,8 @@ const VolunteerDetail = () => {
   };
 
   const timeChange = (e: ITouchEvent) => {
-    const dateIndex = e.detail.value[0]; // 要更改才生效
-    const timePartIndex = e.detail.value[1]; // 要更改才生效
-    console.log("date", dateIndex);
-    console.log("time", timePartIndex);
-    setDateIndex(dateIndex);
-    setTimePartIndex(timePartIndex);
+    const index = e.detail.value[0]; // 要更改才生效
+    setTimePartIndex(index);
   };
 
   if (isLoading) return <Placeholder title="志愿报名" />;
@@ -128,8 +102,8 @@ const VolunteerDetail = () => {
 
   const renderRobBtn = () => {
     const nowTimestamp = now();
-    if (info.sign_up_start > nowTimestamp) {
-      const leftTime = Math.ceil((info.sign_up_start - nowTimestamp) / 60);
+    if (data.data.start_date > nowTimestamp) {
+      const leftTime = Math.round((data.data.start_date - nowTimestamp) / 60);
       if (leftTime < 30) {
         return (
           <Button disabled className={styles.dis_button}>
@@ -144,7 +118,10 @@ const VolunteerDetail = () => {
       );
     }
 
-    if (info.sign_up_last > nowTimestamp && info.sign_up_start < nowTimestamp) {
+    if (
+      data.data.last_date > nowTimestamp &&
+      data.data.start_date < nowTimestamp
+    ) {
       return (
         <Fragment>
           <Button
@@ -156,12 +133,11 @@ const VolunteerDetail = () => {
             立即报名
           </Button>
           <Picker
-            value={pickerValue}
+            value={data.data.time_part}
             visible={showPicker}
             onCancel={cancelShowPicker}
             onOk={handleApply}
             onTimeChange={timeChange}
-            dateIndex={dateIndex}
           />
         </Fragment>
       );
@@ -179,21 +155,23 @@ const VolunteerDetail = () => {
       <View className={styles.card}>
         <View className={styles.item1}>
           <View className={styles.title}>
-            <View className={styles.name}>{info.name}</View>
+            <View className={styles.name}>{data.data.name}</View>
             <View className={styles.status}>
-              {info.sign_up_last > now() ? "招募中" : "已结束"}
+              {data.data.last_date > now() ? "招募中" : "已结束"}
             </View>
           </View>
           <View className={styles.timeWrap}>
-            <View className={styles.label}>报名开始时间:</View>
+            <View className={styles.label}>招募开始:</View>
             <Text userSelect selectable className={styles.time}>
-              {timestampToFormString(info.sign_up_start)}
+              {timestampToFormString(data.data.start_date) + "开抢"}
             </Text>
           </View>
           <View className={styles.timeWrap}>
-            <View className={styles.label}>报名截止时间:</View>
+            <View className={styles.label}>报名截至:</View>
             <Text userSelect selectable className={styles.time}>
-              {timestampToFormString(info.sign_up_last)}
+              {`${timestampToDateString(
+                data.data.start_date
+              )} - ${timestampToDateString(data.data.last_date)}`}
             </Text>
           </View>
         </View>
@@ -204,8 +182,8 @@ const VolunteerDetail = () => {
             </View>
             <Text userSelect selectable className={styles.text}>
               {`${timestampToDateString(
-                info.start_date
-              )} - ${timestampToDateString(info.last_date)}`}
+                data.data.start_date
+              )} - ${timestampToDateString(data.data.last_date)}`}
             </Text>
           </View>
           <View className={styles.item2}>
@@ -213,7 +191,7 @@ const VolunteerDetail = () => {
               <Text>志愿时长</Text>
             </View>
             <Text userSelect selectable className={styles.text}>
-              {info.hour}
+              {data.data.hour}
             </Text>
           </View>
           <View className={styles.item2}>
@@ -221,7 +199,7 @@ const VolunteerDetail = () => {
               <Text>招募人数</Text>
             </View>
             <Text userSelect selectable className={styles.text}>
-              {info.num}
+              {data.data.num}
             </Text>
           </View>
         </View>
@@ -230,7 +208,7 @@ const VolunteerDetail = () => {
             <Text>活动介绍</Text>
           </View>
           <Text userSelect selectable className={styles.text}>
-            {info.description}
+            {data.data.description}
           </Text>
         </View>
         <View className={styles.item2}>
@@ -238,7 +216,7 @@ const VolunteerDetail = () => {
             <Text>活动规则</Text>
           </View>
           <Text userSelect selectable className={styles.text}>
-            {info.role}
+            {data.data.role}
           </Text>
         </View>
         {renderRobBtn()}

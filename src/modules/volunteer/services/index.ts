@@ -7,7 +7,6 @@ import {
   VolunteerActivityDetailRes,
   VolunteerActivityApply,
   VolunteerActivityApplyRes,
-  VolunteerActivityApplicationRes,
 } from "./dto";
 
 export const checkIsVolunteer = (_key: string) =>
@@ -23,19 +22,16 @@ export const loginVolunteer = (info: VolunteerInfo) =>
   });
 
 export const getVolunteerActivityListInfo = (_key: string) =>
-  request<VolunteerActivityListInfoRes>("/cyb-volunteer/volunteer/activities");
+  request<VolunteerActivityListInfoRes>("/cyb-volunteer/new/voaces/test");
 
-export const getVolunteerActivityDetail = (_key: string, rely_id: string) =>
-  request<VolunteerActivityDetailRes>(
-    "/cyb-volunteer/volunteer/activity/info",
-    {
-      method: "POST",
-      data: { rely_id },
-      header: {
-        "content-type": "application/x-www-form-urlencoded",
-      },
-    }
-  );
+export const getVolunteerActivityDetail = (_key: string, id: string) =>
+  request<VolunteerActivityDetailRes>("/cyb-volunteer/new/voactail/test", {
+    method: "POST",
+    data: { id },
+    header: {
+      "content-type": "application/x-www-form-urlencoded",
+    },
+  });
 
 export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
   request<VolunteerActivityApplyRes, VolunteerActivityApply>(
@@ -48,15 +44,3 @@ export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
       },
     }
   );
-
-export const postVolunteerActivityRead = (
-  _key: string,
-  registration_time: string
-) =>
-  request("/cyb-myactivities/read", {
-    method: "POST",
-    data: { registration_time },
-    header: {
-      "content-type": "application/x-www-form-urlencoded",
-    },
-  });

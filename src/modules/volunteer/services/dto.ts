@@ -52,4 +52,3 @@ export interface VolunteerActivityApply {
 }
 
 export type VolunteerActivityApplyRes = BaseRes;
-

@@ -38,7 +38,7 @@
         border-radius: 122px;
         border: 2px solid #cdcce0;
         margin: 8px 0;
-        margin-bottom: 56px;
+        margin-bottom: 16px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -84,7 +84,14 @@
     line-height: 48px;
   }
 }
-
+.forget {
+  color: #777494;
+  font-family: PingFang SC;
+  font-weight: 400;
+  font-size: 28px;
+  margin-bottom: 10px;
+  text-align: right;
+}
 .tips {
   margin: 0 auto;
   color: #a4a3b7;

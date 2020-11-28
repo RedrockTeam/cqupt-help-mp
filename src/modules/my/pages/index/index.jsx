@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Image, Text, OpenData } from "@tarojs/components";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import request from "@/common/helpers/request";
@@ -11,17 +11,12 @@ import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
 import { useUserInfo } from "@/stores/user";
-import { onError, redirectTo, useDidShow } from "@tarojs/taro";
+import { redirectTo } from "@tarojs/taro";
 import styles from "./index.module.scss";
-import { useQuery, useMutation } from "react-query/dist/react-query.production.min";
-import { getMyReads } from "../../services";
-import Placeholder from "@/common/components/placeholder";
 
-
-function MyIndex () {
-
+const MyIndex = () => {
   const userInfo = useUserInfo();
-
+  const [showPop, setshowPop] = useState(false);
   const handleLoginout = async () => {
     const res = await request("https://wx.redrock.team/magicloop/unbind/xcx");
     if (res.status === 10000) {
@@ -30,38 +25,8 @@ function MyIndex () {
       });
     }
   };
-
-
-  let [myReadsRes, setReadsRes] = useState(null)
-  let [isLoading, setLoading] = useState(true)
-  let [isError, setError] = useState(false)
-
-  const [mutateReadRes] = useMutation(getMyReads, {
-    onSuccess(myReadsRes) {
-      setReadsRes(myReadsRes);
-      setLoading(false);
-    },
-    onError() {
-      setError(true)
-    }
-  })
-  useDidShow(() => {
-    mutateReadRes();
-    })
-
-  if (isLoading) return (
-    <View className={styles.holder}>
-      <Placeholder />
-    </View>
-  )
-  if (isError || !myReadsRes)
-    return <Placeholder isError />;
-
-
-  const { number, unread } = myReadsRes.data
-
   return (
-    <View className={styles.wrapper}>
+    <View>
       <View className={styles.top}>
         <View className={styles.top_top}>
           <View>
@@ -80,38 +45,19 @@ function MyIndex () {
         <View className={styles.top_bottom}>
           <View onClick={() => navTo({ url: resolvePage("my", "my-reward") })}>
             <Image className={styles.pic1} src={prizeIcon} />
-            <View className={styles.desc}>
-              <Text className={styles.text}>我的奖品</Text>
-            </View>
+            <Text className={styles.text}>我的奖品</Text>
           </View>
           <View
             onClick={() => navTo({ url: resolvePage("my", "my-activity") })}
           >
-            {unread ? (
-              <View className={styles.hint_point}>{unread}</View>
-            ) : null
-            }
             <Image className={styles.pic2} src={campusIcon} />
-            <View className={styles.desc}>
-              <Text className={styles.text}>
-                我的活动
-            </Text>
-              {
-                number === undefined ? (
-                  <Text className={styles.hint_number}>0</Text>
-                ) : (
-                    <Text className={styles.hint_number}>{number}</Text>
-                  )
-              }
-            </View>
+            <Text className={styles.text}>我的活动</Text>
           </View>
           <View
             onClick={() => navTo({ url: resolvePage("ticket", "my-ticket") })}
           >
             <Image className={styles.pic3} src={ticketIcon} />
-            <View className={styles.desc}>
-              <Text className={styles.text}>我的影票</Text>
-            </View>
+            <Text className={styles.text}>我的影票</Text>
           </View>
         </View>
       </View>
@@ -139,10 +85,27 @@ function MyIndex () {
           <Image src={enter} className={styles.enter} />
         </View>
       </View>
-      <View className={styles.loginOut} onClick={() => handleLoginout()}>
-        <Image className={styles.icon} src={loginOut} />
-        <Text className={styles.text}>切换账号</Text>
+      <View className={styles.listAccount}>
+        <View className={styles.loginOut} onClick={() => navTo({ url: resolvePage("account-safe", "index") })}>
+          <Image className={styles.icon} src={loginOut} />
+          <Text className={styles.text}>账号安全</Text>
+          <Image src={enter} className={styles.enter} />
+        </View>
+        <View className={styles.loginOut} onClick={() => setshowPop(true)}>
+          <Image className={styles.icon} src={loginOut} />
+          <Text className={styles.text}>切换账号</Text>
+        </View>
       </View>
+      {showPop ?
+        <View>
+          <View className={styles.cover} />
+          <View className={styles.popWindow}>
+            <View className={styles.title}>确定退出当前账号？</View>
+            <View className={styles.confirm} onClick={() => handleLoginout()}>确定</View>
+            <View className={styles.cancel} onClick={() => setshowPop(false)}>取消</View>
+          </View>
+        </View>
+        : null}
     </View>
   );
 };

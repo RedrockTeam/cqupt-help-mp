@@ -66,7 +66,7 @@ const Ticket = ({
       );
     }
     if (robTime > nowTimestamp) {
-      const leftTime = Math.ceil((robTime - nowTimestamp) / 60);
+      const leftTime = Math.round((robTime - nowTimestamp) / 60);
       if (leftTime < 120) {
         return (
           <PrimaryButton disabled className={styles.btn}>
@@ -98,9 +98,9 @@ const Ticket = ({
             <Text className={styles.remain}>剩余 {remain} 张</Text>
           </View>
           <Text className={styles.text}>
-            活动时间：{timestampToTimeCNString(playTime)}
+            放映时间：{timestampToTimeCNString(playTime)}
           </Text>
-          <Text className={styles.text}>活动地点：{location}</Text>
+          <Text className={styles.text}>放映地点：{location}</Text>
           {renderRobBtn()}
         </View>
       </View>

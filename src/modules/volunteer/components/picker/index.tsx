@@ -8,31 +8,22 @@ import {
   ITouchEvent,
 } from "@tarojs/components";
 import cancel from "@/static/images/cancel.png";
-import { timestampToDayjs, timestampToDateString } from "@/common/helpers/date";
+import { timestampToDayjs } from "@/common/helpers/date";
 import styles from "./index.module.scss";
+import { TimePart } from "../../services/dto";
 
 const timetampToHMString = (timestamp: number) =>
-  timestampToDayjs(timestamp - 8 * 60 * 60).format("HH:mm");
+  timestampToDayjs(timestamp).format("HH:mm");
 
 type Props = {
   visible: boolean;
   onCancel: (event: ITouchEvent) => unknown;
   onOk: (event: ITouchEvent) => unknown;
   onTimeChange: (event: ITouchEvent) => unknown;
-  value: any;
-  dateIndex: number;
+  value: TimePart[];
 };
 
-const Picker = ({
-  visible,
-  onCancel,
-  onOk,
-  onTimeChange,
-  value,
-  dateIndex,
-}: Props) => {
-  console.log(value.timePartList);
-
+const Picker = ({ visible, onCancel, onOk, onTimeChange, value }: Props) => {
   return (
     <View
       className={`${styles.mask} ${
@@ -53,16 +44,7 @@ const Picker = ({
             onChange={onTimeChange}
           >
             <PickerViewColumn>
-              {value.dateList.map((item) => {
-                return (
-                  <View style={{ lineHeight: "58px" }} key={`${item}`}>
-                    {`${timestampToDateString(item)}`}
-                  </View>
-                );
-              })}
-            </PickerViewColumn>
-            <PickerViewColumn>
-              {value.timePartList[dateIndex].map((item) => {
+              {value.map((item) => {
                 return (
                   <View
                     style={{ lineHeight: "58px" }}
