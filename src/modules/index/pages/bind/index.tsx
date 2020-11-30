@@ -111,7 +111,6 @@ const Bind = () => {
               className={styles.input}
               placeholderClass={styles.placeholder}
               password
-              maxlength={6}
               value={password}
               onInput={handlePasswordInput}
               placeholder="身份证/统一认证码后六位"

@@ -12,7 +12,7 @@ import LoadingPage from '../../components/Loding/index.jsx'
 import { useUserInfo } from "@/stores/user";
 import { getQuesAndEmailState, changPassword } from '../../services/index.ts'
 import { resolvePage, navTo } from "@/common/helpers/utils";
-import { redirectTo } from "@tarojs/taro";
+import { redirectTo, switchTab } from "@tarojs/taro";
 
 const ResetPassword = () => {
     const { token } = useUserInfo();
@@ -49,18 +49,20 @@ const ResetPassword = () => {
         else {
             const res = await mutateChange({ Origin: originPassword, New: newinput }, {
                 onSuccess: (res) => {
-                    if (res.status == 10000) {
+                    if (res.status === 10000) {
                         setisSuccess(true);
                         setTimeout(() => {
                             setisSuccess(null)
-                            navTo({ url: resolvePage("account-safe", "index") });
+                            switchTab({ url: resolvePage("my", "index") });
                         }, 1500)
-                    } else if (res.status == 10002) {
+                    } else if (res.status === 10002) {
                         setIndex(0)
+                        setIndex(Index.slice())
+                        console.log(Index)
                         setTimeout(() => {
                             setshowPop(true)
                         }, 400)
-                    } else if (res.status == 10004) {
+                    } else if (res.status === 10020) {
                         setpromptMessage("新旧密码重复");
                     }
                 }
@@ -99,11 +101,11 @@ const ResetPassword = () => {
                     <View>
                         <View>
                             <View className={styles.newpass}>
-                                <NewInput moren="请输入6位以上新代码" src={open} type="text" onChange={getInputValue} />
+                                <NewInput moren="请输入6位以上新密码" src={open} type="text" onChange={getInputValue} />
                                 <Text className={styles.prompt}>{newinput?.length < 6 ? "请至少输入6个字符" : null}</Text>
                             </View>
                             <View className={styles.renewpass}>
-                                <NewInput moren="请再次输入6位以上新代码" src={close} type="password" onChange={getReInputValue} />
+                                <NewInput moren="请再次输入6位以上新密码" src={close} type="password" onChange={getReInputValue} />
                                 <Text className={styles.prompt}>{promptMessage}</Text>
                             </View>
                         </View>

@@ -6,13 +6,13 @@ import reset from "@/static/images/reset.png";
 import CheckInput from '../../components/Checkinput/index.jsx';
 import styles from "./index.module.scss";
 import robSuccess from '@/static/images/rob-success.png'
-import { checkEmail, checkEmailCode } from '../../services/index.ts';
+import { checkEmail, checkEmailCode, getEmail } from '../../services/index.ts';
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { useUserInfo } from "@/stores/user";
 const BindEmail = () => {
     const { token } = useUserInfo();
     const { stuNum } = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[0]))));
-    const [countdown, setcountdown] = useState(5);
+    const [countdown, setcountdown] = useState(60);
     const [emailFormat, setemailFormat] = useState(null);
     const [showMessage, setshowMessage] = useState(false);
     const [showBind, setshowBind] = useState(false);
@@ -56,27 +56,45 @@ const BindEmail = () => {
         setuserCode(e.detail.value)
     }
     //暂时写在这里
+    const [mutateGet] = useMutation(getEmail)
     const [mutateCheck] = useMutation(checkEmail)
     const handleMessage = async () => {
-        const res = await mutateCheck({ account: stuNum, email: emailAddress }, {
+        let isEmailTrue;
+        const res = await mutateGet(stuNum, {
             onSuccess: (res) => {
                 if (res.status === 10000) {
-                    setMessageInfor('已向您的邮箱发送一条验证码')
-                    setshowMessage(true);
-                    setTimeout(() => {
-                        setshowMessage(false)
-                        setIndex(1);
-                        sendCode();
-                    }, 2000);
-                } else if (res.status === 10008) {
-                    setMessageInfor('邮箱信息错误')
-                    setshowMessage(true);
-                    setTimeout(() => {
-                        setshowMessage(false)
-                    }, 2000);
+                    let bindEmail = res.data.email;
+                    if (bindEmail == emailAddress) {
+                        console.log("相等")
+                        isEmailTrue = Promise.resolve(true);
+                    } else {
+                        setMessageInfor('邮箱信息错误')
+                        setshowMessage(true);
+                        setTimeout(() => {
+                            setshowMessage(false)
+                        }, 2000);
+                    }
                 }
             }
         })
+        await isEmailTrue;
+        console.log("true有值")
+        if (isEmailTrue) {
+            console.log("执行")
+            const check = await mutateCheck(stuNum, {
+                onSuccess: (check) => {
+                    if (check.status === 10000) {
+                        setMessageInfor('已向您的邮箱发送一条验证码')
+                        setshowMessage(true);
+                        setTimeout(() => {
+                            setshowMessage(false)
+                            setIndex(1);
+                            sendCode();
+                        }, 2000);
+                    }
+                }
+            })
+        }
     }
     const handleResent = async () => {
         if (countdown == 0 && PropmtMessage.includes("重新发送")) {
@@ -84,8 +102,8 @@ const BindEmail = () => {
                 onSuccess: (res) => {
                     res.status = 10009
                     if (res.status == 10000) {
-                        setcountdown(5);
-                        ti = 5;
+                        setcountdown(60);
+                        ti = 60;
                         sendCode();
                     } else if (res.status == 10009) {
                         setPropmtMessage("发送次数受限")
@@ -96,7 +114,7 @@ const BindEmail = () => {
     }
     const [mutateSend] = useMutation(checkEmailCode)
     const sendEmailAndCode = async () => {
-        const res = await mutateSend({ email: emailAddress, code: userCode }, {
+        const res = await mutateSend({ email: emailAddress, code: userCode, account: stuNum }, {
             onSuccess: (res) => {
                 if (res.status === 10000) {
                     setshowBind(true);
@@ -114,6 +132,7 @@ const BindEmail = () => {
             }
         })
     }
+
     return (
         <View>
             {Index == 0 ?

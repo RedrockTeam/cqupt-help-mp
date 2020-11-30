@@ -26,6 +26,7 @@ const AccountSafe = () => {
                 setoriginLoading(false)
                 setPasswordText('当前已修改密码')
             } else {
+                setoriginLoading(false)
                 setPasswordText('现为初始密码')
             }
         },
@@ -44,6 +45,7 @@ const AccountSafe = () => {
             setshowPop(true)
         } else { navTo({ url: resolvePage("account-safe", "change") }); }
     }
+    console.log(isLoading, originLoading)
     return (
         <View>
             {(!isLoading) && (!originLoading) ? <View>
@@ -55,7 +57,7 @@ const AccountSafe = () => {
                     </View>
                     <View className={styles.setprotect}>
                         <Text className={styles.textName}> 设置密保</Text>
-                        <Button type="default" disabled={data.data.email_is} className={styles.nowState} onClick={() => navTo({ url: resolvePage("account-safe", "protect") })}>
+                        <Button type="default" disabled={data.data.question_is} className={styles.nowState} onClick={() => navTo({ url: resolvePage("account-safe", "protect") })}>
                             {data.data.question_is ? "已设置密保" : "未设置密保"}
                         </Button>
                         <Image src={enter} className={styles.enter} />

@@ -9,7 +9,7 @@ import { resolvePage, navTo } from "@/common/helpers/utils";
 import { sentEmailMessage, bindEmail } from '../../services/index.ts';
 //TODO:倒计时发请求
 const BindEmail = () => {
-    const [countdown, setcountdown] = useState(5);
+    const [countdown, setcountdown] = useState(60);
     const [emailFormat, setemailFormat] = useState(null);
     const [showMessage, setshowMessage] = useState(false);
     const [showBind, setshowBind] = useState(false);
@@ -83,8 +83,8 @@ const BindEmail = () => {
             const res = await mutateMessage(emailAddress, {
                 onSuccess: (res) => {
                     if (res.status == 10000) {
-                        setcountdown(5);
-                        ti = 5;
+                        setcountdown(60);
+                        ti = 60;
                         sendCode();
                     } else if (res.status == 10009) {
                         setPropmtMessage("发送次数受限")
@@ -97,7 +97,6 @@ const BindEmail = () => {
     const sendEmailAndCode = async () => {
         const res = await mutateBind({ emailAddress, userCode }, {
             onSuccess: (res) => {
-                res.status = 10007;
                 if (res.status === 10000) {
                     setshowBind(true);
                     setTimeout(() => {

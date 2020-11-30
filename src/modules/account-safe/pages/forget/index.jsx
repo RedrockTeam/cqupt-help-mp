@@ -8,7 +8,6 @@ import cancel from '@/static/images/cancel.png';
 import reset from "@/static/images/reset.png";
 import robSuccess from '@/static/images/rob-success.png';
 import styles from './index.module.scss';
-import request from "@/common/helpers/request";
 import { useUserInfo } from "@/stores/user";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 
