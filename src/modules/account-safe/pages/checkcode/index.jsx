@@ -9,9 +9,12 @@ import robSuccess from '@/static/images/rob-success.png'
 import { checkEmail, checkEmailCode, getEmail } from '../../services/index.ts';
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { useUserInfo } from "@/stores/user";
+import { useRouter } from "@tarojs/taro";
 const BindEmail = () => {
-    const { token } = useUserInfo();
-    const { stuNum } = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[0]))));
+    // const { token } = useUserInfo();
+    // const { stuNum } = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[0]))));
+    const { params: { stuNum } } = useRouter();
+    console.log(stuNum)
     const [countdown, setcountdown] = useState(60);
     const [emailFormat, setemailFormat] = useState(null);
     const [showMessage, setshowMessage] = useState(false);
@@ -100,7 +103,6 @@ const BindEmail = () => {
         if (countdown == 0 && PropmtMessage.includes("重新发送")) {
             const res = await mutateCheck({ account: stuNum, email: emailAddress }, {
                 onSuccess: (res) => {
-                    res.status = 10009
                     if (res.status == 10000) {
                         setcountdown(60);
                         ti = 60;
@@ -121,7 +123,7 @@ const BindEmail = () => {
                     setTimeout(() => {
                         setshowBind(false);
                         console.log(res.data)
-                        navTo({ url: resolvePage("account-safe", "resetpassword"), payload: { code: res.data.code } });
+                        navTo({ url: resolvePage("account-safe", "resetpassword"), payload: { code: res.data.code, stuNum } });
                     }, 1500)
                 } else if (res.status == 10007) {
                     setverificationCode(false)
@@ -149,7 +151,7 @@ const BindEmail = () => {
                         <Text>请输入邮箱验证码</Text>
                     </View>
                     <View className={styles.input}>
-                        <Input type="number" className={styles.inputcontent} placeholder="请输入验证码" onInput={isCodeRight} />
+                        <Input className={styles.inputcontent} placeholder="请输入验证码" onInput={isCodeRight} />
                         <Text className={styles.resend} onClick={handleResent}>{countdown != 0 ? `已发送${countdown}` : PropmtMessage}</Text>
                     </View>
                     <Text className={styles.prompt}>{(VerificationCode || VerificationCode == null) ? null : "验证码错误"}</Text>

@@ -8,21 +8,14 @@ import cancel from '@/static/images/cancel.png';
 import reset from "@/static/images/reset.png";
 import robSuccess from '@/static/images/rob-success.png';
 import styles from './index.module.scss';
-import { useUserInfo } from "@/stores/user";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 
 const ForgetPassword = () => {
-    const { token } = useUserInfo();
-    const { stuNum } = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[0]))));
     const [countdown, setcountdown] = useState(60);
     const [Index, setIndex] = useState(0);
     const [stuId, setstuId] = useState(null)
     const [showPopSame, setshowPopSame] = useState(false);
     const [showPopCheck, setshowPopCheck] = useState(false);
-    const { data, isLoading, isError } = useQuery(
-        [stuNum],
-        getQuesAndEmailState
-    );
     //计时器内容
     let timeChange, ti = countdown;
     const clock = () => {
@@ -41,8 +34,10 @@ const ForgetPassword = () => {
     };
     //验证原密码
     const [mutateOrigin] = useMutation(getPasswordState)
+    const [mutateState, { isLoading, data }] = useMutation(getQuesAndEmailState)
     const handleOrigin = async () => {
-        const res = await mutateOrigin(stuNum, {
+        let isOrigin = true;
+        const res = await mutateOrigin(stuId, {
             onSuccess: (res) => {
                 if (res.status == 10000) {
                     setshowPopSame(true);
@@ -50,14 +45,25 @@ const ForgetPassword = () => {
                         setshowPopSame(false)
                     }, 1500)
                 } else if (res.status == 10001) {
-                    setshowPopCheck(true);
+                    // setshowPopCheck(true);
+                    isOrigin = false;
                 }
             }
         })
+        await isOrigin;
+        if (!isOrigin) {
+            const data = await mutateState(stuId, {
+                onSuccess: (data) => {
+                    if (data.status === 10000) {
+                        setshowPopCheck(true);
+                    }
+                }
+            })
+        }
     }
     return (
         <View>
-            {!isLoading ? <View>
+            <View>
                 <View>
                     <View className={styles.list}>
                         <View className={styles.title}>
@@ -75,8 +81,8 @@ const ForgetPassword = () => {
                             <View className={styles.title}>请选择验证方式</View>
                             <Image src={cancel} className={styles.cancel} onClick={() => { setshowPopCheck(false); }} />
                             <View className={styles.quesList}>
-                                <View onClick={() => navTo({ url: resolvePage("account-safe", "checkprotect") })} style={data.data.question_is ? null : "display:none"}>验证密保</View>
-                                <View onClick={() => navTo({ url: resolvePage("account-safe", "checkcode") })} style={data.data.email_is ? null : "display:none"}>验证邮箱</View>
+                                <View onClick={() => navTo({ url: resolvePage("account-safe", "checkprotect"), payload: { stuNum: stuId } })} style={data?.data?.question_is ? null : "display:none"}>验证密保</View>
+                                <View onClick={() => navTo({ url: resolvePage("account-safe", "checkcode"), payload: { stuNum: stuId } })} style={data?.data?.email_is ? null : "display:none"}>验证邮箱</View>
                             </View>
                         </View>
                     </View>
@@ -90,7 +96,7 @@ const ForgetPassword = () => {
                                 您的密码未曾更改哦，试试初始密码登录吧！</Text>
                         </View>
                     </View> : null}
-            </View> : <LoadingPage isError={isError} />}
+            </View>
         </View>
     )
 }

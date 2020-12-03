@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Image, Text, Input, Button } from "@tarojs/components";
-import { useQuery } from "react-query/dist/react-query.production.min";
+import { useQuery, useMutation } from "react-query/dist/react-query.production.min";
 import NewInput from '../../components/Newinput/index.jsx'
 import reset from "@/static/images/reset.png";
 import close from "@/static/images/close.png"
@@ -9,15 +9,13 @@ import robSuccess from '@/static/images/rob-success.png'
 import styles from "./index.module.scss";
 import request from "@/common/helpers/request";
 import LoadingPage from '../../components/Loding/index.jsx'
-import { useUserInfo } from "@/stores/user";
 import { useRouter } from "@tarojs/taro";
-import { getQuesAndEmailState } from '../../services/index.ts'
+import { getQuesAndEmailState, changeNewPassword } from '../../services/index.ts'
 import { resolvePage, navTo } from "@/common/helpers/utils";
+import { navigateBack } from "@tarojs/taro";
 
 const ResetPassword = () => {
-    const { params } = useRouter();
-    const { token } = useUserInfo();
-    const { stuNum } = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[0]))));
+    const { params: { code, stuNum } } = useRouter();
     const [isSuccess, setisSuccess] = useState(false);
     const { data, isLoading, isError } = useQuery(
         [stuNum],
@@ -28,21 +26,24 @@ const ResetPassword = () => {
     const [promptMessage, setpromptMessage] = useState(null);
     const getInputValue = (e) => setnewinput(e.detail.value);
     const getReInputValue = (e) => setrenewinput(e.detail.value);
+    const [mutateSetNew] = useMutation(changeNewPassword)
     const handleConfirm = async () => {
         if (newinput != renewinput)
             setpromptMessage("两次密码不一致，请重新输入")
         else {
-            const res = await request("https://run.mocky.io/v3/c0327d69-b08a-43d5-a084-549651041b4f", {
-                method: "POST",
-                data: { stu_num: stuNum, new_password: newinput, code: params.code }
+            const res = await mutateSetNew({ account: stuNum, new_password: newinput, code: code }, {
+                onSuccess: (res) => {
+                    if (res.status == 10000) {
+                        setisSuccess(true);
+                        setTimeout(() => {
+                            setisSuccess(null)
+                            navigateBack({
+                                delta: 4
+                            })
+                        }, 1500)
+                    }
+                }
             })
-            if (res.status == 10000) {
-                setisSuccess(true);
-                setTimeout(() => {
-                    setisSuccess(null)
-                    navTo({ url: resolvePage("index", "bind") });
-                }, 1500)
-            }
         }
 
     }

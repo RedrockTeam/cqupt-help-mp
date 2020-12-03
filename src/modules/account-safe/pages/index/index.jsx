@@ -57,6 +57,7 @@ const AccountSafe = () => {
                     </View>
                     <View className={styles.setprotect}>
                         <Text className={styles.textName}> 设置密保</Text>
+                        {/*  */}
                         <Button type="default" disabled={data.data.question_is} className={styles.nowState} onClick={() => navTo({ url: resolvePage("account-safe", "protect") })}>
                             {data.data.question_is ? "已设置密保" : "未设置密保"}
                         </Button>

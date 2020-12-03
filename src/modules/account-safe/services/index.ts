@@ -108,15 +108,43 @@ export const getEmail = (account) =>
             stu_num: account
         }
     });
-export const getProtectQuestion = (account) =>
-    request<getQuestionLists>("https://run.mocky.io/v3/5a095c4b-2146-474c-9a55-df116c8eb63e", {
+//{domain}/user/password/valid修改密码(找回密码)
+export const changeNewPassword = ({ account, new_password, code }) =>
+    request<getQuestionLists>("https://cyxbsmobile.redrock.team/wxapi/user-secret/user/password/valid", {
         method: "POST",
+        header: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+            stu_num: account,
+            new_password,
+            code
+        }
+    });
+//{domain}/user/bind/question/detail学生绑定的密保信息
+export const getProtectQuestion = (account) =>
+    request<getQuestionLists>("https://cyxbsmobile.redrock.team/wxapi/user-secret/user/bind/question/detail", {
+        // https://run.mocky.io/v3/5a095c4b-2146-474c-9a55-df116c8eb63e
+        method: "POST",
+        header: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
         data: {
             stu_num: account
         }
     });
-export const checkAnswer = (infor) =>
-    request<getQuestionLists>("https://run.mocky.io/v3/4d229f07-43a8-4b3e-928a-e233864a6e3e", {
+//{domain}/user/valid/question验证密保问题(找回问题)
+export const checkAnswer = ({ stu_num, question_id, content }) =>
+    request<getQuestionLists>("https://cyxbsmobile.redrock.team/wxapi/user-secret/user/valid/question", {
+        // https://run.mocky.io/v3/4d229f07-43a8-4b3e-928a-e233864a6e3e
         method: "POST",
-        data: infor
+        header: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+            stu_num,
+            question_id,
+            content
+        }
     });
+

@@ -21,19 +21,20 @@ const SetPasswordProtect = () => {
     console.log(answer)
     const [showPop, setshowPop] = useState(false);
     const [showBind, setshowBind] = useState(false);
-    const [index, setindex] = useState(-1);
+    const [index, setindex] = useState(0);
+    const [quesIndex, setquesIndex] = useState(0);
     const handleLength = (e) => {
         setanswer(e.detail)
     };
     useEffect(() => {
-        if (!isLoading && index === -1) setindex(data.data[0].id)
+        if (!isLoading && index === 0) setquesIndex(data.data[0].id)
     }, [isLoading])
-    const handleQuestion = (num) => setindex(num)
+    const handleQuestion = (num, index) => { setquesIndex(num), setindex(index) }
     const [mutateBind] = useMutation(bindProtect)
     const setUserProtectQuestion = async () => {
         if (answer?.value?.length > 1) {
-            console.log({ id: index, value: answer.value });
-            const res = await mutateBind({ id: index, value: answer.value }, {
+            console.log({ id: quesIndex, value: answer.value });
+            const res = await mutateBind({ id: quesIndex, value: answer.value }, {
                 onSuccess: (res) => {
                     if (res.status == 10000) {
                         setshowBind(true);
@@ -53,7 +54,7 @@ const SetPasswordProtect = () => {
                 <View className={styles.main}>
                     <View className={styles.question}>
                         <Text className={styles.title}>选择问题</Text>
-                        <Button className={styles.input} onClick={() => { setshowPop(true); }}>{data.data[0].content}</Button>
+                        <Button className={styles.input} onClick={() => { setshowPop(true); }}>{data.data[index].content}</Button>
                     </View>
                     <View className={styles.setAnswer}>
                         <Text className={styles.title}>设置答案</Text>
@@ -72,7 +73,7 @@ const SetPasswordProtect = () => {
 
                                 data.data.map((item, index, arr) => {
                                     // 注意这里
-                                    return <View hoverClass={styles.hover} hoverStayTime={2000} hoverStopPropagation={true} onClick={() => handleQuestion(item.id)}>{item.content}</View>
+                                    return <View hoverClass={styles.hover} hoverStayTime={2000} hoverStopPropagation={true} key={index} onClick={() => handleQuestion(item.id, index)}>{item.content}</View>
                                 })
                             }
                         </View>
