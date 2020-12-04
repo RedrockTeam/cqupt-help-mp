@@ -6,7 +6,8 @@ import { useQuery, useMutation } from "react-query/dist/react-query.production.m
 import { getProtectQuestion, checkAnswer } from '../../services/index.ts';
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import styles from './index.module.scss';
-import { getStorage, getStorageSync, removeStorage, setStorage, useRouter } from "@tarojs/taro";
+import { useRouter, onAppHide, onAppShow } from "@tarojs/taro";
+import { setData, getData, setBanTime, getBanTime, banArray } from '../../utils/globalData.js'
 
 const CheckProtect = () => {
     const { params: { stuNum } } = useRouter();
@@ -15,19 +16,15 @@ const CheckProtect = () => {
     const [answerRight, setanswerRight] = useState(null);
     //倒计时部分TODO:应该有更好的方法
     const [countdown, setcountdown] = useState(60);
-    const [banTime, setbanTime] = useState(0)
+    const [banTime, setbanTime] = useState(getBanTime())
     const [banMessage, setbanMessage] = useState("剩余次数")
-    let timeChange, banIndex = 0, ti = countdown;
-    try {
-        if (!getStorageSync("BanIndex").data)
-            setStorage({
-                key: "BanIndex",
-                data: banIndex
-            })
-    } catch (e) {
-        console.log(e)
-    }
-    let banArray = [60, 300, 600, 1200];
+    let timeChange, ti = countdown;
+    onAppHide(() => {
+        console.log("切后台时的", ti)
+    })
+    onAppShow(() => {
+        console.log("切前台时的", ti)
+    })
     const clock = async () => {
         if (ti > 0) {
             //当ti>0时执行更新方法
@@ -37,15 +34,23 @@ const CheckProtect = () => {
             //当ti=0时执行终止循环方法
             clearInterval(timeChange);
             setbanTime(4);
+            setBanTime(4);
             setbanMessage("剩余次数")
-            let { data: index } = await getStorage({ key: "BanIndex" })
-            setStorage({ key: "BanIndex", data: index + 1 });
         }
     };
     const sendCode = () => {
         //每隔一秒执行一次clock方法
         timeChange = setInterval(clock, 1000);
     };
+    useEffect(() => {
+        if (banTime === 5 && !getData('banNum') <= 0) {
+            const index = getData('banNum');
+            ti = banArray[index];
+            setcountdown(banArray[index])
+            sendCode();
+            setbanMessage("输入框禁用")
+        }
+    }, [])
     const [mutateAnswer, { isLoading, isError }] = useMutation(getProtectQuestion, {
         onSuccess: (res) => {
             console.log(res)
@@ -64,9 +69,11 @@ const CheckProtect = () => {
             } else if (res.status == 10005) {
                 setanswerRight(false)
                 setbanTime(banTime + 1);
-                let { data: index } = await getStorage({ key: "BanIndex" });
-                console.log(index)
-                if (banTime === 4 || index !== 0) {
+                setBanTime(banTime + 1);
+                if (banTime === 4) {
+                    setData('banNum', getData('banNum') <= 0 ? (getData('banNum') + 1) : 0);
+                    let index = getData('banNum');
+                    console.log(index)
                     ti = banArray[index];
                     setcountdown(banArray[index])
                     sendCode();

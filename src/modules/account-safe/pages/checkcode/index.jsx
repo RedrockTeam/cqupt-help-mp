@@ -14,7 +14,6 @@ const BindEmail = () => {
     // const { token } = useUserInfo();
     // const { stuNum } = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[0]))));
     const { params: { stuNum } } = useRouter();
-    console.log(stuNum)
     const [countdown, setcountdown] = useState(60);
     const [emailFormat, setemailFormat] = useState(null);
     const [showMessage, setshowMessage] = useState(false);

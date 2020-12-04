@@ -20,6 +20,7 @@ const AccountSafe = () => {
         [stuNum],
         getQuesAndEmailState
     );
+    console.log(data, isLoading)
     const [mutateOrigin] = useMutation(getPasswordState, {
         onSuccess: (res) => {
             if (res.status === 10001) {
@@ -45,7 +46,6 @@ const AccountSafe = () => {
             setshowPop(true)
         } else { navTo({ url: resolvePage("account-safe", "change") }); }
     }
-    console.log(isLoading, originLoading)
     return (
         <View>
             {(!isLoading) && (!originLoading) ? <View>

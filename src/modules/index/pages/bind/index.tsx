@@ -121,7 +121,7 @@ const Bind = () => {
           忘记密码？
         </Text>
         <Text className={styles.tips}>
-          20届学生登陆密码为统一认证码后六位，其余同学密码为身份证后6位。
+          研究生和2020级同学初始密码为统一认证码后六位，其余同学密码为身份证后六位。
         </Text>
         <PrimaryButton className={styles.btn} onClick={handleBind}>
           {isLoading ? "Loading..." : "登录"}

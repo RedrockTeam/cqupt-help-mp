@@ -96,16 +96,14 @@ const MyIndex = () => {
           <Text className={styles.text}>切换账号</Text>
         </View>
       </View>
-      {showPop ?
-        <View>
-          <View className={styles.cover} />
-          <View className={styles.popWindow}>
-            <View className={styles.title}>确定退出当前账号？</View>
-            <View className={styles.confirm} onClick={() => handleLoginout()}>确定</View>
-            <View className={styles.cancel} onClick={() => setshowPop(false)}>取消</View>
-          </View>
+      <View>
+        <View className={styles.cover} style={showPop ? null : "display:none;"} />
+        <View className={showPop ? styles.popWindowActive : styles.popWindow} >
+          <View className={styles.title}>确定退出当前账号？</View>
+          <View className={styles.confirm} onClick={() => handleLoginout()}>确定</View>
+          <View className={styles.cancel} onClick={() => setshowPop(false)}>取消</View>
         </View>
-        : null}
+      </View>
     </View>
   );
 };
