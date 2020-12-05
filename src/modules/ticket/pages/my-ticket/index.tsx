@@ -29,7 +29,6 @@ import OwedTicket from "../../components/owed-ticket";
 import { getMyTicketList, checkTicket } from "../../services";
 
 const PAGE_TITLE = "我的影票";
-
 const MyTicket = () => {
   const Popup = useContainer(PopupContext);
   const { data: myTicketListRes, isLoading, isError } = useQuery(
@@ -38,11 +37,9 @@ const MyTicket = () => {
   );
   const queryCache = useQueryCache();
   const [visible, setVisible] = useState(false);
-
   const handleConcel = () => {
     setVisible(false);
   };
-
   const handleOk = async () => {
     setVisible(false);
     if (!myTicketListRes) return;
@@ -68,7 +65,7 @@ const MyTicket = () => {
       const hide = Popup.show({
         img: error,
         title: "验票失败...",
-        detail: "网络错误",
+        detail: "⽹络错误",
       });
       setTimeout(() => hide(), 1500);
     }
@@ -79,13 +76,18 @@ const MyTicket = () => {
   const handleCheck = async () => {
     setVisible(true);
   };
-
   const [current, setCurrent] = useState(0);
-
   const handleSwiperChange: BaseEventOrigFunction<SwiperProps.onChangeEventDeatil> = (
     e
   ) => setCurrent(e.detail.current);
-
+  const isAvaliable = (myTicketListRes) => {
+    if (!myTicketListRes.data[current].effective) {
+      return (
+        dayjs(myTicketListRes.data[current].play_time).unix() + 1800 < now()
+      );
+    }
+    return false;
+  };
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !myTicketListRes)
     return <Placeholder title={PAGE_TITLE} isError />;
@@ -126,28 +128,27 @@ const MyTicket = () => {
       <PrimaryButton
         onClick={handleCheck}
         className={styles.btn}
-        disabled={
-          dayjs(myTicketListRes.data[current].play_time).unix() + 1800 <
-            now() || !myTicketListRes.data[current].effective
-        }
+        // disabled={
+        // dayjs(myTicketListRes.data[current].play_time).unix() + 1800 <
+        // now() || !myTicketListRes.data[current].effective
+        // }
+        disabled
       >
-        {dayjs(myTicketListRes.data[current].play_time).unix() + 1800 < now() ||
-        !myTicketListRes.data[current].effective
-          ? "已失效"
-          : "点击验票"}
+        {/* {dayjs(myTicketListRes.data[current].play_time).unix() + 1800 < now() ||
+ !myTicketListRes.data[current].effective */}
+        {myTicketListRes.data[current].effective ? "已失效" : "已领票"}
       </PrimaryButton>
       <View className={styles.tips}>
-        影票在开场30分钟后失效，请在工作人员指示下使用!
+        影票在开场30分钟后失效，请在⼯作⼈员指示下使⽤!
       </View>
       <BottomPop
         isShow={visible}
         onCancel={handleConcel}
         onOk={handleOk}
-        title="确认使用该影票？"
+        title="确认使⽤该影票？"
       />
       <Popup.Comp />
     </View>
   );
 };
-
 export default MyTicket;
