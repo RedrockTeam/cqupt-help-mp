@@ -1838,6 +1838,48 @@
   dependencies:
     mkdirp "^1.0.4"
 
+"@sentry/core@5.15.4":
+  version "5.15.4"
+  resolved "https://registry.npm.taobao.org/@sentry/core/download/@sentry/core-5.15.4.tgz#08b617e093a636168be5aebad141d1f744217085"
+  integrity sha1-CLYX4JOmNhaL5a660UHR90QhcIU=
+  dependencies:
+    "@sentry/hub" "5.15.4"
+    "@sentry/minimal" "5.15.4"
+    "@sentry/types" "5.15.4"
+    "@sentry/utils" "5.15.4"
+    tslib "^1.9.3"
+
+"@sentry/hub@5.15.4":
+  version "5.15.4"
+  resolved "https://registry.npm.taobao.org/@sentry/hub/download/@sentry/hub-5.15.4.tgz#cb64473725a60eec63b0be58ed1143eaaf894bee"
+  integrity sha1-y2RHNyWmDuxjsL5Y7RFD6q+JS+4=
+  dependencies:
+    "@sentry/types" "5.15.4"
+    "@sentry/utils" "5.15.4"
+    tslib "^1.9.3"
+
+"@sentry/minimal@5.15.4":
+  version "5.15.4"
+  resolved "https://registry.npm.taobao.org/@sentry/minimal/download/@sentry/minimal-5.15.4.tgz#113f01fefb86b7830994c3dfa7ad4889ba7b2003"
+  integrity sha1-ET8B/vuGt4MJlMPfp61Iibp7IAM=
+  dependencies:
+    "@sentry/hub" "5.15.4"
+    "@sentry/types" "5.15.4"
+    tslib "^1.9.3"
+
+"@sentry/types@5.15.4":
+  version "5.15.4"
+  resolved "https://registry.npm.taobao.org/@sentry/types/download/@sentry/types-5.15.4.tgz#37f30e35b06e8e12ad1101f1beec3e9b88ca1aab"
+  integrity sha1-N/MONbBujhKtEQHxvuw+m4jKGqs=
+
+"@sentry/utils@5.15.4":
+  version "5.15.4"
+  resolved "https://registry.npm.taobao.org/@sentry/utils/download/@sentry/utils-5.15.4.tgz#02865ab3c9b745656cea0ab183767ec26c96f6e6"
+  integrity sha1-AoZas8m3RWVs6gqxg3Z+wmyW9uY=
+  dependencies:
+    "@sentry/types" "5.15.4"
+    tslib "^1.9.3"
+
 "@stencil/core@^1.8.1":
   version "1.17.4"
   resolved "https://registry.npm.taobao.org/@stencil/core/download/@stencil/core-1.17.4.tgz#f7beb16ecb3344c80e053fece013ae499adc7c54"
@@ -11672,6 +11714,16 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
+sentry-miniapp@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.npm.taobao.org/sentry-miniapp/download/sentry-miniapp-0.11.1.tgz#0e76e21d7d3d1ee60f958cddc30245fec8c5a241"
+  integrity sha1-DnbiHX09HuYPlYzdwwJF/sjFokE=
+  dependencies:
+    "@sentry/core" "5.15.4"
+    "@sentry/types" "5.15.4"
+    "@sentry/utils" "5.15.4"
+    tslib "^1.10.0"
+
 serialize-javascript@^2.1.2:
   version "2.1.2"
   resolved "https://registry.npm.taobao.org/serialize-javascript/download/serialize-javascript-2.1.2.tgz?cache=0&sync_timestamp=1599740785595&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fserialize-javascript%2Fdownload%2Fserialize-javascript-2.1.2.tgz#ecec53b0e0317bdc95ef76ab7074b7384785fa61"
@@ -12779,7 +12831,7 @@ tslib@1.10.0:
   resolved "https://registry.npm.taobao.org/tslib/download/tslib-1.10.0.tgz?cache=0&sync_timestamp=1602286730817&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha1-w8GflZc/sKYpc/sJ2Q2WHuQ+XIo=
 
-tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.14.1"
   resolved "https://registry.npm.taobao.org/tslib/download/tslib-1.14.1.tgz?cache=0&sync_timestamp=1602286730817&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha1-zy04vcNKE0vK8QkcQfZhni9nLQA=

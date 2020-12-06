@@ -17,11 +17,10 @@ import { useQuery, useMutation } from "react-query/dist/react-query.production.m
 import { getMyReads } from "../../services";
 import Placeholder from "@/common/components/placeholder";
 
-
-function MyIndex () {
+function MyIndex() {
 
   const userInfo = useUserInfo();
-
+  const [showPop, setshowPop] = useState(false);
   const handleLoginout = async () => {
     const res = await request("https://wx.redrock.team/magicloop/unbind/xcx");
     if (res.status === 10000) {
@@ -47,7 +46,7 @@ function MyIndex () {
   })
   useDidShow(() => {
     mutateReadRes();
-    })
+  })
 
   if (isLoading) return (
     <View className={styles.holder}>
@@ -139,9 +138,24 @@ function MyIndex () {
           <Image src={enter} className={styles.enter} />
         </View>
       </View>
-      <View className={styles.loginOut} onClick={() => handleLoginout()}>
-        <Image className={styles.icon} src={loginOut} />
-        <Text className={styles.text}>切换账号</Text>
+      <View className={styles.listAccount}>
+        <View className={styles.loginOut} onClick={() => navTo({ url: resolvePage("account-safe", "index") })}>
+          <Image className={styles.icon} src={loginOut} />
+          <Text className={styles.text}>账号安全</Text>
+          <Image src={enter} className={styles.enter} />
+        </View>
+        <View className={styles.loginOut} onClick={() => setshowPop(true)}>
+          <Image className={styles.icon} src={loginOut} />
+          <Text className={styles.text}>切换账号</Text>
+        </View>
+      </View>
+      <View>
+        <View className={styles.cover} style={showPop ? null : "display:none;"} />
+        <View className={showPop ? styles.popWindowActive : styles.popWindow} >
+          <View className={styles.title}>确定退出当前账号？</View>
+          <View className={styles.confirm} onClick={() => handleLoginout()}>确定</View>
+          <View className={styles.cancel} onClick={() => setshowPop(false)}>取消</View>
+        </View>
       </View>
     </View>
   );
