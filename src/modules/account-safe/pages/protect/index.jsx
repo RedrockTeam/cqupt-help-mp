@@ -9,6 +9,7 @@ import reset from "@/static/images/reset.png";
 import cancel from '@/static/images/cancel.png';
 import styles from "./index.module.scss";
 import { resolvePage, navTo } from "@/common/helpers/utils";
+import { switchTab } from "@tarojs/taro";
 
 const placeStyle = "font-family: PingFang SC;font-weight: normal;font-size: 32rpx;color: #A4A3B7;"
 
@@ -40,7 +41,7 @@ const SetPasswordProtect = () => {
                         setshowBind(true);
                         setTimeout(() => {
                             setshowBind(false);
-                            navTo({ url: resolvePage("account-safe", "index") })
+                            switchTab({ url: resolvePage("my", "index") });
                         }, 1500)
                     }
                 }

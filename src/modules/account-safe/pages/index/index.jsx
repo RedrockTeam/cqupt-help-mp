@@ -11,8 +11,7 @@ import styles from "./index.module.scss";
 import { useUserInfo } from "@/stores/user";
 import { useEffect } from "react";
 const AccountSafe = () => {
-    const { token } = useUserInfo();
-    const { stuNum } = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[0]))));
+    const { stuNum } = useUserInfo();
     const [showPop, setshowPop] = useState(false);
     const [originLoading, setoriginLoading] = useState(true)
     const [PasswordText, setPasswordText] = useState(null)
@@ -40,8 +39,6 @@ const AccountSafe = () => {
         handleOrigin()
     }, [])
     const handelPop = () => {
-        // data.data.question_is = 0;
-        // data.data.email_is = 0;
         if (!(data.data.question_is || data.data.email_is)) {
             setshowPop(true)
         } else { navTo({ url: resolvePage("account-safe", "change") }); }
@@ -57,17 +54,17 @@ const AccountSafe = () => {
                     </View>
                     <View className={styles.setprotect}>
                         <Text className={styles.textName}> 设置密保</Text>
-                        {/*  */}
-                        <Button type="default" disabled={data.data.question_is} className={styles.nowState} onClick={() => navTo({ url: resolvePage("account-safe", "protect") })}>
+                        {/* disabled={data.data.question_is} disabled={data.data.email_is} */}
+                        <Text type="default" className={styles.nowState} onClick={() => navTo({ url: resolvePage("account-safe", "protect") })}>
                             {data.data.question_is ? "已设置密保" : "未设置密保"}
-                        </Button>
+                        </Text>
                         <Image src={enter} className={styles.enter} />
                     </View>
                     <View className={styles.bindemail}>
                         <Text className={styles.textName}>绑定邮箱</Text>
-                        <Button type="default" disabled={data.data.email_is} className={styles.nowState} onClick={() => navTo({ url: resolvePage("account-safe", "bindemail") })}>
+                        <Text type="default" className={styles.nowState} onClick={() => navTo({ url: resolvePage("account-safe", "bindemail") })}>
                             {data.data.email_is ? "已绑定邮箱" : "未绑定邮箱"}
-                        </Button>
+                        </Text>
                         <Image src={enter} className={styles.enter} />
                     </View>
                 </View>

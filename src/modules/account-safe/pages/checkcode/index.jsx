@@ -8,11 +8,8 @@ import styles from "./index.module.scss";
 import robSuccess from '@/static/images/rob-success.png'
 import { checkEmail, checkEmailCode, getEmail } from '../../services/index.ts';
 import { resolvePage, navTo } from "@/common/helpers/utils";
-import { useUserInfo } from "@/stores/user";
 import { useRouter } from "@tarojs/taro";
 const BindEmail = () => {
-    // const { token } = useUserInfo();
-    // const { stuNum } = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[0]))));
     const { params: { stuNum } } = useRouter();
     const [countdown, setcountdown] = useState(60);
     const [emailFormat, setemailFormat] = useState(null);

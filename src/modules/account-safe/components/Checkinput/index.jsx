@@ -13,7 +13,7 @@ const CheckInput = (props) => {
             </View>
             <Text className={styles.message}>{props.message}</Text>
             <View className={styles.input}>
-                <Input disabled={props.inputDisable} onInput={(e) => { props.onInput(e); setAnswer(e.detail.value) }} type="number" className={styles.inputcontent} placeholder={props.placeholder} />
+                <Input disabled={props.inputDisable} onInput={(e) => { props.onInput(e); setAnswer(e.detail.value) }} type="text" className={styles.inputcontent} placeholder={props.placeholder} />
                 {props.children}
                 <Text className={styles.contect}>验证失败？联系我们</Text>
             </View>

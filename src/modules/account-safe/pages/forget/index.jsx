@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { View, Image, Text, Input, Button } from "@tarojs/components";
 import { useMutation, useQuery } from "react-query/dist/react-query.production.min";
 import LoadingPage from '../../components/Loding/index.jsx';
-import CheckInput from '../../components/Checkinput/index.jsx';
 import { getQuesAndEmailState, getPasswordState } from '../../services/index.ts';
 import cancel from '@/static/images/cancel.png';
 import reset from "@/static/images/reset.png";

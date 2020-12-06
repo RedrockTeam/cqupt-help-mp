@@ -15,8 +15,7 @@ import { resolvePage, navTo } from "@/common/helpers/utils";
 import { redirectTo, switchTab } from "@tarojs/taro";
 
 const ResetPassword = () => {
-    const { token } = useUserInfo();
-    const { stuNum } = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[0]))));
+    const { stuNum } = useUserInfo();
     const [showPop, setshowPop] = useState(false);
     const [isSuccess, setisSuccess] = useState(false);
     const myinput = useRef(null);

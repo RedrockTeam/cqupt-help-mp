@@ -7,6 +7,7 @@ import styles from "./index.module.scss";
 import robSuccess from '@/static/images/rob-success.png'
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { sentEmailMessage, bindEmail } from '../../services/index.ts';
+import { switchTab } from "@tarojs/taro";
 //TODO:倒计时发请求
 const BindEmail = () => {
     const [countdown, setcountdown] = useState(60);
@@ -101,7 +102,7 @@ const BindEmail = () => {
                     setshowBind(true);
                     setTimeout(() => {
                         setshowBind(false);
-                        navTo({ url: resolvePage("account-safe", "index") });
+                        switchTab({ url: resolvePage("my", "index") });
                     }, 1500)
                 } else if (res.status == 10007) {
                     setverificationCode(false)
