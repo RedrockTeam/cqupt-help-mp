@@ -80,14 +80,6 @@ const MyTicket = () => {
   const handleSwiperChange: BaseEventOrigFunction<SwiperProps.onChangeEventDeatil> = (
     e
   ) => setCurrent(e.detail.current);
-  const isAvaliable = (myTicketListRes) => {
-    if (!myTicketListRes.data[current].effective) {
-      return (
-        dayjs(myTicketListRes.data[current].play_time).unix() + 1800 < now()
-      );
-    }
-    return false;
-  };
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !myTicketListRes)
     return <Placeholder title={PAGE_TITLE} isError />;
@@ -128,15 +120,15 @@ const MyTicket = () => {
       <PrimaryButton
         onClick={handleCheck}
         className={styles.btn}
-        // disabled={
-        // dayjs(myTicketListRes.data[current].play_time).unix() + 1800 <
-        // now() || !myTicketListRes.data[current].effective
-        // }
-        disabled
+        disabled={
+        dayjs(myTicketListRes.data[current].play_time).unix() + 1800 <
+        now() || !myTicketListRes.data[current].effective
+        }
       >
-        {/* {dayjs(myTicketListRes.data[current].play_time).unix() + 1800 < now() ||
- !myTicketListRes.data[current].effective */}
-        {myTicketListRes.data[current].effective ? "已失效" : "已领票"}
+        {dayjs(myTicketListRes.data[current].play_time).unix() + 1800 < now() ||  
+        !myTicketListRes.data[current].effective 
+        ? "已失效" 
+        : "点击验票"}
       </PrimaryButton>
       <View className={styles.tips}>
         影票在开场30分钟后失效，请在⼯作⼈员指示下使⽤!
