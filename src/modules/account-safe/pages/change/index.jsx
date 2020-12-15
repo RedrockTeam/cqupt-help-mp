@@ -10,7 +10,7 @@ import styles from "./index.module.scss";
 import request from "@/common/helpers/request";
 import LoadingPage from '../../components/Loding/index.jsx'
 import { useUserInfo } from "@/stores/user";
-import { getQuesAndEmailState, changPassword } from '../../services/index.ts'
+import { getQuesAndEmailState, changPassword, judgePassword } from '../../services/index.ts'
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { redirectTo, switchTab } from "@tarojs/taro";
 
@@ -28,9 +28,21 @@ const ResetPassword = () => {
     const [renewinput, setrenewinput] = useState(null);
     const [promptMessage, setpromptMessage] = useState(null);
     const [Index, setIndex] = useState(0);
-    const handleNext = () => {
-        if (originPassword.length >= 6)
-            setIndex(1);
+    const [mutateJudge] = useMutation(judgePassword)
+    const handleNext = async () => {
+        if (originPassword.length >= 6) {
+            const res = await mutateJudge(originPassword, {
+                onSuccess: (res) => {
+                    if (res.status === 10002) {
+                        setTimeout(() => {
+                            setshowPop(true)
+                        }, 400)
+                    } else if (res.status === 10000) {
+                        setIndex(1)
+                    }
+                }
+            })
+        }
     }
     const reinput = () => {
         setshowPop(false);

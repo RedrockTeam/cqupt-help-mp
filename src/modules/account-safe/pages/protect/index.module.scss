@@ -87,7 +87,7 @@
     position: fixed;
     bottom: 0;
     transform: translate3d(0, 150%, 0);
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.5s ease-in-out;
     z-index: 1000;
     .title{
         display: inline-block;
@@ -97,13 +97,6 @@
         padding-top: 24px;
         padding-bottom: 24px;
         border-bottom: 1px solid #f2f2f2;
-    }
-    .cancel{
-        width: 26px;
-        height: 26px;
-        float: right;
-        margin-top: 26px;
-        margin-right: 22px;
     }
     .quesList>View{
         height: 112px;
@@ -125,7 +118,7 @@
     position: fixed;
     bottom: 0;
     transform: translate3d(0, 0, 0);
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.5s ease-in-out;
     z-index: 1000;
     .title{
         display: inline-block;
@@ -135,13 +128,6 @@
         padding-top: 24px;
         padding-bottom: 24px;
         border-bottom: 1px solid #f2f2f2;
-    }
-    .cancel{
-        width: 26px;
-        height: 26px;
-        float: right;
-        margin-top: 26px;
-        margin-right: 22px;
     }
     .quesList>View{
         height: 112px;
@@ -155,7 +141,7 @@
         opacity: 0.6;
         background-color: #66ccff;
         // background-image:linear-gradient(to right,#66ccff,#fff);
-        transition: all 2s ease-in-out;
+        transition: all 0.5s ease-in-out;
     }
     .quesList:last-child{
         margin-bottom: 40px;

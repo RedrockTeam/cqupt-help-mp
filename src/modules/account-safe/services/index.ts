@@ -147,4 +147,15 @@ export const checkAnswer = ({ stu_num, question_id, content }) =>
             content
         }
     });
+//{domain}/user/judge/password判断原密码是否正确
+export const judgePassword = (password) =>
+    request<getQuestionLists>("https://cyxbsmobile.redrock.team/wxapi/user-secret/user/judge/password", {
+        method: "POST",
+        header: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+            password: password
+        }
+    });
 

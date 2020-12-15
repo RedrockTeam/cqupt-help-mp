@@ -6,7 +6,6 @@ import { getQuestionList, bindProtect } from "../../services/index.ts";
 import LoadingPage from '../../components/Loding/index.jsx'
 import robSuccess from '@/static/images/rob-success.png';
 import reset from "@/static/images/reset.png";
-import cancel from '@/static/images/cancel.png';
 import styles from "./index.module.scss";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { switchTab } from "@tarojs/taro";
@@ -68,13 +67,12 @@ const SetPasswordProtect = () => {
                     <View className={styles.cover} style={showPop ? null : "display:none"} />
                     <View className={showPop ? styles.popWindowActive : styles.popWindow}>
                         <View className={styles.title}>请选择密保设置问题</View>
-                        <Image src={cancel} className={styles.cancel} onClick={() => { setshowPop(false); }} />
                         <View className={styles.quesList}>
                             {
 
                                 data.data.map((item, index, arr) => {
                                     // 注意这里
-                                    return <View hoverClass={styles.hover} hoverStayTime={2000} hoverStopPropagation={true} key={index} onClick={() => handleQuestion(item.id, index)}>{item.content}</View>
+                                    return <View hoverClass={styles.hover} hoverStayTime={500} hoverStopPropagation={true} key={index} onClick={() => { handleQuestion(item.id, index); setTimeout(() => setshowPop(false), 500) }}>{item.content}</View>
                                 })
                             }
                         </View>
