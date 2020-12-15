@@ -4,7 +4,7 @@ import { View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import { resolvePage } from "@/common/helpers/utils";
 
-import { useMutation, useQuery } from "react-query/dist/react-query.production.min";
+import { useMutation } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
 import Empty from "@/common/components/empty";
 import { getMyActivities } from "../../services/index";
