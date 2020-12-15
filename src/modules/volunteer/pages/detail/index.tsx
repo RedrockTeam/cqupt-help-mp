@@ -35,6 +35,7 @@ const VolunteerDetail = () => {
   const [showPicker, setShowPicker] = useState(false);
   const [dateIndex, setDateIndex] = useState<number>(0);
   const [timePartIndex, setTimePartIndex] = useState<number>(0);
+  const [isScrolling, setIsScrolling] = useState(false);
   const Popup = useContainer(PopupContext);
 
   let { data, isLoading, isError } = useQuery(
@@ -85,24 +86,28 @@ const VolunteerDetail = () => {
   });
 
   const handleApply = async () => {
-    setShowPicker(false);
-    if (data) {
-      const date = data.data.detail[dateIndex];
-      const timePart = date.time_part_info[timePartIndex];
-      if (timePart.now >= timePart.max + 10) {
-        const hide = Popup.show({
-          title: "申请失败",
-          detail: "报名人数已满",
-          img: error,
+    if (!isScrolling) {
+      setShowPicker(false);
+      if (data) {
+        const date = data.data.detail[dateIndex];
+        const timePart = date.time_part_info[timePartIndex];
+        if (timePart.now >= timePart.max + 10) {
+          const hide = Popup.show({
+            title: "申请失败",
+            detail: "报名人数已满",
+            img: error,
+          });
+          setTimeout(() => hide(), 1500);
+          return;
+        }
+        await mutateApply({
+          id: date.id,
+          begin_time: timePart.begin_time,
+          end_time: timePart.end_time,
         });
-        setTimeout(() => hide(), 1500);
-        return;
       }
-      await mutateApply({
-        id: date.id,
-        begin_time: timePart.begin_time,
-        end_time: timePart.end_time,
-      });
+    } else {
+      console.log("scrolling");
     }
   };
 
@@ -161,6 +166,8 @@ const VolunteerDetail = () => {
             onCancel={cancelShowPicker}
             onOk={handleApply}
             onTimeChange={timeChange}
+            onPickStart={() => setIsScrolling(true)}
+            onPickEnd={() => setIsScrolling(false)}
             dateIndex={dateIndex}
           />
         </Fragment>
