@@ -11,7 +11,7 @@ const translateTimeToClock = (begin_time: number, end_time: number) => {
   const beginMinute = begin_time % (60 * 60)
   const endHour = end_time / (60 * 60)
   const endMinute = end_time % (60 * 60)
-  let beginTime = [beginHour ? '0' + beginHour : beginHour, beginMinute < 10 ? '0' + beginMinute : beginMinute]
+  let beginTime = [beginHour < 10 ? '0' + beginHour : beginHour, beginMinute < 10 ? '0' + beginMinute : beginMinute]
   let endTime = [endHour < 10 ? '0' + endHour : endHour, endMinute < 10 ? '0' + endMinute : endMinute]
   console.log('beginTime: ', beginTime, '\nendTime: ', endTime)
 
