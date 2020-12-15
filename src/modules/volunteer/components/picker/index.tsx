@@ -19,6 +19,8 @@ type Props = {
   onCancel: (event: ITouchEvent) => unknown;
   onOk: (event: ITouchEvent) => unknown;
   onTimeChange: (event: ITouchEvent) => unknown;
+  onPickStart: () => unknown;
+  onPickEnd: () => unknown;
   value: any;
   dateIndex: number;
 };
@@ -28,11 +30,11 @@ const Picker = ({
   onCancel,
   onOk,
   onTimeChange,
+  onPickStart,
+  onPickEnd,
   value,
   dateIndex,
 }: Props) => {
-  console.log(value.timePartList);
-
   return (
     <View
       className={`${styles.mask} ${
@@ -51,6 +53,8 @@ const Picker = ({
             indicatorStyle="height:58px"
             className={styles.picker}
             onChange={onTimeChange}
+            onPickStart={onPickStart}
+            onPickEnd={onPickEnd}
           >
             <PickerViewColumn>
               {value.dateList.map((item) => {
