@@ -2,12 +2,12 @@ import request from "@/common/helpers/request";
 import { RobTicketListInfoRes, RobTicketRes, MyTicketListRes } from "./dto";
 
 export const getRobTicketListInfo = (_key: string) =>
-  request<RobTicketListInfoRes>("/cyb-secondKill/secKillInfo", {
+  request<RobTicketListInfoRes>("/cyb-secondkill/secKillInfo", {
     method: "POST",
   });
 
 export const robTicket = (id: number) =>
-  request<RobTicketRes>("/cyb-secondKill/secKill", {
+  request<RobTicketRes>("/cyb-secondkill/secKill", {
     method: "POST",
     data: {
       product_id: id,
@@ -15,10 +15,10 @@ export const robTicket = (id: number) =>
   });
 
 export const getMyTicketList = (_key: string) =>
-  request<MyTicketListRes>("/cyb-secondKill/ticket/myTicket");
+  request<MyTicketListRes>("/cyb-secondkill/ticket/myTicket");
 
 export const checkTicket = (id: number) =>
-  request("/cyb-secondKill/ticket/updateEffective", {
+  request("/cyb-secondkill/ticket/updateEffective", {
     method: "POST",
     data: {
       product_id: id,
