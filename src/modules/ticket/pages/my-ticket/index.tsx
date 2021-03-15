@@ -122,13 +122,13 @@ const MyTicket = () => {
         className={styles.btn}
         disabled={
         dayjs(myTicketListRes.data[current].play_time).unix() + 1800 <
-        now() || !myTicketListRes.data[current].effective
+            now() || !myTicketListRes.data[current].effective
         }
       >
-        {dayjs(myTicketListRes.data[current].play_time).unix() + 1800 < now() ||  
-        !myTicketListRes.data[current].effective 
-        ? "已失效" 
-        : "点击验票"}
+        {dayjs(myTicketListRes.data[current].play_time).unix() + 1800 < now() ||
+        !myTicketListRes.data[current].effective
+          ? "已失效"
+          : "点击验票"}
       </PrimaryButton>
       <View className={styles.tips}>
         影票在开场30分钟后失效，请在⼯作⼈员指示下使⽤!
