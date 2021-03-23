@@ -1,3 +1,11 @@
+/*
+ * @Author: myjdml
+ * @Date: 2021-03-10 21:11:01
+ * @LastEditors: myjdml
+ * @LastEditTime: 2021-03-23 20:20:40
+ * @FilePath: /cqupt-help-mp/src/app.config.ts
+ * @Description: nothing is everything
+ */
 /* eslint-disable prettier/prettier */
 const resolvePage = (module: string, page: string) =>
   `modules/${module}/pages/${page}/index`;
@@ -21,6 +29,7 @@ export default {
     resolvePage("my", "my-activity"),
     resolvePage("my", "my-reward"),
     resolvePage("ticket", "my-ticket"),
+    resolvePage("ticket", "my-ticket-info"),
     resolvePage("account-safe", "index"),
     resolvePage("account-safe", "change"),
     resolvePage("account-safe", "protect"),

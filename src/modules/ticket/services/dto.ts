@@ -1,3 +1,11 @@
+/*
+ * @Author: myjdml
+ * @Date: 2021-03-10 21:11:01
+ * @LastEditors: myjdml
+ * @LastEditTime: 2021-03-18 17:17:52
+ * @FilePath: /cqupt-help-mp/src/modules/ticket/services/dto.ts
+ * @Description: nothing is everything
+ */
 import { BaseRes } from "@/common/helpers/request";
 
 interface RobTicketInfo {

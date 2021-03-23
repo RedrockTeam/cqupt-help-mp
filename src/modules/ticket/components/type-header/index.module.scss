@@ -1,0 +1,12 @@
+.typeHeader {
+  height: 100px;
+  border: black solid 1px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  .button {
+    width: 45%;
+    height: 90px;
+  }
+}

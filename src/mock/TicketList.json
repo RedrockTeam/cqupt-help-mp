@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "一出好戏",
+      "left": 99,
+      "play_time": "2021-03-22 02:00:00",
+      "begin_time": "2021-03-19 01:55:26",
+      "end_time": "2021-03-19 23:55:26",
+      "location": "科技大会堂",
+      "image": "www.baidu.com",
+      "is_received": false,
+      "type": 0
+    },
+    {
+      "id": 2,
+      "name": "一出好戏",
+      "left": 99,
+      "play_time": "2021-03-19 02:00:00",
+      "begin_time": "2021-03-17 01:55:26",
+      "end_time": "2021-03-17 23:55:26",
+      "location": "科技大会堂",
+      "image": "www.baidu.com",
+      "is_received": false,
+      "type": 0
+    },
+    {
+      "id": 3,
+      "name": "一出好戏",
+      "left": 99,
+      "play_time": "2021-03-30 02:00:00",
+      "begin_time": "2021-03-22 01:55:26",
+      "end_time": "2021-03-25 23:55:26",
+      "location": "科技大会堂",
+      "image": "www.baidu.com",
+      "is_received": false,
+      "type": 1
+    }
+  ]
+}

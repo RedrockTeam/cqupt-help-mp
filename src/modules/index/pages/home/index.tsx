@@ -122,7 +122,7 @@ export default function Index() {
           <View
             className={styles.slideItem}
             onClick={() => navTo({ url: resolvePage("volunteer", "index") })}
-          >
+          > 
             <Image src={homeVolunteerIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>志愿报名</Text>
           </View>

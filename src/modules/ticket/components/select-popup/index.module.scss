@@ -1,0 +1,51 @@
+.show {
+  z-index: 100;
+  transition: all 0.3 ease-in-out;
+  opacity: 1;
+  background-color: rgba($color: #000000, $alpha: 0.25);
+}
+.hiden {
+  z-index: -1;
+  transition: all 0.3 ease-in-out;
+  opacity: 0;
+}
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .content {
+    width: 510px;
+    padding: 62px 31px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 14px;
+    .title {
+      color: #1c184c;
+      font-family: PingFang SC;
+      font-weight: bold;
+      font-size: 36px;
+      line-height: 36px;
+      margin-bottom: 10px;
+    }
+    .detail {
+      color: #494670;
+      font-family: PingFang SC;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 52px;
+    }
+  }
+}
+
+.bottomOne {
+  
+}

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useContainer } from "unstated-next";
-import { navigateBack } from "@tarojs/taro";
-import { View } from "@tarojs/components";
+import React, { useCallback, useState } from "react";
+import { createContainer, useContainer } from "unstated-next";
+import { getStorage, navigateBack, setStorage } from "@tarojs/taro";
+import { Button, View } from "@tarojs/components";
 import dayjs from "dayjs";
 import {
   useQuery,
@@ -19,6 +19,9 @@ import Empty from "@/common/components/empty";
 import { getRobTicketListInfo, robTicket } from "../../services";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
+import ticketList from "../../../../mock/TicketList.json";
+import SelectPopup from "../../components/select-popup";
+import TypeHeader from "../../components/type-header";
 
 const PAGE_TITLE = "在线抢票";
 
@@ -26,13 +29,87 @@ const RobTicket = () => {
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();
 
-  const { data: ticketList, isLoading, isError } = useQuery(
-    "robTicketListInfo",
-    getRobTicketListInfo,
-    {
-      refetchInterval: 2000,
+  // 影票列表的处理
+  /**
+   * @description: 传入参数为影票种类，0为电影，1为讲座
+   * @param {number} type
+   * @return {*}
+   */  
+   const filterObj = (type: number) => {
+    if (type === 0) {
+      return ticketList.data.filter(item => item.type === 0)
+    } else if (type === 1) {
+      return ticketList.data.filter(item => item.type === 1)
     }
-  );
+  }
+
+  // 选择弹窗
+  const SelectPopupFun = () => {
+    const [ state, setState ] = useState(false);
+    const changeState = () => {
+      if (state) {
+        setState(false)
+      } else {
+        setState(true)
+      }
+    }
+    return { state, setState , changeState }
+  }
+  const useSelectPopup = createContainer(SelectPopupFun);
+  const SelectPopupDisplay = () => {
+    const SelectPopupCounter = useSelectPopup.useContainer();
+    // flag逻辑, 第一次进入有提示。
+    getStorage({
+      key: "remindRule",
+      success: (res) => {
+        if (res.data === true) {
+          console.log(res.data);
+          setStorage({
+            key: "remindRule",
+            data: false,
+          })
+        }
+      },
+      fail: () => {
+        setStorage({
+          key: "remindRule",
+          data: true,
+        })
+        SelectPopupCounter.setState(true);
+      }
+    })
+
+    return (
+      <View>
+        <Button onClick={SelectPopupCounter.changeState}>dianji</Button>
+        <SelectPopup
+          isShow={SelectPopupCounter.state}
+          title="温馨提示"
+          detail="1：本次线上影票仅面向重庆邮电大学师生，为公益性活动，禁止以牟利为目的的影票倒卖活动，一经发现，将被记入不良信用档案。
+          2：如有特殊情况，不能到场者。请在开场前半个小时，进入“我的影票”页面，选择“我要退票”，退回自己的影票。
+          3：若开场半个小时后，仍未验票入场，该票失效，同时您将被记入不良信用档案。
+          4.候补票用户与正常抢票用户一致，遵守信用制等相关规定。获得候补票后未按时到场验票，也将被记录至不良信用档案。"
+          bottomType={1}
+          confirmFun={SelectPopupCounter.changeState}
+        />
+      </View>
+    )
+
+  }
+  // const { data: ticketList, isLoading, isError } = useQuery(
+  //   "robTicketListInfo",
+  //   getRobTicketListInfo,
+  //   {
+  //     refetchInterval: 2000,
+  //   }
+  // );
+  const isLoading = false;
+  const isError = false;
+
+  const ticketListMovie = filterObj(0);
+  const ticketListLecture = filterObj(1);
+  const [ currentList, setCurrentList ] = useState(ticketListMovie);
+
   const [isRobing, setIsRobing] = useState(false);
   const [mutateRobTicket] = useMutation(robTicket, {
     onSuccess: () => queryCache.invalidateQueries("robTicketListInfo"),
@@ -47,12 +124,12 @@ const RobTicket = () => {
     } else {
       return;
     }
-    const item = ticketList.data.filter((item) => item.id === id)[0];
+    // const item = ticketList.data.filter((item) => item.id === id)[0];
     if (res.status === 10000) {
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！抢票成功！",
-        detail: `电影票卡卷已存入“我的”页面”我的影票“中。请在${item.start_take}-${item.end_take}在${item.place_take}领取实体票，无实体票将无法观看电影!赶紧去领电影票吧！`,
+        detail: `电影票卡券已存入“我的影票”中赶快去看看吧！`,
       });
       setTimeout(() => hide(), 10000);
     } else {
@@ -78,6 +155,7 @@ const RobTicket = () => {
   };
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  // console.log(ticketList);
   if (isError || !ticketList) return <Placeholder title={PAGE_TITLE} isError />;
   if (ticketList.data.length === 0)
     return (
@@ -92,7 +170,11 @@ const RobTicket = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      {ticketList.data
+      <TypeHeader
+        MovieFun={() => setCurrentList(ticketListMovie)}
+        LectureFun={() => setCurrentList(ticketListLecture)}
+      />
+      {currentList
         .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
         .map((e) => (
           <Ticket
@@ -109,6 +191,9 @@ const RobTicket = () => {
           />
         ))}
       <Popup.Comp />
+      <useSelectPopup.Provider>
+        <SelectPopupDisplay></SelectPopupDisplay>
+      </useSelectPopup.Provider>
     </View>
   );
 };
