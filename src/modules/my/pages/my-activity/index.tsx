@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import { switchTab, useDidShow } from "@tarojs/taro";
 import { View } from "@tarojs/components";
@@ -17,45 +18,115 @@ const PAGE_TITLE = "我的活动";
 const MyActivity = () => {
   const [active, setActive] = useState<number>(0);
 
-  let [activityListRes, setActivityListRes] = useState({})
-  let [commonList, setCommonList] = useState<MyActivities>([])
-  let [volunteerList, setVolunteerList] = useState<MyActivities>([])
-  let [isLoading, setLoading] = useState(true)
-  let [isError, setError] = useState(false)
+  const [activityListRes, setActivityListRes] = useState({});
+  const [commonList, setCommonList] = useState<MyActivities>([]);
+  const [volunteerList, setVolunteerList] = useState<MyActivities>([]);
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
 
   const [mutateActivityListRes] = useMutation(getMyActivities, {
     onSuccess(activityListRes) {
       setActivityListRes(activityListRes);
       setLoading(false);
 
-      const activityList: MyActivities = activityListRes.data;
+      // eslint-disable-next-line prefer-const
+      let activityList: MyActivities = activityListRes.data;
+
+      console.log('activityList:', activityList)
+
+      activityList = [
+        {
+          "id": 272,
+          "type": 1,
+          "name": "测试我的活动",
+          "description": "555",
+          "team_name": "红岩网校工作站—Web研发部",
+          "sign_up_start": 1605024000,
+          "sign_up_last": 1605110400,
+          "last_date": 1605628800,
+          "start_date": 1605110400,
+          "date": 1605196800,
+          "time_part": {
+            "begin_time": 36000,
+            "end_time": 43200
+          },
+          "if_read": 2,
+          "result": {
+            "pass": "0",
+            "qq": "555"
+          },
+          "registration_time": 1605057216
+        },
+        {
+          "id": 276,
+          "type": 1,
+          "name": "测试我的活动",
+          "description": "555",
+          "team_name": "红岩网校工作站—Web研发部",
+          "sign_up_start": 1605024000,
+          "sign_up_last": 1605110400,
+          "last_date": 1605628800,
+          "start_date": 1605110400,
+          "date": 1605542400,
+          "time_part": {
+            "begin_time": 36000,
+            "end_time": 43200
+          },
+          "if_read": 1,
+          "result": {
+            "pass": "1",
+            "qq": "2222"
+          },
+          "registration_time": 1605057225
+        },
+        {
+          "id": 274,
+          "type": 1,
+          "name": "测试我的活动",
+          "description": "555",
+          "team_name": "红岩网校工作站—Web研发部",
+          "sign_up_start": 1605024000,
+          "sign_up_last": 1605110400,
+          "last_date": 1605628800,
+          "start_date": 1605110400,
+          "date": 1605369600,
+          "time_part": {
+            "begin_time": 36000,
+            "end_time": 43200
+          },
+          "if_read": 3,
+          "result": {
+            "pass": "0",
+            "qq": ""
+          },
+          "registration_time": 1605057234
+        }
+      ]
       if (activityList) {
-        console.log('activityList: ', activityList);
+        console.log("activityList: ", activityList);
 
         setCommonList(activityList.filter((activity) => activity.type === 0));
-        setVolunteerList(activityList.filter((activity) => activity.type === 1));
+        setVolunteerList(
+          activityList.filter((activity) => activity.type === 1)
+        );
         console.log("普通活动", commonList);
         console.log("志愿活动", volunteerList);
-        
       } else {
         setCommonList([]);
         setVolunteerList([]);
       }
     },
     onError() {
-      setError(true)
-    }
-  })
+      setError(true);
+    },
+  });
   useDidShow(() => {
     mutateActivityListRes();
-  })
-
+  });
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !activityListRes)
     return <Placeholder title={PAGE_TITLE} isError />;
-
-
 
   return (
     <View className={styles.wrapper}>
@@ -77,10 +148,15 @@ const MyActivity = () => {
       </View>
 
       {/* 普通活动 */}
-      <View style={{
-        display: active === 0 && commonList.length === 0 ? 'block' :
-          active === 0 ? 'flex' : 'none'
-      }}
+      <View
+        style={{
+          display:
+            active === 0 && commonList.length === 0
+              ? "block"
+              : active === 0
+              ? "flex"
+              : "none",
+        }}
         className={styles.container}
       >
         {commonList.length === 0 ? (
@@ -92,28 +168,33 @@ const MyActivity = () => {
             btnContent="查看活动"
           />
         ) : (
-            commonList.map((e) => (
-              <Activity
-                id={e.id}
-                type={e.type}
-                name={e.name}
-                team_name={e.team_name}
-                start_date={e.start_date}
-                last_date={e.last_date}
-                key={e.id}
-                registration_time={e.registration_time}
-                time_part={e.time_part}
-                if_read={e.if_read}
-              />
-            )
-            ))}
+          commonList.map((e) => (
+            <Activity
+              id={e.id}
+              type={e.type}
+              name={e.name}
+              team_name={e.team_name}
+              start_date={e.start_date}
+              last_date={e.last_date}
+              key={e.id}
+              registration_time={e.registration_time}
+              time_part={e.time_part}
+              if_read={e.if_read}
+            />
+          ))
+        )}
       </View>
 
       {/* 志愿活动 */}
-      <View style={{
-        display: active === 1 && volunteerList.length === 0 ? 'block' :
-          active === 1 ? 'flex' : 'none'
-      }}
+      <View
+        style={{
+          display:
+            active === 1 && volunteerList.length === 0
+              ? "block"
+              : active === 1
+              ? "flex"
+              : "none",
+        }}
         className={styles.container}
       >
         {volunteerList.length === 0 ? (
@@ -125,23 +206,23 @@ const MyActivity = () => {
             btnContent="查看活动"
           />
         ) : (
-            volunteerList.map((e) => (
-              <Activity
-                id={e.id}
-                type={e.type}
-                name={e.name}
-                team_name={e.team_name}
-                start_date={e.start_date}
-                last_date={e.last_date}
-                key={e.id}
-                registration_time={e.registration_time}
-                result={e.result}
-                time_part={e.time_part}
-                date={e.date}
-                if_read={e.if_read}
-              />
-            )
-            ))}
+          volunteerList.map((e) => (
+            <Activity
+              id={e.id}
+              type={e.type}
+              name={e.name}
+              team_name={e.team_name}
+              start_date={e.start_date}
+              last_date={e.last_date}
+              key={e.id}
+              registration_time={e.registration_time}
+              result={e.result}
+              time_part={e.time_part}
+              date={e.date}
+              if_read={e.if_read}
+            />
+          ))
+        )}
       </View>
     </View>
   );

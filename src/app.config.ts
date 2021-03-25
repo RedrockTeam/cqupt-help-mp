@@ -14,6 +14,7 @@ export default {
     resolvePage("volunteer", "index"),
     resolvePage("volunteer", "detail"),
     resolvePage("volunteer", "application"),
+    resolvePage("volunteer", "change-time"),
     resolvePage("ticket", "rob-ticket"),
     resolvePage("id", "index"),
     resolvePage("id", "apply"),
@@ -55,6 +56,13 @@ export default {
       },
       {
         pagePath: resolvePage("my", "index"),
+        // pagePath: `${resolvePage(
+        //   "volunteer",
+        //   "change-time"
+        // )}?name=${name
+        // }&team_name=${team_name
+        // }&start_date=${start_date
+        // }&last_date=${last_date}`,
         text: "我的",
         iconPath: "static/images/my-icon.png",
         selectedIconPath: "static/images/my-active-icon.png",

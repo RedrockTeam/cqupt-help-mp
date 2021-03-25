@@ -1,25 +1,24 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  Swiper,
-  SwiperItem,
+  BaseEventOrigFunction,
   Image,
   ScrollView,
-  BaseEventOrigFunction,
+  Swiper,
+  SwiperItem,
+  Text,
+  View,
 } from "@tarojs/components";
 import homeTicketIcon from "@/static/images/home-ticket-icon.png";
 import homeCampusIcon from "@/static/images/home-campus-icon.png";
 import homeVolunteerIcon from "@/static/images/home-volunteer-icon.png";
-import homeYoungIcon from "@/static/images/home-young-icon.png";
 import homeIdIcon from "@/static/images/home-id-icon.png";
 // import tmpHomeRecent from "@/static/images/tmp-home-recent.jpg";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
-import { resolvePage, navTo } from "@/common/helpers/utils";
+import { navTo, resolvePage } from "@/common/helpers/utils";
 import { useQuery } from "react-query/dist/react-query.production.min";
-import { useUserInfo } from "@/stores/user";
+// import {useUserInfo} from "@/stores/user";
 import Placeholder from "@/common/components/placeholder";
-import newIcon from "@/static/images/new-icon.png";
 import Empty from "@/common/components/empty";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
@@ -34,7 +33,7 @@ const list = [
 ]; // 轮播图的图片
 
 export default function Index() {
-  const { token } = useUserInfo();
+  // const {token} = useUserInfo();
 
   const [slidePercent, setSlidePercent] = useState(0);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
@@ -55,29 +54,41 @@ export default function Index() {
         </View>
       );
 
-    if (isError || !homeActivityListRes)
+    if (isError || !homeActivityListRes) {
       return <Placeholder isError={isError} />;
+    }
+
+    // TODO: 后端将所有活动均返回，过滤掉已过期掉活动，喊后端有空修
+    homeActivityListRes.data = homeActivityListRes.data.filter(
+      // @ts-ignore
+      (activity) => activity.time_done > Date.parse(new Date())
+    );
+
+
+
     return homeActivityListRes.data.length !== 0 ? (
       homeActivityListRes.data
         .sort((a, b) => a.time_done - b.time_done)
-        .map((e) => (
-          <RecentActivity
-            name={e.name}
-            key={e.id}
-            teamName={e.team_name}
-            timeDone={e.time_done}
-            time={e.time}
-            introduction={e.introduction}
-            location={e.location}
-            rule={e.rule}
-            registration={e.registration}
-            type={e.type}
-            image={e.image}
-          />
-        ))
+        .map((e) => {
+          return (
+            <RecentActivity
+              name={e.name}
+              key={e.id}
+              teamName={e.team_name}
+              timeDone={e.time_done}
+              time={e.time}
+              introduction={e.introduction}
+              location={e.location}
+              rule={e.rule}
+              registration={e.registration}
+              type={e.type}
+              image={e.image}
+            />
+          );
+        })
     ) : (
-        <Empty detail="暂无活动" />
-      );
+      <Empty detail="暂无活动" />
+    );
   };
 
   return (
@@ -89,7 +100,7 @@ export default function Index() {
         indicatorDots
         circular
         autoplay
-      // TODO: 修改 dot 样式
+        // TODO: 修改 dot 样式
       >
         {list.map((e) => (
           <SwiperItem key={e}>
@@ -157,7 +168,7 @@ export default function Index() {
           <View
             className={styles.scrollBarSlide}
             style={{
-              //FIXME: 大于四个的时候删掉下面这行
+              // FIXME: 大于四个的时候删掉下面这行
               width: "100%",
               left: slidePercent,
             }}
@@ -165,9 +176,11 @@ export default function Index() {
         </View>
       </View>
       <View className={styles.recentActivitiesWrapper}>
-        <Text className={styles.title}>热门活动</Text>
+        <Text className={styles.title}
+        >热门活动</Text>
         <View>{renderHomeActivityList()}</View>
       </View>
+
     </View>
   );
 }

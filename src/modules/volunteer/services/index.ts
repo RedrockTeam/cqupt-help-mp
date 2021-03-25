@@ -7,7 +7,6 @@ import {
   VolunteerActivityDetailRes,
   VolunteerActivityApply,
   VolunteerActivityApplyRes,
-  VolunteerActivityApplicationRes,
 } from "./dto";
 
 export const checkIsVolunteer = (_key: string) =>
@@ -60,3 +59,13 @@ export const postVolunteerActivityRead = (
       "content-type": "application/x-www-form-urlencoded",
     },
   });
+
+
+
+// /change是改变志愿
+// 此消息已撤回
+//
+// 3月21日 19:00
+// json数据是{"old":{"activity_id":5,"begin_time":1800,"end_time":3900},"new":{"activity_id":8,"begin_time":1800,"end_time":3900}}
+//
+// /quit是退出志愿，和/showresult一样的入参

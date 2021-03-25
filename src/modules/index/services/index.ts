@@ -1,9 +1,9 @@
-import { login, request as TaroRequest } from "@tarojs/taro";
+import {login, request as TaroRequest} from "@tarojs/taro";
 import request from "@/common/helpers/request";
-import { ActivitiesHomeRes, ApplyActivityInfo, ApplyActivityRes } from "./dto";
+import {ActivitiesHomeRes, ApplyActivityInfo, ApplyActivityRes} from "./dto";
 
-export const bindReq = async ({ account, password }) => {
-  const { code } = await login();
+export const bindReq = async ({account, password}) => {
+  const {code} = await login();
   return TaroRequest({
     url: `https://be-prod.redrock.team/magicloop/rushAb?code=${code}`,
     method: "POST",
