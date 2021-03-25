@@ -38,7 +38,7 @@ export default {
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#F6F6F9",
-    navigationBarTitleText: "重邮帮",
+    navigationBarTitleText: "重帮",
     navigationBarTextStyle: "black",
     navigationStyle: "custom",
   },
