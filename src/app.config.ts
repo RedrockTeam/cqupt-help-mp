@@ -55,11 +55,11 @@ export default {
         selectedIconPath: "static/images/home-active-icon.png",
       },
       {
-        // pagePath: resolvePage("my", "index"),
-        pagePath: `${resolvePage(
-          "volunteer",
-          "change-time"
-        )}`,
+        pagePath: resolvePage("my", "index"),
+        // pagePath: `${resolvePage(
+        //   "volunteer",
+        //   "change-time"
+        // )}`,
         text: "我的",
         iconPath: "static/images/my-icon.png",
         selectedIconPath: "static/images/my-active-icon.png",

@@ -87,7 +87,7 @@ const MyActivity = () => {
           "team_name": "红岩网校工作站—Web研发部",
           "sign_up_start": 1605024000,
           "sign_up_last": 1605110400,
-          "last_date": 1605628800,
+          "last_date": 1705628800,
           "start_date": 1605110400,
           "date": 1605369600,
           "time_part": {
@@ -105,10 +105,14 @@ const MyActivity = () => {
       if (activityList) {
         console.log("activityList: ", activityList);
 
-        setCommonList(activityList.filter((activity) => activity.type === 0));
-        setVolunteerList(
-          activityList.filter((activity) => activity.type === 1)
-        );
+        let commonList = activityList.filter((activity) => activity.type === 0)
+        commonList.sort((pre, cur) => cur.last_date - pre.last_date)
+        setCommonList(commonList);
+
+        let volunteerList = activityList.filter((activity) => activity.type === 1)
+        volunteerList.sort((pre, cur) => cur.last_date - pre.last_date)
+        setVolunteerList(volunteerList);
+
         console.log("普通活动", commonList);
         console.log("志愿活动", volunteerList);
       } else {

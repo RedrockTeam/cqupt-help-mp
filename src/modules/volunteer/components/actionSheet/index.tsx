@@ -3,6 +3,7 @@ import styles from "@/modules/volunteer/components/actionSheet/index.module.scss
 import React from "react";
 
 type Props = {
+  sheetKey?: string | Symbol;   //  标识该组件的元信息
   visible: boolean;
   showCancel: boolean;
   showTitle: boolean;
@@ -11,7 +12,7 @@ type Props = {
     detail: string;
   };
   itemList: string[];
-  onClick: (tarText: string, indexKey: number) => unknown;
+  onClick: (tarText: string, indexKey: number, sheetKey: string | Symbol | undefined) => unknown;
   onCancel: (event: ITouchEvent) => unknown;
 }
 
@@ -22,7 +23,8 @@ const ActionSheet = ({
                        itemList,
                        title,
                        onClick,
-                       onCancel
+                       onCancel,
+                       sheetKey
                      }: Props) => {
   return (
     <View
@@ -45,21 +47,21 @@ const ActionSheet = ({
         {itemList.map((item, i) => {
           return (
             <View key={i}
-                  onClick={() => onClick(item, i)}
+                  onClick={() => onClick(item, i, sheetKey)}
             >
               {item}
             </View>
           )
         })}
         {showCancel ?
-        (
-          <View
-            className={styles.cancel}
-            onClick={onCancel}
-          >
-            取消
-          </View>
-        ) : null}
+          (
+            <View
+              className={styles.cancel}
+              onClick={onCancel}
+            >
+              取消
+            </View>
+          ) : null}
       </View>
 
     </View>

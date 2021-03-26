@@ -82,13 +82,14 @@
 
 .volunteerWrapper {
   width: 698px;
-  height: 375px;
-  margin: 24px 30px;
+  //max-height: 375px;
+  margin: 20px 30px;
 
   .volunteer {
     display: flex;
     flex-direction: column;
-    height: 378px;
+    min-height: 205px;
+    max-height: 378px;
     padding: 40px 24px 40px;
     border-radius: 16px;
     background: #ffffff;

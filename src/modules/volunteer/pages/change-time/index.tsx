@@ -163,6 +163,17 @@ const VolunteerChangeTime = () => {
   }
 
 
+  const handleChange = () => {
+    const hide = Popup.show({
+      detail: "修改成功!"
+    })
+    const timer = setTimeout(() => {
+      hide();
+      clearTimeout(timer);
+    }, 1500);
+  }
+
+
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9"/>
@@ -197,7 +208,7 @@ const VolunteerChangeTime = () => {
         温馨提示：修改班次后会导致报名顺序重置
       </Text>
 
-      <Button className={styles.btn} onClick={handleApply}>
+      <Button className={styles.btn} onClick={handleChange}>
         确认修改
       </Button>
 

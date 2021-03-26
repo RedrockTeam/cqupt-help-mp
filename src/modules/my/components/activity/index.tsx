@@ -127,6 +127,9 @@ const Activity = ({
     return result?.pass === "0" ? 1 : 2;
   };
 
+  //  是否已过期
+  const isOverdue = () => now() > last_date;
+
   return (
     <View
       className={type === 0 ? styles.commonWrapper : styles.volunteerWrapper}
@@ -142,7 +145,7 @@ const Activity = ({
       <View className={type === 0 ? styles.commonRight : styles.volunteer}>
         <View className={styles.header}>
           <Text>{name}</Text>
-          {now() > last_date ? (
+          {isOverdue() ? (
             <Text className={styles.passed}>已结束</Text>
           ) : (
             <Text className={styles.doing}>进行中</Text>
@@ -160,15 +163,17 @@ const Activity = ({
         )}
 
         {/* 志愿活动的按钮 */}
-        {type === 0 ? null : (
-          <View className={styles.btnWrapper}>
+        {/*{type !== 0 && !isOverdue() ?*/}
+          {type !== 0 ?
+          (<View className={styles.btnWrapper}>
             {renderBtn(0, id)}
             {renderBtn(ifPassed(), id)}
             {if_read === 1 && ifPassed() === 2 ? (
               <View className={styles.btn_red_point}/>
             ) : null}
-          </View>
-        )}
+          </View>)
+          : null
+        }
       </View>
     </View>
   );
