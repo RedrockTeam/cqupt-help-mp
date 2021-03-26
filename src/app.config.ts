@@ -38,7 +38,7 @@ export default {
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#F6F6F9",
-    navigationBarTitleText: "重帮",
+    navigationBarTitleText: "重邮帮",
     navigationBarTextStyle: "black",
     navigationStyle: "custom",
   },
@@ -55,14 +55,11 @@ export default {
         selectedIconPath: "static/images/home-active-icon.png",
       },
       {
-        pagePath: resolvePage("my", "index"),
-        // pagePath: `${resolvePage(
-        //   "volunteer",
-        //   "change-time"
-        // )}?name=${name
-        // }&team_name=${team_name
-        // }&start_date=${start_date
-        // }&last_date=${last_date}`,
+        // pagePath: resolvePage("my", "index"),
+        pagePath: `${resolvePage(
+          "volunteer",
+          "change-time"
+        )}`,
         text: "我的",
         iconPath: "static/images/my-icon.png",
         selectedIconPath: "static/images/my-active-icon.png",

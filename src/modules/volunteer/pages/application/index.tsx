@@ -92,9 +92,9 @@ const VolunteerApply = () => {
       )}?name=${name
       }&team_name=${team_name
       }&start_date=${start_date
-      }&last_date=${last_date}`,
+      }&last_date=${last_date
+      }&date=${date}`,
     });
-    console.log(start_date+'-'+last_date)
   }
   const handleQuit = () => {
     console.log('quit');
@@ -141,38 +141,6 @@ const VolunteerApply = () => {
   //   },
   // });
 
-
-  // const handleApply = async () => {
-  {/*  // if (!isScrolling) {*/
-  }
-  {/*  //   setShowPicker(false);*/
-  }
-  {/*  //   if (data) {*/
-  }
-  //   //     const date = data.data.detail[dateIndex];
-  //   //     const timePart = date.time_part_info[timePartIndex];
-  //   //     if (timePart.now >= timePart.max + 10) {
-  //   //       const hide = Popup.show({
-  //   //         title: "申请失败",
-  //   //         detail: "报名人数已满",
-  //   //         img: error,
-  //   //       });
-  {/*  //       setTimeout(() => hide(), 1500);*/
-  }
-  //   //       return;
-  //   //     }
-  //   //     await mutateApply({
-  //   //       id: date.id,
-  //   //       begin_time: timePart.begin_time,
-  //   //       end_time: timePart.end_time,
-  //   //     });
-  //   //   }
-  //   // } else {
-  //   //   console.log("scrolling");
-  //   // }
-  //
-  //   console.log('handle apply')
-  // }
 
 
   // @ts-ignore

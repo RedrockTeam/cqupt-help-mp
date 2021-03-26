@@ -19,6 +19,18 @@ export const timestampToDayjs = (timestamp: number) => dayjs.unix(timestamp);
 export const timestampToDateString = (timestamp: number) =>
   timestampToDayjs(timestamp).format("YYYY.MM.DD");
 
+
+/**
+ * 转换 Unix 时间戳到 月.日 时间 字符串：1587484800 => '4月22日'
+ * @param timestamp
+ */
+export const timestampToMDString = (timestamp: number) => {
+  let date: any = timestampToDateString(timestamp).split('.');
+  if (date) date = date[1].replace(/\b(0+)/gi, "") + '月' + date[2].replace(/\b(0+)/gi, "") + '日';
+  return date
+}
+
+
 /**
  * 名字乱取的
  * 十位时间戳 转化
@@ -88,3 +100,7 @@ export const leftTime = (timestamp: number) => {
     return `${m}分钟`;
   }
 };
+
+
+export const timetampToHMString = (timestamp: number) =>
+  timestampToDayjs(timestamp - 8 * 60 * 60).format("HH:mm");

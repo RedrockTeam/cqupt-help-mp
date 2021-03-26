@@ -40,7 +40,7 @@ const ActionSheet = ({
             className={styles.title}
           >
             <Text className={styles.title_desc}>{title.desc}</Text>
-            <Text className={styles.title_detail}>{title.detail}</Text>
+            {title.detail ? (<Text className={styles.title_detail}>{title.detail}</Text>) : null}
           </View>) : null}
         {itemList.map((item, i) => {
           return (
