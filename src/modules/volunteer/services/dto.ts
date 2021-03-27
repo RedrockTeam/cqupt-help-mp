@@ -1,4 +1,4 @@
-import { BaseRes } from "@/common/helpers/request";
+import {BaseRes} from "@/common/helpers/request";
 
 export interface TimePart {
   begin_time: number;
@@ -52,4 +52,39 @@ export interface VolunteerActivityApply {
 }
 
 export type VolunteerActivityApplyRes = BaseRes;
+
+
+/**
+ * 退出志愿活动相关
+ */
+export interface VolunteerActivityQuitReq {
+  activity_id: number;
+  begin_time: number;
+  end_time: number;
+}
+
+export interface VolunteerActivityQuitRes {   //  响应
+  status: number;
+  info: string;
+}
+
+
+/**
+ * 志愿活动更改班次相关
+ */
+export interface VolunteerActivityChangeReq {
+  old: {
+    activity_id: number;
+    begin_time: number;
+    end_time: number;
+  },
+  new: {
+    activity_id: number;
+    begin_time: number;
+    end_time: number;
+  }
+}
+
+export interface VolunteerActivityChangeRes extends VolunteerActivityQuitRes {
+}// 跟退出活动的响应是一样的
 

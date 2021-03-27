@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {Params} from "@/modules/volunteer/pages/application";
-import {useRouter} from "@tarojs/taro";
+import {navigateBack, useRouter} from "@tarojs/taro";
 import {Button, ITouchEvent, Text, View} from "@tarojs/components";
 import styles from "@/modules/volunteer/pages/change-time/index.module.scss";
 import NavBack from "@/common/components/nav-back";
 import {useQuery} from "react-query/dist/react-query.production.min";
-import {getVolunteerActivityDetail} from "@/modules/volunteer/services";
+import {getVolunteerActivityDetail, postVolunteerActivityChange} from "@/modules/volunteer/services";
 import error from "@/static/images/error.png";
 import Placeholder from "@/common/components/placeholder";
 import {useContainer} from "unstated-next";
@@ -13,14 +13,15 @@ import PopupContext from "@/stores/popup";
 import PickerTimeBasic from "@/modules/volunteer/components/picker-time-basic";
 import {
   timestampToMDString,
-  timetampToHMString
+  timestampToHMString, genSeconds
 } from "@/common/helpers/date";
+import {useMutation} from "react-query";
 
 
 const PAGE_TITLE = '修改班次'
 
 const VolunteerChangeTime = () => {
-  let { name, team_name, start_date, last_date, rely_id, date: date_part } = useRouter().params as Params;
+  let { name, team_name, start_date, last_date, rely_id, date: date_part, activity_id } = useRouter().params as Params;
 
   console.log('date_part:', date_part)
 
@@ -34,8 +35,8 @@ const VolunteerChangeTime = () => {
 
   // picker
   const Popup = useContainer(PopupContext);
-  const [dateIndex, setDateIndex] = useState<number>(0);
   const [date, setDate] = useState<string>(date_part.split(' ')[0])
+  const [dateIndex, setDateIndex] = useState<number>(0);
   const [timePart, setTimePart] = useState<string>(date_part.split(' ')[1])
   const [timePartIndex, setTimePartIndex] = useState<number>(0);
   const [isScrolling, setIsScrolling] = useState(false);
@@ -100,9 +101,9 @@ const VolunteerChangeTime = () => {
 
     date = timestampToMDString(date.date);
     setDate(date)
-    setTimePart(`${timetampToHMString(timePart.begin_time)} - ${timetampToHMString(timePart.end_time)}`)
+    setTimePart(`${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(timePart.end_time)}`)
     console.log('date:', date)
-    console.log('time:', `${timetampToHMString(timePart.begin_time)} - ${timetampToHMString(timePart.end_time)}`)
+    console.log('time:', `${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(timePart.end_time)}`)
   }
 
 
@@ -134,9 +135,42 @@ const VolunteerChangeTime = () => {
 
   };
 
-  async function mutateApply(params: {end_time: any; begin_time: any; id: any}) {
-    console.log('mutateApply');
-  }
+  const [mutateChange] = useMutation(postVolunteerActivityChange, {
+      onSuccess(res) {
+        if (res.status === 10000) {
+          const hide = Popup.show({
+            detail: "修改成功!",
+          });
+          const timer = setTimeout(() => {
+            hide();
+            clearTimeout(timer);
+
+            //  用户自定义的成功执行函数
+
+
+            navigateBack();
+          }, 3000);
+        } else {
+          const hide = Popup.show({
+            detail: "申请失败，请稍后再试",
+          });
+          const timer = setTimeout(() => {
+            hide();
+            clearTimeout(timer);
+          }, 1500);
+        }
+      },
+      onError() {
+        const hide = Popup.show({
+          detail: "网络错误，请稍后再试",
+        });
+        const timer = setTimeout(() => {
+          hide();
+          clearTimeout(timer);
+        }, 1500);
+      }}
+)
+
 
   const handleApply = async () => {
     if (!isScrolling) {
@@ -153,24 +187,41 @@ const VolunteerChangeTime = () => {
           setTimeout(() => hide(), 1500);
           return;
         }
-        await mutateApply({
-          id: date.id,
-          begin_time: timePart.begin_time,
-          end_time: timePart.end_time,
-        });
+
+        //  处理时间为秒计数
+        const {begin_time: old_begin, end_time: old_end} = genSeconds(date_part)
+
+        console.log('new timePart:', timePart)
+
+        // await mutateChange({
+        //   old: {
+        //     activity_id: Number(activity_id),
+        //     begin_time: old_begin,
+        //     end_time: old_end,
+        //   },
+        //   new: {
+        //     activity_id: Number(activity_id),
+        //     begin_time: 0,
+        //     end_time: 0,
+        //   }
+        // });
       }
     }
   }
 
 
-  const handleChange = () => {
-    const hide = Popup.show({
-      detail: "修改成功!"
-    })
-    const timer = setTimeout(() => {
-      hide();
-      clearTimeout(timer);
-    }, 1500);
+  const handleChange = async () => {
+
+    await handleApply()
+
+    //  popup hint
+    // const hide = Popup.show({
+    //   detail: "修改成功!"
+    // })
+    // const timer = setTimeout(() => {
+    //   hide();
+    //   clearTimeout(timer);
+    // }, 1500);
   }
 
 

@@ -66,8 +66,9 @@ const Activity = ({
   /**
    *  创建按钮
    * @param btnType :number :0:详细信息，1:等待结果，2:查看结果
+   * @param id
    */
-  const renderBtn = (btnType: 0 | 1 | 2, id) => {
+  const renderBtn = (btnType: 0 | 1 | 2, id: number) => {
     switch (btnType) {
       case 0:
         return (
@@ -85,7 +86,7 @@ const Activity = ({
 
       case 1:
       // return (
-      //   <Button className={`${styles.btn} ${styles.btn_waitting}`}>
+      //   <Button className={`${styles.btn} ${styles.btn_waiting}`}>
       //     等待结果
       //   </Button>
       // );
@@ -106,7 +107,9 @@ const Activity = ({
                 }&concat=${result?.qq
                 }&pass=${result?.pass
                 }&date=${time_area
-                }&registration_time=${registration_time}`,
+                }&registration_time=${registration_time
+                }&activity_id=${id
+                }&rely_id=${id}`,
               });
               console.log("go to application", id);
             }}
@@ -118,8 +121,7 @@ const Activity = ({
   };
 
   /**
-   * 报名结果的状态
-   * @param {return}  1: 等待结果 2 :查看结果
+   * 报名结果的状态    1: 等待结果 2 :查看结果
    */
   const ifPassed = (): 1 | 2 => {
     console.log("pass:", typeof result?.pass);

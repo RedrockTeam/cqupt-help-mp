@@ -101,6 +101,31 @@ export const leftTime = (timestamp: number) => {
   }
 };
 
-
-export const timetampToHMString = (timestamp: number) =>
+/**
+ *  将时间戳转换为 HH:MM的字符串
+ */
+export const timestampToHMString = (timestamp: number) =>
   timestampToDayjs(timestamp - 8 * 60 * 60).format("HH:mm");
+
+
+/**
+ * 将 字符串 'MM月DD日 hh:mm-hh:mm' 转换为已秒计数的起始与终止时间段
+ */
+export const genSeconds = (date: string) :{begin_time: number, end_time: number} =>  {
+  // 计算生成 begin_time end_time   两者均为hh:mm 的秒计数
+  let tmp_date = date.split(' ')[1]
+  // @ts-ignore
+  tmp_date = tmp_date.split('-')
+  console.log('date:', tmp_date)
+
+  const _begin_time = tmp_date[0].split(':')
+  const begin_time = Number(_begin_time[0]) * 3600 + Number(_begin_time[1])
+  console.log('b:', begin_time)
+  const _end_time = tmp_date[1].split(':')
+  const end_time = Number(_end_time[0]) * 3600 + Number(_end_time[1])
+  return {
+    begin_time,
+    end_time
+  }
+}
+

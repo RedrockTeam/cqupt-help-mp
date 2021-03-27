@@ -1,6 +1,6 @@
 import React from "react";
 import {ITouchEvent, PickerView, PickerViewColumn, View,} from "@tarojs/components";
-import {timestampToDateString, timestampToMDString, timetampToHMString} from "@/common/helpers/date";
+import {timestampToDateString, timestampToMDString, timestampToHMString} from "@/common/helpers/date";
 import styles from "./index.module.scss";
 
 
@@ -52,9 +52,9 @@ const PickerTimeBasic = ({
               style={{lineHeight: "58px"}}
               key={`${item.begin_time} + ${item.end_time}`}
             >
-              {`${timetampToHMString(
+              {`${timestampToHMString(
                 item.begin_time
-              )} - ${timetampToHMString(item.end_time)}`}
+              )} - ${timestampToHMString(item.end_time)}`}
             </View>
           );
         })}
