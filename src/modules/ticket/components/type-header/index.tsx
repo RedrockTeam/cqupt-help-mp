@@ -6,9 +6,11 @@
  * @FilePath: /cqupt-help-mp/src/modules/ticket/components/type-header/index.tsx
  * @Description: nothing is everything
  */
-import { View } from '@tarojs/components';
+import { View, Image } from '@tarojs/components';
 import React, { useState } from 'react';
 import styles from './index.module.scss';
+import underLine from '@/static/images/underline.png';
+
 
 type Props = {
   MovieFun: () => void;
@@ -19,16 +21,33 @@ const TypeHeader = ({
   MovieFun,
   LectureFun,
 }: Props) => {
+  const [ typeState, setTypeState ] = useState(0);
+
+  const changeType = (click: Function) => {
+    click();
+    setTypeState(typeState === 0?1:0)
+  }
+
   return (
     <View className={styles.typeHeader}>
       <View 
-        className={styles.button}
-        onClick={MovieFun}
-      >影票</View>
+        className={`${styles.button} ${styles.flexRow}`}
+        onClick={() => changeType(MovieFun)}
+      >
+        <View>讲座</View>
+        {
+          typeState === 0?(<Image className={styles.underLine} src={underLine}></Image>):""
+        }
+      </View>
       <View 
-        className={styles.button}
-        onClick={LectureFun}
-      >剧场</View>
+        className={`${styles.button} ${styles.flexRow}`}
+        onClick={() => changeType(LectureFun)}
+      >
+        <View>影票</View>
+        {
+          typeState === 1?(<Image className={styles.underLine} src={underLine}></Image>):""
+        }
+      </View>
     </View>
   )
 }

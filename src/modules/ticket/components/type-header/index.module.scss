@@ -1,12 +1,31 @@
 .typeHeader {
   height: 100px;
-  border: black solid 1px;
+  // border: black solid 1px;
   display: flex;
   flex-flow: row;
   justify-content: center;
   align-items: center;
+  font-size: 34px;
+  font-weight: 500;
+  // margin-bottom: 20px;
+  padding-bottom: 40px;
+  background-color: #FFFFFF;
   .button {
     width: 45%;
     height: 90px;
+  }
+}
+
+.flexRow {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .underLine {
+    position: absolute;
+    top: 80px;
+    width: 52px;
+    height: 18px;
   }
 }

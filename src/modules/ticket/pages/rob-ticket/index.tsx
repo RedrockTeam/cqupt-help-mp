@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { createContainer, useContainer } from "unstated-next";
-import { getStorage, navigateBack, setStorage } from "@tarojs/taro";
+import { getStorage, navigateBack, removeStorage, setStorage } from "@tarojs/taro";
 import { Button, View } from "@tarojs/components";
 import dayjs from "dayjs";
 import {
@@ -22,6 +22,8 @@ import styles from "./index.module.scss";
 import ticketList from "../../../../mock/TicketList.json";
 import SelectPopup from "../../components/select-popup";
 import TypeHeader from "../../components/type-header";
+import { navTo } from "@/common/helpers/utils";
+import { resolvePage } from "@/common/helpers/utils";
 
 const PAGE_TITLE = "在线抢票";
 
@@ -35,7 +37,7 @@ const RobTicket = () => {
    * @param {number} type
    * @return {*}
    */  
-   const filterObj = (type: number) => {
+  const filterObj = (type: number) => {
     if (type === 0) {
       return ticketList.data.filter(item => item.type === 0)
     } else if (type === 1) {
@@ -69,6 +71,9 @@ const RobTicket = () => {
             data: false,
           })
         }
+        // removeStorage({
+        //   key: "remindRule"
+        // })
       },
       fail: () => {
         setStorage({
@@ -79,9 +84,13 @@ const RobTicket = () => {
       }
     })
 
+    const Click = () => {
+      navTo({ url: resolvePage("ticket", "rob-ticket-info") })
+    }
+
     return (
       <View>
-        <Button onClick={SelectPopupCounter.changeState}>dianji</Button>
+        <Button onClick={Click}>dianji</Button>
         <SelectPopup
           isShow={SelectPopupCounter.state}
           title="温馨提示"
@@ -168,28 +177,30 @@ const RobTicket = () => {
       />
     );
   return (
-    <View className={styles.wrapper}>
-      <NavBack title={PAGE_TITLE} background="#F6F6F9" />
+    <View>
+      <NavBack title={PAGE_TITLE} background="#FFFFFF" />
       <TypeHeader
         MovieFun={() => setCurrentList(ticketListMovie)}
         LectureFun={() => setCurrentList(ticketListLecture)}
       />
-      {currentList
-        .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
-        .map((e) => (
-          <Ticket
-            id={e.id}
-            playTime={dayjs(e.play_time).unix()}
-            robTime={dayjs(e.begin_time).unix()}
-            location={e.location}
-            remain={e.left}
-            image={e.image}
-            name={e.name}
-            isReceived={e.is_received}
-            onRobTicket={handleRobTicket}
-            key={e.id}
-          />
+      <View className={styles.wrapper}>
+        {currentList
+          .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
+          .map((e) => (
+            <Ticket
+              id={e.id}
+              playTime={dayjs(e.play_time).unix()}
+              robTime={dayjs(e.begin_time).unix()}
+              location={e.location}
+              remain={e.left}
+              image={e.image}
+              name={e.name}
+              isReceived={e.is_received}
+              onRobTicket={handleRobTicket}
+              key={e.id}
+            />
         ))}
+      </View>
       <Popup.Comp />
       <useSelectPopup.Provider>
         <SelectPopupDisplay></SelectPopupDisplay>
