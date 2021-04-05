@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// FIXME:form太恶心了，以后改另一种方式吧
+import React, { Fragment, useState } from "react";
 import { View, Text, Button, Input, Form, Textarea } from "@tarojs/components";
 import PopupContext from "@/stores/popup";
 import error from "@/static/images/error.png";
@@ -13,7 +14,6 @@ import {
 } from "@/common/helpers/date";
 import { navigateBack } from "@tarojs/taro";
 import { applyVolunteerActivity } from "../../services";
-import { VolunteerActivityApply } from "../../services/dto";
 const ResumeForm = ({
   info,
   formInputField,
@@ -21,7 +21,7 @@ const ResumeForm = ({
   NeedAdditions,
   pickerValue,
 }) => {
-  console.log(1);
+  let imageUrl = "";
   const Popup = useContainer(PopupContext);
   const [mutateApply] = useMutation(applyVolunteerActivity, {
     onSuccess(res) {
@@ -31,6 +31,8 @@ const ResumeForm = ({
           detail: "申请结果将会通过重邮小帮手进行通知",
           img: wait,
         });
+        console.log(1);
+
         setTimeout(() => {
           hide();
           navigateBack();
@@ -103,83 +105,106 @@ const ResumeForm = ({
   };
 
   return (
-    <Form
-      onSubmit={async (e) => {
-        const { value: formValue } = e.detail;
-        const [dateIndex, timePartIndex] = pickerValue;
-        const date = info!.detail[dateIndex];
-        const timePart = date.time_part_info[timePartIndex];
-        if (timePart.now >= timePart.max + 10) {
-          const hide = Popup.show({
-            title: "申请失败",
-            detail: "报名人数已满",
-            img: error,
+    <Fragment>
+      <Form
+        onSubmit={async (e) => {
+          const { value: formValue } = e.detail;
+          if (!formValue) return;
+          const [dateIndex, timePartIndex] = pickerValue;
+          const date = info!.detail[dateIndex];
+          const timePart = date.time_part_info[timePartIndex];
+          if (imageUrl) {
+            formValue[2] = imageUrl;
+          }
+          if (
+            Object.keys(formValue).some((key) => {
+              if (!formValue[key]) {
+                console.log("err");
+
+                const hide = Popup.show({
+                  title: "提交失败",
+                  detail: "请将信息填写完整",
+                  img: error,
+                });
+                setTimeout(() => hide(), 1500);
+                return true;
+              }
+            })
+          ) {
+            return;
+          }
+          if (timePart.now >= timePart.max + 10) {
+            const hide = Popup.show({
+              title: "申请失败",
+              detail: "报名人数已满",
+              img: error,
+            });
+            setTimeout(() => hide(), 1500);
+            return;
+          }
+          await mutateApply({
+            addition: JSON.stringify(formValue),
+            id: date.id,
+            begin_time: timePart.begin_time,
+            end_time: timePart.end_time,
           });
-          setTimeout(() => hide(), 1500);
-          return;
-        }
-        await mutateApply({
-          addition: formValue,
-          id: date.id,
-          begin_time: timePart.begin_time,
-          end_time: timePart.end_time,
-        });
-      }}
-    >
-      <View
-        className={`${info.need_additions.includes(2) && styles.top} ${
-          styles.container
-        }`}
+        }}
       >
-        <View className={styles.left}>
-          {/* 两个字段 */}
-          {formInputField.slice(0, 2).map((v: number) => {
-            const seq = v.toString();
-            const label = NeedAdditions[seq];
-            return <FormInput label={label} seq={seq} />;
-          })}
+        <View
+          className={`${info.need_additions.includes(2) && styles.top} ${
+            styles.container
+          }`}
+        >
+          <View className={styles.left}>
+            {/* 两个字段 */}
+            {formInputField.slice(0, 2).map((v: number) => {
+              const seq = v.toString();
+              const label = NeedAdditions[seq];
+              return <FormInput label={label} seq={seq} />;
+            })}
+          </View>
+          {info.need_additions.includes(2) && (
+            <View className={styles.right}>
+              <ImageUpload
+                className={styles.imageUpload}
+                dispatchImage={(url) => {
+                  imageUrl = url;
+                }}
+              />
+            </View>
+          )}
         </View>
-        {info.need_additions.includes(2) && (
-          <View className={styles.right}>
-            <ImageUpload className={styles.imageUpload} />
+        {formInputField.slice(2).length > 0 && (
+          <View className={`${styles.container}`}>
+            {formInputField.slice(2).map((v: number) => {
+              const seq = v.toString();
+              const label = NeedAdditions[seq];
+              return <FormInput label={label} seq={seq} />;
+            })}
           </View>
         )}
-      </View>
-      {formInputField.slice(2).length > 0 && (
-        <View className={`${styles.container}`}>
-          {formInputField.slice(2).map((v: number) => {
-            const seq = v.toString();
-            const label = NeedAdditions[seq];
-            return <FormInput label={label} seq={seq} />;
-          })}
-        </View>
-      )}
-      {formTextareaField.map((v) => {
-        const seq = v.toString();
-        const label = NeedAdditions[seq];
-        return (
-          <View className={`${styles.container}`}>
-            <FormTextarea label={label} seq={seq} maxLength={300} />
+        {formTextareaField.map((v) => {
+          const seq = v.toString();
+          const label = NeedAdditions[seq];
+          return (
+            <View className={`${styles.container}`}>
+              <FormTextarea label={label} seq={seq} maxLength={300} />
+            </View>
+          );
+        })}
+        <View className={`${styles.container2}`}>
+          <View className={styles.title}>
+            <Text>班次选择</Text>
           </View>
-        );
-      })}
-      <View className={`${styles.container2}`}>
-        <View className={styles.title}>
-          <Text>班次选择</Text>
+          <View className={styles.time}>{renderTimePart()}</View>
         </View>
-        <View className={styles.time}>{renderTimePart()}</View>
-      </View>
-      <Button formType="submit" className={styles.submitButton}>
-        确认提交
-      </Button>
-    </Form>
+        <Button className={styles.submitButton} formType="submit">
+          确认提交
+        </Button>
+      </Form>
+      <Popup.Comp />
+    </Fragment>
   );
 };
 
-function areEqual(prevProps, nextProps) {
-  console.log(prevProps);
-  console.log(nextProps);
-  return true;
-}
-
-export default React.memo(ResumeForm, areEqual);
+export default ResumeForm;
