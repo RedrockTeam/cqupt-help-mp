@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, Text } from "@tarojs/components";
 import { chooseImage, uploadFile } from "@tarojs/taro";
 import styles from "./index.module.scss";
@@ -6,6 +6,7 @@ import { getToken } from "@/stores/user";
 type Props = {
   placeholder?: string;
   className?: string;
+  image: string;
   dispatchImage: (url: string) => void;
   // onClick?: () => any;
 };
@@ -14,10 +15,13 @@ const ImageUpload = ({
   placeholder = "上传图片",
   className,
   dispatchImage,
+  image,
 }: Props) => {
   const token = getToken();
-  const [image, setImage] = useState("");
-  const [uploaded, setUploaded] = useState(false);
+  const [uploaded, setUploaded] = useState<boolean>(false);
+  useEffect(() => {
+    setUploaded(!!image);
+  }, [image]);
   const uploadImage = async (tempFilePaths) => {
     try {
       uploadFile({
@@ -30,7 +34,6 @@ const ImageUpload = ({
         success(res) {
           const { data } = res;
           const info = JSON.parse(data);
-          setImage(info.data.name);
           dispatchImage(info.data.name);
           setUploaded(true);
         },
@@ -38,8 +41,6 @@ const ImageUpload = ({
     } catch (error) {}
   };
   const upload = () => {
-    console.log(1);
-
     chooseImage({
       sourceType: ["album", "camera"],
       fail: (res) => {

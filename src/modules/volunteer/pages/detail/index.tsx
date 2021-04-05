@@ -28,24 +28,6 @@ import { IVolunteerActivityDetail } from "../../services/dto";
 // import VolunteerActivityDetail from "../../../../mock/VolunteerActivityDetail.json";
 
 const VolunteerDetail = () => {
-  const NeedAdditions = {
-    "-1": "不用简历",
-    "0": "全选",
-    "1": "体重",
-    "2": "上传照片",
-    "3": "活动经验",
-    "4": "擅长语种",
-    "5": "英语过级",
-    "6": "辅导员姓名",
-    "7": "辅导员联系方式",
-    "8": "衣服型号",
-    "9": "政治面貌",
-    "10": "民族",
-    "11": "普通话等级",
-    "12": "志愿服务经历（校级以上）",
-    "13": "学生工作经历（大学期间）",
-    "14": "获奖情况（大学期间）",
-  };
   const FORM_INPUT_FIELD_LIST = [1, 9, 4, 5, 6, 7, 8, 9, 10, 11];
   const FORM_TEXTAREA_FIELD_LIST = [3, 12, 13, 14];
   const { params } = useRouter();
@@ -60,6 +42,7 @@ const VolunteerDetail = () => {
     ["getVolunteerActivityDetail", params.rely_id],
     getVolunteerActivityDetail
   );
+  // data = VolunteerActivityDetail;
   let info: IVolunteerActivityDetail;
   let viewItems = null;
   let formInputField: number[] = [];
@@ -311,7 +294,6 @@ const VolunteerDetail = () => {
         info={info}
         formInputField={formInputField}
         formTextareaField={formTextareaField}
-        NeedAdditions={NeedAdditions}
       />
     </View>
   );
