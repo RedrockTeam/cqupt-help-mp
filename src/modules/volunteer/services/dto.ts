@@ -62,9 +62,7 @@ export interface VolunteerActivityApply {
   id: number;
   begin_time: number;
   end_time: number;
-  addition: {
-    number?: string;
-  };
+  addition: string;
 }
 
 export type VolunteerActivityApplyRes = BaseRes;
