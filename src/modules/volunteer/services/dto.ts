@@ -18,6 +18,7 @@ export interface VolunteerActivity {
   description: string;
   date: number; // 截止志愿活动时间戳
   last_date: number; // 截止报名的时间戳
+  team_level: "校级" | "院级";
 }
 
 export interface VolunteerActivityListInfoRes extends BaseRes {
