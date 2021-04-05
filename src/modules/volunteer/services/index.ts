@@ -10,6 +10,8 @@ import {
   VolunteerActivityListInfoRes,
   VolunteerActivityQuitReq,
   VolunteerActivityQuitRes,
+  VolunteerActivitySignInReq,
+  VolunteerActivitySignInRes,
   VolunteerInfo,
 } from "./dto";
 
@@ -88,6 +90,15 @@ export const postVolunteerActivityQuit = (data: VolunteerActivityQuitReq) =>
  */
 export const postVolunteerActivityChange = (data: VolunteerActivityChangeReq) =>
   request<VolunteerActivityChangeRes>("/cyb-myactivities/change", {
+    method: "POST",
+    data,
+    header: {
+      "content-type": "application/x-www-form-urlencoded",
+    }
+  })
+
+export const postVolunteerActivitySignIn = ({code_id, data} :{code_id: string, data: VolunteerActivitySignInReq}) =>
+  request<VolunteerActivitySignInRes>(`/cyb-myactivities/change?code_id=${code_id}`, {
     method: "POST",
     data,
     header: {

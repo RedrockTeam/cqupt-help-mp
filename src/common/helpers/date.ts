@@ -116,11 +116,11 @@ export const genSeconds = (date: string) :{begin_time: number, end_time: number}
   let tmp_date = date.split(' ')[1]
   // @ts-ignore
   tmp_date = tmp_date.split('-')
-  console.log('date:', tmp_date)
+  // console.log('date:', tmp_date)
 
   const _begin_time = tmp_date[0].split(':')
   const begin_time = Number(_begin_time[0]) * 3600 + Number(_begin_time[1])
-  console.log('b:', begin_time)
+  // console.log('b:', begin_time)
   const _end_time = tmp_date[1].split(':')
   const end_time = Number(_end_time[0]) * 3600 + Number(_end_time[1])
   return {

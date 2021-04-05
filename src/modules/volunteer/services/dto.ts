@@ -29,7 +29,19 @@ export interface VolunteerActivityListInfoRes extends BaseRes {
   data: VolunteerActivity[];
 }
 
+export interface TimeDetail {
+  date: number;
+  id: number;
+  time_part_info: {
+    begin_time: number;
+    end_time: number;
+    max: number;
+    now: number;
+  }[]
+}
+
 export interface VolunteerActivityDetail {
+  detail: TimeDetail[];
   name: string;
   description: string;
   role: string; // 这是rule 后端命名的锅
@@ -88,3 +100,11 @@ export interface VolunteerActivityChangeReq {
 export interface VolunteerActivityChangeRes extends VolunteerActivityQuitRes {
 }// 跟退出活动的响应是一样的
 
+
+/**
+ * 扫码签到相关
+ */
+export interface VolunteerActivitySignInReq extends VolunteerActivityQuitReq {
+}// 跟退出活动的请求是一样的
+export interface VolunteerActivitySignInRes extends VolunteerActivityQuitRes {
+}// 跟退出活动的响应是一样的

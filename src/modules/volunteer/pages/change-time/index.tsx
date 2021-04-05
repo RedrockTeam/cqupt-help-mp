@@ -7,30 +7,27 @@ import NavBack from "@/common/components/nav-back";
 import {useQuery} from "react-query/dist/react-query.production.min";
 import {getVolunteerActivityDetail, postVolunteerActivityChange} from "@/modules/volunteer/services";
 import error from "@/static/images/error.png";
-import Placeholder from "@/common/components/placeholder";
 import {useContainer} from "unstated-next";
 import PopupContext from "@/stores/popup";
 import PickerTimeBasic from "@/modules/volunteer/components/picker-time-basic";
-import {
-  timestampToMDString,
-  timestampToHMString, genSeconds
-} from "@/common/helpers/date";
+import {genSeconds, timestampToHMString, timestampToMDString} from "@/common/helpers/date";
 import {useMutation} from "react-query";
+import Placeholder from "@/common/components/placeholder";
 
 
-const PAGE_TITLE = '修改班次'
+const PAGE_TITLE = "修改班次";
+const BACKGROUND = "#F6F6F9";
 
 const VolunteerChangeTime = () => {
-  let { name, team_name, start_date, last_date, rely_id, date: date_part, activity_id } = useRouter().params as Params;
-
-  console.log('date_part:', date_part)
-
-  name='name'
-  team_name='team_name'
-  start_date='2020.11.12'
-  last_date='2020.11.18'
-  date_part='11月13日 10:00-12:00'
-
+  let {
+    name,
+    team_name,
+    start_date,
+    last_date,
+    rely_id,
+    date: date_part,
+    activity_id
+  } = useRouter().params as Params;
 
 
   // picker
@@ -40,52 +37,13 @@ const VolunteerChangeTime = () => {
   const [timePart, setTimePart] = useState<string>(date_part.split(' ')[1])
   const [timePartIndex, setTimePartIndex] = useState<number>(0);
   const [isScrolling, setIsScrolling] = useState(false);
-  const [ , setShowPicker] = useState(true);
+  const [, setShowPicker] = useState(true);
 
-
-  let { data, isLoading, isError } = useQuery(
+  let {data, isLoading = true, isError = false} = useQuery(
     ["getVolunteerActivityDetail", rely_id],
     getVolunteerActivityDetail
   );
 
-  if (isLoading) return <Placeholder title="修改班次" />;
-  if (isError || !data) return <Placeholder title="修改班次" isError />;
-
-  // mock data
-  data.data = {
-    "name": "测试",
-    "team_name": "红岩网校工作站—Web研发部",
-    "description": "param test",
-    "role": "红岩网校工作站",
-    "sign_up_start": 1615996800,
-    "sign_up_last": 1615996800,
-    "hour": "1",
-    "last_date": 1685996800,
-    "start_date": 1615996800,
-    "num": "1-2人",
-    "imagines": "[\"https://www.bilibili.com/\",\"https://www.bilibili.com/\"]",
-    "need_additions": "[1,2,5,7]",
-    "detail": [
-      {
-        "id": 1,
-        "date": 1615996800,
-        "time_part_info": [
-          {
-            "begin_time": 3600,
-            "end_time": 3720,
-            "now": 0,
-            "max": 0
-          },
-          {
-            "begin_time": 7200,
-            "end_time": 25440,
-            "now": 0,
-            "max": 0
-          }
-        ]
-      }
-    ]
-  }
 
   /**
    * 生成picker表头时间字符串
@@ -97,21 +55,19 @@ const VolunteerChangeTime = () => {
     let date = data.data.detail[dateIndex];
     const timePart = date.time_part_info[timePartIndex];
 
-    console.log('date:', date)
+    // console.log('date:', date)
 
     date = timestampToMDString(date.date);
     setDate(date)
     setTimePart(`${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(timePart.end_time)}`)
-    console.log('date:', date)
-    console.log('time:', `${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(timePart.end_time)}`)
+    // console.log('date:', date)
+    // console.log('time:', `${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(timePart.end_time)}`)
   }
 
 
-
-  // let info = null;
+  //  处理获取的 data.detail 生成正确的 piker 的值
   let pickerValue;
   if (data) {
-    // info = data.data;
     const dateList = data.data.detail.map((item) => item.date);
     const timePartList = data.data.detail.map((item) => item.time_part_info);
     pickerValue = {
@@ -120,21 +76,16 @@ const VolunteerChangeTime = () => {
     };
   }
 
-
-
+  //  点击piker时改变时间
   const timeChange = (e: ITouchEvent) => {
     const dateIndex = e.detail.value[0]; // 要更改才生效
     const timePartIndex = e.detail.value[1]; // 要更改才生效
     setDateIndex(dateIndex);
     setTimePartIndex(timePartIndex);
-
     gen_date_str(data, dateIndex, timePartIndex)
-
-    console.log('dateIndex:', dateIndex)
-    console.log('timePartIndex:', timePartIndex)
-
   };
 
+  //  提交更改信息
   const [mutateChange] = useMutation(postVolunteerActivityChange, {
       onSuccess(res) {
         if (res.status === 10000) {
@@ -144,11 +95,7 @@ const VolunteerChangeTime = () => {
           const timer = setTimeout(() => {
             hide();
             clearTimeout(timer);
-
-            //  用户自定义的成功执行函数
-
-
-            navigateBack();
+            navigateBack().then();
           }, 3000);
         } else {
           const hide = Popup.show({
@@ -157,7 +104,7 @@ const VolunteerChangeTime = () => {
           const timer = setTimeout(() => {
             hide();
             clearTimeout(timer);
-          }, 1500);
+          }, 3000);
         }
       },
       onError() {
@@ -167,12 +114,11 @@ const VolunteerChangeTime = () => {
         const timer = setTimeout(() => {
           hide();
           clearTimeout(timer);
-        }, 1500);
-      }}
-)
-
-
-  const handleApply = async () => {
+        }, 3000);
+      }
+    }
+  )
+  const handleChange = async () => {
     if (!isScrolling) {
       setShowPicker(false);
       if (data) {
@@ -191,43 +137,28 @@ const VolunteerChangeTime = () => {
         //  处理时间为秒计数
         const {begin_time: old_begin, end_time: old_end} = genSeconds(date_part)
 
-        console.log('new timePart:', timePart)
-
-        // await mutateChange({
-        //   old: {
-        //     activity_id: Number(activity_id),
-        //     begin_time: old_begin,
-        //     end_time: old_end,
-        //   },
-        //   new: {
-        //     activity_id: Number(activity_id),
-        //     begin_time: 0,
-        //     end_time: 0,
-        //   }
-        // });
+        await mutateChange({
+          old: {
+            activity_id: Number(activity_id),
+            begin_time: old_begin,
+            end_time: old_end
+          },
+          new: {
+            activity_id: Number(activity_id),
+            begin_time: timePart.begin_time,
+            end_time: timePart.end_time
+          },
+        });
       }
     }
   }
 
-
-  const handleChange = async () => {
-
-    await handleApply()
-
-    //  popup hint
-    // const hide = Popup.show({
-    //   detail: "修改成功!"
-    // })
-    // const timer = setTimeout(() => {
-    //   hide();
-    //   clearTimeout(timer);
-    // }, 1500);
-  }
-
+  if (isLoading) return <Placeholder title="修改班次"/>;
+  if (isError) return <Placeholder title="修改班次" isError/>;
 
   return (
     <View className={styles.wrapper}>
-      <NavBack title={PAGE_TITLE} background="#F6F6F9"/>
+      <NavBack title={PAGE_TITLE} background={BACKGROUND}/>
 
       <View className={styles.volunteer}>
         <View className={styles.header}>
@@ -245,14 +176,17 @@ const VolunteerChangeTime = () => {
           <Text className={styles.time}>{date} {timePart}</Text>
         </View>
 
-        <PickerTimeBasic
-          format={'Y.M'}
-          value={pickerValue}
-          onTimeChange={timeChange}
-          onPickStart={() => setIsScrolling(true)}
-          onPickEnd={() => setIsScrolling(false)}
-          dateIndex={dateIndex}
-        />
+        {pickerValue ? (
+          <PickerTimeBasic
+            format={'Y.M'}
+            value={pickerValue}
+            onTimeChange={timeChange}
+            onPickStart={() => setIsScrolling(true)}
+            onPickEnd={() => setIsScrolling(false)}
+            dateIndex={dateIndex}
+          />
+        ) : null}
+
       </View>
 
       <Text className={styles.hint}>
@@ -263,7 +197,7 @@ const VolunteerChangeTime = () => {
         确认修改
       </Button>
 
-      <Popup.Comp />
+      <Popup.Comp/>
 
     </View>
   )

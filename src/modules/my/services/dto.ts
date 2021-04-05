@@ -1,19 +1,20 @@
-import { BaseRes } from "@/common/helpers/request";
+import {BaseRes} from "@/common/helpers/request";
 
 // 我的活动
 export interface MyActivity {
-  id: number;
-  type: 0 | 1; // 0 表示普通活动， 1 表示志愿活动
+  rely_id: number;
+  id: number;                                 //  活动id
+  type: 0 | 1;                                // 0 表示普通活动， 1 表示志愿活动
   name: string;
   team_name: string;
   description?: string;
-  sign_up_start?: number; // 报名时间段
+  sign_up_start?: number;                     // 报名时间段
   sign_up_last?: number;
-  start_date: number; // 活动时间段
+  start_date: number;                         // 活动时间段
   last_date: number;
-  registration_time: number; // 用户报名的当天时间
+  registration_time: number;                  // 用户报名的当天时间
   result?: {
-    pass: "0" | "1" | "2"; // 0: 等待结果， 1: 录取通过， 2: 录取不通过
+    pass: "0" | "1" | "2";                    // 0: 等待结果， 1: 录取通过， 2: 录取不通过
     qq?: string;
   };
   time_part: {
@@ -21,8 +22,9 @@ export interface MyActivity {
     begin_time: number;
     end_time: number;
   };
-  date?: number; // 用户选择的 参与活动的日期
-  if_read: 1 | 2 | 3; // 1:未读，2:已读，3:无法读取
+  date?: number;                              // 用户选择的 参与活动的日期
+  if_read: 1 | 2 | 3;                         // 1:未读，      2:已读，       3:无法读取
+  is_change: 0 | 1 | 2;                       // 0:未改变,     1:审核中,      3:已改变     用户是否改变志愿班次
 }
 
 export type MyActivities = MyActivity[];

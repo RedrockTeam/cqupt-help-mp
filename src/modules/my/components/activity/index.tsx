@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase,default-case */
 import React from "react";
 import {Button, Text, View} from "@tarojs/components";
 import {now, timestampToDateString, timestampToFormString,} from "@/common/helpers/date";
@@ -29,6 +28,8 @@ const translateTimeToClock = (begin_time: number, end_time: number) => {
 };
 
 const Activity = ({
+                    rely_id,
+                    is_change,
                     type,
                     id,
                     name,
@@ -76,7 +77,7 @@ const Activity = ({
             className={`${styles.btn} ${styles.btn_detail}`}
             onClick={() =>
               navTo({
-                url: `${resolvePage("volunteer", "detail")}?rely_id=${id}`,
+                url: `${resolvePage("volunteer", "detail")}?rely_id=${rely_id}`,
               })
             }
           >
@@ -85,12 +86,6 @@ const Activity = ({
         );
 
       case 1:
-      // return (
-      //   <Button className={`${styles.btn} ${styles.btn_waiting}`}>
-      //     等待结果
-      //   </Button>
-      // );
-
       case 2:
         return (
           <Button
@@ -109,9 +104,9 @@ const Activity = ({
                 }&date=${time_area
                 }&registration_time=${registration_time
                 }&activity_id=${id
-                }&rely_id=${id}`,
+                }&rely_id=${rely_id
+                }&is_change=${is_change}`,
               });
-              console.log("go to application", id);
             }}
           >
             查看结果
@@ -165,8 +160,8 @@ const Activity = ({
         )}
 
         {/* 志愿活动的按钮 */}
-        {/*{type !== 0 && !isOverdue() ?*/}
-          {type !== 0 ?
+        {type !== 0 && !isOverdue() ?
+          // {type !== 0 ?
           (<View className={styles.btnWrapper}>
             {renderBtn(0, id)}
             {renderBtn(ifPassed(), id)}

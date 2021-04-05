@@ -24,12 +24,13 @@ import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
 
+// TODO: 图床链接已失效，仅一个可用，下次找别的换了
 const list = [
-  "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",
-  "https://wx.redrock.team/game/cqupt-help-mp/slider-img1.jpg",
+  // "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",
+  // "https://wx.redrock.team/game/cqupt-help-mp/slider-img1.jpg",
   "http://cdn.redrock.team/cqupt-help-mp_banner.png",
-  "https://wx.redrock.team/game/cqupt-help-mp/slider-img3.jpg",
-  "https://wx.redrock.team/game/cqupt-help-mp/slider-img4.jpg",
+  // "https://wx.redrock.team/game/cqupt-help-mp/slider-img3.jpg",
+  // "https://wx.redrock.team/game/cqupt-help-mp/slider-img4.jpg",
 ]; // 轮播图的图片
 
 export default function Index() {

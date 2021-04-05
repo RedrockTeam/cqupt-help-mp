@@ -1,19 +1,19 @@
-/* eslint-disable no-console */
-import React, { useState } from "react";
-import { switchTab, useDidShow } from "@tarojs/taro";
-import { View } from "@tarojs/components";
+import React, {useState} from "react";
+import {switchTab, useDidShow} from "@tarojs/taro";
+import {View} from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
-import { resolvePage } from "@/common/helpers/utils";
+import {resolvePage} from "@/common/helpers/utils";
 
-import { useMutation } from "react-query/dist/react-query.production.min";
+import {useMutation} from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
 import Empty from "@/common/components/empty";
-import { getMyActivities } from "../../services/index";
+import {getMyActivities} from "../../services/index";
 import Activity from "../../components/activity";
 import styles from "./index.module.scss";
-import { MyActivities } from "../../services/dto";
+import {MyActivities} from "../../services/dto";
 
 const PAGE_TITLE = "我的活动";
+const BACKGROUND = "#FFFFFF";
 
 const MyActivity = () => {
   const [active, setActive] = useState<number>(0);
@@ -24,18 +24,20 @@ const MyActivity = () => {
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
 
+  //  获取我的所有活动
   const [mutateActivityListRes] = useMutation(getMyActivities, {
     onSuccess(activityListRes) {
       setActivityListRes(activityListRes);
       setLoading(false);
 
-      // eslint-disable-next-line prefer-const
       let activityList: MyActivities = activityListRes.data;
 
       console.log('activityList:', activityList)
 
       activityList = [
         {
+          rely_id: 1,
+          is_change: 1,
           "id": 272,
           "type": 1,
           "name": "测试我的活动",
@@ -58,6 +60,8 @@ const MyActivity = () => {
           "registration_time": 1605057216
         },
         {
+          rely_id: 1,
+          is_change: 2,
           "id": 276,
           "type": 1,
           "name": "测试我的活动",
@@ -65,7 +69,7 @@ const MyActivity = () => {
           "team_name": "红岩网校工作站—Web研发部",
           "sign_up_start": 1605024000,
           "sign_up_last": 1605110400,
-          "last_date": 1605628800,
+          "last_date": 1705628800,
           "start_date": 1605110400,
           "date": 1605542400,
           "time_part": {
@@ -80,6 +84,8 @@ const MyActivity = () => {
           "registration_time": 1605057225
         },
         {
+          rely_id: 1,
+          is_change: 0,
           "id": 274,
           "type": 1,
           "name": "测试我的活动",
@@ -87,7 +93,7 @@ const MyActivity = () => {
           "team_name": "红岩网校工作站—Web研发部",
           "sign_up_start": 1605024000,
           "sign_up_last": 1605110400,
-          "last_date": 1705628800,
+          "last_date": 1605110400,
           "start_date": 1605110400,
           "date": 1605369600,
           "time_part": {
@@ -102,6 +108,7 @@ const MyActivity = () => {
           "registration_time": 1605057234
         }
       ]
+
       if (activityList) {
         console.log("activityList: ", activityList);
 
@@ -125,16 +132,16 @@ const MyActivity = () => {
     },
   });
   useDidShow(() => {
-    mutateActivityListRes();
+    mutateActivityListRes().then();
   });
 
-  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isLoading) return <Placeholder title={PAGE_TITLE}/>;
   if (isError || !activityListRes)
-    return <Placeholder title={PAGE_TITLE} isError />;
+    return <Placeholder title={PAGE_TITLE} isError/>;
 
   return (
     <View className={styles.wrapper}>
-      <NavBack title={PAGE_TITLE} background="#FFFFFF" />
+      <NavBack title={PAGE_TITLE} background={BACKGROUND}/>
 
       <View className={styles.header}>
         <View
@@ -168,12 +175,14 @@ const MyActivity = () => {
             title={PAGE_TITLE}
             detail="活动空空如也哦～"
             suggestion="快去参加活动领取奖品吧"
-            onBtnClick={() => switchTab({ url: resolvePage("index", "home") })}
+            onBtnClick={() => switchTab({url: resolvePage("index", "home")})}
             btnContent="查看活动"
           />
         ) : (
           commonList.map((e) => (
             <Activity
+              rely_id={e.rely_id}
+              is_change={e.is_change}
               id={e.id}
               type={e.type}
               name={e.name}
@@ -206,12 +215,14 @@ const MyActivity = () => {
             title={PAGE_TITLE}
             detail="活动空空如也哦～"
             suggestion="快去参加活动领取奖品吧"
-            onBtnClick={() => switchTab({ url: resolvePage("index", "home") })}
+            onBtnClick={() => switchTab({url: resolvePage("index", "home")})}
             btnContent="查看活动"
           />
         ) : (
           volunteerList.map((e) => (
             <Activity
+              rely_id={e.rely_id}
+              is_change={e.is_change}
               id={e.id}
               type={e.type}
               name={e.name}

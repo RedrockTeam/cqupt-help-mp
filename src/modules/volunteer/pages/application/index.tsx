@@ -1,4 +1,3 @@
-// /*  @typescript-eslint/camelcase */
 import React, {useState} from "react";
 import {Button, Image, Text, View} from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
@@ -8,13 +7,19 @@ import copyPng from "@/static/images/volunteer-copy.png";
 import scanPng from "@/static/images/scan-code.png";
 import {useQuery} from "react-query/dist/react-query.production.min";
 import styles from "./index.module.scss";
-import {postVolunteerActivityChange, postVolunteerActivityQuit, postVolunteerActivityRead} from "../../services";
+import {
+  postVolunteerActivityChange,
+  postVolunteerActivityQuit,
+  postVolunteerActivityRead,
+  postVolunteerActivitySignIn
+} from "../../services";
 import ActionSheet from "../../components/actionSheet/index";
 import {navTo, resolvePage} from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
 import {useContainer} from "unstated-next";
 import {useMutation} from "react-query";
 import {genSeconds} from "@/common/helpers/date";
+import {getMyActivities} from "@/modules/my/services";
 
 
 const PAGE_TITLE = "报名结果";
@@ -24,14 +29,12 @@ const KEY_QUIT = 'quit';
 const KEY_CHANGE_TIME = 'change-time';
 
 
-const MutateConfig = (Popup, successFunc, ifBack: boolean) => {
+const MutateConfig = (Popup, successFunc, ifBack: boolean, detail: string) => {
   return {
     onSuccess(res) {
       if (res.status === 10000) {
         const hide = Popup.show({
-          detail: "请尽快与本次志愿活动qq群群\n" +
-            "管理员取得联系，并等待管理\n" +
-            "员的审核！",
+          detail,
         });
         const timer = setTimeout(() => {
           hide();
@@ -77,12 +80,47 @@ export interface Params extends Record<string, string> {
   registration_time: string;
   activity_id: string;
   rely_id: string;
+  is_change: '0' | '1' | '2';
 }
 
 const VolunteerApply = () => {
   const params: Params = useRouter().params as Params;
-  const {name, pass, concat, date, registration_time, team_name, start_date, last_date, activity_id} = params;
+  const {
+    rely_id,
+    is_change,
+    name,
+    pass,
+    concat,
+    date,
+    registration_time,
+    team_name,
+    start_date,
+    last_date,
+    activity_id
+  } = params;
   const {realName} = useUserInfo();
+
+  //  管理是否更改班次的状态
+  const [changeState, setChangeState] = useState<string>(is_change);
+
+
+  let {data} = useQuery(
+    ["getMyActivities"],
+    getMyActivities
+  );
+
+  console.log('getMyActivities-data:', data)
+
+  if (data?.data) {
+    const tarActivity = data.data.filter(activity => {
+      const {begin_time, end_time} = genSeconds(date)
+      return activity.rely_id == Number(rely_id)
+        && activity.id == Number(activity_id)
+        && activity.time_part.begin_time == begin_time
+        && activity.time_part.end_time == end_time
+    })
+    setChangeState(String(tarActivity[0].is_change));
+  }
 
 
   //  已读状态管理
@@ -94,7 +132,7 @@ const VolunteerApply = () => {
   const copy = () => {
     Taro.setClipboardData({
       data: concat,
-    });
+    }).then();
   };
 
 
@@ -102,7 +140,7 @@ const VolunteerApply = () => {
   const [showSheet, setShowSheet] = useState<boolean>(false);
   const [sheetKey, setSheetKey] = useState<string | Symbol>(KEY_QUIT);
   const [sheetTitle, setSheetTitle] = useState<{ desc: string, detail: string }>(
-    pass === '0' ?
+    pass === '1' ?
       {
         desc: '确定退出此活动？',
         detail: '选择退出将会降低其他志愿活动录取概率'
@@ -153,22 +191,16 @@ const VolunteerApply = () => {
 
 
   //  dispatch change time req
-  const [mutateChange] = useMutation(postVolunteerActivityChange, MutateConfig(Popup, () => {
-  }, false))
+  const [mutateChange] = useMutation(postVolunteerActivityChange,
+    MutateConfig(Popup,
+      () => {
+      },
+      false,
+      pass === '1' ? "请尽快与本次志愿活动qq群群\n" +
+        "管理员取得联系，并等待管理\n" +
+        "员的审核！" : "您已成功退出本次活动。"))
 
   const handleChangeTime = async () => {
-    // console.log('click')
-    // const hidePop = Popup.show({
-    //   title: "申请成功",
-    //   detail: "申请结果将会通过重邮小帮手进行通知",
-    // })
-    // setTimeout(() => {
-    //   hidePop()
-    // }, 3000)
-
-    //  TODO: 根据录取结果是否确认来采用不同的策略:
-    //        等待录取则进入换班次页面
-    //        录取则popup提示
     if (pass === '0') {             //  等待结果的情况下
       navTo({
         url: `${resolvePage(
@@ -178,13 +210,11 @@ const VolunteerApply = () => {
         }&team_name=${team_name
         }&start_date=${start_date
         }&last_date=${last_date
-        }&date=${date}`,
+        }&date=${date
+        }&rely_id=${rely_id}`,
       });
     } else if (pass === '1') {      //  成功录取的情况下
-
-
       const {begin_time, end_time} = genSeconds(date)
-
       await mutateChange({
         old: {
           activity_id: Number(activity_id),
@@ -202,34 +232,37 @@ const VolunteerApply = () => {
 
 
   //  dispatch quit req
-  const [mutateQuit] = useMutation(postVolunteerActivityQuit, MutateConfig(Popup, ()=>{}, true))
+  const [mutateQuit] = useMutation(postVolunteerActivityQuit,
+    MutateConfig(Popup,
+      () => {
+      },
+      true,
+      pass === '1' ? "请尽快与本次志愿活动qq群群\n" +
+        "管理员取得联系，并等待管理\n" +
+        "员的审核！" : "您已成功退出本次活动。"))
 
   const handleQuit = async () => {
     console.log('quit');
-
     const {begin_time, end_time} = genSeconds(date)
-
     await mutateQuit({
       activity_id: Number(activity_id),
       begin_time,
       end_time,
     })
-
   }
 
 
   //  actionSheet handle hook
-  // @ts-ignore
-  const handleActionClick = (text, index, key) => {
-
+  const handleActionClick = ({sheetKey: key}) => {
     if (key === KEY_CHANGE_TIME) {
-      handleChangeTime();
+      cancelShowSheet();
+      handleChangeTime().then();
     } else if (key === KEY_QUIT) {
-      handleQuit();
+      cancelShowSheet();
+      handleQuit().then();
     }
   }
   const handleCancel = () => {
-    console.log('cancel');
     cancelShowSheet()
   }
 
@@ -237,27 +270,35 @@ const VolunteerApply = () => {
   //  扫码签到
   const [isScanned, setIsScanned] = useState<boolean>(false)
   const [scanText, setScanText] = useState<string>('扫码签到')
-  const mutateScan = async (res) => {
-    await console.log('mutateScan:', res)
-
-
-    setIsScanned(true);
-    setScanText('签到成功');
-  }
-
+  const [mutateScan] = useMutation(postVolunteerActivitySignIn, MutateConfig(
+    Popup,
+    () => {
+      setIsScanned(true);
+      setScanText('签到成功');
+    },
+    false,
+    '签到成功！'
+  ))
   const handleScan = async () => {
+
+    // TODO: 根据二维码的字段进行param处理 获取code_id
+
     scanCode({
       async success({result}) {
-        await mutateScan(result);
+        console.log('scan-result:', result);
+
+        const {begin_time, end_time} = genSeconds(date);
+
+        await mutateScan({
+          code_id: '',
+          data: {
+            activity_id: Number(activity_id),
+            begin_time,
+            end_time
+          }
+        });
 
 
-        const hide = Popup.show({
-          detail: '签到成功！'
-        })
-        const timer = setTimeout(() => {
-          hide();
-          clearTimeout(timer);
-        }, 1500)
       },
       fail() {
         const hide = Popup.show({
@@ -268,7 +309,7 @@ const VolunteerApply = () => {
           clearTimeout(timer);
         }, 1500)
       }
-    });
+    }).then();
   };
 
 
@@ -301,8 +342,7 @@ const VolunteerApply = () => {
                     (
                       <Text>
                         {`恭喜您通过了${name}志愿活动`}
-                        {/* TODO: 根据是否修改过班次来确认时间段的样式}*/}
-                        <Text className={true ? styles.time_out : null}>
+                        <Text className={changeState === '2' ? styles.time_out : null}>
                           {date}
                         </Text>
                         {`的志愿报名，请你尽快加入到我们的志愿活动qq群，了解本次志愿活动的详细信息，群号为${concat}`}
@@ -324,27 +364,32 @@ const VolunteerApply = () => {
             )
           }
 
-          {!isScanned ? (
-            <View className={styles.btnWrapper}>
-              <Button className={`${styles.btn} ${styles.btn_quit}`}
-                      onClick={() => handleShowSheet(KEY_QUIT)}
-              >
-                退出活动
-              </Button>
-              <Button className={`${styles.btn}`}
-                      onClick={() => handleShowSheet(KEY_CHANGE_TIME)}
-              >
-                换班申请
-              </Button>
-            </View>
-          ) : (
-            // TODO：根据 在 已录取 情况下是否修改的状态来添加提示按钮
-            <View className={styles.btnWrapper}>
-              <Button className={`${styles.btn} ${styles.btn_waiting}`}>
-                管理员审核中
-              </Button>
-            </View>
-          )}
+          {changeState === '0' ? (
+              <View className={styles.btnWrapper}>
+                <Button className={`${styles.btn} ${styles.btn_quit}`}
+                        onClick={() => handleShowSheet(KEY_QUIT)}
+                >
+                  退出活动
+                </Button>
+                <Button className={`${styles.btn}`}
+                        onClick={() => handleShowSheet(KEY_CHANGE_TIME)}
+                >
+                  换班申请
+                </Button>
+              </View>
+            ) :
+            changeState === '1' ? (
+              <View className={styles.btnWrapper}>
+                <Button className={`${styles.btn} ${styles.btn_waiting}`}>
+                  管理员审核中
+                </Button>
+              </View>
+            ) : (
+              <Text className={styles.hint}>
+                志愿服务班次已修改
+              </Text>
+            )
+          }
         </View>
       </View>
 
@@ -352,7 +397,7 @@ const VolunteerApply = () => {
         sheetKey={sheetKey}
         visible={showSheet}
         itemList={['确认']}
-        onClick={handleActionClick}
+        onClick={handleActionClick as any}
         onCancel={handleCancel}
         showCancel={true}
         showTitle={true}
