@@ -95,7 +95,8 @@ const Ticket = ({
     if (type === 0) {
       return (
         <View
-          onClick={() => { navTo({ url: resolvePage("ticket", "rob-ticket-info") }) }}
+          onClick={(e) => { navTo({ url: `${resolvePage("ticket", "rob-ticket-info")}?id=${id}` });console.log(id);
+           }}
           className={styles.content}>
           <View className={styles.info} style="width: 100%">
             <View className={styles.header}>
