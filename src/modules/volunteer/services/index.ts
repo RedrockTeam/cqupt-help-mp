@@ -7,7 +7,7 @@ import {
   VolunteerActivityDetailRes,
   VolunteerActivityApply,
   VolunteerActivityApplyRes,
-  VolunteerActivityApplicationRes,
+  // VolunteerActivityApplicationRes,
 } from "./dto";
 
 export const checkIsVolunteer = (_key: string) =>
