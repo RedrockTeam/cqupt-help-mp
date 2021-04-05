@@ -74,6 +74,7 @@ const RobTicket = () => {
         // removeStorage({
         //   key: "remindRule"
         // })
+        // SelectPopupCounter.setState(true);
       },
       fail: () => {
         setStorage({
@@ -86,6 +87,7 @@ const RobTicket = () => {
 
     const Click = () => {
       navTo({ url: resolvePage("ticket", "rob-ticket-info") })
+      // SelectPopupCounter.changeState();
     }
 
     return (
@@ -190,6 +192,7 @@ const RobTicket = () => {
             <Ticket
               id={e.id}
               playTime={dayjs(e.play_time).unix()}
+              endTime={dayjs(e.end_time).unix()}
               robTime={dayjs(e.begin_time).unix()}
               location={e.location}
               remain={e.left}
@@ -198,6 +201,7 @@ const RobTicket = () => {
               isReceived={e.is_received}
               onRobTicket={handleRobTicket}
               key={e.id}
+              type={e.type}
             />
         ))}
       </View>

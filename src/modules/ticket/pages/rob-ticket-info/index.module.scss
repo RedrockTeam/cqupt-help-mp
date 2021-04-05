@@ -1,3 +1,80 @@
 .robTicketInfo {
-  padding: 20px;
+  // padding: 20px;
+  background-color: white;
+}
+
+.previewImage {
+  width: 750px;
+  height: 376px;
+  z-index: 1;
+}
+// .placeholder {
+//   position: absolute;
+//   top: 200px;
+//   left: 0;
+//   background-color: white;
+//   height: 20px;
+//   z-index: 4;
+//   border: black solid 1px;
+//   border-top-left-radius: 20px;
+//   border-top-right-radius: 20px;
+// }
+.content {
+  // border: black solid 1px;
+  margin-bottom: 30px;
+  padding:0 30px;
+  .title {
+    font-size: 40px;
+    width: 700;
+    color: #1C184C;
+    margin: 20px 0;
+    // margin-top: 30px;
+  }
+  .text {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    color: #777494;
+  }
+}
+.content::after {
+  position: absolute;
+  top: 515px;
+  left: 0;
+  content: "";
+  height: 20px;
+  width: 750px;
+  background-color: white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: block;
+}
+
+.introduction {
+  border-top: 6px solid rgba(28, 24, 76, 0.03);
+  padding: 30px;
+  .introductionItem {
+    margin-top: 20px;
+    .title {
+      color: #1C184C;
+      font-size: 30px;
+      font-weight: 700;
+    }
+    .body {
+      margin-top: 20px;
+      color: #494670;
+      line-height: 50px;
+      letter-spacing: 3px;
+    }
+  }
+}
+
+.btnCover {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 50px;
+  width: 100vw;
 }

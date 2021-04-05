@@ -32,7 +32,11 @@ const Bottom = ({
   if (bottomType === 1) {
     return (
       <View>
-        <Button onClick={() => confirmFun()}>确定</Button>
+        <View className={styles.line}></View>
+        <Button 
+          onClick={() => confirmFun()}
+          className={styles.bottomOne}
+        >我知道了</Button>
       </View>
     )
   } else if (bottomType === 2) {

@@ -21,6 +21,7 @@ const TypeHeader = ({
   MovieFun,
   LectureFun,
 }: Props) => {
+  // typeState ===0 表示讲座 ===1 表示影票
   const [ typeState, setTypeState ] = useState(0);
 
   const changeType = (click: Function) => {
@@ -34,7 +35,7 @@ const TypeHeader = ({
         className={`${styles.button} ${styles.flexRow}`}
         onClick={() => changeType(MovieFun)}
       >
-        <View>讲座</View>
+        <View className={typeState === 0?styles.titleSelect:styles.titleSelectOff}>讲座</View>
         {
           typeState === 0?(<Image className={styles.underLine} src={underLine}></Image>):""
         }
@@ -43,7 +44,7 @@ const TypeHeader = ({
         className={`${styles.button} ${styles.flexRow}`}
         onClick={() => changeType(LectureFun)}
       >
-        <View>影票</View>
+        <View className={typeState === 1?styles.titleSelect:styles.titleSelectOff}>影票</View>
         {
           typeState === 1?(<Image className={styles.underLine} src={underLine}></Image>):""
         }

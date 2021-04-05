@@ -6,6 +6,7 @@ import avator from "@/static/images/empty.png";
 import aboutIcon from "@/static/images/about-icon.png";
 import loginOut from "@/static/images/login-out-icon.png";
 import feedbackIcon from "@/static/images/feedback-icon.png";
+import ticketAppeal from "@/static/images/ticketappeal-icon.png";
 import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
@@ -122,6 +123,14 @@ function MyIndex() {
         >
           <Image src={feedbackIcon} className={styles.icon} />
           <Text className={styles.text}>意见反馈</Text>
+          <Image src={enter} className={styles.enter} />
+        </View>
+        <View
+          className={styles.feedback}
+          onClick={() => navTo({ url: resolvePage("feedback", "index") })}
+        >
+          <Image src={ticketAppeal} className={styles.icon} />
+          <Text className={styles.text}>影票申诉</Text>
           <Image src={enter} className={styles.enter} />
         </View>
         <View

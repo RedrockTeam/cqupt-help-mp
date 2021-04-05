@@ -2,8 +2,8 @@
  * @Author: myjdml
  * @Date: 2021-03-10 21:11:01
  * @LastEditors: myjdml
- * @LastEditTime: 2021-03-23 20:20:40
- * @FilePath: /cqupt-help-mp/src/app.config.ts
+ * @LastEditTime: 2021-04-05 21:59:43
+ * @FilePath: \cqupt-help-mp\src\app.config.ts
  * @Description: nothing is everything
  */
 /* eslint-disable prettier/prettier */
@@ -12,7 +12,8 @@ const resolvePage = (module: string, page: string) =>
 
 export default {
   pages: [
-    resolvePage("ticket", "rob-ticket"),
+    // resolvePage("ticket", "rob-ticket"),
+    resolvePage("ticket", "rob-ticket-info"),
     resolvePage("index", "home"),
     resolvePage("index", "activity-detail"),
     resolvePage("campus", "index"),
@@ -23,8 +24,8 @@ export default {
     resolvePage("volunteer", "index"),
     resolvePage("volunteer", "detail"),
     resolvePage("volunteer", "application"),
-    // resolvePage("ticket", "rob-ticket"),
-    resolvePage("ticket", "rob-ticket-info"),
+    resolvePage("ticket", "rob-ticket"),
+    // resolvePage("ticket", "rob-ticket-info"),
     resolvePage("id", "index"),
     resolvePage("id", "apply"),
     resolvePage("my", "index"),

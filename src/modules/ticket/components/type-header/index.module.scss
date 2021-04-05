@@ -6,10 +6,16 @@
   justify-content: center;
   align-items: center;
   font-size: 34px;
-  font-weight: 500;
+  font-weight: 700;
   // margin-bottom: 20px;
   padding-bottom: 40px;
   background-color: #FFFFFF;
+  .titleSelect {
+    color: #1C184C;
+  }
+  .titleSelectOff {
+    color: #A4A3B7;
+  }
   .button {
     width: 45%;
     height: 90px;

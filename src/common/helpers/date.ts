@@ -31,6 +31,16 @@ export const timestampToTimeCNString = (timestamp: number) =>
   timestampToDayjs(timestamp).format("MM 月 DD 日 HH:mm");
 
 /**
+ * @description:  两个时间戳转换为一段时间字符串
+ * @param {number} timestampEarly
+ * @param {number} timestampLater
+ * @return {*}
+ */
+export const timestampToTimeStreamString = (timestampEarly: number,  timestampLater: number) => {
+  return `${timestampToDayjs(timestampEarly).format("MM 月 DD 日 HH:mm")}-${timestampToDayjs(timestampLater).format("HH:mm")}`;
+}
+
+/**
  * 现在时间的十位 Unix 时间戳
  */
 export const now = () => new Date().getTime() / 1000;
