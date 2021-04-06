@@ -129,3 +129,8 @@ export const genSeconds = (date : string) :{begin_time: number, end_time: number
   }
 }
 
+ *
+ * 时间戳转化为时:秒
+ */
+export const timestampToHMString = (timestamp: number) =>
+  timestampToDayjs(timestamp - 8 * 60 * 60).format("HH:mm");
