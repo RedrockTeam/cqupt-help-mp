@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React from "react";
 import { View, Image, Text, ITouchEvent } from "@tarojs/components";
 import emptyImg from "@/static/images/empty.png";

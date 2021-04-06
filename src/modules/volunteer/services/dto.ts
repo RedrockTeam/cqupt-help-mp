@@ -1,4 +1,4 @@
-import { BaseRes } from "@/common/helpers/request";
+import {BaseRes} from "@/common/helpers/request";
 
 export interface CheckIsVolunteerRes extends BaseRes {
   exist: boolean;
@@ -25,6 +25,19 @@ export interface VolunteerActivityListInfoRes extends BaseRes {
   data: VolunteerActivity[];
 }
 
+export interface TimeDetail {
+  date: number;
+  id: number;
+  time_part_info: {
+    begin_time: number;
+    end_time: number;
+    max: number;
+    now: number;
+  }[]
+}
+
+export interface VolunteerActivityDetail {
+  detail: TimeDetail[];
 interface IVolunteerTimePartDetail {
   id: number; // 每天的志愿有不同的id
   date: number; //活动日期时间戳
@@ -67,3 +80,47 @@ export interface VolunteerActivityApply {
 }
 
 export type VolunteerActivityApplyRes = BaseRes;
+
+
+/**
+ * 退出志愿活动相关
+ */
+export interface VolunteerActivityQuitReq {
+  activity_id: number;
+  begin_time: number;
+  end_time: number;
+}
+
+export interface VolunteerActivityQuitRes {   //  响应
+  status: number;
+  info: string;
+}
+
+
+/**
+ * 志愿活动更改班次相关
+ */
+export interface VolunteerActivityChangeReq {
+  old: {
+    activity_id: number;
+    begin_time: number;
+    end_time: number;
+  },
+  new: {
+    activity_id: number;
+    begin_time: number;
+    end_time: number;
+  }
+}
+
+export interface VolunteerActivityChangeRes extends VolunteerActivityQuitRes {
+}// 跟退出活动的响应是一样的
+
+
+/**
+ * 扫码签到相关
+ */
+export interface VolunteerActivitySignInReq extends VolunteerActivityQuitReq {
+}// 跟退出活动的请求是一样的
+export interface VolunteerActivitySignInRes extends VolunteerActivityQuitRes {
+}// 跟退出活动的响应是一样的
