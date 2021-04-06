@@ -47,8 +47,14 @@ const VolunteerDetail = () => {
   let viewItems = null;
   let formInputField: number[] = [];
   let formTextareaField: number[] = [];
-  if (data) {
+  if (data?.data) {
     info = data.data;
+
+    //  判断是否为字符串
+    if (typeof info.need_additions === 'string') {
+      info.need_additions = info.need_additions.match(/\[(.+?)\]/g);
+    }
+
     info.need_additions.forEach((v: number) => {
       FORM_INPUT_FIELD_LIST.includes(v) && formInputField.push(v);
       FORM_TEXTAREA_FIELD_LIST.includes(v) && formTextareaField.push(v);
