@@ -36,8 +36,6 @@ export interface TimeDetail {
   }[]
 }
 
-export interface VolunteerActivityDetail {
-  detail: TimeDetail[];
 interface IVolunteerTimePartDetail {
   id: number; // 每天的志愿有不同的id
   date: number; //活动日期时间戳
