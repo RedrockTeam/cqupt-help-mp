@@ -12,7 +12,7 @@ type Props = {
     detail: string;
   };
   itemList: string[];
-  onClick: (tarText: string, indexKey: number, sheetKey: string | Symbol | undefined) => unknown;
+  onClick: (obj: { tarText: string, indexKey: number, sheetKey: string | Symbol | undefined }) => unknown;
   onCancel: (event: ITouchEvent) => unknown;
 }
 
@@ -47,7 +47,7 @@ const ActionSheet = ({
         {itemList.map((item, i) => {
           return (
             <View key={i}
-                  onClick={() => onClick(item, i, sheetKey)}
+                  onClick={() => onClick({indexKey: i, tarText: item, sheetKey})}
             >
               {item}
             </View>

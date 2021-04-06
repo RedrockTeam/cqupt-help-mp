@@ -279,11 +279,12 @@ const VolunteerApply = () => {
 
 
   //  actionSheet handle hook
-  const handleActionClick = ({sheetKey: key}) => {
-    if (key === KEY_CHANGE_TIME) {
+  const handleActionClick = ({sheetKey}) => {
+    console.log('sheetKey:', sheetKey)
+    if (sheetKey === KEY_CHANGE_TIME) {
       cancelShowSheet();
       handleChangeTime().then();
-    } else if (key === KEY_QUIT) {
+    } else if (sheetKey === KEY_QUIT) {
       cancelShowSheet();
       handleQuit().then();
     }

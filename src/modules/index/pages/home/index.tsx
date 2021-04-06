@@ -88,7 +88,9 @@ export default function Index() {
           );
         })
     ) : (
-      <Empty detail="暂无活动" />
+      <View>
+        <Empty detail="暂无活动" />
+      </View>
     );
   };
 
