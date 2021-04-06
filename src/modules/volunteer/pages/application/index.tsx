@@ -18,7 +18,7 @@ import {navTo, resolvePage} from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
 import {useContainer} from "unstated-next";
 import {useMutation} from "react-query";
-import {genSeconds} from "@/common/helpers/date";
+import {genSeconds, timestampToMDString} from "@/common/helpers/date";
 import {getMyActivities} from "@/modules/my/services";
 
 
@@ -27,6 +27,23 @@ const NAV_BACKGROUND = '#F6F6F9';
 
 const KEY_QUIT = 'quit';
 const KEY_CHANGE_TIME = 'change-time';
+
+
+//  判断当前时间是否在签到开始前后15min内
+const timeLegal = (date: string) => {
+  const nowStamp = Date.parse(new Date() as any) / 1000;
+  const nowDate = timestampToMDString(nowStamp);
+  const _date = date.split(' ')[0];
+  if (_date != nowDate) return false;
+
+  // @ts-ignore
+  const _time = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
+  const dif = nowStamp - _time;
+
+  const {begin_time} = genSeconds(date);
+  const dif_minute = (dif - begin_time) / (60 * 15);
+  return !(dif_minute > 1 || dif_minute < -1);
+}
 
 
 const MutateConfig = (Popup, successFunc, ifBack: boolean, detail: string) => {
@@ -81,6 +98,7 @@ export interface Params extends Record<string, string> {
   activity_id: string;
   rely_id: string;
   is_change: '0' | '1' | '2';
+  is_sign: '0' | '1';
 }
 
 const VolunteerApply = () => {
@@ -96,9 +114,14 @@ const VolunteerApply = () => {
     team_name,
     start_date,
     last_date,
-    activity_id
+    activity_id,
+    is_sign,
   } = params;
   const {realName} = useUserInfo();
+
+  //  管理签到状态
+  const [isScanned, setIsScanned] = useState<boolean>(is_sign === '1');
+  const [scanText, setScanText] = useState<string>('扫码签到');
 
   //  管理是否更改班次的状态
   const [changeState, setChangeState] = useState<string>(is_change);
@@ -120,6 +143,7 @@ const VolunteerApply = () => {
         && activity.time_part.end_time == end_time
     })
     setChangeState(String(tarActivity[0].is_change));
+    setIsScanned(tarActivity[0].is_sign === 1);
   }
 
 
@@ -149,6 +173,8 @@ const VolunteerApply = () => {
         detail: '退出活动后不可报名本活动'
       });
   const handleShowSheet = (key: string | Symbol) => {
+
+    if (isScanned) return;
 
     setSheetKey(key)
 
@@ -268,8 +294,6 @@ const VolunteerApply = () => {
 
 
   //  扫码签到
-  const [isScanned, setIsScanned] = useState<boolean>(false)
-  const [scanText, setScanText] = useState<string>('扫码签到')
   const [mutateScan] = useMutation(postVolunteerActivitySignIn, MutateConfig(
     Popup,
     () => {
@@ -280,37 +304,40 @@ const VolunteerApply = () => {
     '签到成功！'
   ))
   const handleScan = async () => {
+    if (!isScanned)
+      scanCode({
+        async success({result}) {
+          console.log('scan-result:', result);
+          const param = result.split('?')[1];
+          const {begin_time, end_time} = genSeconds(date);
 
-    // TODO: 根据二维码的字段进行param处理 获取code_id
-
-    scanCode({
-      async success({result}) {
-        console.log('scan-result:', result);
-
-        const {begin_time, end_time} = genSeconds(date);
-
-        await mutateScan({
-          code_id: '',
-          data: {
-            activity_id: Number(activity_id),
-            begin_time,
-            end_time
+          if (timeLegal(date)) {
+            await mutateScan({
+              code: param,
+              data: {
+                activity_id: Number(activity_id),
+                begin_time,
+                end_time
+              }
+            });
+          } else {
+            handleMistakeScan("请在规定时间内扫码签到")
           }
-        });
-
-
-      },
-      fail() {
-        const hide = Popup.show({
-          detail: '请扫描本次志愿活动的二维码！'
-        })
-        const timer = setTimeout(() => {
-          hide();
-          clearTimeout(timer);
-        }, 1500)
-      }
-    }).then();
+        },
+        fail() {
+          handleMistakeScan("请扫描本次志愿活动的二维码")
+        }
+      }).then();
   };
+  const handleMistakeScan = (detail: string) => {
+    const hide = Popup.show({
+      detail
+    })
+    const timer = setTimeout(() => {
+      hide();
+      clearTimeout(timer);
+    }, 1500)
+  }
 
 
   return (

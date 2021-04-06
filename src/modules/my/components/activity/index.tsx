@@ -30,6 +30,7 @@ const translateTimeToClock = (begin_time: number, end_time: number) => {
 const Activity = ({
                     rely_id,
                     is_change,
+                    is_sign,
                     type,
                     id,
                     name,
@@ -105,7 +106,8 @@ const Activity = ({
                 }&registration_time=${registration_time
                 }&activity_id=${id
                 }&rely_id=${rely_id
-                }&is_change=${is_change}`,
+                }&is_change=${is_change
+                }&is_sign=${is_sign}`,
               });
             }}
           >

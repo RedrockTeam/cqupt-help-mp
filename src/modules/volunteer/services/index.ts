@@ -97,8 +97,13 @@ export const postVolunteerActivityChange = (data: VolunteerActivityChangeReq) =>
     }
   })
 
-export const postVolunteerActivitySignIn = ({code_id, data} :{code_id: string, data: VolunteerActivitySignInReq}) =>
-  request<VolunteerActivitySignInRes>(`/cyb-myactivities/change?code_id=${code_id}`, {
+/**
+ * 活动签到
+ * @param code_id
+ * @param data
+ */
+export const postVolunteerActivitySignIn = ({code, data} :{code: string, data: VolunteerActivitySignInReq}) =>
+  request<VolunteerActivitySignInRes>(`/cyb-myactivities/sign?${code}`, {
     method: "POST",
     data,
     header: {

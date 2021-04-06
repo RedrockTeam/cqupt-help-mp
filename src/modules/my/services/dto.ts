@@ -25,6 +25,7 @@ export interface MyActivity {
   date?: number;                              // 用户选择的 参与活动的日期
   if_read: 1 | 2 | 3;                         // 1:未读，      2:已读，       3:无法读取
   is_change: 0 | 1 | 2;                       // 0:未改变,     1:审核中,      3:已改变     用户是否改变志愿班次
+  is_sign: 0 | 1;                             // 0:未签到,     1:已签到
 }
 
 export type MyActivities = MyActivity[];

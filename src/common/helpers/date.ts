@@ -111,9 +111,9 @@ export const timestampToHMString = (timestamp: number) =>
 /**
  * 将 字符串 'MM月DD日 hh:mm-hh:mm' 转换为已秒计数的起始与终止时间段
  */
-export const genSeconds = (date: string) :{begin_time: number, end_time: number} =>  {
+export const genSeconds = (date : string) :{begin_time: number, end_time: number} =>  {
   // 计算生成 begin_time end_time   两者均为hh:mm 的秒计数
-  let tmp_date = date.split(' ')[1]
+  let tmp_date = date.split(' ')[1];
   // @ts-ignore
   tmp_date = tmp_date.split('-')
   // console.log('date:', tmp_date)
