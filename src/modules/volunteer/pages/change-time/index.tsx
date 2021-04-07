@@ -29,7 +29,6 @@ const VolunteerChangeTime = () => {
     activity_id
   } = useRouter().params as Params;
 
-
   // picker
   const Popup = useContainer(PopupContext);
   const [date, setDate] = useState<string>(date_part.split(' ')[0])

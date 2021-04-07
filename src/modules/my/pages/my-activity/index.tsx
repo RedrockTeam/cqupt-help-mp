@@ -33,7 +33,7 @@ const MyActivity = () => {
       let activityList: MyActivities = activityListRes.data;
 
       console.log('activityList:', activityList)
-      // activityList = [
+      // activityList = [ ...activityList,
       //   {
       //     is_sign: 0,
       //     rely_id: 1,

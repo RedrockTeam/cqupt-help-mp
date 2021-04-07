@@ -7,17 +7,18 @@ import {MyActivity} from "../../services/dto";
 
 // 将秒为单位的时间转换为 [00]:[00]
 const translateTimeToClock = (begin_time: number, end_time: number) => {
-  const beginHour = begin_time / (60 * 60);
-  const beginMinute = begin_time % (60 * 60);
-  const endHour = end_time / (60 * 60);
-  const endMinute = end_time % (60 * 60);
+  console.log(begin_time, end_time)
+  const beginHour = parseInt(String(begin_time / (60 * 60)));
+  const beginMinute = begin_time % (60 * 60) / 60;
+  const endHour = parseInt(String(end_time / (60 * 60)));
+  const endMinute = end_time % (60 * 60) / 60;
   const beginTime = [
-    beginHour < 10 ? `0${beginHour}` : beginHour,
-    beginMinute < 10 ? `0${beginMinute}` : beginMinute,
+    beginHour < 10 ? `0${beginHour}` : String(beginHour),
+    beginMinute < 10 ? `0${beginMinute}` : String(beginMinute),
   ];
   const endTime = [
-    endHour < 10 ? `0${endHour}` : endHour,
-    endMinute < 10 ? `0${endMinute}` : endMinute,
+    endHour < 10 ? `0${endHour}` : String(endHour),
+    endMinute < 10 ? `0${endMinute}` : String(endMinute),
   ];
   console.log("beginTime: ", beginTime, "\nendTime: ", endTime);
 
