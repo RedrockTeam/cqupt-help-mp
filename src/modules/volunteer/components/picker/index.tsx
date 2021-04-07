@@ -29,18 +29,18 @@ type Props = {
 };
 
 const Picker = ({
-  visible,
-  title = "选择时间",
-  btnText = "确认提交",
-  onCancel,
-  onOk,
-  onTimeChange,
-  onPickStart,
-  onPickEnd,
-  viewItems,
-  dateIndex,
-  value,
-}: Props) => {
+                  visible,
+                  title = "选择时间",
+                  btnText = "确认提交",
+                  onCancel,
+                  onOk,
+                  onTimeChange,
+                  onPickStart,
+                  onPickEnd,
+                  viewItems,
+                  dateIndex,
+                  value,
+                }: Props) => {
   return (
     <View
       className={`${styles.mask} ${

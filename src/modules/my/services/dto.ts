@@ -1,40 +1,31 @@
-import { BaseRes } from "@/common/helpers/request";
+import {BaseRes} from "@/common/helpers/request";
 
-// export interface MyActivity {
-//   id: number;
-//   name: string;
-//   team_name: string;
-//   time_done: number;
-//   time: string;
-//   introduction: string;
-//   location: string;
-//   rule: string;
-//   registration: string;
-//   myregistration: number;
-//   type: 0 | 1; // 0 表示普通活动， 1 表示志愿活动
-//   image: string;
-// }
+// 我的活动
 export interface MyActivity {
-  id: number;
-  type: 0 | 1; // 0 表示普通活动， 1 表示志愿活动
+  rely_id: number;
+  id: number;                                 //  活动id
+  type: 0 | 1;                                // 0 表示普通活动， 1 表示志愿活动
   name: string;
   team_name: string;
   description?: string;
-  sign_up_start?: number; // 报名时间段
+  sign_up_start?: number;                     // 报名时间段
   sign_up_last?: number;
-  last_date: number; // 活动时间段
-  start_date: number;
-  registration_time: number; // 用户报名的当天时间
+  start_date: number;                         // 活动时间段
+  last_date: number;
+  registration_time: number;                  // 用户报名的当天时间
   result?: {
-    pass: '0' | '1' | '2'; // 0: 等待结果， 1: 录取通过， 2: 录取不通过
+    pass: "0" | "1" | "2";                    // 0: 等待结果， 1: 录取通过， 2: 录取不通过
     qq?: string;
   };
-  time_part: { // 用户选择参加活动的 时间段（秒）
+  time_part: {
+    // 用户选择参加活动的 时间段（秒）
     begin_time: number;
     end_time: number;
   };
-  date?: number; // 用户选择的 参与活动的日期
-  if_read: 1 | 2 | 3; // 1:未读，2:已读，3:无法读取
+  date?: number;                              // 用户选择的 参与活动的日期
+  if_read: 1 | 2 | 3;                         // 1:未读，      2:已读，       3:无法读取
+  is_change: 0 | 1 | 2;                       // 0:未改变,     1:审核中,      3:已改变     用户是否改变志愿班次
+  is_sign: 0 | 1;                             // 0:未签到,     1:已签到
 }
 
 export type MyActivities = MyActivity[];
@@ -56,6 +47,7 @@ export interface ApplyActivitiesRes extends BaseRes {
   data: Activity;
 }
 
+//  我的奖品
 interface MyReward {
   activity_name: string;
   name: string;
@@ -77,13 +69,12 @@ export interface MyRewardsRes extends BaseRes {
 
 export type MyRewardsApplyRes = BaseRes;
 
+// 已读与未读
 interface MyRead {
   number: number;
   unread: number;
 }
 
-export type MyReads = MyRead[];
-
 export interface MyReadsRes extends BaseRes {
-  data: MyRead
+  data: MyRead;
 }
