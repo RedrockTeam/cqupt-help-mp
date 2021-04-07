@@ -304,6 +304,7 @@ const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
                     key: "resume",
                     success: (res) => {
                       const data = JSON.parse(res.data);
+                      setFormValue({ ...data, "2": url });
                       setStorage({
                         key: "resume",
                         data: JSON.stringify({
