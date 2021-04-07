@@ -80,7 +80,7 @@ export const postVolunteerActivityQuit = (data: VolunteerActivityQuitReq) =>
     method: "POST",
     data,
     header: {
-      "content-type": "application/x-www-form-urlencoded",
+      "content-type": "application/json",
     }
   })
 
@@ -93,7 +93,7 @@ export const postVolunteerActivityChange = (data: VolunteerActivityChangeReq) =>
     method: "POST",
     data,
     header: {
-      "content-type": "application/x-www-form-urlencoded",
+      "content-type": "application/json",
     }
   })
 
@@ -107,6 +107,6 @@ export const postVolunteerActivitySignIn = ({code, data} :{code: string, data: V
     method: "POST",
     data,
     header: {
-      "content-type": "application/x-www-form-urlencoded",
+      "content-type": "application/json",
     }
   })
