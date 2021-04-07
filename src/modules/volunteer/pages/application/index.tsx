@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Button, Image, Text, View} from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
-import Taro, {navigateBack, scanCode, useRouter} from "@tarojs/taro";
+import Taro, {navigateBack, scanCode, useDidShow, useRouter} from "@tarojs/taro";
 import {useUserInfo} from "@/stores/user";
 import copyPng from "@/static/images/volunteer-copy.png";
 import scanPng from "@/static/images/scan-code.png";
@@ -127,26 +127,33 @@ const VolunteerApply = () => {
   const [changeState, setChangeState] = useState<string>(is_change);
 
 
-  let {data} = useQuery(
-    ["getMyActivities"],
-    getMyActivities
-  );
+  // 每次回到该页面时，更新 is_scan 、is_change 字段
+  const [mutateGetMyActivities] = useMutation(getMyActivities, {
+    onSuccess(data) {
+      console.log('getMyActivities-data:', data)
 
-  console.log('getMyActivities-data:', data)
-
-  if (data?.data) {
-    const tarActivity = data.data.filter(activity => {
-      const {begin_time, end_time} = genSeconds(date)
-      return activity.rely_id == Number(rely_id)
-        && activity.id == Number(activity_id)
-        && activity.time_part.begin_time == begin_time
-        && activity.time_part.end_time == end_time
-    })
-    console.log(tarActivity);
-    // setChangeState(String(tarActivity[0].is_change));
-    // setIsScanned(tarActivity[0].is_sign === 1);
-  }
-
+      if (data?.data) {
+        const tarActivity = data.data.filter(activity => {
+          const {begin_time, end_time} = genSeconds(date)
+          return activity.rely_id == Number(rely_id)
+            && activity.id == Number(activity_id)
+            && activity.time_part.begin_time == begin_time
+            && activity.time_part.end_time == end_time
+        })
+        console.log(tarActivity);
+        if (
+          changeState != String(tarActivity[0].is_change)
+          || isScanned != (tarActivity[0].is_sign === 1)
+        ) {
+          setChangeState(String(tarActivity[0].is_change));
+          setIsScanned(tarActivity[0].is_sign === 1);
+        }
+      }
+    }
+  })
+  useDidShow(() => {
+    mutateGetMyActivities().then();
+  })
 
   //  已读状态管理
   useQuery(
@@ -340,6 +347,10 @@ const VolunteerApply = () => {
       clearTimeout(timer);
     }, 1500)
   }
+
+
+
+
 
 
   return (
