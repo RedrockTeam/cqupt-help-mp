@@ -26,6 +26,7 @@ const Volunteer = () => {
     "getVolunteerActivityListInfo",
     getVolunteerActivityListInfo
   );
+  // list = VolunteerActivityListInfoRes;
   let xiaojiList;
   let yuanjiList;
 
