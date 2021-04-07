@@ -42,7 +42,7 @@ const VolunteerDetail = () => {
   );
   // data = VolunteerActivityDetail;
   let info: IVolunteerActivityDetail;
-  let viewItems = null;
+  let viewItems: any = null;
 
   if (data) {
     // data.data.need_additions = JSON.parse(data.data.need_additions);

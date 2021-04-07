@@ -269,7 +269,7 @@ const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
     return (
       <Text>{`${timestampToTimeCNString(date.date).slice(
         0,
-        -8
+        -6
       )} ${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(
         timePart.end_time
       )}`}</Text>
