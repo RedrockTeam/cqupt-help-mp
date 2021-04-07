@@ -75,8 +75,6 @@ interface MyRead {
   unread: number;
 }
 
-export type MyReads = MyRead[];
-
 export interface MyReadsRes extends BaseRes {
   data: MyRead;
 }

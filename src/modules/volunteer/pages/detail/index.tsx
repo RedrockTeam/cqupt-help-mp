@@ -48,12 +48,19 @@ const VolunteerDetail = () => {
   let formInputField: number[] = [];
   let formTextareaField: number[] = [];
   if (data?.data) {
+    console.log('data.need_additions:', data.data.need_additions)
+    console.log('typeof need_additions:', typeof data.data.need_additions)
     info = data.data;
+
+    console.log('pre-info:', info)
 
     //  判断是否为字符串
     if (typeof info.need_additions === 'string') {
-      info.need_additions = info.need_additions.match(/\[(.+?)\]/g);
+      console.log('info.need_additions === string')
+      info.need_additions = JSON.parse(info.need_additions);
+      console.log('info:', info)
     }
+
 
     info.need_additions.forEach((v: number) => {
       FORM_INPUT_FIELD_LIST.includes(v) && formInputField.push(v);

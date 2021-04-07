@@ -74,6 +74,7 @@ const ResumeForm = ({
     getStorage({
       key: "resume",
       success: (res) => {
+        console.log('res:', res);
         console.log(JSON.parse(res.data));
         console.log(JSON.parse(res.data)["2"]);
         setFormValue(JSON.parse(res.data));

@@ -142,8 +142,9 @@ const VolunteerApply = () => {
         && activity.time_part.begin_time == begin_time
         && activity.time_part.end_time == end_time
     })
-    setChangeState(String(tarActivity[0].is_change));
-    setIsScanned(tarActivity[0].is_sign === 1);
+    console.log(tarActivity);
+    // setChangeState(String(tarActivity[0].is_change));
+    // setIsScanned(tarActivity[0].is_sign === 1);
   }
 
 

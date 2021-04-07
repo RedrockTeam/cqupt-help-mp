@@ -66,6 +66,9 @@ const Volunteer = () => {
   //       onBtnClick={() => navigateBack()}
   //     />
   //   );
+
+  console.log('yuanjiList:', yuanjiList)
+
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
