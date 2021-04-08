@@ -22,19 +22,25 @@ import { SwiperProps } from "@tarojs/components/types/Swiper";
 import PopupContext from "@/stores/popup";
 import robSuccessImg from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
-import { useContainer } from "unstated-next";
+import { createContainer, useContainer } from "unstated-next";
 import BottomPop from "@/common/components/bottomPop";
 import styles from "./index.module.scss";
+import "./index.scss";
 import OwedTicket from "../../components/owed-ticket";
 import { getMyTicketList, checkTicket } from "../../services";
+import myTicketListRes from "../../../../mock/myTicketListRes.json";
+import SelectPopup from "../../components/select-popup";
+import SelectPopupContext from "@/stores/select-popup";
 
 const PAGE_TITLE = "我的影票";
 const MyTicket = () => {
   const Popup = useContainer(PopupContext);
-  const { data: myTicketListRes, isLoading, isError } = useQuery(
-    "getMyTiketList",
-    getMyTicketList
-  );
+  // const { data: myTicketListRes, isLoading, isError } = useQuery(
+  //   "getMyTiketList",
+  //   getMyTicketList
+  // );
+  const isLoading = false;
+  const isError = false;
   const queryCache = useQueryCache();
   const [visible, setVisible] = useState(false);
   const handleConcel = () => {
@@ -95,29 +101,47 @@ const MyTicket = () => {
         }
       />
     );
+
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      <Swiper
-        className={styles.swiper}
-        indicatorColor="#A7A3FF"
-        indicatorActiveColor="#625AF8"
-        indicatorDots
-        onChange={handleSwiperChange}
-      >
-        {myTicketListRes.data.map((e) => (
-          <SwiperItem key={e.id}>
-            <OwedTicket
-              img={e.image}
-              name={e.name}
-              location={e.location}
-              time={e.play_time}
-              key={e.name}
-            />
-          </SwiperItem>
-        ))}
-      </Swiper>
-      <PrimaryButton
+      <View>
+        <Swiper
+          className={`.swiper`}
+          indicatorColor="#A7A3FF"
+          indicatorActiveColor="#625AF8"
+          indicatorDots
+          onChange={handleSwiperChange}
+        >
+          {myTicketListRes.data.map((e) => (
+            <SwiperItem key={e.id}>
+              <OwedTicket
+                img={e.image}
+                name={e.name}
+                location={e.location}
+                time={e.play_time}
+                key={e.name}
+                id={e.id}
+                type={e.type}
+                sequence={e.sequence}
+                stu_num={e.stu_num}
+              />
+            </SwiperItem>
+          ))}
+        </Swiper>
+
+        {/* <SelectPopup
+          isShow={true}
+          title="退票说明"
+          detail={`1.距离开场半个小时以内将不支持退票，若未退票且未观影者，将被计入不良信用档案。
+            2.规定时间内退票不会对您的信用度造成任何影响。
+          `}
+          bottomType={2}
+          confirmFun={() => {}}
+        /> */}
+      </View>
+      
+      {/* <PrimaryButton
         onClick={handleCheck}
         className={styles.btn}
         disabled={
@@ -132,13 +156,13 @@ const MyTicket = () => {
       </PrimaryButton>
       <View className={styles.tips}>
         影票在开场30分钟后失效，请在⼯作⼈员指示下使⽤!
-      </View>
-      <BottomPop
+      </View> */}
+      {/* <BottomPop
         isShow={visible}
         onCancel={handleConcel}
         onOk={handleOk}
         title="确认使⽤该影票？"
-      />
+      /> */}
       <Popup.Comp />
     </View>
   );

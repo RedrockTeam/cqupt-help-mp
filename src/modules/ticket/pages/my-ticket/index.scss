@@ -1,0 +1,15 @@
+.swiper {
+  height: 1550px;
+  .wx-swiper-dot {
+    position: absolute;
+    left: unset !important;
+    right: 28px;
+    bottom: 330px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .wx-swiper-dots.wx-swiper-dots-horizontal {
+    margin-left: 38px;
+  }
+}

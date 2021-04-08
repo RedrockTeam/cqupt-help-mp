@@ -49,6 +49,7 @@
     "react-dom": "^16.10.0",
     "react-query": "^2.5.11",
     "sentry-miniapp": "^0.11.1",
+    "taro-code": "^3.2.0",
     "taro3-navigationbar": "^3.0.1",
     "unstated-next": "^1.1.0"
   },

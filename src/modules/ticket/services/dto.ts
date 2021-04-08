@@ -2,8 +2,8 @@
  * @Author: myjdml
  * @Date: 2021-03-10 21:11:01
  * @LastEditors: myjdml
- * @LastEditTime: 2021-03-18 17:17:52
- * @FilePath: /cqupt-help-mp/src/modules/ticket/services/dto.ts
+ * @LastEditTime: 2021-04-06 19:20:10
+ * @FilePath: \cqupt-help-mp\src\modules\ticket\services\dto.ts
  * @Description: nothing is everything
  */
 import { BaseRes } from "@/common/helpers/request";
@@ -14,6 +14,7 @@ interface RobTicketInfo {
   left: number;
   play_time: string;
   begin_time: string;
+  end_time: string;
   location: string;
   image: string;
   is_received: boolean;

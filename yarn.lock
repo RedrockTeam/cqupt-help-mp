@@ -12580,6 +12580,13 @@ tar@^6.0.2:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
+taro-code@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/taro-code/download/taro-code-3.2.0.tgz#00a66acea79738ecff26b97b4a82f5bf98d18ff0"
+  integrity sha1-AKZqzqeXOOz/Jrl7SoL1v5jRj/A=
+  dependencies:
+    prop-types "^15.7.2"
+
 taro3-navigationbar@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/taro3-navigationbar/-/taro3-navigationbar-3.0.1.tgz#e57cf791522aef79e172d877069c94cd21ae826f"

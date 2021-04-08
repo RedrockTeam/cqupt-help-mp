@@ -1,0 +1,30 @@
+{
+  "status": 200,
+  "info": "success",
+  "data": [
+    {
+      "stu_num": "b72d0fc50c8f0f47c8b1f2c675583493eccebf02",
+      "id": 10,
+      "name": "原神大电影",
+      "type": 0,
+      "num_of_turn": 1,
+      "sequence": 1,
+      "play_time": "2026-04-16 14:57:38",
+      "image": "http://cdn.redrock.team/cyb_2019211405_1606387693734444380.jpg",
+      "location": "科技会堂",
+      "effective": true
+    },
+    {
+      "stu_num": "b72d0fc50c8f0f47c8b1f2c675583493eccebf02",
+      "id": 11,
+      "name": "原神小电影",
+      "type": 1,
+      "num_of_turn": 1,
+      "sequence": 12,
+      "play_time": "2023-04-16 14:57:38",
+      "image": "http://cdn.redrock.team/cyb_2019211405_1606387693734444380.jpg",
+      "location": "科技会堂",
+      "effective": true
+    }
+  ]
+}

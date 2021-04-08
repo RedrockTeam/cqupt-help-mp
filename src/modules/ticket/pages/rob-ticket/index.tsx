@@ -86,8 +86,8 @@ const RobTicket = () => {
     })
 
     const Click = () => {
-      navTo({ url: resolvePage("ticket", "rob-ticket-info") })
-      // SelectPopupCounter.changeState();
+      // navTo({ url: resolvePage("ticket", "rob-ticket-info") })
+      SelectPopupCounter.changeState();
     }
 
     return (
