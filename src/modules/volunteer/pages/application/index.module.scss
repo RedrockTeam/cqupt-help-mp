@@ -17,6 +17,7 @@
       margin: 0 30px;
       display: flex;
       flex-flow: column;
+      font-weight: 340;
 
       ._content {
         width: 100%;
@@ -38,6 +39,7 @@
         flex-flow: column nowrap;
         justify-content: space-between;
         align-items: center;
+        font-weight: 340;
 
         &_png {
           width: 44px;
@@ -53,13 +55,14 @@
         &_text_suc {    //  成功扫码
           color: #817BF9;
           font-size: 28px;
+          font-weight: 350;
         }
       }
 
       .appellation {
         margin-top: 50px;
         font-family: PingFang SC;
-        font-weight: 700;
+        font-weight: 350;
         font-size: 32px;
         line-height: 36px;
         color: #494670;
@@ -79,9 +82,9 @@
 
       .desc {
         margin-top: 32px;
-        margin-bottom: 87px;
+        margin-bottom: 40px;
         font-family: PingFang SC;
-        font-weight: normal;
+        font-weight: 340;
         color: #777494;
         font-size: 28px;
         line-height: 60px;
@@ -93,11 +96,19 @@
         height: 22px;
         margin-left: 20px;
       }
+
+      .concat {
+        color: #494670;
+        font-weight: 400;
+      }
+
     }
 
     .btnWrapper {
       display: flex;
       justify-content: flex-end;
+      margin-right: 18px;
+      margin-top: 30px;
       //padding-top: 88px;
       //position: absolute;
       //bottom: 40px;
@@ -111,7 +122,7 @@
         border: 2px solid #625af8;
         color: #625af8;
         font-family: PingFang SC;
-        font-weight: 400;
+        font-weight: 330;
         font-size: 32px;
         line-height: 70px;
         text-align: center;
@@ -140,11 +151,21 @@
 }
 
 .time_out {
+  color: #494670;
   text-decoration: line-through;
+  font-weight: 400;
 }
+
+.time {
+  color: #494670;
+  font-weight: 400;
+}
+
 .hint {
   color: #CECDE8;
   text-align: center;
   font-size: 28px;
   line-height: 60px;
+  font-weight: 330;
 }
+

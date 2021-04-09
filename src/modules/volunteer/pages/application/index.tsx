@@ -13,13 +13,13 @@ import {
   postVolunteerActivityRead,
   postVolunteerActivitySignIn
 } from "../../services";
-import ActionSheet from "../../components/actionSheet/index";
 import {navTo, resolvePage} from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
 import {useContainer} from "unstated-next";
 import {useMutation} from "react-query";
 import {genSeconds, timestampToMDString} from "@/common/helpers/date";
 import {getMyActivities} from "@/modules/my/services";
+import ActionSheet from "../../components/actionSheet/index";
 
 
 const PAGE_TITLE = "报名结果";
@@ -62,7 +62,7 @@ const MutateConfig = (Popup, successFunc, ifBack: boolean, detail: string) => {
 
 
           ifBack ? navigateBack() : null;
-        }, 3000);
+        }, 1500);
       } else {
         const hide = Popup.show({
           detail: "申请失败，请稍后再试",
@@ -349,11 +349,6 @@ const VolunteerApply = () => {
     }, 1500)
   }
 
-
-
-
-
-
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background={NAV_BACKGROUND}/>
@@ -382,12 +377,14 @@ const VolunteerApply = () => {
                   {pass === '1' ?
                     (
                       <Text>
-                        {`恭喜您通过了${name}志愿活动`}
-                        <Text className={changeState === '2' ? styles.time_out : null}>
+                        {`恭喜您通过了${name}志愿活动，`}
+                        <Text className={changeState === '2' ? styles.time_out : styles.time}>
                           {date}
                         </Text>
-                        {`的志愿报名，请你尽快加入到我们的志愿活动qq群，了解本次志愿活动的详细信息，群号为${concat}`}
-
+                        {`的志愿报名，请你尽快加入到我们的志愿活动qq群，了解本次志愿活动的详细信息，群号为`}
+                        <Text className={styles.concat}>
+                          {concat}
+                        </Text>
                       </Text>
                     )
                     : desc}
@@ -405,7 +402,8 @@ const VolunteerApply = () => {
             )
           }
 
-          {changeState === '0' ? (
+          { pass === '2' ? null :
+            changeState === '0' ? (
               <View className={styles.btnWrapper}>
                 <Button className={`${styles.btn} ${styles.btn_quit}`}
                         onClick={() => handleShowSheet(KEY_QUIT)}
