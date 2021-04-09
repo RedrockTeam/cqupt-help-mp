@@ -60,11 +60,13 @@
       color: #777494;
       font-size: 32px;
       line-height: 60px;
+      font-weight: 350;
     }
 
     &_detail {
       color: #B8B7C8;
       font-size: 26px;
+      font-weight: 340;
       line-height: 42px;
       text-align: center;
     }
@@ -77,10 +79,10 @@
     height: 131px;
     color: #494670;
     font-size: 36px;
-    font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 400;
   }
 
   .cancel {
