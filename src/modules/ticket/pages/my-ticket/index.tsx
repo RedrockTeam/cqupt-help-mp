@@ -25,7 +25,6 @@ import error from "@/static/images/error.png";
 import { createContainer, useContainer } from "unstated-next";
 import BottomPop from "@/common/components/bottomPop";
 import styles from "./index.module.scss";
-import "./index.scss";
 import OwedTicket from "../../components/owed-ticket";
 import { getMyTicketList, checkTicket } from "../../services";
 import myTicketListRes from "../../../../mock/myTicketListRes.json";
@@ -34,6 +33,17 @@ import SelectPopupContext from "@/stores/select-popup";
 
 const PAGE_TITLE = "我的影票";
 const MyTicket = () => {
+  // 控制退票弹窗
+  const [ popupState, setPopupState ] = useState(false);
+  const changePopupState = () => {
+    PopupState.setPopupState(!PopupState.popupState);
+  }
+  const PopupState = {
+    popupState,
+    setPopupState,
+    changePopupState
+  }
+
   const Popup = useContainer(PopupContext);
   // const { data: myTicketListRes, isLoading, isError } = useQuery(
   //   "getMyTiketList",
@@ -107,7 +117,7 @@ const MyTicket = () => {
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
       <View>
         <Swiper
-          className={`.swiper`}
+          className={styles.swiper}
           indicatorColor="#A7A3FF"
           indicatorActiveColor="#625AF8"
           indicatorDots
@@ -125,20 +135,21 @@ const MyTicket = () => {
                 type={e.type}
                 sequence={e.sequence}
                 stu_num={e.stu_num}
+                PopupState={PopupState}
               />
             </SwiperItem>
           ))}
         </Swiper>
 
-        {/* <SelectPopup
-          isShow={true}
+        <SelectPopup
+          isShow={popupState}
           title="退票说明"
           detail={`1.距离开场半个小时以内将不支持退票，若未退票且未观影者，将被计入不良信用档案。
             2.规定时间内退票不会对您的信用度造成任何影响。
           `}
           bottomType={2}
-          confirmFun={() => {}}
-        /> */}
+          confirmFun={changePopupState}
+        />
       </View>
       
       {/* <PrimaryButton

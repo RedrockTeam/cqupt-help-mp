@@ -1,10 +1,10 @@
 /*
  * @Author: myjdml
  * @Date: 2021-03-23 22:51:42
- * @LastEditTime: 2021-04-08 21:39:33
+ * @LastEditTime: 2021-04-09 20:16:55
  * @LastEditors: myjdml
  * @Description: The sooner you start to code, the longer the program will take. —— Roy Carlson
- * @FilePath: \cqupt-help-mp\src\modules\ticket\components\owed-ticket\index.tsx
+ * @FilePath: /cqupt-help-mp/src/modules/ticket/components/owed-ticket/index.tsx
  * 
  */
 import React from "react";
@@ -25,6 +25,7 @@ type Props = {
   type: number;
   sequence: number;
   stu_num: string;
+  PopupState: any;
 };
 
 const OwedTicket = ({ 
@@ -36,6 +37,7 @@ const OwedTicket = ({
   type,
   sequence,
   stu_num,
+  PopupState,
 }: Props) => {
 
   const countTicketNum = () => {
@@ -96,6 +98,7 @@ const OwedTicket = ({
         <View className={styles.line}></View>
 
         <ReturnTicketBtn
+          PopupState={PopupState}
         ></ReturnTicketBtn>
         
       </View>
