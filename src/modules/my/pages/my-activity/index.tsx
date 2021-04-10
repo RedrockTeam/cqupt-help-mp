@@ -32,84 +32,84 @@ const MyActivity = () => {
 
       let activityList: MyActivities = activityListRes.data;
 
-      console.log('activityList:', activityList)
-      activityList = [ ...activityList,
-        {
-          is_sign: 0,
-          rely_id: 1,
-          is_change: 0,
-          "id": 272,
-          "type": 1,
-          "name": "测试我的活动",
-          "description": "555",
-          "team_name": "红岩网校工作站—Web研发部",
-          "sign_up_start": 1605024000,
-          "sign_up_last": 1605110400,
-          "last_date": 1705628800,
-          "start_date": 1605110400,
-          "date": 1605196800,
-          "time_part": {
-            "begin_time": 36000,
-            "end_time": 43200
-          },
-          "if_read": 2,
-          "result": {
-            "pass": "0",
-            "qq": "555"
-          },
-          "registration_time": 1605057216
-        },
-        {
-          is_sign: 0,
-          rely_id: 1,
-          is_change: 2,
-          "id": 276,
-          "type": 1,
-          "name": "测试我的活动",
-          "description": "555",
-          "team_name": "红岩网校工作站—Web研发部",
-          "sign_up_start": 1605024000,
-          "sign_up_last": 1605110400,
-          "last_date": 1705628800,
-          "start_date": 1605110400,
-          "date": 1605542400,
-          "time_part": {
-            "begin_time": 36000,
-            "end_time": 43200
-          },
-          "if_read": 1,
-          "result": {
-            "pass": "1",
-            "qq": "2222"
-          },
-          "registration_time": 1605057225
-        },
-        {
-          is_sign: 0,
-          rely_id: 1,
-          is_change: 0,
-          "id": 274,
-          "type": 1,
-          "name": "测试我的活动",
-          "description": "555",
-          "team_name": "红岩网校工作站—Web研发部",
-          "sign_up_start": 1605024000,
-          "sign_up_last": 1605110400,
-          "last_date": 1705628800,
-          "start_date": 1605110400,
-          "date": 1605369600,
-          "time_part": {
-            "begin_time": 36000,
-            "end_time": 43200
-          },
-          "if_read": 3,
-          "result": {
-            "pass": "1",
-            "qq": "8162435"
-          },
-          "registration_time": 1605057234
-        }
-      ]
+      // console.log('activityList:', activityList)
+      // activityList = [ ...activityList,
+      //   {
+      //     is_sign: 0,
+      //     rely_id: 1,
+      //     is_change: 0,
+      //     "id": 272,
+      //     "type": 1,
+      //     "name": "测试我的活动",
+      //     "description": "555",
+      //     "team_name": "红岩网校工作站—Web研发部",
+      //     "sign_up_start": 1605024000,
+      //     "sign_up_last": 1605110400,
+      //     "last_date": 1705628800,
+      //     "start_date": 1605110400,
+      //     "date": 1605196800,
+      //     "time_part": {
+      //       "begin_time": 36000,
+      //       "end_time": 43200
+      //     },
+      //     "if_read": 2,
+      //     "result": {
+      //       "pass": "0",
+      //       "qq": "555"
+      //     },
+      //     "registration_time": 1605057216
+      //   },
+      //   {
+      //     is_sign: 0,
+      //     rely_id: 1,
+      //     is_change: 2,
+      //     "id": 276,
+      //     "type": 1,
+      //     "name": "测试我的活动",
+      //     "description": "555",
+      //     "team_name": "红岩网校工作站—Web研发部",
+      //     "sign_up_start": 1605024000,
+      //     "sign_up_last": 1605110400,
+      //     "last_date": 1705628800,
+      //     "start_date": 1605110400,
+      //     "date": 1605542400,
+      //     "time_part": {
+      //       "begin_time": 36000,
+      //       "end_time": 43200
+      //     },
+      //     "if_read": 1,
+      //     "result": {
+      //       "pass": "1",
+      //       "qq": "2222"
+      //     },
+      //     "registration_time": 1605057225
+      //   },
+      //   {
+      //     is_sign: 0,
+      //     rely_id: 1,
+      //     is_change: 0,
+      //     "id": 274,
+      //     "type": 1,
+      //     "name": "测试我的活动",
+      //     "description": "555",
+      //     "team_name": "红岩网校工作站—Web研发部",
+      //     "sign_up_start": 1605024000,
+      //     "sign_up_last": 1605110400,
+      //     "last_date": 1705628800,
+      //     "start_date": 1605110400,
+      //     "date": 1605369600,
+      //     "time_part": {
+      //       "begin_time": 36000,
+      //       "end_time": 43200
+      //     },
+      //     "if_read": 3,
+      //     "result": {
+      //       "pass": "1",
+      //       "qq": "8162435"
+      //     },
+      //     "registration_time": 1605057234
+      //   }
+      // ]
 
 
       if (activityList) {
