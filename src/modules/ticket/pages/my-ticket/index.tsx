@@ -43,6 +43,10 @@ const MyTicket = () => {
     setPopupState,
     changePopupState
   }
+  
+  const handelReturnTicket = () => {
+    console.log("开始退票");
+  }
 
   const Popup = useContainer(PopupContext);
   // const { data: myTicketListRes, isLoading, isError } = useQuery(
@@ -148,7 +152,8 @@ const MyTicket = () => {
             2.规定时间内退票不会对您的信用度造成任何影响。
           `}
           bottomType={2}
-          confirmFun={changePopupState}
+          confirmFun={handelReturnTicket}
+          cancelFun={changePopupState}
         />
       </View>
       

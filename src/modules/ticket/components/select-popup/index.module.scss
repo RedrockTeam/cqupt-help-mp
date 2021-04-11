@@ -61,3 +61,26 @@
   color: #A4A3B7;
   ;
 }
+
+.bottomTwo {
+  width: 118%;
+  .lineRow {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin: 20px 0;
+  }
+  .wrapperBtn {
+    position: relative;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    .lineColumn {
+      position: absolute;
+      bottom: -5.4vw;
+      border-left: 1px solid rgba(0, 0, 0, 0.05);
+      height: 19vw;
+    }
+    .btn {
+      width: 45%;
+    }
+  }
+}
