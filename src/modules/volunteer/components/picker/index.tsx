@@ -29,18 +29,18 @@ type Props = {
 };
 
 const Picker = ({
-                  visible,
-                  title = "选择时间",
-                  btnText = "确认提交",
-                  onCancel,
-                  onOk,
-                  onTimeChange,
-                  onPickStart,
-                  onPickEnd,
-                  viewItems,
-                  dateIndex,
-                  value,
-                }: Props) => {
+  visible,
+  title = "选择时间",
+  btnText = "确认提交",
+  onCancel,
+  onOk,
+  onTimeChange,
+  onPickStart,
+  onPickEnd,
+  viewItems,
+  dateIndex,
+  value,
+}: Props) => {
   return (
     <View
       className={`${styles.mask} ${
@@ -63,10 +63,14 @@ const Picker = ({
             onPickEnd={onPickEnd}
             value={value}
           >
-            <PickerViewColumn>
+            <PickerViewColumn className={styles.pickerItem}>
               {viewItems.dateList.map((item) => {
                 return (
-                  <View style={{ lineHeight: "58px" }} key={`${item}`}>
+                  <View
+                    style={{ lineHeight: "58px" }}
+                    key={`${item}`}
+                    className={styles.pickerItem}
+                  >
                     {`${timestampToDateString(item)}`}
                   </View>
                 );
@@ -77,6 +81,7 @@ const Picker = ({
                 return (
                   <View
                     style={{ lineHeight: "58px" }}
+                    className={styles.pickerItem}
                     key={`${item.begin_time} + ${item.end_time}`}
                   >
                     {`${timestampToHMString(

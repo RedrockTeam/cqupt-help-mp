@@ -28,7 +28,7 @@ interface IResumeFormProps {
   pickerValue: number[];
 }
 const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
-  const FORM_INPUT_FIELD_LIST = [1, 4, 5, 6, 7, 8, 9, 10, 11, 15, 16];
+  const FORM_INPUT_FIELD_LIST = [10, 15, 9, 8, 1, 16, 4, 5, 11, 6, 7];
   const FORM_TEXTAREA_FIELD_LIST = [3, 12, 13, 14];
   const NeedAdditions = {
     "-1": "不用简历",
@@ -98,9 +98,11 @@ const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
         });
       },
     });
-    info.need_additions.forEach((v: number) => {
-      FORM_INPUT_FIELD_LIST.includes(v) && tmpFormInputField.push(v);
-      FORM_TEXTAREA_FIELD_LIST.includes(v) && tmpFormTextareaField.push(v);
+    FORM_INPUT_FIELD_LIST.forEach((v: number) => {
+      info.need_additions.includes(v) && tmpFormInputField.push(v);
+    });
+    FORM_TEXTAREA_FIELD_LIST.forEach((v: number) => {
+      info.need_additions.includes(v) && tmpFormTextareaField.push(v);
     });
     setFormInputField(tmpFormInputField);
     setFormTextareaField(tmpFormTextareaField);
@@ -267,12 +269,11 @@ const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
     const date = info!.detail[dateIndex];
     const timePart = date.time_part_info[timePartIndex];
     return (
-      <Text>{`${timestampToTimeCNString(date.date).slice(
-        0,
-        -6
-      )} ${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(
-        timePart.end_time
-      )}`}</Text>
+      <Text className={styles.time}>{`${timestampToTimeCNString(
+        date.date
+      ).slice(0, -6)} ${timestampToHMString(
+        timePart.begin_time
+      )} - ${timestampToHMString(timePart.end_time)}`}</Text>
     );
   };
 
@@ -336,13 +337,13 @@ const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
           const label = NeedAdditions[seq];
           return (
             <View className={`${styles.container}`}>
-              <FormTextarea label={label} seq={seq} maxLength={300} />
+              <FormTextarea label={label} seq={seq} maxLength={400} />
             </View>
           );
         })}
         <View className={`${styles.container2}`}>
           <View className={styles.title}>
-            <Text>班次选择</Text>
+            <Text>班次时间</Text>
           </View>
           <View className={styles.time}>{renderTimePart()}</View>
         </View>

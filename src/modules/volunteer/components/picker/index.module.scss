@@ -97,6 +97,15 @@
       height: 300px;
       text-align: center;
       line-height: 58px;
+      font-size: 30px;
+      font-family: DIN;
+      color: #494670;
+      .pickerItem {
+        font-size: 30px;
+        font-family: DIN;
+        color: #494670;
+        font-weight: bold;
+      }
     }
   }
 }
