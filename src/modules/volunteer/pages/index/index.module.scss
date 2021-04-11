@@ -74,6 +74,12 @@
       font-size: 28px;
       text-align: left;
       color: #777494;
+      display: -webkit-box;
+      word-break: break-all;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3; //需要显示的行数
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
