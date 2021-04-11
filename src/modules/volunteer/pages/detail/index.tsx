@@ -28,8 +28,6 @@ import { IVolunteerActivityDetail } from "../../services/dto";
 // import VolunteerActivityDetail from "../../../../mock/VolunteerActivityDetail.json";
 
 const VolunteerDetail = () => {
-  const FORM_INPUT_FIELD_LIST = [1, 9, 4, 5, 6, 7, 8, 9, 10, 11];
-  const FORM_TEXTAREA_FIELD_LIST = [3, 12, 13, 14];
   const { params } = useRouter();
   const [showPicker, setShowPicker] = useState(false);
 
@@ -44,16 +42,14 @@ const VolunteerDetail = () => {
   );
   // data = VolunteerActivityDetail;
   let info: IVolunteerActivityDetail;
-  let viewItems = null;
-  let formInputField: number[] = [];
-  let formTextareaField: number[] = [];
-  if (data?.data) {
-    console.log('data.need_additions:', data.data.need_additions)
-    console.log('typeof need_additions:', typeof data.data.need_additions)
+  let viewItems: any = null;
+
+  if (data) {
+    // data.data.need_additions = JSON.parse(data.data.need_additions);
+    // data.data.imagines = [data.data.imagines.slice(2, -2)];
+    // console.log(data.data.imagines);
+
     info = data.data;
-
-    console.log('pre-info:', info)
-
     //  判断是否为字符串
     if (typeof info.need_additions === 'string') {
       console.log('info.need_additions === string')
@@ -61,14 +57,8 @@ const VolunteerDetail = () => {
         info.need_additions = JSON.parse(info.need_additions);
       else
         info.need_additions = [];
-      console.log('info:', info)
+      console.log('info:', info);
     }
-
-
-    info.need_additions.forEach((v: number) => {
-      FORM_INPUT_FIELD_LIST.includes(v) && formInputField.push(v);
-      FORM_TEXTAREA_FIELD_LIST.includes(v) && formTextareaField.push(v);
-    });
     const dateList = info.detail.map((item) => item.date);
     const timePartList = info.detail.map((item) => item.time_part_info);
     viewItems = {
@@ -305,12 +295,7 @@ const VolunteerDetail = () => {
 
   const Resume = () => (
     <View className={styles.wrapper2}>
-      <ResumeForm
-        pickerValue={pickerValue}
-        info={info}
-        formInputField={formInputField}
-        formTextareaField={formTextareaField}
-      />
+      <ResumeForm pickerValue={pickerValue} info={info} />
     </View>
   );
   return (

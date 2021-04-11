@@ -1,20 +1,42 @@
 {
   "data": [
     {
-      "id": 0,
-      "name": "志愿活动",
-      "description": "志愿活动的描述",
-      "date": 1601974919,
-      "last_date": 1601974919
+      "id": 9,
+      "name": "rpc",
+      "description": "test",
+      "sign_up_last": 0,
+      "hour": "1-2小时",
+      "time_part": [
+        {
+          "begin_time": 1622338539,
+          "end_time": 1652338539
+        },
+        {
+          "begin_time": 1622338539,
+          "end_time": 1622338539
+        }
+      ],
+      "team_level": "校级"
     },
     {
-      "id": 1,
-      "name": "志愿活动",
-      "description": "志愿活动的描述",
-      "date": 1601974919,
-      "last_date": 1601974919
+      "id": 12,
+      "name": "rpc",
+      "description": "test",
+      "sign_up_last": 0,
+      "hour": "1-2小时",
+      "time_part": [
+        {
+          "begin_time": 1622338539,
+          "end_time": 1652338539
+        },
+        {
+          "begin_time": 1622338539,
+          "end_time": 1622338539
+        }
+      ],
+      "team_level": "院级"
     }
   ],
-  "info": "success",
-  "status": 10000
+  "Info": "success",
+  "Status": 10000
 }
