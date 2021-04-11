@@ -57,7 +57,10 @@ const VolunteerDetail = () => {
     //  判断是否为字符串
     if (typeof info.need_additions === 'string') {
       console.log('info.need_additions === string')
-      info.need_additions = JSON.parse(info.need_additions);
+      if (info.need_additions?.length)
+        info.need_additions = JSON.parse(info.need_additions);
+      else
+        info.need_additions = [];
       console.log('info:', info)
     }
 
