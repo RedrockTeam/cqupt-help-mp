@@ -51,11 +51,13 @@ const VolunteerDetail = () => {
 
     info = data.data;
     //  判断是否为字符串
-    if (typeof info.need_additions === "string") {
-      info.need_additions = info.need_additions.match(/\[(.+?)\]/g);
-      console.log("info.need_additions === string");
-      info.need_additions = JSON.parse(info.need_additions);
-      console.log("info:", info);
+    if (typeof info.need_additions === 'string') {
+      console.log('info.need_additions === string')
+      if (info.need_additions?.length)
+        info.need_additions = JSON.parse(info.need_additions);
+      else
+        info.need_additions = [];
+      console.log('info:', info);
     }
     const dateList = info.detail.map((item) => item.date);
     const timePartList = info.detail.map((item) => item.time_part_info);
