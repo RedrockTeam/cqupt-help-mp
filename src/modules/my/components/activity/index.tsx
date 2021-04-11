@@ -9,9 +9,9 @@ import {MyActivity} from "../../services/dto";
 const translateTimeToClock = (begin_time: number, end_time: number) => {
   console.log(begin_time, end_time)
   const beginHour = parseInt(String(begin_time / (60 * 60)));
-  const beginMinute = begin_time % (60 * 60) / 60;
+  const beginMinute = parseInt(begin_time % (60 * 60) / 60);
   const endHour = parseInt(String(end_time / (60 * 60)));
-  const endMinute = end_time % (60 * 60) / 60;
+  const endMinute = parseInt(end_time % (60 * 60) / 60);
   const beginTime = [
     beginHour < 10 ? `0${beginHour}` : String(beginHour),
     beginMinute < 10 ? `0${beginMinute}` : String(beginMinute),
