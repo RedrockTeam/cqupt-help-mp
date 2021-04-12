@@ -28,6 +28,8 @@ const VolunteerChangeTime = () => {
     date: date_part,
     activity_id
   } = useRouter().params as Params;
+  console.log('useRouter().params:', useRouter().params)
+
 
   // picker
   const Popup = useContainer(PopupContext);
@@ -58,22 +60,11 @@ const VolunteerChangeTime = () => {
 
     date = timestampToMDString(date.date);
     setDate(date)
-    setTimePart(`${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(timePart.end_time)}`)
+    setTimePart(`${timestampToHMString(timePart.begin_time)}-${timestampToHMString(timePart.end_time)}`)
     // console.log('date:', date)
     // console.log('time:', `${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(timePart.end_time)}`)
   }
 
-
-  //  处理获取的 data.detail 生成正确的 piker 的值
-  let pickerValue;
-  if (data) {
-    const dateList = data.data.detail.map((item) => item.date);
-    const timePartList = data.data.detail.map((item) => item.time_part_info);
-    pickerValue = {
-      dateList,
-      timePartList,
-    };
-  }
 
   //  点击piker时改变时间
   const timeChange = (e: ITouchEvent) => {
@@ -81,7 +72,7 @@ const VolunteerChangeTime = () => {
     const timePartIndex = e.detail.value[1]; // 要更改才生效
     setDateIndex(dateIndex);
     setTimePartIndex(timePartIndex);
-    gen_date_str(data, dateIndex, timePartIndex)
+    gen_date_str(data, dateIndex, timePartIndex);
   };
 
   //  提交更改信息
@@ -155,6 +146,57 @@ const VolunteerChangeTime = () => {
   if (isLoading) return <Placeholder title="修改班次"/>;
   if (isError) return <Placeholder title="修改班次" isError/>;
 
+  //  处理获取的 data.detail 生成正确的 piker 的值
+  let pickerValue;
+  if (data) {
+    // TODO: 整合对应的 date 与 timePart 而后就行排序处理
+    console.log('date:', date, 'timePart:', timePart);
+    const { date: _date, begin_time, end_time } = genSeconds(`${date} ${timePart}`)
+    console.log('_date:', _date, 'begin:', begin_time, 'end:', end_time);
+
+    let dateList = data.data.detail.map(
+      (item) => {
+        return {id: item.id, date: item.date, timePart: item.time_part_info}
+      });
+
+    dateList = dateList.sort((cur, next) => cur.date - next.date);
+
+    //  维护 data 的状态，否则 picker 改变会出错
+    data.data.detail = dateList.map(date => {
+      return {
+        id : date.id,
+        date: date.date,
+        time_part_info: date.timePart
+      }
+    });
+
+    const timePartList = dateList.map(date => date.timePart);
+    console.log('timePartList:', timePartList);
+    const _dateIndex = dateList.findIndex(val => val.date === _date)
+    // @ts-ignore
+    dateList = dateList.map(date => date.date);
+    const _timeIndex = timePartList[_dateIndex].findIndex(timePart => timePart.begin_time === begin_time && timePart.end_time === end_time)
+
+
+
+    console.log('_dateIndex:', _dateIndex)
+    console.log('_timeIndex:', _timeIndex)
+    console.log(dateIndex, timePartIndex)
+    if ((_dateIndex !== -1 && timePartIndex !== -1)
+      && (_dateIndex !== dateIndex || _timeIndex !== timePartIndex)) {
+      setDateIndex(_dateIndex);
+      setTimePartIndex(_timeIndex);
+    }
+    console.log(data);
+
+    console.log('dateList:', dateList)
+    console.log('timePartList:', timePartList)
+    pickerValue = {
+      dateList,
+      timePartList,
+    };
+  }
+
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background={BACKGROUND}/>
@@ -182,6 +224,7 @@ const VolunteerChangeTime = () => {
             onTimeChange={timeChange}
             onPickStart={() => setIsScrolling(true)}
             onPickEnd={() => setIsScrolling(false)}
+            valueIndex={[dateIndex, timePartIndex]}
             dateIndex={dateIndex}
           />
         ) : null}
