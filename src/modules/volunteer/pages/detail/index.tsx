@@ -51,13 +51,10 @@ const VolunteerDetail = () => {
 
     info = data.data;
     //  判断是否为字符串
-    if (typeof info.need_additions === 'string') {
-      console.log('info.need_additions === string')
-      if (info.need_additions?.length)
+    if (typeof info.need_additions === "string") {
+      if (info.need_additions !== "")
         info.need_additions = JSON.parse(info.need_additions);
-      else
-        info.need_additions = [];
-      console.log('info:', info);
+      else info.need_additions = [];
     }
     const dateList = info.detail.map((item) => item.date);
     const timePartList = info.detail.map((item) => item.time_part_info);
@@ -253,7 +250,7 @@ const VolunteerDetail = () => {
           </Text>
         </View>
         {renderRobBtn()}
-        {info.need_additions.includes(-1) ? (
+        {info.need_additions.length === 0 ? (
           <Picker
             value={pickerValue}
             viewItems={viewItems}
