@@ -7,6 +7,7 @@ import error from "@/static/images/error.png";
 import wait from "@/static/images/wait.png";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import ImageUpload from "@/common/components/image-upload";
+// import BottomPop from "@/common/components/bottomPop";
 import styles from "./index.module.scss";
 import { useContainer } from "unstated-next";
 import {
@@ -18,21 +19,17 @@ import {
   setStorage,
   getStorage,
   removeStorage,
+  getStorageSync,
 } from "@tarojs/taro";
 import { applyVolunteerActivity } from "../../services";
 import { IVolunteerActivityDetail } from "../../services/dto";
 interface IResumeFormProps {
   info: IVolunteerActivityDetail;
-  formInputField: number[];
-  formTextareaField: number[];
   pickerValue: number[];
 }
-const ResumeForm = ({
-  info,
-  formInputField,
-  formTextareaField,
-  pickerValue,
-}: IResumeFormProps) => {
+const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
+  const FORM_INPUT_FIELD_LIST = [1, 4, 5, 6, 7, 8, 9, 10, 11, 15, 16];
+  const FORM_TEXTAREA_FIELD_LIST = [3, 12, 13, 14];
   const NeedAdditions = {
     "-1": "不用简历",
     "0": "全选",
@@ -50,10 +47,15 @@ const ResumeForm = ({
     "12": "志愿服务经历（校级以上）",
     "13": "学生工作经历（大学期间）",
     "14": "获奖情况（大学期间）",
+    "15": "身高",
+    "16": "鞋码",
   };
-  const [imageUrl, setImageUrl] = useState("");
-  const Popup = useContainer(PopupContext);
-  const [formValue, setFormValue] = useState({
+  const [formInputField, setFormInputField] = useState<number[]>([]);
+  const [formTextareaField, setFormTextareaField] = useState<number[]>([]);
+  // let formInputField: number[] = [];
+  // let formTextareaField: number[] = [];
+
+  const initForm = {
     "1": "",
     "2": "",
     "3": "",
@@ -68,15 +70,23 @@ const ResumeForm = ({
     "12": "",
     "13": "",
     "14": "",
-  });
-  const [focus, setFocus] = useState("1");
+    "15": "",
+    "16": "",
+  };
+  const [imageUrl, setImageUrl] = useState("");
+  const Popup = useContainer(PopupContext);
+  const [formValue, setFormValue] = useState(initForm);
+  // const [focus, setFocus] = useState("");
+  // console.log(focus);
+
+  // const [isShow, setIsShow] = useState(false);
   useEffect(() => {
+    const tmpFormInputField: number[] = [];
+    const tmpFormTextareaField: number[] = [];
     getStorage({
       key: "resume",
       success: (res) => {
-        console.log('res:', res);
         console.log(JSON.parse(res.data));
-        console.log(JSON.parse(res.data)["2"]);
         setFormValue(JSON.parse(res.data));
         setImageUrl(JSON.parse(res.data)["2"]);
       },
@@ -84,25 +94,16 @@ const ResumeForm = ({
         console.log(res.errMsg);
         setStorage({
           key: "resume",
-          data: JSON.stringify({
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": "",
-            "9": "",
-            "10": "",
-            "11": "",
-            "12": "",
-            "13": "",
-            "14": "",
-          }),
+          data: JSON.stringify(initForm),
         });
       },
     });
+    info.need_additions.forEach((v: number) => {
+      FORM_INPUT_FIELD_LIST.includes(v) && tmpFormInputField.push(v);
+      FORM_TEXTAREA_FIELD_LIST.includes(v) && tmpFormTextareaField.push(v);
+    });
+    setFormInputField(tmpFormInputField);
+    setFormTextareaField(tmpFormTextareaField);
   }, []);
   const [mutateApply] = useMutation(applyVolunteerActivity, {
     onSuccess(res) {
@@ -143,27 +144,14 @@ const ResumeForm = ({
   });
   type InputProps = {
     label: string;
-    seq:
-      | "1"
-      | "2"
-      | "3"
-      | "4"
-      | "5"
-      | "6"
-      | "7"
-      | "8"
-      | "9"
-      | "10"
-      | "11"
-      | "12"
-      | "13"
-      | "14";
+    seq: string;
   };
 
   type TextareaProps = InputProps & {
     maxLength?: number;
   };
   const upload = async () => {
+    const data = JSON.parse(getStorageSync("resume"));
     const [dateIndex, timePartIndex] = pickerValue;
     const date = info!.detail[dateIndex];
     const timePart = date.time_part_info[timePartIndex];
@@ -177,8 +165,10 @@ const ResumeForm = ({
       return;
     }
     if (
-      Object.keys(formValue).some((key) => {
-        if (!formValue[key]) {
+      info.need_additions.some((key) => {
+        console.log(key, data[key]);
+
+        if (!data[key]) {
           const hide = Popup.show({
             title: "提交失败",
             detail: "请将信息填写完整",
@@ -204,25 +194,32 @@ const ResumeForm = ({
       <View className={styles.inputWrapper}>
         <Text className={styles.label}>{label}</Text>
         <Input
-          focus={focus == seq}
+          // focus={focus == seq}
           className={styles.input}
           type="text"
           name={seq}
           value={text}
-          onFocus={() => setFocus(seq)}
+          // onFocus={() => setFocus(seq)}
           onInput={(e) => {
-            setFocus(seq);
+            // setFocus(seq);
             const { value } = e.detail;
             setText(value);
-            setFormValue({ ...formValue, [seq]: value });
-            setStorage({
+            // setFormValue({ ...formValue, [seq]: value });
+            getStorage({
               key: "resume",
-              data: JSON.stringify({ ...formValue, [seq]: value }),
               success: (res) => {
-                console.log(res.errMsg);
+                const data = JSON.parse(res.data);
+                setStorage({
+                  key: "resume",
+                  data: JSON.stringify({
+                    ...data,
+                    [seq]: value,
+                  }),
+                });
               },
             });
           }}
+          // onBlur={() => setFocus("")}
         ></Input>
       </View>
     );
@@ -234,21 +231,31 @@ const ResumeForm = ({
       <View className={styles.textareaWrapper}>
         <Text className={styles.label}>{label}</Text>
         <Textarea
-          focus={focus == seq}
+          // focus={focus == seq}
           className={styles.textarea}
           name={seq}
           maxlength={maxLength}
-          onFocus={() => setFocus(seq)}
+          // onFocus={() => setFocus(seq)}
           onInput={(e) => {
-            setFocus(seq);
+            // setFocus(seq);
             const { value } = e.detail;
             setText(value);
-            setFormValue({ ...formValue, [seq]: value });
-            setStorage({
+            // setFormValue({ ...formValue, [seq]: value });
+            getStorage({
               key: "resume",
-              data: JSON.stringify({ ...formValue, [seq]: value }),
+              success: (res) => {
+                const data = JSON.parse(res.data);
+                setStorage({
+                  key: "resume",
+                  data: JSON.stringify({
+                    ...data,
+                    [seq]: value,
+                  }),
+                });
+              },
             });
           }}
+          // onBlur={() => setFocus("")}
           value={text}
         ></Textarea>
         <Text className={styles.count}>{`${text.length}/${maxLength}`}</Text>
@@ -262,7 +269,7 @@ const ResumeForm = ({
     return (
       <Text>{`${timestampToTimeCNString(date.date).slice(
         0,
-        -8
+        -6
       )} ${timestampToHMString(timePart.begin_time)} - ${timestampToHMString(
         timePart.end_time
       )}`}</Text>
@@ -292,10 +299,23 @@ const ResumeForm = ({
                 image={imageUrl}
                 dispatchImage={(url) => {
                   setImageUrl(url);
-                  setFormValue({ ...formValue, "2": url });
-                  setStorage({
+                  // setFormValue({ ...formValue, "2": url });
+                  getStorage({
                     key: "resume",
-                    data: JSON.stringify({ ...formValue, "2": url }),
+                    success: (res) => {
+                      const data = JSON.parse(res.data);
+                      setFormValue({ ...data, "2": url });
+                      setStorage({
+                        key: "resume",
+                        data: JSON.stringify({
+                          ...data,
+                          "2": url,
+                        }),
+                        success: (res) => {
+                          console.log(res.errMsg);
+                        },
+                      });
+                    },
                   });
                 }}
               />
@@ -331,6 +351,12 @@ const ResumeForm = ({
         </Button>
       </View>
       <Popup.Comp />
+      {/* <BottomPop
+        isShow={isShow}
+        onCancel={() => setIsShow(false)}
+        onOk={upload}
+        title="退出后所填内容不可保存，确认退出？"
+      /> */}
     </Fragment>
   );
 };
