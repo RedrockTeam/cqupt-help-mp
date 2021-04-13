@@ -183,7 +183,11 @@ const VolunteerDetail = () => {
 
   const Detail = () => (
     <Fragment>
-      <Image className={styles.pic} mode="aspectFill" src={JSON.parse(info.imagines)[0]} />
+      <Image
+        className={styles.pic}
+        mode="aspectFill"
+        src={info.imagines ? JSON.parse(info.imagines)[0] : volunteerImg}
+      />
       <View className={styles.card}>
         <View className={styles.item1}>
           <View className={styles.title}>
