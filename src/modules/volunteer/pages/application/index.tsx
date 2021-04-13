@@ -132,22 +132,22 @@ const VolunteerApply = () => {
       console.log("getMyActivities-data:", data);
 
       if (data?.data) {
-        const tarActivity = data.data.filter((activity) => {
+        const tarActivity = data.data.filter(({activity_detail: activity}) => {
           const { begin_time, end_time } = genSeconds(date);
           return (
             activity.rely_id == Number(rely_id) &&
             activity.id == Number(activity_id) &&
-            activity.time_part.begin_time == begin_time &&
-            activity.time_part.end_time == end_time
+            activity?.time_part?.begin_time == begin_time &&
+            activity?.time_part?.end_time == end_time
           );
         });
         console.log(tarActivity);
         if (
-          changeState != String(tarActivity[0].is_change) ||
-          isScanned != (tarActivity[0].is_sign === 1)
+          changeState != String(tarActivity[0].activity_detail.status.is_change) ||
+          isScanned != (tarActivity[0].activity_detail.status.is_sign === 1)
         ) {
-          setChangeState(String(tarActivity[0].is_change));
-          setIsScanned(tarActivity[0].is_sign === 1);
+          setChangeState(String(tarActivity[0].activity_detail.status.is_change));
+          setIsScanned(tarActivity[0].activity_detail.status.is_sign === 1);
         }
       }
     },

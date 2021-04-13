@@ -32,95 +32,28 @@ const MyActivity = () => {
 
       let activityList: MyActivities = activityListRes.data;
 
-      // console.log('activityList:', activityList)
-      // activityList = [ ...activityList,
-      //   {
-      //     is_sign: 0,
-      //     rely_id: 1,
-      //     is_change: 0,
-      //     "id": 272,
-      //     "type": 1,
-      //     "name": "测试我的活动",
-      //     "description": "555",
-      //     "team_name": "红岩网校工作站—Web研发部",
-      //     "sign_up_start": 1605024000,
-      //     "sign_up_last": 1605110400,
-      //     "last_date": 1705628800,
-      //     "start_date": 1605110400,
-      //     "date": 1605196800,
-      //     "time_part": {
-      //       "begin_time": 36000,
-      //       "end_time": 43200
-      //     },
-      //     "if_read": 2,
-      //     "result": {
-      //       "pass": "0",
-      //       "qq": "555"
-      //     },
-      //     "registration_time": 1605057216
-      //   },
-      //   {
-      //     is_sign: 0,
-      //     rely_id: 1,
-      //     is_change: 2,
-      //     "id": 276,
-      //     "type": 1,
-      //     "name": "测试我的活动",
-      //     "description": "555",
-      //     "team_name": "红岩网校工作站—Web研发部",
-      //     "sign_up_start": 1605024000,
-      //     "sign_up_last": 1605110400,
-      //     "last_date": 1705628800,
-      //     "start_date": 1605110400,
-      //     "date": 1605542400,
-      //     "time_part": {
-      //       "begin_time": 36000,
-      //       "end_time": 43200
-      //     },
-      //     "if_read": 1,
-      //     "result": {
-      //       "pass": "1",
-      //       "qq": "2222"
-      //     },
-      //     "registration_time": 1605057225
-      //   },
-      //   {
-      //     is_sign: 0,
-      //     rely_id: 1,
-      //     is_change: 0,
-      //     "id": 274,
-      //     "type": 1,
-      //     "name": "测试我的活动",
-      //     "description": "555",
-      //     "team_name": "红岩网校工作站—Web研发部",
-      //     "sign_up_start": 1605024000,
-      //     "sign_up_last": 1605110400,
-      //     "last_date": 1705628800,
-      //     "start_date": 1605110400,
-      //     "date": 1605369600,
-      //     "time_part": {
-      //       "begin_time": 36000,
-      //       "end_time": 43200
-      //     },
-      //     "if_read": 3,
-      //     "result": {
-      //       "pass": "1",
-      //       "qq": "8162435"
-      //     },
-      //     "registration_time": 1605057234
-      //   }
-      // ]
-
-
       if (activityList) {
         console.log("activityList: ", activityList);
 
-        let commonList = activityList.filter((activity) => activity.type === 0)
-        commonList.sort((pre, cur) => cur.last_date - pre.last_date)
+        const nowTimeStamp = parseInt(String(new Date().getTime() / 1000));
+        let overdueActivity : MyActivities = [];
+
+        let commonList = activityList.filter((activity) => activity.activity_detail.type === 0)
+        commonList.sort((pre, cur) => cur.activity_detail.last_date - pre.activity_detail.last_date)
+        overdueActivity = commonList.filter(cur => cur.activity_detail.last_date < nowTimeStamp);
+        commonList = commonList.filter(cur => cur.activity_detail.last_date > nowTimeStamp);
+        commonList = commonList.concat(overdueActivity);
+
         setCommonList(commonList);
 
-        let volunteerList = activityList.filter((activity) => activity.type === 1)
-        volunteerList.sort((pre, cur) => cur.last_date - pre.last_date)
+        let volunteerList = activityList.filter((activity) => activity.activity_detail.type === 1)
+        volunteerList.sort((pre, cur) => cur.activity_detail.last_date - pre.activity_detail.last_date)
+        overdueActivity = volunteerList.filter(cur => cur.activity_detail.last_date < nowTimeStamp);
+        volunteerList = volunteerList.filter(cur => cur.activity_detail.last_date > nowTimeStamp);
+        // @ts-ignore
+        volunteerList.sort((cur, next) => cur.activity_detail?.date - next.activity_detail?.date)
+        volunteerList = volunteerList.concat(overdueActivity);
+
         setVolunteerList(volunteerList);
 
         console.log("普通活动", commonList);
@@ -182,23 +115,15 @@ const MyActivity = () => {
             btnContent="查看活动"
           />
         ) : (
-          commonList.map((e) => (
-            <Activity
-              rely_id={e.rely_id}
-              is_change={e.is_change}
-              is_sign={e.is_sign}
-              id={e.id}
-              type={e.type}
-              name={e.name}
-              team_name={e.team_name}
-              start_date={e.start_date}
-              last_date={e.last_date}
-              key={e.id}
-              registration_time={e.registration_time}
-              time_part={e.time_part}
-              if_read={e.if_read}
-            />
-          ))
+          commonList.map((commonActivity) => {
+            return (
+              <Activity
+                key={commonActivity.activity_detail.id}
+                activity_detail={commonActivity.activity_detail}
+                if_read={commonActivity.if_read}
+                registration_time={commonActivity.registration_time}/>
+            )
+          })
         )}
       </View>
 
@@ -223,25 +148,15 @@ const MyActivity = () => {
             btnContent="查看活动"
           />
         ) : (
-          volunteerList.map((e) => (
-            <Activity
-              rely_id={e.rely_id}
-              is_change={e.is_change}
-              is_sign={e.is_sign}
-              id={e.id}
-              type={e.type}
-              name={e.name}
-              team_name={e.team_name}
-              start_date={e.start_date}
-              last_date={e.last_date}
-              key={e.id}
-              registration_time={e.registration_time}
-              result={e.result}
-              time_part={e.time_part}
-              date={e.date}
-              if_read={e.if_read}
-            />
-          ))
+          volunteerList.map((volunteerActivity) => {
+            return (
+              <Activity
+                key={volunteerActivity.activity_detail.id}
+                activity_detail={volunteerActivity.activity_detail}
+                if_read={volunteerActivity.if_read}
+                registration_time={volunteerActivity.registration_time}/>
+            )
+          })
         )}
       </View>
     </View>
