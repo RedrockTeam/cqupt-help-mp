@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Text } from "@tarojs/components";
+import { View, Image, Text, Button } from "@tarojs/components";
 import { useRouter } from "@tarojs/taro";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
@@ -115,9 +115,9 @@ const AcDetail = () => {
         </View>
         <View />
         {/* 暂不需要 */}
-        {/* <Button onClick={handleApply} className={styles.button}>
+        <Button onClick={handleApply} className={styles.button}>
           立即报名
-        </Button> */}
+        </Button>
       </View>
 
       <Popup.Comp />

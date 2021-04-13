@@ -62,7 +62,7 @@ export default function Index() {
     // TODO: 后端将所有活动均返回，过滤掉已过期掉活动，喊后端有空修
     homeActivityListRes.data = homeActivityListRes.data.filter(
       // @ts-ignore
-      (activity) => activity.time_done > Date.parse(new Date())
+      (activity) => activity.time_done > Date.parse(new Date()) / 1000
     );
 
 
@@ -103,7 +103,7 @@ export default function Index() {
         indicatorDots
         circular
         autoplay
-        // TODO: 修改 dot 样式
+      // TODO: 修改 dot 样式
       >
         {list.map((e) => (
           <SwiperItem key={e}>

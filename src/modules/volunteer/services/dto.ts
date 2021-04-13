@@ -1,4 +1,4 @@
-import {BaseRes} from "@/common/helpers/request";
+import { BaseRes } from "@/common/helpers/request";
 
 export interface CheckIsVolunteerRes extends BaseRes {
   exist: boolean;
@@ -61,7 +61,7 @@ export interface IVolunteerActivityDetail {
   start_date: number; // 活动开始时间戳
   last_date: number; // 活动截止时间戳
   num: string;
-  imagines: string[];
+  imagines: string;
   need_additions: number[];
   detail: IVolunteerTimePartDetail[];
 }
