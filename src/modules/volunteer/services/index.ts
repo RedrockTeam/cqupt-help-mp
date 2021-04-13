@@ -2,12 +2,17 @@ import request from "@/common/helpers/request";
 import {
   CheckIsVolunteerRes,
   LoginVolunteerRes,
-  VolunteerInfo,
-  VolunteerActivityListInfoRes,
-  VolunteerActivityDetailRes,
   VolunteerActivityApply,
   VolunteerActivityApplyRes,
-  VolunteerActivityApplicationRes,
+  VolunteerActivityChangeReq,
+  VolunteerActivityChangeRes,
+  VolunteerActivityDetailRes,
+  VolunteerActivityListInfoRes,
+  VolunteerActivityQuitReq,
+  VolunteerActivityQuitRes,
+  VolunteerActivitySignInReq,
+  VolunteerActivitySignInRes,
+  VolunteerInfo,
 } from "./dto";
 
 export const checkIsVolunteer = (_key: string) =>
@@ -30,7 +35,7 @@ export const getVolunteerActivityDetail = (_key: string, rely_id: string) =>
     "/cyb-volunteer/volunteer/activity/info",
     {
       method: "POST",
-      data: { rely_id },
+      data: {rely_id},
       header: {
         "content-type": "application/x-www-form-urlencoded",
       },
@@ -49,14 +54,59 @@ export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
     }
   );
 
+
+/**
+ * 更新活动已读状态
+ */
 export const postVolunteerActivityRead = (
   _key: string,
   registration_time: string
 ) =>
   request("/cyb-myactivities/read", {
     method: "POST",
-    data: { registration_time },
+    data: {registration_time},
     header: {
       "content-type": "application/x-www-form-urlencoded",
     },
   });
+
+
+/**
+ * 退出志愿活动
+ * @param data : VolunteerActivityQuitReq
+ */
+export const postVolunteerActivityQuit = (data: VolunteerActivityQuitReq) =>
+  request<VolunteerActivityQuitRes>("/cyb-myactivities/quit", {
+    method: "POST",
+    data,
+    header: {
+      "content-type": "application/json",
+    }
+  })
+
+/**
+ * 更改志愿活动班次
+ * @param data : VolunteerActivityChangeReq
+ */
+export const postVolunteerActivityChange = (data: VolunteerActivityChangeReq) =>
+  request<VolunteerActivityChangeRes>("/cyb-myactivities/change", {
+    method: "POST",
+    data,
+    header: {
+      "content-type": "application/json",
+    }
+  })
+
+/**
+ * 活动签到
+ * @param code_id
+ * @param data
+ */
+export const postVolunteerActivitySignIn = ({code, data} :{code: string, data: VolunteerActivitySignInReq}) =>
+  request<VolunteerActivitySignInRes>(`/cyb-myactivities/sign?${code}`, {
+    method: "POST",
+    data,
+    header: {
+      "content-type": "application/json",
+    }
+  })

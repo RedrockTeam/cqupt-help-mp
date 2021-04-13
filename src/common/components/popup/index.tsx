@@ -26,7 +26,10 @@ const Popup = ({ isShow, img, title, detail, bottom, className }: Props) => {
         {img ? ( 
           <Image src={img} mode="aspectFit" className={styles.img} />
         ) : null}
-        <Text className={styles.title}>{title}</Text>
+        {title ? (
+          <Text className={styles.title}>{title}</Text>
+          ) : null
+        }
         <Text className={styles.detail}>{detail}</Text>
         {bottom}
       </View>

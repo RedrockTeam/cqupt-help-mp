@@ -3,17 +3,14 @@ import { View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import Placeholder from "@/common/components/placeholder";
 import { resolvePage, navTo } from "@/common/helpers/utils";
-import {
-  now,
-  gapDay,
-  timestampToTimeString,
-  leftTime,
-} from "@/common/helpers/date";
+import { now, leftTime } from "@/common/helpers/date";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import Empty from "@/common/components/empty";
 import { navigateBack, redirectTo } from "@tarojs/taro";
 import { getVolunteerActivityListInfo, checkIsVolunteer } from "../../services";
 import styles from "./index.module.scss";
+// import VolunteerActivityListInfoRes from "../../../../mock/VolunteerActivityListInfoRes.json";
+
 const PAGE_TITLE = "志愿报名";
 
 const Volunteer = () => {
@@ -29,16 +26,13 @@ const Volunteer = () => {
     "getVolunteerActivityListInfo",
     getVolunteerActivityListInfo
   );
-
+  // list = VolunteerActivityListInfoRes;
   let xiaojiList;
   let yuanjiList;
 
   if (list) {
-    list = list.data;
-    xiaojiList = list.filter((item) => item.team_level === "校级");
-    yuanjiList = list.filter((item) => item.team_level === "院级");
-    console.log("校级", xiaojiList);
-    console.log("院级", yuanjiList);
+    xiaojiList = list.data.filter((item) => item.team_level === "校级");
+    yuanjiList = list.data.filter((item) => item.team_level === "院级");
   }
 
   // list = VolunteerActivityListInfo;

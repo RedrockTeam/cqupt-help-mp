@@ -25,6 +25,7 @@ export default {
     resolvePage("volunteer", "index"),
     resolvePage("volunteer", "detail"),
     resolvePage("volunteer", "application"),
+    resolvePage("volunteer", "change-time"),
     resolvePage("ticket", "rob-ticket"),
     resolvePage("ticket", "rob-ticket-info"),
     resolvePage("id", "index"),
@@ -67,6 +68,10 @@ export default {
       },
       {
         pagePath: resolvePage("my", "index"),
+        // pagePath: `${resolvePage(
+        //   "volunteer",
+        //   "change-time"
+        // )}`,
         text: "我的",
         iconPath: "static/images/my-icon.png",
         selectedIconPath: "static/images/my-active-icon.png",

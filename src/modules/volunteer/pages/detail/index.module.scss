@@ -91,6 +91,7 @@
     font-weight: 400;
     font-size: 28px;
     text-align: left;
+    word-break: break-all;
   }
 }
 
@@ -126,4 +127,11 @@
   height: 40px;
   padding-right: 8px;
   vertical-align: top;
+}
+
+.wrapper2 {
+  background-color: #f6f6f9;
+  width: 100vw;
+  height: 100vh;
+  padding: 24px 20px 0;
 }

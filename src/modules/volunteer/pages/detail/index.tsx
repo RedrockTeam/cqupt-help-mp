@@ -9,9 +9,6 @@ import {
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
-// import icon1 from "@/static/images/volunteer-icon1.png";
-// import icon2 from "@/static/images/volunteer-icon2.png";
-// import icon3 from "@/static/images/volunteer-icon3.png";
 import error from "@/static/images/error.png";
 import wait from "@/static/images/wait.png";
 import volunteerImg from "@/static/images/volunteer-img.jpg";
@@ -20,35 +17,48 @@ import {
   useMutation,
 } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
-// import PrimaryButton from "@/common/components/primary-button";
 import Picker from "../../components/picker/index";
+import ResumeForm from "../../components/resume-form";
 import {
   getVolunteerActivityDetail,
   applyVolunteerActivity,
 } from "../../services";
 import styles from "./index.module.scss";
-
-import VolunteerActivityDetail from "../../../../mock/VolunteerActivityDetail.json";
+import { IVolunteerActivityDetail } from "../../services/dto";
+// import VolunteerActivityDetail from "../../../../mock/VolunteerActivityDetail.json";
 
 const VolunteerDetail = () => {
   const { params } = useRouter();
   const [showPicker, setShowPicker] = useState(false);
-  const [dateIndex, setDateIndex] = useState<number>(0);
-  const [timePartIndex, setTimePartIndex] = useState<number>(0);
+
   const [isScrolling, setIsScrolling] = useState(false);
+  const [needResume, setNeedResume] = useState(false);
+  const [pickerValue, setPickerValue] = useState<number[]>([0, 0]);
   const Popup = useContainer(PopupContext);
 
   let { data, isLoading, isError } = useQuery(
     ["getVolunteerActivityDetail", params.rely_id],
     getVolunteerActivityDetail
   );
-  let info = null;
-  let pickerValue = null;
+  // data = VolunteerActivityDetail;
+  let info: IVolunteerActivityDetail;
+  let viewItems: any = null;
+
   if (data) {
+    // data.data.need_additions = JSON.parse(data.data.need_additions);
+    // data.data.imagines = [data.data.imagines.slice(2, -2)];
+    // console.log(data.data.imagines);
+
     info = data.data;
-    const dateList = data.data.detail.map((item) => item.date);
-    const timePartList = data.data.detail.map((item) => item.time_part_info);
-    pickerValue = {
+    //  判断是否为字符串
+    if (typeof info.need_additions === "string") {
+      if (info.need_additions !== "")
+        info.need_additions = JSON.parse(info.need_additions);
+      else info.need_additions = [];
+    }
+    const dateList = info.detail.map((item) => item.date);
+    const timePartList = info.detail.map((item) => item.time_part_info);
+    viewItems = {
       dateList,
       timePartList,
     };
@@ -88,24 +98,24 @@ const VolunteerDetail = () => {
   const handleApply = async () => {
     if (!isScrolling) {
       setShowPicker(false);
-      if (data) {
-        const date = data.data.detail[dateIndex];
-        const timePart = date.time_part_info[timePartIndex];
-        if (timePart.now >= timePart.max + 10) {
-          const hide = Popup.show({
-            title: "申请失败",
-            detail: "报名人数已满",
-            img: error,
-          });
-          setTimeout(() => hide(), 1500);
-          return;
-        }
-        await mutateApply({
-          id: date.id,
-          begin_time: timePart.begin_time,
-          end_time: timePart.end_time,
+      const [dateIndex, timePartIndex] = pickerValue;
+      const date = info!.detail[dateIndex];
+      const timePart = date.time_part_info[timePartIndex];
+      if (timePart.now >= timePart.max + 10) {
+        const hide = Popup.show({
+          title: "申请失败",
+          detail: "报名人数已满",
+          img: error,
         });
+        setTimeout(() => hide(), 1500);
+        return;
       }
+      await mutateApply({
+        id: date.id,
+        begin_time: timePart.begin_time,
+        end_time: timePart.end_time,
+        addition: JSON.stringify({}),
+      });
     } else {
       console.log("scrolling");
     }
@@ -120,18 +130,19 @@ const VolunteerDetail = () => {
   };
 
   const timeChange = (e: ITouchEvent) => {
-    const dateIndex = e.detail.value[0]; // 要更改才生效
-    const timePartIndex = e.detail.value[1]; // 要更改才生效
+    const { value } = e.detail;
+    const dateIndex = value[0]; // 要更改才生效
+    const timePartIndex = value[1]; // 要更改才生效
     console.log("date", dateIndex);
     console.log("time", timePartIndex);
-    setDateIndex(dateIndex);
-    setTimePartIndex(timePartIndex);
+    setPickerValue([dateIndex, timePartIndex]);
   };
 
   if (isLoading) return <Placeholder title="志愿报名" />;
   if (isError || !data) return <Placeholder title="志愿报名" isError />;
 
   const renderRobBtn = () => {
+    if (!info) return;
     const nowTimestamp = now();
     if (info.sign_up_start > nowTimestamp) {
       const leftTime = Math.ceil((info.sign_up_start - nowTimestamp) / 60);
@@ -160,16 +171,6 @@ const VolunteerDetail = () => {
           >
             立即报名
           </Button>
-          <Picker
-            value={pickerValue}
-            visible={showPicker}
-            onCancel={cancelShowPicker}
-            onOk={handleApply}
-            onTimeChange={timeChange}
-            onPickStart={() => setIsScrolling(true)}
-            onPickEnd={() => setIsScrolling(false)}
-            dateIndex={dateIndex}
-          />
         </Fragment>
       );
     }
@@ -179,9 +180,9 @@ const VolunteerDetail = () => {
       </Button>
     );
   };
-  return (
-    <View className={styles.wrapper}>
-      <NavBack title="志愿报名" background="#F6F6F9" />
+
+  const Detail = () => (
+    <Fragment>
       <Image className={styles.pic} mode="aspectFill" src={volunteerImg} />
       <View className={styles.card}>
         <View className={styles.item1}>
@@ -249,28 +250,55 @@ const VolunteerDetail = () => {
           </Text>
         </View>
         {renderRobBtn()}
-      </View>
-      <View />
-      {/* {data.data.last_date > now() ? (
-        <Fragment>
-          <Button
-            className={styles.button}
-            onClick={() => {
-              handleShowPicker();
-            }}
-          >
-            立即报名
-          </Button>
+        {info.need_additions.length === 0 ? (
           <Picker
-            value={data.data.time_part}
+            value={pickerValue}
+            viewItems={viewItems}
             visible={showPicker}
             onCancel={cancelShowPicker}
             onOk={handleApply}
             onTimeChange={timeChange}
+            onPickStart={() => setIsScrolling(true)}
+            onPickEnd={() => setIsScrolling(false)}
+            dateIndex={pickerValue[0]}
           />
-        </Fragment>
-      ) : null} */}
+        ) : (
+          <Picker
+            value={pickerValue}
+            viewItems={viewItems}
+            visible={showPicker}
+            onCancel={cancelShowPicker}
+            onOk={() => {
+              if (!isScrolling) {
+                setShowPicker(false);
+                setNeedResume(true);
+              } else {
+                console.log("scrolling");
+              }
+            }}
+            onTimeChange={timeChange}
+            onPickStart={() => setIsScrolling(true)}
+            onPickEnd={() => setIsScrolling(false)}
+            dateIndex={pickerValue[0]}
+            title="请选择班次"
+            btnText="确认班次"
+          />
+        )}
+      </View>
+      <View />
       <Popup.Comp />
+    </Fragment>
+  );
+
+  const Resume = () => (
+    <View className={styles.wrapper2}>
+      <ResumeForm pickerValue={pickerValue} info={info} />
+    </View>
+  );
+  return (
+    <View className={styles.wrapper}>
+      <NavBack title="志愿报名" background="#F6F6F9" />
+      {needResume ? <Resume /> : <Detail />}
     </View>
   );
 };

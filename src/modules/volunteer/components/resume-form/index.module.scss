@@ -1,0 +1,118 @@
+.label {
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: right;
+  width: 100%;
+  height: 142px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #777494;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+  .input {
+    color: #1c184c;
+  }
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+.textareaWrapper {
+  .label {
+    box-sizing: border-box;
+    font-size: 28px;
+    font-weight: bold;
+    color: #494670;
+    padding: 26px 0 31px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    display: block;
+    margin: 0;
+  }
+  .textarea {
+    margin-top: 31px;
+    width: 100%;
+    height: 217px;
+    resize: none;
+    color: #494670;
+    font-size: 28px;
+    line-height: 48px;
+    border: 0;
+    outline: 0;
+    background: none;
+    word-break: normal;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    padding-right: 10px;
+  }
+  .count {
+    font-family: DIN;
+    display: block;
+    text-align: right;
+    font-size: 28px;
+    color: #c9c8d2;
+  }
+}
+.container {
+  box-sizing: border-box;
+  background-color: #fff;
+  width: 710px;
+  border-radius: 20px;
+  padding: 24px;
+  margin: 24px 0;
+}
+.submitButton {
+  width: 360px;
+  height: 88px;
+  line-height: 88px;
+  text-align: center;
+  color: #ffffff;
+  font-family: PingFang SC;
+  font-size: 36px;
+  background: #625af8;
+  border-radius: 44px;
+  margin: 160px auto 124px;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .left {
+    flex-basis: 372px;
+  }
+  .right {
+    margin-right: 24px;
+    width: 170px;
+    height: 238px;
+  }
+}
+
+.container2 {
+  background-color: #fff;
+  width: 710px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 67px 32px;
+  .title,
+  .time {
+    font-family: DIN;
+    font-style: normal;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .title {
+    color: #777494;
+  }
+  .time {
+    color: #1c184c;
+  }
+}
+
+.time {
+  color: #1c184c;
+  font-family: DIN;
+}
