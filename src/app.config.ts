@@ -2,7 +2,7 @@
  * @Author: myjdml
  * @Date: 2021-03-10 21:11:01
  * @LastEditors: myjdml
- * @LastEditTime: 2021-04-06 21:16:38
+ * @LastEditTime: 2021-04-17 14:18:35
  * @FilePath: \cqupt-help-mp\src\app.config.ts
  * @Description: nothing is everything
  */
@@ -15,6 +15,7 @@ export default {
     // resolvePage("ticket", "rob-ticket"),
     // resolvePage("ticket", "rob-ticket-info"),
     resolvePage("ticket", "my-ticket"),
+    // resolvePage("ticket-appeal", "record"),
     resolvePage("index", "home"),
     resolvePage("index", "activity-detail"),
     resolvePage("campus", "index"),
@@ -44,6 +45,7 @@ export default {
     resolvePage("account-safe", "resetpassword"),
     resolvePage("feedback", "index"),
     resolvePage("feedback", "result"),
+    resolvePage("ticket-appeal", "index"),
     resolvePage("index", "bind"),
     "modules/webview/index",
   ],

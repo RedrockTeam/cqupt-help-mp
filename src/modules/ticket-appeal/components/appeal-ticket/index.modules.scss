@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  height: 164px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 10px;
+  margin: 15px 0;
+  .title {
+    font-size: 32px;
+    font-weight: 700;
+    
+  }
+}

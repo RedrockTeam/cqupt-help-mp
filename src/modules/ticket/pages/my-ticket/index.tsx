@@ -26,7 +26,11 @@ import { createContainer, useContainer } from "unstated-next";
 import BottomPop from "@/common/components/bottomPop";
 import styles from "./index.module.scss";
 import OwedTicket from "../../components/owed-ticket";
-import { getMyTicketList, checkTicket } from "../../services";
+import { 
+  getMyTicketList, 
+  checkTicket,
+  returnMyTicket,
+} from "../../services";
 import myTicketListRes from "../../../../mock/myTicketListRes.json";
 import SelectPopup from "../../components/select-popup";
 import SelectPopupContext from "@/stores/select-popup";
@@ -43,9 +47,11 @@ const MyTicket = () => {
     setPopupState,
     changePopupState
   }
-  
+
+  // SelectPopup退票函数
   const handelReturnTicket = () => {
     console.log("开始退票");
+    returnMyTicket()
   }
 
   const Popup = useContainer(PopupContext);

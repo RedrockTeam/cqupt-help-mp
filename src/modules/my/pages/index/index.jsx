@@ -129,7 +129,7 @@ function MyIndex() {
         </View>
         <View
           className={styles.feedback}
-          onClick={() => navTo({ url: resolvePage("feedback", "index") })}
+          onClick={() => navTo({ url: resolvePage("ticket-appeal", "index") })}
         >
           <Image src={ticketAppeal} className={styles.icon} />
           <Text className={styles.text}>影票申诉</Text>
