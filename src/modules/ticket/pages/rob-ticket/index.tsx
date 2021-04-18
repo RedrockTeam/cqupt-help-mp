@@ -17,9 +17,9 @@ import error from "@/static/images/error.png";
 
 import Empty from "@/common/components/empty";
 import {
-  getRobTicketListInfo, 
-  robAlternateTicket, 
-  robTicket 
+  getRobTicketListInfo,
+  robAlternateTicket,
+  robTicket
 } from "../../services";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
@@ -176,7 +176,7 @@ const RobTicket = () => {
     let res: any;
     if (!isAlternateRobing) {
       setIsAlternateRobing(true);
-      res = await mutateRobTicket(id);
+      res = await mutateRobAlternateTicket(id);
       setIsAlternateRobing(false);
     } else {
       return;

@@ -2,7 +2,7 @@
  * @Author: myjdml
  * @Date: 2021-03-23 20:08:09
  * @LastEditors: myjdml
- * @LastEditTime: 2021-04-06 00:41:18
+ * @LastEditTime: 2021-04-18 16:44:38
  * @FilePath: \cqupt-help-mp\src\modules\ticket\pages\rob-ticket-info\index.tsx
  * @Description: nothing is everything
  */
@@ -15,7 +15,7 @@ import {
   useMutation,
   useQueryCache,
 } from "react-query/dist/react-query.production.min";
-import { getRobTicketListInfo, robTicket } from '../../services';
+import { getRobTicketListInfo, robAlternateTicket, robTicket } from '../../services';
 import PopupContext from "@/stores/popup";
 import { useContainer } from 'unstated-next';
 import error from "@/static/images/error.png";
@@ -47,11 +47,14 @@ const RobTicketInfo = () => {
   const isLoading = false;
   const isError = false;
 
+  const [isRobing, setIsRobing] = useState(false);
+  const [isAlternateRobing, setIsAlternateRobing] = useState(false);
   const [mutateRobTicket] = useMutation(robTicket, {
     onSuccess: () => queryCache.invalidateQueries("robTicketListInfo"),
   });
-
-  const [isRobing, setIsRobing] = useState(false);
+  const [mutateRobAlternateTicket] = useMutation(robAlternateTicket, {
+    onSuccess: () => queryCache.invalidateQueries("robTicketListInfo"),
+  });
 
   const handleRobTicket = async (id: number) => {
     let res: any;
@@ -91,6 +94,44 @@ const RobTicketInfo = () => {
       setTimeout(() => hide(), 1500);
     }
   };
+  const handleAlternateRobTicket = async (id: number, re_send_num: number) => {
+    let res: any;
+    if (!isAlternateRobing) {
+      setIsAlternateRobing(true);
+      res = await mutateRobAlternateTicket(id);
+      setIsAlternateRobing(false);
+    } else {
+      return;
+    }
+
+    if (res.status === 10000) {
+      const hide = Popup.show({
+        img: robSuccessImg,
+        title: "恭喜您！候补成功！",
+        detail: `目前您排在第${re_send_num}位。候补结果将通过重邮小帮手通知`,
+      });
+      setTimeout(() => hide(), 10000);
+    } else {
+      let detail: string;
+      if (res.status === 10004) {
+        detail = "票已经被抢完了";
+      } else if (res.status === 10006) {
+        detail = "请求超时,请重试";
+      } else if (res.status === 10007) {
+        detail = "请求过于频繁";
+      } else if (res.status === 10008) {
+        detail = "客户端错误,请稍后再试";
+      } else {
+        detail = "出错了...";
+      }
+      const hide = Popup.show({
+        img: error,
+        title: "抢票失败...",
+        detail,
+      });
+      setTimeout(() => hide(), 1500);
+    }
+  }
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   // console.log(ticketList);
