@@ -40,9 +40,6 @@ export interface MyActivity {
   registration_time: number; // 用户报名的当天时间
 }
 
-
-
-
 export type MyActivities = MyActivity[];
 
 export interface MyActivitiesRes extends BaseRes {
