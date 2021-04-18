@@ -33,7 +33,7 @@ export interface TimeDetail {
     end_time: number;
     max: number;
     now: number;
-  }[]
+  }[];
 }
 
 interface IVolunteerTimePartDetail {
@@ -56,7 +56,7 @@ export interface IVolunteerActivityDetail {
   sign_up_last: number; // 报名结束时间戳
   name: string;
   description: string;
-  role: string; // 这是rule 后端命名的锅
+  place: string;
   hour: string;
   start_date: number; // 活动开始时间戳
   last_date: number; // 活动截止时间戳
@@ -79,7 +79,6 @@ export interface VolunteerActivityApply {
 
 export type VolunteerActivityApplyRes = BaseRes;
 
-
 /**
  * 退出志愿活动相关
  */
@@ -89,11 +88,11 @@ export interface VolunteerActivityQuitReq {
   end_time: number;
 }
 
-export interface VolunteerActivityQuitRes {   //  响应
+export interface VolunteerActivityQuitRes {
+  //  响应
   status: number;
   info: string;
 }
-
 
 /**
  * 志愿活动更改班次相关
@@ -103,22 +102,18 @@ export interface VolunteerActivityChangeReq {
     activity_id: number;
     begin_time: number;
     end_time: number;
-  },
+  };
   new: {
     activity_id: number;
     begin_time: number;
     end_time: number;
-  }
+  };
 }
 
-export interface VolunteerActivityChangeRes extends VolunteerActivityQuitRes {
-}// 跟退出活动的响应是一样的
-
+export interface VolunteerActivityChangeRes extends VolunteerActivityQuitRes {} // 跟退出活动的响应是一样的
 
 /**
  * 扫码签到相关
  */
-export interface VolunteerActivitySignInReq extends VolunteerActivityQuitReq {
-}// 跟退出活动的请求是一样的
-export interface VolunteerActivitySignInRes extends VolunteerActivityQuitRes {
-}// 跟退出活动的响应是一样的
+export interface VolunteerActivitySignInReq extends VolunteerActivityQuitReq {} // 跟退出活动的请求是一样的
+export interface VolunteerActivitySignInRes extends VolunteerActivityQuitRes {} // 跟退出活动的响应是一样的

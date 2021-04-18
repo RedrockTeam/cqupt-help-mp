@@ -250,7 +250,7 @@ const VolunteerDetail = () => {
             <Text>活动规则</Text>
           </View>
           <Text userSelect selectable className={styles.text}>
-            {info.role}
+            {info.place}
           </Text>
         </View>
         {renderRobBtn()}
