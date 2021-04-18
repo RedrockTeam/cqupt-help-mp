@@ -1,0 +1,14 @@
+diff --git a/node_modules/@tarojs/shared/dist/index.js b/node_modules/@tarojs/shared/dist/index.js
+index 2915c12..6fcb037 100644
+--- a/node_modules/@tarojs/shared/dist/index.js
++++ b/node_modules/@tarojs/shared/dist/index.js
+@@ -612,7 +612,8 @@ function createMiniComponents(components, buildType) {
+                     newComp[prop] = propValue;
+                 }
+             }
+-            if (compName !== 'block') {
++            
++            if (compName !== 'block' && compName !== 'swiper-item') {
+                 Object.assign(newComp, styles, isAlipay ? alipayEvents : events);
+             }
+             if (compName === 'slot' || compName === 'slot-view') {

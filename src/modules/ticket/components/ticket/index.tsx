@@ -29,7 +29,10 @@ type Props = {
   name: string;
   isReceived: boolean;
   type: number;
+  all: number;
+  re_send_num: number;
   onRobTicket: (id: number) => void;
+  onAlternateRobTicket: (id: number, re_send_num: number) => void;
 };
 
 const Ticket = ({
@@ -43,24 +46,35 @@ const Ticket = ({
   name,
   isReceived,
   type,
+  all,
+  re_send_num,
   onRobTicket,
+  onAlternateRobTicket,
 }: Props) => {
   const renderRobBtn = () => {
     const nowTimestamp = now();
     if (isReceived)
       return (
         <PrimaryButton disabled className={styles.btn}>
-          已领取
+          您已抢票成功
         </PrimaryButton>
       );
 
     if (nowTimestamp >= robTime && playTime >= nowTimestamp) {
-      if (remain <= 0)
+      if (remain <= 0) {
+        if (re_send_num < Math.ceil(all*0.2)) {
+          return (
+            <PrimaryButton className={styles.btn} onClick={() => onAlternateRobTicket(id, re_send_num)}>
+              候补抢票
+            </PrimaryButton>
+          )
+        }
         return (
           <PrimaryButton disabled className={styles.btn}>
             已抢完
           </PrimaryButton>
         );
+      }
       return (
         <PrimaryButton className={styles.btn} onClick={() => onRobTicket(id)}>
           立即抢票

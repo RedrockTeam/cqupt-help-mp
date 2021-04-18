@@ -2,8 +2,8 @@
  * @Author: myjdml
  * @Date: 2021-03-22 14:57:20
  * @LastEditors: myjdml
- * @LastEditTime: 2021-03-23 18:40:58
- * @FilePath: /cqupt-help-mp/src/modules/ticket/components/type-header/index.tsx
+ * @LastEditTime: 2021-04-18 15:37:24
+ * @FilePath: \cqupt-help-mp\src\modules\ticket\components\type-header\index.tsx
  * @Description: nothing is everything
  */
 import { View, Image } from '@tarojs/components';
@@ -24,16 +24,20 @@ const TypeHeader = ({
   // typeState ===0 表示讲座 ===1 表示影票
   const [ typeState, setTypeState ] = useState(0);
 
-  const changeType = (click: Function) => {
+  const changeTypeMovie = (click: Function) => {
     click();
-    setTypeState(typeState === 0?1:0)
+    setTypeState(0)
+  }
+  const changeTypeLecture = (click: Function) => {
+    click();
+    setTypeState(1)
   }
 
   return (
     <View className={styles.typeHeader}>
       <View 
         className={`${styles.button} ${styles.flexRow}`}
-        onClick={() => changeType(MovieFun)}
+        onClick={() => changeTypeMovie(MovieFun)}
       >
         <View className={typeState === 0?styles.titleSelect:styles.titleSelectOff}>讲座</View>
         {
@@ -42,7 +46,7 @@ const TypeHeader = ({
       </View>
       <View 
         className={`${styles.button} ${styles.flexRow}`}
-        onClick={() => changeType(LectureFun)}
+        onClick={() => changeTypeLecture(LectureFun)}
       >
         <View className={typeState === 1?styles.titleSelect:styles.titleSelectOff}>影票</View>
         {

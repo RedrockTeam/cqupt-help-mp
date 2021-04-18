@@ -16,7 +16,11 @@ import robSuccessImg from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
 
 import Empty from "@/common/components/empty";
-import { getRobTicketListInfo, robTicket } from "../../services";
+import {
+  getRobTicketListInfo, 
+  robAlternateTicket, 
+  robTicket 
+} from "../../services";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
 import ticketList from "../../../../mock/TicketList.json";
@@ -102,10 +106,10 @@ const RobTicket = () => {
           4.候补票用户与正常抢票用户一致，遵守信用制等相关规定。获得候补票后未按时到场验票，也将被记录至不良信用档案。"
           bottomType={1}
           confirmFun={SelectPopupCounter.changeState}
+          cancelFun={() => {}}
         />
       </View>
     )
-
   }
   // const { data: ticketList, isLoading, isError } = useQuery(
   //   "robTicketListInfo",
@@ -122,7 +126,11 @@ const RobTicket = () => {
   const [ currentList, setCurrentList ] = useState(ticketListMovie);
 
   const [isRobing, setIsRobing] = useState(false);
+  const [isAlternateRobing, setIsAlternateRobing] = useState(false);
   const [mutateRobTicket] = useMutation(robTicket, {
+    onSuccess: () => queryCache.invalidateQueries("robTicketListInfo"),
+  });
+  const [mutateRobAlternateTicket] = useMutation(robAlternateTicket, {
     onSuccess: () => queryCache.invalidateQueries("robTicketListInfo"),
   });
 
@@ -164,6 +172,44 @@ const RobTicket = () => {
       setTimeout(() => hide(), 1500);
     }
   };
+  const handleAlternateRobTicket = async (id: number, re_send_num: number) => {
+    let res: any;
+    if (!isAlternateRobing) {
+      setIsAlternateRobing(true);
+      res = await mutateRobTicket(id);
+      setIsAlternateRobing(false);
+    } else {
+      return;
+    }
+
+    if (res.status === 10000) {
+      const hide = Popup.show({
+        img: robSuccessImg,
+        title: "恭喜您！候补成功！",
+        detail: `目前您排在第${re_send_num}位。候补结果将通过重邮小帮手通知`,
+      });
+      setTimeout(() => hide(), 10000);
+    } else {
+      let detail: string;
+      if (res.status === 10004) {
+        detail = "票已经被抢完了";
+      } else if (res.status === 10006) {
+        detail = "请求超时,请重试";
+      } else if (res.status === 10007) {
+        detail = "请求过于频繁";
+      } else if (res.status === 10008) {
+        detail = "客户端错误,请稍后再试";
+      } else {
+        detail = "出错了...";
+      }
+      const hide = Popup.show({
+        img: error,
+        title: "抢票失败...",
+        detail,
+      });
+      setTimeout(() => hide(), 1500);
+    }
+  }
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   // console.log(ticketList);
@@ -200,8 +246,11 @@ const RobTicket = () => {
               name={e.name}
               isReceived={e.is_received}
               onRobTicket={handleRobTicket}
+              onAlternateRobTicket={handleAlternateRobTicket}
               key={e.id}
               type={e.type}
+              all={e.all}
+              re_send_num={e.re_send_num}
             />
         ))}
       </View>

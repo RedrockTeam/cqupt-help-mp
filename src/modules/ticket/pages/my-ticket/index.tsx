@@ -49,9 +49,44 @@ const MyTicket = () => {
   }
 
   // SelectPopup退票函数
-  const handelReturnTicket = () => {
+  const handelReturnTicket = async () => {
     console.log("开始退票");
-    returnMyTicket()
+    if (!myTicketListRes) return;
+    try {
+      const res = await mutateReturnTicket(myTicketListRes.data[current].id);
+      console.log(myTicketListRes.data[current].id);
+      console.log(dayjs(myTicketListRes.data[current].play_time).unix() - 1800 < now());
+      
+      if (res.Status === 200) {
+        if (dayjs(myTicketListRes.data[current].play_time).unix() - 1800 > now()) {
+          const hide = Popup.show({
+            img: robSuccessImg,
+            title: "恭喜您！退票成功！"
+          });
+          setTimeout(() => hide(), 3000);
+        } else {
+          const hide = Popup.show({
+            img: robSuccessImg,
+            title: "很抱歉！该票已过期！"
+          });
+          setTimeout(() => hide(), 3000);
+        }
+      } else {
+        const hide = Popup.show({
+          img: error,
+          title: "退票失败...",
+          detail: "错误",
+        });
+        setTimeout(() => hide(), 3000);
+      }
+    } catch (e) {
+      const hide = Popup.show({
+        img: error,
+        title: "退票失败...",
+        detail: "⽹络错误",
+      });
+      setTimeout(() => hide(), 3000);
+    }
   }
 
   const Popup = useContainer(PopupContext);
@@ -62,46 +97,49 @@ const MyTicket = () => {
   const isLoading = false;
   const isError = false;
   const queryCache = useQueryCache();
-  const [visible, setVisible] = useState(false);
-  const handleConcel = () => {
-    setVisible(false);
-  };
-  const handleOk = async () => {
-    setVisible(false);
-    if (!myTicketListRes) return;
-    try {
-      const res = await mutateCheckTicket(myTicketListRes.data[current].id);
-      if (res.status === 200) {
-        // 憨批后端
-        const hide = Popup.show({
-          img: robSuccessImg,
-          title: "恭喜您！验票成功！",
-          detail: "快去看电影吧～",
-        });
-        setTimeout(() => hide(), 1500);
-      } else {
-        const hide = Popup.show({
-          img: error,
-          title: "验票失败...",
-          detail: "错误",
-        });
-        setTimeout(() => hide(), 1500);
-      }
-    } catch (e) {
-      const hide = Popup.show({
-        img: error,
-        title: "验票失败...",
-        detail: "⽹络错误",
-      });
-      setTimeout(() => hide(), 1500);
-    }
-  };
-  const [mutateCheckTicket] = useMutation(checkTicket, {
+  // const [visible, setVisible] = useState(false);
+  // const handleConcel = () => {
+  //   setVisible(false);
+  // };
+  // const handleOk = async () => {
+  //   setVisible(false);
+  //   if (!myTicketListRes) return;
+  //   try {
+  //     const res = await mutateCheckTicket(myTicketListRes.data[current].id);
+  //     if (res.status === 200) {
+  //       // 憨批后端
+  //       const hide = Popup.show({
+  //         img: robSuccessImg,
+  //         title: "恭喜您！验票成功！",
+  //         detail: "快去看电影吧～",
+  //       });
+  //       setTimeout(() => hide(), 1500);
+  //     } else {
+  //       const hide = Popup.show({
+  //         img: error,
+  //         title: "验票失败...",
+  //         detail: "错误",
+  //       });
+  //       setTimeout(() => hide(), 1500);
+  //     }
+  //   } catch (e) {
+  //     const hide = Popup.show({
+  //       img: error,
+  //       title: "验票失败...",
+  //       detail: "⽹络错误",
+  //     });
+  //     setTimeout(() => hide(), 1500);
+  //   }
+  // };
+  // const [mutateCheckTicket] = useMutation(checkTicket, {
+  //   onSuccess: () => queryCache.invalidateQueries("getMyTiketList"),
+  // });
+  const [mutateReturnTicket] = useMutation(returnMyTicket, {
     onSuccess: () => queryCache.invalidateQueries("getMyTiketList"),
   });
-  const handleCheck = async () => {
-    setVisible(true);
-  };
+  // const handleCheck = async () => {
+  //   setVisible(true);
+  // };
   const [current, setCurrent] = useState(0);
   const handleSwiperChange: BaseEventOrigFunction<SwiperProps.onChangeEventDeatil> = (
     e
@@ -131,6 +169,7 @@ const MyTicket = () => {
           indicatorColor="#A7A3FF"
           indicatorActiveColor="#625AF8"
           indicatorDots
+          vertical={false}
           onChange={handleSwiperChange}
         >
           {myTicketListRes.data.map((e) => (
@@ -178,8 +217,8 @@ const MyTicket = () => {
       </PrimaryButton>
       <View className={styles.tips}>
         影票在开场30分钟后失效，请在⼯作⼈员指示下使⽤!
-      </View> */}
-      {/* <BottomPop
+      </View>
+      <BottomPop
         isShow={visible}
         onCancel={handleConcel}
         onOk={handleOk}
