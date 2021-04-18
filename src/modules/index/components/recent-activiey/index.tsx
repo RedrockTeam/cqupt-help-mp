@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-14 14:45:51
- * @LastEditTime: 2021-04-17 21:22:00
+ * @LastEditTime: 2021-04-18 17:20:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /cqupt-help-mp/src/modules/index/components/recent-activiey/index.tsx
@@ -25,6 +25,7 @@ type Props = {
   type: 1 | 2;
   image: string;
   image_with: string;
+  id: number;
 };
 
 const RecentActivity = ({
@@ -38,7 +39,8 @@ const RecentActivity = ({
   registration,
   type,
   image,
-  image_with
+  image_with,
+  id
 }: Props) => {
   if (gapDay(timeDone) < 0) {
     return null;
@@ -61,7 +63,8 @@ const RecentActivity = ({
               rule,
               image,
               registration,
-              image_with
+              image_with,
+              id
             },
             encode: true,
           });
