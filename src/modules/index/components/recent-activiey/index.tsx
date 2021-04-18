@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-04-14 14:45:51
+ * @LastEditTime: 2021-04-17 21:22:00
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /cqupt-help-mp/src/modules/index/components/recent-activiey/index.tsx
+ */
 import React from "react";
 import { View, Image, Text } from "@tarojs/components";
 import { gapDay } from "@/common/helpers/date";
@@ -16,6 +24,7 @@ type Props = {
   registration: string;
   type: 1 | 2;
   image: string;
+  image_with: string;
 };
 
 const RecentActivity = ({
@@ -29,6 +38,7 @@ const RecentActivity = ({
   registration,
   type,
   image,
+  image_with
 }: Props) => {
   if (gapDay(timeDone) < 0) {
     return null;
@@ -51,6 +61,7 @@ const RecentActivity = ({
               rule,
               image,
               registration,
+              image_with
             },
             encode: true,
           });
@@ -60,9 +71,8 @@ const RecentActivity = ({
       <View className={styles.left}>
         <Image src={image} className={styles.img} mode="aspectFill" />
         <View
-          className={`${styles.remainTime} ${
-            gapDay(timeDone) > 3 ? styles.doing : ""
-          }`}
+          className={`${styles.remainTime} ${gapDay(timeDone) > 3 ? styles.doing : ""
+            }`}
         >
           {gapDay(timeDone) > 3 ? "进行中" : `剩余 ${gapDay(timeDone)} 天`}
         </View>
@@ -71,9 +81,8 @@ const RecentActivity = ({
         <View className={styles.activityTitle}>
           {name}
           <View
-            className={`${styles.tag} ${
-              type === 1 ? styles.online : styles.offline
-            }`}
+            className={`${styles.tag} ${type === 1 ? styles.online : styles.offline
+              }`}
           >
             {type === 1 ? "线上" : "线下"}
           </View>
