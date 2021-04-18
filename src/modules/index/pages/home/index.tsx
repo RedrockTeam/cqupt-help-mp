@@ -84,6 +84,7 @@ export default function Index() {
               registration={e.registration}
               type={e.type}
               image={e.image}
+              image_with={e.image_with}
             />
           );
         })

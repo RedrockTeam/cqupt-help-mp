@@ -1,15 +1,14 @@
 import React from "react";
-import { View, Image, Text, Button } from "@tarojs/components";
+import { View, Image, Text, Button, Swiper, SwiperItem } from "@tarojs/components";
 import { useRouter } from "@tarojs/taro";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
 import icon1 from "@/static/images/volunteer-icon1.png";
 import icon2 from "@/static/images/volunteer-icon2.png";
-import icon3 from "@/static/images/volunteer-icon3.png";
 import success from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
-
+import { useQuery } from "react-query/dist/react-query.production.min";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import styles from "./index.module.scss";
 import { applyActivity } from "../../services";
@@ -61,12 +60,36 @@ const AcDetail = () => {
       }, 1500);
     }
   };
-
+  (() => {
+    console.log(params)
+    JSON.parse(params.image_with).map(e => {
+      console.log(e);
+    })
+  })()
   return (
     <View>
       <View className={styles.wrapper}>
         <NavBack title="活动详情" background="#F6F6F9" />
-        <Image className={styles.pic} mode="aspectFill" src={params.image} />
+        <Swiper
+          className={styles.pic}
+          indicatorColor='#999'
+          indicatorActiveColor='#333'
+          circular
+          indicatorDots
+          autoplay>
+          {JSON.parse(params.image_with).map((e, index) => {
+            return (
+              <SwiperItem style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                transform: `translate(${100 * index}%, 0px) translateZ(0px)`
+              }} key={e.id}>
+                <Image className={styles.pic} mode="aspectFill" src={e} />
+              </SwiperItem>
+            )
+          })}
+        </Swiper>
         <View className={styles.card}>
           <View className={styles.item1}>
             <View className={styles.title}>
