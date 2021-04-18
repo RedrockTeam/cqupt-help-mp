@@ -247,7 +247,7 @@ const VolunteerDetail = () => {
         </View>
         <View className={styles.item2}>
           <View className={styles.subTitle}>
-            <Text>活动规则</Text>
+            <Text>活动地点</Text>
           </View>
           <Text userSelect selectable className={styles.text}>
             {info.place}
