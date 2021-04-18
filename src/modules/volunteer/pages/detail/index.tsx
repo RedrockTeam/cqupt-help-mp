@@ -300,7 +300,7 @@ const VolunteerDetail = () => {
     </View>
   );
   return (
-    <View className={styles.wrapper}>
+    <View className={`${styles.wrapper} ${showPicker && styles.fixed}`}>
       <NavBack title="志愿报名" background="#F6F6F9" />
       {needResume ? <Resume /> : <Detail />}
     </View>
