@@ -138,3 +138,7 @@ export const genSeconds = (date: string) :{date: number, begin_time: number, end
     end_time
   }
 }
+
+export const ConvertingDatesToTimestamps = (date: string) => {
+  return dayjs(date).unix();
+}

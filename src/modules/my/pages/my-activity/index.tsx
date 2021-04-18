@@ -11,6 +11,7 @@ import {getMyActivities} from "../../services/index";
 import Activity from "../../components/activity";
 import styles from "./index.module.scss";
 import {MyActivities} from "../../services/dto";
+import {ConvertingDatesToTimestamps} from "@/common/helpers/date";
 
 const PAGE_TITLE = "我的活动";
 const BACKGROUND = "#FFFFFF";
@@ -39,6 +40,19 @@ const MyActivity = () => {
         let overdueActivity : MyActivities = [];
 
         let commonList = activityList.filter((activity) => activity.activity_detail.type === 0)
+        commonList = commonList.map((cur) => {
+          let dates = cur.activity_detail?.time?.split(' - ') as any;
+          const startDate = ConvertingDatesToTimestamps(dates[0]);
+          const lastDate = ConvertingDatesToTimestamps(dates[1]);
+          cur.activity_detail.start_date = startDate;
+          cur.activity_detail.last_date = lastDate;
+          cur.activity_detail.status = {
+            is_change: 0,
+            is_sign: 0
+          }
+          return cur;
+
+        })
         commonList.sort((pre, cur) => cur.activity_detail.last_date - pre.activity_detail.last_date)
         overdueActivity = commonList.filter(cur => cur.activity_detail.last_date < nowTimeStamp);
         commonList = commonList.filter(cur => cur.activity_detail.last_date > nowTimeStamp);
