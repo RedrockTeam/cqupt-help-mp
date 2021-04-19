@@ -36,7 +36,7 @@ const AppealTicket = ({
   return (
     <View className={styles.wrapper}>
       <Text className={styles.title}>{title}</Text>
-      <Text className={styles.time}></Text>
+      <Text className={styles.time}>aa</Text>
     </View>
   )
 }

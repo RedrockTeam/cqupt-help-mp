@@ -12,10 +12,10 @@ const resolvePage = (module: string, page: string) =>
 
 export default {
   pages: [
-    resolvePage("ticket", "rob-ticket"),
+    // resolvePage("ticket", "rob-ticket"),
     // resolvePage("ticket", "rob-ticket-info"),
     // resolvePage("ticket", "my-ticket"),
-    // resolvePage("ticket-appeal", "record"),
+    resolvePage("ticket-appeal", "record"),
     resolvePage("index", "home"),
     resolvePage("index", "activity-detail"),
     resolvePage("campus", "index"),
@@ -27,7 +27,7 @@ export default {
     resolvePage("volunteer", "detail"),
     resolvePage("volunteer", "application"),
     resolvePage("volunteer", "change-time"),
-    // resolvePage("ticket", "rob-ticket"),
+    resolvePage("ticket", "rob-ticket"),
     resolvePage("ticket", "rob-ticket-info"),
     resolvePage("id", "index"),
     resolvePage("id", "apply"),

@@ -24,7 +24,7 @@ const TicketAppealResult = () => {
   
   return (
     <View className={styles.wrapper}>
-      <NavBack title={PAGE_TITLE} background="#F6F6F9" />
+      <NavBack title={PAGE_TITLE} background="#F5F6F9" />
       {/* <Image src={}></Image> */}
       {
         TicketAppealList.data.map((item, index) => {
