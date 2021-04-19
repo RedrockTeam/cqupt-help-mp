@@ -21,6 +21,7 @@ interface RobTicketInfo {
   location: string; // 电影播放地点
   image: string; // 影票图片
   is_received: boolean; // 是否抢到票
+  introduction: string;
   start_take: string; // 取票开始时间 // 废弃参数，鑫宝没删
   end_take: string; // 取票结束时间 // 废弃参数，鑫宝没删
   place_take: string; //  取票地点 // 废弃参数，鑫宝没删
