@@ -7,6 +7,8 @@
   border-radius: 16px;
   padding: 10px;
   margin: 15px 0;
+  position: relative;
+  overflow: hidden;
   .title {
     margin-left: 10px;
     font-size: 32px;
@@ -15,8 +17,28 @@
   }
   .time {
     margin-left: 10px;
+    margin-top: 10px;
     font-weight: 400;
     font-size: 26px;
     color: #777494;
+  }
+  .replyState {
+    width: 132px;
+    height: 132px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 26px;
+    position: absolute;
+    bottom: -66px;
+    right: 46px;
+    border-radius: 70px;
+  }
+  .colorPass {
+    color: #CECDE8;
+    background-color: #F2F1F9;
+  }
+  .colorUnpass {
+    color: #FF6195;
+    background-color: #FFE5EE;
   }
 }

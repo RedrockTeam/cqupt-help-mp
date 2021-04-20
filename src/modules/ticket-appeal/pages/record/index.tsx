@@ -10,16 +10,40 @@
 import { Image, View } from '@tarojs/components';
 import React, { useState } from 'react';
 import styles from './index.module.scss';
-import Empty from "@/static/images/empty.png";
 import NavBack from '@/common/components/nav-back';
+import Empty from "@/common/components/empty";
 import AppealTicket from '../../components/appeal-ticket';
 import TicketAppealList from '@/mock/TicketAppealList.json';
+import { getTicketAppealList } from '../../services';
+import { useQuery, useQueryCache } from 'react-query';
 
 const PAGE_TITLE = "申诉记录";
 
-const TicketAppealResult = () => {
+const TicketAppealRecord = () => {
 
   console.log(TicketAppealList);
+  // const { data: TicketAppealList , isLoading, isError } = useQuery(
+  //   "getTicketAppealList",
+  //   getTicketAppealList
+  // );
+  const isLoading = false;
+  const isError = false;
+  const queryCache = useQueryCache();
+
+  const TicketAppealListLength = TicketAppealList.data.length;
+  if (TicketAppealListLength === 0) {
+    return (
+      <View>
+        <View style={{height: 120, backgroundColor: 'white'}}></View>
+        <Empty
+          title={PAGE_TITLE}
+          detail="暂无任何申诉记录哦~"
+          btnContent=""
+        />
+      </View>
+    )
+  }
+  
   
   
   return (
@@ -39,4 +63,4 @@ const TicketAppealResult = () => {
     </View>
   )
 }
-export default TicketAppealResult;
+export default TicketAppealRecord;

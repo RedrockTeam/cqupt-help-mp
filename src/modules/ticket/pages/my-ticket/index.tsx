@@ -27,7 +27,7 @@ import BottomPop from "@/common/components/bottomPop";
 import styles from "./index.module.scss";
 import OwedTicket from "../../components/owed-ticket";
 import { 
-  getMyTicketList, 
+  getMyTicketList,
   checkTicket,
   returnMyTicket,
 } from "../../services";
