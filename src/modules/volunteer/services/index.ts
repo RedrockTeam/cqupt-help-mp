@@ -42,6 +42,19 @@ export const getVolunteerActivityDetail = (_key: string, rely_id: string) =>
     }
   );
 
+//  改成mutation配合useDidShow提升性能( change-time )
+export const getVolunteerActivityDetailMutation = (data: { rely_id: string }) =>
+  request<VolunteerActivityDetailRes>(
+    "/cyb-volunteer/volunteer/activity/info",
+    {
+      method: "POST",
+      data: {rely_id: data.rely_id},
+      header: {
+        "content-type": "application/x-www-form-urlencoded",
+      },
+    }
+  );
+
 export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
   request<VolunteerActivityApplyRes, VolunteerActivityApply>(
     "/cyb-volunteer/volunteer/activity/apply",
@@ -56,11 +69,10 @@ export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
 
 
 /**
- * 更新活动已读状态
+ * 更新活动已读状态 -- 已改成mutation
  */
 export const postVolunteerActivityRead = (
-  _key: string,
-  registration_time: string
+  {registration_time}: { registration_time: string }
 ) =>
   request("/cyb-myactivities/read", {
     method: "POST",
@@ -102,7 +114,7 @@ export const postVolunteerActivityChange = (data: VolunteerActivityChangeReq) =>
  * @param code_id
  * @param data
  */
-export const postVolunteerActivitySignIn = ({code, data} :{code: string, data: VolunteerActivitySignInReq}) =>
+export const postVolunteerActivitySignIn = ({code, data}: { code: string, data: VolunteerActivitySignInReq }) =>
   request<VolunteerActivitySignInRes>(`/cyb-myactivities/sign?${code}`, {
     method: "POST",
     data,

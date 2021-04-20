@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Params } from "@/modules/volunteer/pages/application";
-import { navigateBack, useRouter } from "@tarojs/taro";
+import {navigateBack, useDidShow, useRouter} from "@tarojs/taro";
 import { Button, ITouchEvent, Text, View } from "@tarojs/components";
 import styles from "@/modules/volunteer/pages/change-time/index.module.scss";
 import NavBack from "@/common/components/nav-back";
-import { useQuery } from "react-query/dist/react-query.production.min";
 import {
-  getVolunteerActivityDetail,
+  getVolunteerActivityDetailMutation,
   postVolunteerActivityChange,
 } from "@/modules/volunteer/services";
 import error from "@/static/images/error.png";
@@ -44,11 +43,83 @@ const VolunteerChangeTime = () => {
   const [timePartIndex, setTimePartIndex] = useState<number>(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const [, setShowPicker] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [pickerValue, setPickerValue] = useState<{ dateList: any; timePartList: any}>();
+  const [data, setData] = useState<any>();
 
-  const { data, isLoading = true, isError = false } = useQuery(
-    ["getVolunteerActivityDetail", rely_id],
-    getVolunteerActivityDetail
-  );
+  const [mutateGetActivityDetail] = useMutation(getVolunteerActivityDetailMutation, {
+    onSuccess(res) {
+      console.log("getVolunteerActivityDetail:", res);
+
+      if (res?.data) {
+          setIsLoading(false);
+
+        //  处理获取的 data.detail 生成正确的 piker 的值
+          console.log("date:", date, "timePart:", timePart);
+          const {date: _date, begin_time, end_time} = genSeconds(
+            `${date} ${timePart}`
+          );
+          console.log("_date:", _date, "begin:", begin_time, "end:", end_time);
+
+          let dateList = res.data.detail.map((item) => {
+            return {id: item.id, date: item.date, timePart: item.time_part_info};
+          });
+
+          dateList = dateList.sort((cur, next) => cur.date - next.date);
+
+          //  维护 data 的状态，否则 picker 改变会出错
+          res.data.detail = dateList.map((date) => {
+            return {
+              id: date.id,
+              date: date.date,
+              time_part_info: date.timePart,
+            };
+          });
+          const timePartList = dateList.map((date) => date.timePart);
+          console.log("timePartList:", timePartList);
+          let _dateIndex = dateList.findIndex((val) => val.date === _date);
+          _dateIndex = _dateIndex === -1 ? 0 : dateIndex; //  容错
+          console.log('dateList:', dateList, '_dateIndex:', _dateIndex)
+          // @ts-ignore
+          dateList = dateList.map((date) => date.date);
+          const _timeIndex = timePartList[_dateIndex].findIndex(
+            (timePart) =>
+              timePart.begin_time === begin_time && timePart.end_time === end_time
+          );
+
+          console.log("_dateIndex:", _dateIndex);
+          console.log("_timeIndex:", _timeIndex);
+          console.log(dateIndex, timePartIndex);
+          if (
+            _dateIndex !== -1 &&
+            timePartIndex !== -1 &&
+            (_dateIndex !== dateIndex || _timeIndex !== timePartIndex)
+          ) {
+            setDateIndex(_dateIndex);
+            setTimePartIndex(_timeIndex);
+          }
+
+          console.log("dateList:", dateList);
+          console.log("timePartList:", timePartList);
+          setPickerValue({
+            dateList,
+            timePartList,
+          });
+          setData(res);
+      }
+    },
+    onError() {
+      setIsLoading(false);
+      setIsError(true);
+    }
+  });
+
+  useDidShow(() => {
+    mutateGetActivityDetail({
+      rely_id
+    }).then();
+  });
 
   /**
    * 生成picker表头时间字符串
@@ -154,61 +225,9 @@ const VolunteerChangeTime = () => {
   if (isLoading) return <Placeholder title="修改班次" />;
   if (isError) return <Placeholder title="修改班次" isError />;
 
-  //  处理获取的 data.detail 生成正确的 piker 的值
-  let pickerValue;
-  if (data) {
-    // TODO: 整合对应的 date 与 timePart 而后就行排序处理
-    console.log("date:", date, "timePart:", timePart);
-    const { date: _date, begin_time, end_time } = genSeconds(
-      `${date} ${timePart}`
-    );
-    console.log("_date:", _date, "begin:", begin_time, "end:", end_time);
 
-    let dateList = data.data.detail.map((item) => {
-      return { id: item.id, date: item.date, timePart: item.time_part_info };
-    });
 
-    dateList = dateList.sort((cur, next) => cur.date - next.date);
 
-    //  维护 data 的状态，否则 picker 改变会出错
-    data.data.detail = dateList.map((date) => {
-      return {
-        id: date.id,
-        date: date.date,
-        time_part_info: date.timePart,
-      };
-    });
-
-    const timePartList = dateList.map((date) => date.timePart);
-    console.log("timePartList:", timePartList);
-    const _dateIndex = dateList.findIndex((val) => val.date === _date);
-    // @ts-ignore
-    dateList = dateList.map((date) => date.date);
-    const _timeIndex = timePartList[_dateIndex].findIndex(
-      (timePart) =>
-        timePart.begin_time === begin_time && timePart.end_time === end_time
-    );
-
-    console.log("_dateIndex:", _dateIndex);
-    console.log("_timeIndex:", _timeIndex);
-    console.log(dateIndex, timePartIndex);
-    if (
-      _dateIndex !== -1 &&
-      timePartIndex !== -1 &&
-      (_dateIndex !== dateIndex || _timeIndex !== timePartIndex)
-    ) {
-      setDateIndex(_dateIndex);
-      setTimePartIndex(_timeIndex);
-    }
-    console.log(data);
-
-    console.log("dateList:", dateList);
-    console.log("timePartList:", timePartList);
-    pickerValue = {
-      dateList,
-      timePartList,
-    };
-  }
 
   return (
     <View className={styles.wrapper}>

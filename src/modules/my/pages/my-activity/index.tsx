@@ -10,7 +10,8 @@ import Empty from "@/common/components/empty";
 import {getMyActivities} from "../../services/index";
 import Activity from "../../components/activity";
 import styles from "./index.module.scss";
-import {MyActivities} from "../../services/dto";
+import {MyActivities, MyActivitiesRes} from "../../services/dto";
+import {postVolunteerActivityRead} from "@/modules/volunteer/services";
 
 const PAGE_TITLE = "我的活动";
 const BACKGROUND = "#FFFFFF";
@@ -23,6 +24,8 @@ const MyActivity = () => {
   const [volunteerList, setVolunteerList] = useState<MyActivities>([]);
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
+
+
 
   //  获取我的所有活动
   const [mutateActivityListRes] = useMutation(getMyActivities, {
@@ -67,8 +70,17 @@ const MyActivity = () => {
       setError(true);
     },
   });
+  //  已读状态管理
+  const [mutationPostActivityRead] = useMutation(postVolunteerActivityRead, {})
   useDidShow(() => {
-    mutateActivityListRes().then();
+    mutateActivityListRes().then(({ data } : MyActivitiesRes) => {
+      const unreadCommonList = data?.filter((activity) => activity.activity_detail.type === 0 && activity.if_read === 1)
+      unreadCommonList.map(commonAc => {
+        mutationPostActivityRead({
+          registration_time: String(commonAc.registration_time)
+        }).then();
+      })
+    });
   });
 
   if (isLoading) return <Placeholder title={PAGE_TITLE}/>;
