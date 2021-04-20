@@ -122,8 +122,6 @@ const Activity = ({
    * 报名结果的状态    1: 等待结果 2 :查看结果
    */
   const ifPassed = (): 1 | 2 => {
-    console.log("pass:", typeof result?.pass);
-
     return result?.pass === "0" ? 1 : 2;
   };
 

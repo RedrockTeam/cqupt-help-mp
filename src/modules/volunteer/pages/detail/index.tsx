@@ -1,5 +1,13 @@
 import React, { useState, Fragment } from "react";
-import { View, Image, Text, Button, ITouchEvent } from "@tarojs/components";
+import {
+  View,
+  Image,
+  Text,
+  Button,
+  ITouchEvent,
+  Swiper,
+  SwiperItem,
+} from "@tarojs/components";
 import { useRouter, navigateBack } from "@tarojs/taro";
 import {
   timestampToFormString,
@@ -183,11 +191,17 @@ const VolunteerDetail = () => {
 
   const Detail = () => (
     <Fragment>
-      <Image
-        className={styles.pic}
-        mode="aspectFill"
-        src={info.imagines ? JSON.parse(info.imagines)[0] : volunteerImg}
-      />
+      {info.imagines ? (
+        <Swiper className={styles.pic} circular autoplay>
+          {JSON.parse(info.imagines).map((e) => (
+            <SwiperItem key={e}>
+              <Image src={e} className={styles.pic} mode="aspectFill" />
+            </SwiperItem>
+          ))}
+        </Swiper>
+      ) : (
+        <Image className={styles.pic} mode="aspectFill" src={volunteerImg} />
+      )}
       <View className={styles.card}>
         <View className={styles.item1}>
           <View className={styles.title}>
