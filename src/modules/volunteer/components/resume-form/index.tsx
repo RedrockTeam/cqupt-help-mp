@@ -240,7 +240,8 @@ const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
           // onFocus={() => setFocus(seq)}
           onInput={(e) => {
             // setFocus(seq);
-            const { value } = e.detail;
+            let { value } = e.detail;
+            value = value.slice(0, maxLength);
             setText(value);
             // setFormValue({ ...formValue, [seq]: value });
             getStorage({
