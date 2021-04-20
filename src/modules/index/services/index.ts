@@ -1,9 +1,17 @@
-import {login, request as TaroRequest} from "@tarojs/taro";
+/*
+ * @Author: your name
+ * @Date: 2021-04-14 14:45:51
+ * @LastEditTime: 2021-04-18 12:21:28
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /cqupt-help-mp/src/modules/index/services/index.ts
+ */
+import { login, request as TaroRequest } from "@tarojs/taro";
 import request from "@/common/helpers/request";
-import {ActivitiesHomeRes, ApplyActivityInfo, ApplyActivityRes} from "./dto";
+import { ActivitiesHomeRes, ApplyActivityInfo, ApplyActivityRes } from "./dto";
 
-export const bindReq = async ({account, password}) => {
-  const {code} = await login();
+export const bindReq = async ({ account, password }) => {
+  const { code } = await login();
   return TaroRequest({
     url: `https://be-prod.redrock.team/magicloop/rushAb?code=${code}`,
     method: "POST",
@@ -21,7 +29,7 @@ export const getHomeActivities = (_key: string) =>
   request<ActivitiesHomeRes>("/cyb-myactivities/allac");
 
 export const applyActivity = (data: ApplyActivityInfo) =>
-  request<ApplyActivityRes, ApplyActivityInfo>("/cyb-myactivities/re", {
+  request<ApplyActivityRes, ApplyActivityInfo>("/cyb-myactivities/registe", {
     method: "POST",
     data,
   });
