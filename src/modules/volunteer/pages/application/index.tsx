@@ -1,22 +1,16 @@
-import React, { useState } from "react";
-import { Button, Image, Text, View } from "@tarojs/components";
+import React, {useState} from "react";
+import {Button, Image, Text, View} from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
-import Taro, {
-  navigateBack,
-  scanCode,
-  useDidShow,
-  useRouter,
-} from "@tarojs/taro";
-import { useUserInfo } from "@/stores/user";
+import Taro, {navigateBack, scanCode, useDidShow, useRouter,} from "@tarojs/taro";
+import {useUserInfo} from "@/stores/user";
 import copyPng from "@/static/images/volunteer-copy.png";
 import scanPng from "@/static/images/scan-code.png";
-import { useQuery } from "react-query/dist/react-query.production.min";
-import { navTo, resolvePage } from "@/common/helpers/utils";
+import {navTo, resolvePage} from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
-import { useContainer } from "unstated-next";
-import { useMutation } from "react-query";
-import { genSeconds, timestampToMDString } from "@/common/helpers/date";
-import { getMyActivities } from "@/modules/my/services";
+import {useContainer} from "unstated-next";
+import {useMutation} from "react-query";
+import {genSeconds, timestampToMDString} from "@/common/helpers/date";
+import {getMyActivities} from "@/modules/my/services";
 import {
   postVolunteerActivityChange,
   postVolunteerActivityQuit,
@@ -43,7 +37,7 @@ const timeLegal = (date: string) => {
   const _time = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
   const dif = nowStamp - _time;
 
-  const { begin_time } = genSeconds(date);
+  const {begin_time} = genSeconds(date);
   const dif_minute = (dif - begin_time) / (60 * 15);
   return !(dif_minute > 1 || dif_minute < -1);
 };
@@ -117,7 +111,7 @@ const VolunteerApply = () => {
     activity_id,
     is_sign,
   } = params;
-  const { realName } = useUserInfo();
+  const {realName} = useUserInfo();
 
   //  管理签到状态
   const [isScanned, setIsScanned] = useState<boolean>(is_sign === "1");
@@ -133,7 +127,7 @@ const VolunteerApply = () => {
 
       if (data?.data) {
         const tarActivity = data.data.filter(({activity_detail: activity}) => {
-          const { begin_time, end_time } = genSeconds(date);
+          const {begin_time, end_time} = genSeconds(date);
           return (
             activity.rely_id == Number(rely_id) &&
             activity.id == Number(activity_id) &&
@@ -152,15 +146,15 @@ const VolunteerApply = () => {
       }
     },
   });
+  //  已读状态管理
+  const [mutationPostActivityRead] = useMutation(postVolunteerActivityRead, {})
   useDidShow(() => {
     mutateGetMyActivities().then();
+    mutationPostActivityRead({
+      registration_time
+    }).then();
   });
 
-  //  已读状态管理
-  useQuery(
-    ["postVolunteerActivityRead", registration_time],
-    postVolunteerActivityRead
-  );
   //  复制群号util
   const copy = () => {
     Taro.setClipboardData({
@@ -177,13 +171,13 @@ const VolunteerApply = () => {
   }>(
     pass === "1"
       ? {
-          desc: "确定退出此活动？",
-          detail: "选择退出将会降低其他志愿活动录取概率",
-        }
+        desc: "确定退出此活动？",
+        detail: "选择退出将会降低其他志愿活动录取概率",
+      }
       : {   //  pass === '0'
-          desc: "确定退出此活动？",
-          detail: "退出活动后不可报名本活动",
-        }
+        desc: "确定退出此活动？",
+        detail: "退出活动后不可报名本活动",
+      }
   );
 
   console.log('pass:', pass)
@@ -240,12 +234,13 @@ const VolunteerApply = () => {
     postVolunteerActivityChange,
     MutateConfig(
       Popup,
-      () => {},
+      () => {
+      },
       false,
       pass === "1"
         ? "请尽快与本次志愿活动qq群群\n" +
-            "管理员取得联系，并等待管理\n" +
-            "员的审核！"
+        "管理员取得联系，并等待管理\n" +
+        "员的审核！"
         : "您已成功退出本次活动。"
     )
   );
@@ -268,7 +263,7 @@ const VolunteerApply = () => {
       });
     } else if (pass === "1") {
       //  成功录取的情况下
-      const { begin_time, end_time } = genSeconds(date);
+      const {begin_time, end_time} = genSeconds(date);
       await mutateChange({
         old: {
           activity_id: Number(activity_id),
@@ -298,19 +293,20 @@ const VolunteerApply = () => {
     postVolunteerActivityQuit,
     MutateConfig(
       Popup,
-      () => {},
+      () => {
+      },
       true,
       pass === "1"
         ? "请尽快与本次志愿活动qq群群\n" +
-            "管理员取得联系，并等待管理\n" +
-            "员的审核！"
+        "管理员取得联系，并等待管理\n" +
+        "员的审核！"
         : "您已成功退出本次活动。"
     )
   );
 
   const handleQuit = async () => {
     console.log("quit");
-    const { begin_time, end_time } = genSeconds(date);
+    const {begin_time, end_time} = genSeconds(date);
     console.log(typeof begin_time, typeof end_time);
     await mutateQuit({
       activity_id: Number(activity_id),
@@ -320,7 +316,7 @@ const VolunteerApply = () => {
   };
 
   //  actionSheet handle hook
-  const handleActionClick = ({ sheetKey }) => {
+  const handleActionClick = ({sheetKey}) => {
     console.log("sheetKey:", sheetKey);
     if (sheetKey === KEY_CHANGE_TIME) {
       cancelShowSheet();
@@ -350,10 +346,10 @@ const VolunteerApply = () => {
   const handleScan = async () => {
     if (!isScanned)
       scanCode({
-        async success({ result }) {
+        async success({result}) {
           console.log("scan-result:", result);
           const param = result.split("?")[1];
-          const { begin_time, end_time } = genSeconds(date);
+          const {begin_time, end_time} = genSeconds(date);
 
           if (timeLegal(date)) {
             await mutateScan({
@@ -385,7 +381,7 @@ const VolunteerApply = () => {
 
   return (
     <View className={styles.wrapper}>
-      <NavBack title={PAGE_TITLE} background={NAV_BACKGROUND} />
+      <NavBack title={PAGE_TITLE} background={NAV_BACKGROUND}/>
       <View className={styles.container}>
         <View className={styles.content}>
           {pass === "0" ? (
@@ -397,7 +393,7 @@ const VolunteerApply = () => {
                 //  扫码签到
                 <View className={styles.scan} onClick={handleScan}>
                   {!isScanned ? (
-                    <Image src={scanPng} className={styles.scan_png} />
+                    <Image src={scanPng} className={styles.scan_png}/>
                   ) : null}
                   <Text
                     className={
@@ -478,7 +474,7 @@ const VolunteerApply = () => {
         title={sheetTitle}
       />
 
-      <Popup.Comp />
+      <Popup.Comp/>
     </View>
   );
 };
