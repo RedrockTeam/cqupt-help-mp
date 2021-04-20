@@ -37,7 +37,7 @@ const Activity = ({
                       time_part,
                       result,
                       status: {
-                        is_change,
+                        is_change = 0,
                         is_sign
                       },
                       team_name,
