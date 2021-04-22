@@ -101,7 +101,7 @@ const VolunteerApply = () => {
     rely_id,
     is_change,
     name,
-    pass,
+    pass : pass_state,
     concat,
     date,
     registration_time,
@@ -120,7 +120,11 @@ const VolunteerApply = () => {
   //  管理是否更改班次的状态
   const [changeState, setChangeState] = useState<string>(is_change);
 
-  // 每次回到该页面时，更新 is_scan 、is_change 字段
+  // 管理 pass 字段的状态
+  // TODO: 因为后端在更换班次之后，pass字段总是为''
+  const [pass, setPass] = useState<'0' | '1' | '2'>(pass_state === '' ? '0' : pass_state as '1' | '2');
+
+  // 每次回到该页面时，更新 is_scan 、is_change 、pass 字段
   const [mutateGetMyActivities] = useMutation(getMyActivities, {
     onSuccess(data) {
       console.log("getMyActivities-data:", data);
@@ -142,6 +146,7 @@ const VolunteerApply = () => {
         ) {
           setChangeState(String(tarActivity[0].activity_detail.status.is_change));
           setIsScanned(tarActivity[0].activity_detail.status.is_sign === 1);
+          setPass(tarActivity[0].activity_detail.result.pass ? tarActivity[0].activity_detail.result.pass : '0');
         }
       }
     },
