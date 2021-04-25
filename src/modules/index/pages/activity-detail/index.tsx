@@ -66,7 +66,7 @@ const AcDetail = () => {
     <View>
       <View className={styles.wrapper}>
         <NavBack title="活动详情" background="#F6F6F9" />
-        <Image className={styles.pic} mode="aspectFill" src={params.image} />
+        <Image className={styles.pic} mode="aspectFill" src={JSON.parse(params.image_with)[0]} />
         <View className={styles.card}>
           <View className={styles.item1}>
             <View className={styles.title}>
