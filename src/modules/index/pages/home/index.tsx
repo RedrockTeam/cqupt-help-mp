@@ -74,6 +74,7 @@ export default function Index() {
           return (
             <RecentActivity
               name={e.name}
+              id={e.id}
               key={e.id}
               teamName={e.team_name}
               timeDone={e.time_done}
@@ -84,6 +85,7 @@ export default function Index() {
               registration={e.registration}
               type={e.type}
               image={e.image}
+              image_with={e.image_with}
             />
           );
         })

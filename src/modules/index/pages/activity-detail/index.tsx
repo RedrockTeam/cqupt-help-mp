@@ -1,19 +1,18 @@
 import React from "react";
-import { View, Image, Text, Button } from "@tarojs/components";
+import { View, Image, Text, Button, Swiper, SwiperItem } from "@tarojs/components";
 import { useRouter } from "@tarojs/taro";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
 import icon1 from "@/static/images/volunteer-icon1.png";
 import icon2 from "@/static/images/volunteer-icon2.png";
-import icon3 from "@/static/images/volunteer-icon3.png";
 import success from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
-
+import { useQuery } from "react-query/dist/react-query.production.min";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import styles from "./index.module.scss";
 import { applyActivity } from "../../services";
-
+import { ConvertingDatesToTimestamps } from "@/common/helpers/date"
 const AcDetail = () => {
   const { params: encodedParams } = useRouter();
   const params: Record<string, string> = Object.keys(encodedParams).reduce(
@@ -23,15 +22,21 @@ const AcDetail = () => {
 
   const Popup = useContainer(PopupContext);
   const [mutateApply] = useMutation(applyActivity);
-
+  (() => {
+    console.log(params.image_with)
+  })()
   const handleApply = async () => {
+    console.log("re")
+    console.log(params)
+    let temp = params.time.split(" - ")
+    console.log(temp)
     try {
       const res = await mutateApply({
-        team: params.team,
-        name: params.name,
-        time: params.time,
+        activity_id: Number(params.id),
+        begin_time: ConvertingDatesToTimestamps(temp[0]),
+        end_time: ConvertingDatesToTimestamps(temp[1])
       });
-      if (res.status === 200) {
+      if (res.status === 10002) {
         // 憨批后端
         const hide = Popup.show({
           title: "报名成功",
@@ -61,12 +66,61 @@ const AcDetail = () => {
       }, 1500);
     }
   };
-
   return (
     <View>
       <View className={styles.wrapper}>
         <NavBack title="活动详情" background="#F6F6F9" />
-        <Image className={styles.pic} mode="aspectFill" src={JSON.parse(params.image_with)[0]} />
+        {
+          params.image_with == "" ?
+            <Image className={styles.pic} mode="aspectFill" src={params.image} />
+            : (
+              <Swiper
+                className={styles.pic}
+                indicatorColor='#999'
+                indicatorActiveColor='#333'
+                circular
+                indicatorDots
+                autoplay>
+                {JSON.parse(params.image_with).filter(e => e != "").map((e, index) => {
+                  return (
+                    // 修改 taro swpier样式清除问题
+                    <SwiperItem style={{
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      transform: `translate(${100 * index}%, 0px) translateZ(0px)`
+                    }} key={e.id}>
+                      <Image className={styles.pic} mode="aspectFill" src={e} />
+                    </SwiperItem>
+                  )
+                })}
+              </Swiper>
+            )
+
+
+          // return (
+          //   <Swiper
+          //     className={styles.pic}
+          //     indicatorColor='#999'
+          //     indicatorActiveColor='#333'
+          //     circular
+          //     indicatorDots
+          //     autoplay>
+          //     {JSON.parse(params.image_with).map((e, index) => {
+          //       return (
+          //         <SwiperItem style={{
+          //           position: "absolute",
+          //           width: "100%",
+          //           height: "100%",
+          //           transform: `translate(${100 * index}%, 0px) translateZ(0px)`
+          //         }} key={e.id}>
+          //           <Image className={styles.pic} mode="aspectFill" src={e} />
+          //         </SwiperItem>
+          //       )
+          //     })}
+          //   </Swiper>
+          // )
+        }
         <View className={styles.card}>
           <View className={styles.item1}>
             <View className={styles.title}>

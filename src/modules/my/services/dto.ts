@@ -26,6 +26,7 @@ export interface MyActivityDetail {
   sign_up_last?: number;
   start_date: number; // 活动时间段
   last_date: number;
+  time?: string;    //  活动时间段，"2021-04-18 - 2021-04-18"TODO：目前是普通活动独有，等待后续后端段修正
 
   date?: number;  // 志愿活动独有，用户选择的 参与活动的日期
 
@@ -39,9 +40,6 @@ export interface MyActivity {
   if_read: 1 | 2 | 3; // 1:未读，      2:已读，       3:无法读取
   registration_time: number; // 用户报名的当天时间
 }
-
-
-
 
 export type MyActivities = MyActivity[];
 
