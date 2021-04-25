@@ -6,3 +6,4 @@ export const getTicketAppealList = (_key: string) => {
     method: "POST",
   })
 }
+

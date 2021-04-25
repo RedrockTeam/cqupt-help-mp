@@ -90,12 +90,12 @@ const MyTicket = () => {
   }
 
   const Popup = useContainer(PopupContext);
-  // const { data: myTicketListRes, isLoading, isError } = useQuery(
-  //   "getMyTiketList",
-  //   getMyTicketList
-  // );
-  const isLoading = false;
-  const isError = false;
+  const { data: myTicketListRes, isLoading, isError } = useQuery(
+    "getMyTiketList",
+    getMyTicketList
+  );
+  // const isLoading = false;
+  // const isError = false;
   const queryCache = useQueryCache();
   // const [visible, setVisible] = useState(false);
   // const handleConcel = () => {

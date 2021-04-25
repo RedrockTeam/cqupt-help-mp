@@ -15,7 +15,7 @@ export default {
     // resolvePage("ticket", "rob-ticket"),
     // resolvePage("ticket", "rob-ticket-info"),
     // resolvePage("ticket", "my-ticket"),
-    resolvePage("ticket-appeal", "record"),
+    // resolvePage("ticket-appeal", "result"),
     resolvePage("index", "home"),
     resolvePage("index", "activity-detail"),
     resolvePage("campus", "index"),

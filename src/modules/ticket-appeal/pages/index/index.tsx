@@ -11,7 +11,7 @@ import NavBack from '@/common/components/nav-back';
 import { Button, View, Textarea } from '@tarojs/components';
 import { chooseImage, showModal, uploadFile } from '@tarojs/taro';
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './index.modules.scss';
+import styles from './index.module.scss';
 import { getToken } from "@/stores/user";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";

@@ -32,6 +32,7 @@ const PAGE_TITLE = "在线抢票";
 
 const RobTicketInfo = () => {
   const [ ticketId, setTicketId ] = useState<number>(Number(getCurrentInstance().router?.params.id));
+  const [ ticketInfo, setTicketInfo ] = useState()
   
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();

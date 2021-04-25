@@ -29,6 +29,7 @@ type Props = {
   name: string;
   isReceived: boolean;
   type: number;
+  chief: string;
   all: number;
   re_send_num: number;
   onRobTicket: (id: number) => void;
@@ -47,6 +48,7 @@ const Ticket = ({
   isReceived,
   type,
   all,
+  chief,
   re_send_num,
   onRobTicket,
   onAlternateRobTicket,
@@ -109,8 +111,7 @@ const Ticket = ({
     if (type === 0) {
       return (
         <View
-          onClick={(e) => { navTo({ url: `${resolvePage("ticket", "rob-ticket-info")}?id=${id}` });console.log(id);
-           }}
+          onClick={(e) => { navTo({ url: `${resolvePage("ticket", "rob-ticket-info")}?id=${id}` }) }}
           className={styles.content}>
           <View className={styles.info} style="width: 100%">
             <View className={styles.header}>
@@ -118,7 +119,7 @@ const Ticket = ({
               <Text className={styles.remain}>剩余 {remain} 张</Text>
             </View>
             <Text className={styles.text}>
-              主讲人：鑫宝的锅
+              主讲人：{chief}
             </Text>
             <View className={styles.text}>
               <Image src={timeIcon} className={styles.imageIcon}/>
