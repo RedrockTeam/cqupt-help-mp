@@ -13,11 +13,11 @@ import SelectPopup from '../select-popup';
 import styles from './index.module.scss';
 
 type Props = {
-  PopupState: any;
+  PopupStateCounter: any;
 }
 
 const ReturnTicketBtn = ({
-  PopupState
+  PopupStateCounter
 }) => {
   const [ btnText, setBtnText ] = useState("申请退票");
   
@@ -25,7 +25,7 @@ const ReturnTicketBtn = ({
     <View className={styles.cover}>
       <Button 
         className={styles.btn}
-        onClick={PopupState.changePopupState}
+        onClick={PopupStateCounter.changePopupState}
       >{btnText}</Button>
 
       {/* <SelectPopup

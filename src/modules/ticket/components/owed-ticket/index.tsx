@@ -25,7 +25,7 @@ type Props = {
   type: number;
   sequence: number;
   stu_num: string;
-  PopupState: any;
+  PopupStateCounter: any;
 };
 
 const OwedTicket = ({ 
@@ -37,7 +37,7 @@ const OwedTicket = ({
   type,
   sequence,
   stu_num,
-  PopupState,
+  PopupStateCounter,
 }: Props) => {
 
   const countTicketNum = () => {
@@ -98,7 +98,7 @@ const OwedTicket = ({
         <View className={styles.line}></View>
 
         <ReturnTicketBtn
-          PopupState={PopupState}
+          PopupStateCounter={PopupStateCounter}
         ></ReturnTicketBtn>
         
       </View>

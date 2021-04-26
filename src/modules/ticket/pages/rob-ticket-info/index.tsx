@@ -32,18 +32,21 @@ const PAGE_TITLE = "在线抢票";
 
 const RobTicketInfo = () => {
   const [ ticketId, setTicketId ] = useState<number>(Number(getCurrentInstance().router?.params.id));
-  const [ ticketInfo, setTicketInfo ] = useState()
+  const [ ticketInfo, setTicketInfo ] = useState();
   
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();
 
-  // const { data: ticketList, isLoading, isError } = useQuery(
-  //   "robTicketListInfo",
-  //   getRobTicketListInfo,
-  //   {
-  //     refetchInterval: 2000,
-  //   }
-  // );
+  const { data: ticketList, isLoading, isError } = useQuery(
+    "robTicketListInfo",
+    getRobTicketListInfo,
+    {
+      refetchInterval: 2000,
+      onSuccess: (data) => {
+        // 测试修改
+      }
+    }
+  );
   
   const isLoading = false;
   const isError = false;

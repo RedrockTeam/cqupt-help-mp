@@ -42,7 +42,7 @@ const MyTicket = () => {
   const changePopupState = () => {
     PopupState.setPopupState(!PopupState.popupState);
   }
-  const PopupState = {
+  const PopupStateCounter = {
     popupState,
     setPopupState,
     changePopupState
@@ -90,12 +90,12 @@ const MyTicket = () => {
   }
 
   const Popup = useContainer(PopupContext);
-  const { data: myTicketListRes, isLoading, isError } = useQuery(
-    "getMyTiketList",
-    getMyTicketList
-  );
-  // const isLoading = false;
-  // const isError = false;
+  // const { data: myTicketListRes, isLoading, isError } = useQuery(
+  //   "getMyTiketList",
+  //   getMyTicketList
+  // );
+  const isLoading = false;
+  const isError = false;
   const queryCache = useQueryCache();
   // const [visible, setVisible] = useState(false);
   // const handleConcel = () => {
@@ -184,7 +184,7 @@ const MyTicket = () => {
                 type={e.type}
                 sequence={e.sequence}
                 stu_num={e.stu_num}
-                PopupState={PopupState}
+                PopupStateCounter={PopupStateCounter}
               />
             </SwiperItem>
           ))}
