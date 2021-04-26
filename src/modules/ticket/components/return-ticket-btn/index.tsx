@@ -18,7 +18,7 @@ type Props = {
 
 const ReturnTicketBtn = ({
   PopupStateCounter
-}) => {
+}: Props) => {
   const [ btnText, setBtnText ] = useState("申请退票");
   
   return (

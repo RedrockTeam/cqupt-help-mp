@@ -40,7 +40,7 @@ const MyTicket = () => {
   // 控制退票弹窗
   const [ popupState, setPopupState ] = useState(false);
   const changePopupState = () => {
-    PopupState.setPopupState(!PopupState.popupState);
+    setPopupState(!popupState);
   }
   const PopupStateCounter = {
     popupState,
@@ -185,6 +185,7 @@ const MyTicket = () => {
                 sequence={e.sequence}
                 stu_num={e.stu_num}
                 PopupStateCounter={PopupStateCounter}
+                effective={e.effective}
               />
             </SwiperItem>
           ))}

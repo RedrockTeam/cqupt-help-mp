@@ -14,7 +14,7 @@ export default {
   pages: [
     // resolvePage("ticket", "rob-ticket"),
     // resolvePage("ticket", "rob-ticket-info"),
-    // resolvePage("ticket", "my-ticket"),
+    resolvePage("ticket", "my-ticket"),
     // resolvePage("ticket-appeal", "result"),
     resolvePage("index", "home"),
     resolvePage("index", "activity-detail"),
@@ -34,7 +34,7 @@ export default {
     resolvePage("my", "index"),
     resolvePage("my", "my-activity"),
     resolvePage("my", "my-reward"),
-    resolvePage("ticket", "my-ticket"),
+    // resolvePage("ticket", "my-ticket"),
     resolvePage("account-safe", "index"),
     resolvePage("account-safe", "change"),
     resolvePage("account-safe", "protect"),

@@ -37,16 +37,16 @@ const RobTicketInfo = () => {
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();
 
-  const { data: ticketList, isLoading, isError } = useQuery(
-    "robTicketListInfo",
-    getRobTicketListInfo,
-    {
-      refetchInterval: 2000,
-      onSuccess: (data) => {
-        // 测试修改
-      }
-    }
-  );
+  // const { data: ticketList, isLoading, isError } = useQuery(
+  //   "robTicketListInfo",
+  //   getRobTicketListInfo,
+  //   {
+  //     refetchInterval: 2000,
+  //     onSuccess: (data) => {
+  //       // 测试修改
+  //     }
+  //   }
+  // );
   
   const isLoading = false;
   const isError = false;

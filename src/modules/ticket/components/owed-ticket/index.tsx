@@ -7,7 +7,7 @@
  * @FilePath: /cqupt-help-mp/src/modules/ticket/components/owed-ticket/index.tsx
  * 
  */
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, Text, Button } from "@tarojs/components";
 import { Barcode, QRCode } from 'taro-code';
 import styles from "./index.module.scss";
@@ -15,6 +15,7 @@ import { API } from "@/common/constants";
 import SelectPopup from "../select-popup";
 import ReturnTicketBtn from "../return-ticket-btn";
 import SelectPopupContext from "@/stores/select-popup";
+import MyTicketCover from "../my-ticket-cover";
 
 type Props = {
   name: string;
@@ -26,6 +27,7 @@ type Props = {
   sequence: number;
   stu_num: string;
   PopupStateCounter: any;
+  effective: boolean;
 };
 
 const OwedTicket = ({ 
@@ -38,7 +40,9 @@ const OwedTicket = ({
   sequence,
   stu_num,
   PopupStateCounter,
+  effective,
 }: Props) => {
+  const [ ticketState, setTicketState ] = useState<boolean>(effective);
 
   const countTicketNum = () => {
     let typeNum,sessionNum,orderNum;
@@ -100,7 +104,10 @@ const OwedTicket = ({
         <ReturnTicketBtn
           PopupStateCounter={PopupStateCounter}
         ></ReturnTicketBtn>
-        
+
+        <MyTicketCover
+          ticketState={ticketState}
+        ></MyTicketCover>
       </View>
 
       {/* <ReturnTicketBtn></ReturnTicketBtn> */}
