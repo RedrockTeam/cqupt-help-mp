@@ -36,7 +36,7 @@ const AcDetail = () => {
         begin_time: ConvertingDatesToTimestamps(temp[0]),
         end_time: ConvertingDatesToTimestamps(temp[1])
       });
-      if (res.status === 10002) {
+      if (res.status === 10000) {
         // 憨批后端
         const hide = Popup.show({
           title: "报名成功",
