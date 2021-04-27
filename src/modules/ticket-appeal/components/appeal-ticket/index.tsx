@@ -10,7 +10,7 @@
 import { timestampToDateString, timestampToHMString } from '@/common/helpers/date';
 import { View, Text } from '@tarojs/components';
 import React, { useState } from 'react';
-import styles from './index.modules.scss';
+import styles from './index.module.scss';
 
 type Props = {
   TicketAppealData: ticketAppealDataProps;

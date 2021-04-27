@@ -21,13 +21,12 @@ const PAGE_TITLE = "申诉记录";
 
 const TicketAppealRecord = () => {
 
-  console.log(TicketAppealList);
-  const { data: TicketAppealList , isLoading, isError } = useQuery(
-    "getTicketAppealList",
-    getTicketAppealList
-  );
-  // const isLoading = false;
-  // const isError = false;
+  // const { data: TicketAppealList , isLoading, isError } = useQuery(
+  //   "getTicketAppealList",
+  //   getTicketAppealList
+  // );
+  const isLoading = false;
+  const isError = false;
   const queryCache = useQueryCache();
 
   const TicketAppealListLength = TicketAppealList.data.length;

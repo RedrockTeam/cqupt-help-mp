@@ -7,6 +7,26 @@ interface TicketAppealListInfo  {
     registration_time: number; // 申诉的提交时间(时间戳)
 }
 
+interface MyBlackList {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
+    stu_num: string;
+    product_name: string;
+    product_id: number;
+}
+
+interface AppealInfo {
+    product_id: number;
+    detail: string;
+    picture: string[];
+}
+
 export interface TicketAppealListInfoRes extends BaseRes {
     data: TicketAppealListInfo[];
+}
+
+export interface MyBlackListRes extends BaseRes {
+    data: MyBlackList[];
 }

@@ -23,7 +23,7 @@ import {
 } from "../../services";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
-import ticketList from "../../../../mock/TicketList.json";
+// import ticketList from "../../../../mock/TicketList.json";
 import SelectPopup from "../../components/select-popup";
 import TypeHeader from "../../components/type-header";
 import { navTo } from "@/common/helpers/utils";
@@ -114,15 +114,15 @@ const RobTicket = () => {
       </View>
     )
   }
-  // const { data: ticketList, isLoading, isError } = useQuery(
-  //   "robTicketListInfo",
-  //   getRobTicketListInfo,
-  //   {
-  //     refetchInterval: 2000,
-  //   }
-  // );
-  const isLoading = false;
-  const isError = false;
+  const { data: ticketList, isLoading, isError } = useQuery(
+    "robTicketListInfo",
+    getRobTicketListInfo,
+    {
+      refetchInterval: 2000,
+    }
+  );
+  // const isLoading = false;
+  // const isError = false;
 
   const ticketListMovie = filterObj(0);
   const ticketListLecture = filterObj(1);

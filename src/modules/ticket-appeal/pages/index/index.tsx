@@ -9,29 +9,66 @@
  */
 import NavBack from '@/common/components/nav-back';
 import { Button, View, Textarea } from '@tarojs/components';
-import { chooseImage, showModal, uploadFile } from '@tarojs/taro';
+import { chooseImage, getCurrentInstance, showModal, uploadFile } from '@tarojs/taro';
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
 import { getToken } from "@/stores/user";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import error from "@/static/images/error.png";
+import { navTo, resolvePage } from '@/common/helpers/utils';
+import { postAppeal } from '../../services';
+import { useMutation } from 'react-query/dist/react-query.production.min';
+import WaitImg from '@/static/images/wait.png';
 
 const PAGE_TITLE = "影票申诉";
 
 const TicketAppealIndex = () => {
-  const token = getToken();
+  let token: string | undefined;
+  getToken().then((res => {
+    token = res;
+  }));
+  const [mutatePush] = useMutation(postAppeal);
   const [ currentInput, setCurrentInput ] = useState(0);
   const [ picNum, setPicNum ] = useState(0);
   const [ picList, setPicList ] = useState<string[]>([]);
   const [ picRes, setPicRes ] = useState<string[]>([]);
   const [ loading, setLoading ] = useState(false);
+  const [ productId, setProduct ] = useState(getCurrentInstance().router?.params.product_id);
   const textarea = useRef(null);
 
   const Popup = useContainer(PopupContext);
 
   const textAreaInputChange = () => {
     setCurrentInput(textarea.current.value.length);
+  }
+
+  const handlePush = async (product_id, picRes, detail) => {
+    console.log(picRes);
+    const res = await mutatePush({
+      product_id,
+      detail,
+      picture: picRes,
+    })
+    if (res.status === 200) {
+      const hide = Popup.show({
+        title: "提交成功，请耐心等待处理结果！",
+        img: WaitImg,
+      });
+      await setTimeout(() => hide(), 3000);
+      navTo({ url: resolvePage("feedback", "result") });
+      setPicNum(0);
+      setPicRes([]);
+      setPicList([]);
+      setCurrentInput(0);
+      setLoading(false);
+    } else {
+      const hide = Popup.show({
+        title: "申请失败",
+        detail: "请稍后再试",
+      });
+      setTimeout(() => hide(), 3000);
+    }
   }
 
   const handleAddPicList = () => {
@@ -60,14 +97,16 @@ const TicketAppealIndex = () => {
     })
   }
 
-  const handleUploadImg = (picSrcs, token, picRes) => {
-    const n = picSrcs.length;
+  const handleUploadImg = (picList, token, picRes) => {
+    const n = picList.length;
+    console.log(token);
+    
 
     if (n) {
-      const promises = picSrcs.map((picSrc) =>
+      const promises = picList.map((picSrc) =>
         uploadFile({
           url:
-            "https://be-prod.redrock.team/cyb-permissioncenter/file",
+            "https://be-prod.redrock.team/cyb-permissioncenter/upload/file",
           filePath: picSrc,
           name: "file",
           header: {
@@ -89,14 +128,14 @@ const TicketAppealIndex = () => {
             console.log(res[i]);
             if (res[i].statusCode !== 200) {
               const hide = Popup.show({
-                title: "反馈失败",
+                title: "提交失败",
                 detail: "请稍后再试",
               });
               setTimeout(() => hide(), 1500);
               return;
             }
           }
-          // handlePushWithImg(picRes);
+          handlePush(picRes);
         })
         .catch(function (err) {
           // setLoding(false);
@@ -113,13 +152,19 @@ const TicketAppealIndex = () => {
    
   };
 
-  handleUploadImg(picList, token, picRes);
+  // handleUploadImg(picList, token, picRes);
+
+  console.log(getCurrentInstance().router?.params);
+  
   
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
       <View className={styles.toAppealInfo}>
-        <View className={styles.btn}>申诉记录</View>
+        <View 
+          className={styles.btn}
+          onClick={() => navTo({ url: `${resolvePage("ticket-appeal", "record")}?id=${productId}` })}
+        >申诉记录</View>
       </View>
       <View className={styles.content}>
         <Textarea
@@ -147,7 +192,7 @@ const TicketAppealIndex = () => {
 
       <Button 
         className={`${styles.submit} ${loading?styles.unConfirm:styles.confirm}`}
-        
+        onClick={() => handleUploadImg(picList, token, picRes)}
       >提交申诉</Button>
 
       <Popup.Comp />
