@@ -8,8 +8,10 @@
  * 
  */
 import { timestampToDateString, timestampToHMString } from '@/common/helpers/date';
+import { navTo, resolvePage } from '@/common/helpers/utils';
 import { View, Text } from '@tarojs/components';
 import React, { useState } from 'react';
+import TicketAppealResult from '../../pages/result';
 import styles from './index.module.scss';
 
 type Props = {
@@ -51,7 +53,10 @@ const AppealTicket = ({
 
   console.log(TicketAppealData);
   return (
-    <View className={styles.wrapper}>
+    <View 
+      className={styles.wrapper}
+      onClick={() => navTo({ url: `${resolvePage("ticket-appeal", "result")}?pass=${TicketAppealData.pass}&reply=${TicketAppealData.reply}`})}
+    >
       <Text className={styles.title}>{title}</Text>
       <Text className={styles.time}>{handelTimeToText(TicketAppealData.registration_time)}</Text>
       <View className={`${TicketAppealData.pass === 2?styles.colorUnpass:styles.colorPass} ${styles.replyState}`}>

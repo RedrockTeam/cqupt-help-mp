@@ -35,6 +35,7 @@ const TicketAppealIndex = () => {
   const [ picRes, setPicRes ] = useState<string[]>([]);
   const [ loading, setLoading ] = useState(false);
   const [ productId, setProduct ] = useState(getCurrentInstance().router?.params.product_id);
+  const [ productName, setProductName ] = useState(getCurrentInstance().router?.params.product_name)
   const textarea = useRef(null);
 
   const Popup = useContainer(PopupContext);
@@ -43,7 +44,7 @@ const TicketAppealIndex = () => {
     setCurrentInput(textarea.current.value.length);
   }
 
-  const handlePush = async (product_id, picRes, detail) => {
+  const handlePush = async (product_id: number, picRes: number[], detail: string) => {
     console.log(picRes);
     const res = await mutatePush({
       product_id,
@@ -135,7 +136,7 @@ const TicketAppealIndex = () => {
               return;
             }
           }
-          handlePush(picRes);
+          handlePush(productId, picRes, currentInput);
         })
         .catch(function (err) {
           // setLoding(false);
@@ -163,7 +164,7 @@ const TicketAppealIndex = () => {
       <View className={styles.toAppealInfo}>
         <View 
           className={styles.btn}
-          onClick={() => navTo({ url: `${resolvePage("ticket-appeal", "record")}?id=${productId}` })}
+          onClick={() => navTo({ url: `${resolvePage("ticket-appeal", "record")}?product_id=${productId}&product_name=${productName}`})}
         >申诉记录</View>
       </View>
       <View className={styles.content}>

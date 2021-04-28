@@ -13,21 +13,32 @@ import styles from './index.module.scss';
 import NavBack from '@/common/components/nav-back';
 import Empty from "@/common/components/empty";
 import AppealTicket from '../../components/appeal-ticket';
-import TicketAppealList from '@/mock/TicketAppealList.json';
+// import TicketAppealList from '@/mock/TicketAppealList.json';
 import { getTicketAppealList } from '../../services';
 import { useQuery, useQueryCache } from 'react-query/dist/react-query.production.min';
+import Placeholder from '@/common/components/placeholder';
+import { getCurrentInstance } from '@tarojs/taro';
 
 const PAGE_TITLE = "申诉记录";
 
 const TicketAppealRecord = () => {
+  const [ params, setParams ] = useState(getCurrentInstance().router?.params);
+  const [currentList, setCurrentList] = useState([])
 
-  // const { data: TicketAppealList , isLoading, isError } = useQuery(
-  //   "getTicketAppealList",
-  //   getTicketAppealList
-  // );
-  const isLoading = false;
-  const isError = false;
+  const { data: TicketAppealList , isLoading, isError } = useQuery(
+    "getTicketAppealList",
+    getTicketAppealList
+  );
+  // const isLoading = false;
+  // const isError = false;
   const queryCache = useQueryCache();
+
+  if (TicketAppealList !== undefined) {
+    TicketAppealList.data = TicketAppealList.data.filter(res => res.film_name === params.product_name);
+  }
+
+  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isError || !TicketAppealList) return <Placeholder title={PAGE_TITLE} isError />;
 
   const TicketAppealListLength = TicketAppealList.data.length;
   if (TicketAppealListLength === 0) {
@@ -42,8 +53,6 @@ const TicketAppealRecord = () => {
       </View>
     )
   }
-  
-  
   
   return (
     <View className={styles.wrapper}>

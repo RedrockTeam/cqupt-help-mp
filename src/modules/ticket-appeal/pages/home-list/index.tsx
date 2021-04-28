@@ -4,25 +4,25 @@ import styles from './index.module.scss';
 import NavBack from '@/common/components/nav-back';
 import Empty from "@/common/components/empty";
 import AppealTicket from '../../components/appeal-ticket';
-import MyBlackList from '@/mock/MyBlackList.json';
+// import MyBlackList from '@/mock/MyBlackList.json';
 import { getMyBlackList } from '../../services';
 import { useQuery, useQueryCache } from 'react-query/dist/react-query.production.min';
 import Placeholder from '@/common/components/placeholder';
 import { navTo, resolvePage } from '@/common/helpers/utils';
 
-const PAGE_TITLE = "申诉记录";
+const PAGE_TITLE = "影票申诉";
 
 const TicketHomeList = () => {
 
-  // const { data: MyBlackList , isLoading, isError } = useQuery(
-  //   "getMyBlackList",
-  //   getMyBlackList,
-  //   {
-  //     refetchInterval: 2000,
-  //   }
-  // );
-  const isLoading = false;
-  const isError = false;
+  const { data: MyBlackList , isLoading, isError } = useQuery(
+    "getMyBlackList",
+    getMyBlackList,
+    {
+      refetchInterval: 2000,
+    }
+  );
+  // const isLoading = false;
+  // const isError = false;
   const queryCache = useQueryCache();
   
 
@@ -57,7 +57,7 @@ const TicketHomeList = () => {
               </Text>
               <View 
                 className={styles.appeal}
-                onClick={() => navTo({ url: `${resolvePage("ticket-appeal", "index")}?product_id=${item.product_id}` })}
+                onClick={() => navTo({ url: `${resolvePage("ticket-appeal", "index")}?product_id=${item.product_id}&product_name=${item.product_name}` })}
               >去申诉</View>
             </View>
           )
