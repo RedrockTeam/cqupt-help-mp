@@ -60,10 +60,10 @@ export default function Index() {
     }
 
     // TODO: 后端将所有活动均返回，过滤掉已过期掉活动，喊后端有空修
-    homeActivityListRes.data = homeActivityListRes.data.filter(
+    homeActivityListRes.data = homeActivityListRes?.data?.length ? homeActivityListRes?.data?.filter(
       // @ts-ignore
-      (activity) => activity.time_done > Date.parse(new Date())
-    );
+      (activity) => activity.time_done > Date.parse(new Date()) / 1000
+    ) : [];
 
 
 
@@ -74,6 +74,7 @@ export default function Index() {
           return (
             <RecentActivity
               name={e.name}
+              id={e.id}
               key={e.id}
               teamName={e.team_name}
               timeDone={e.time_done}
@@ -84,6 +85,7 @@ export default function Index() {
               registration={e.registration}
               type={e.type}
               image={e.image}
+              image_with={e.image_with}
             />
           );
         })
@@ -103,7 +105,7 @@ export default function Index() {
         indicatorDots
         circular
         autoplay
-        // TODO: 修改 dot 样式
+      // TODO: 修改 dot 样式
       >
         {list.map((e) => (
           <SwiperItem key={e}>
@@ -136,7 +138,7 @@ export default function Index() {
           <View
             className={styles.slideItem}
             onClick={() => navTo({ url: resolvePage("volunteer", "index") })}
-          > 
+          >
             <Image src={homeVolunteerIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>志愿报名</Text>
           </View>

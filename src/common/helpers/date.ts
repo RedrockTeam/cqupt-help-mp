@@ -43,16 +43,6 @@ export const timestampToTimeCNString = (timestamp: number) =>
   timestampToDayjs(timestamp).format("MM 月 DD 日 HH:mm");
 
 /**
- * @description:  两个时间戳转换为一段时间字符串
- * @param {number} timestampEarly
- * @param {number} timestampLater
- * @return {*}
- */
-export const timestampToTimeStreamString = (timestampEarly: number,  timestampLater: number) => {
-  return `${timestampToDayjs(timestampEarly).format("MM 月 DD 日 HH:mm")}-${timestampToDayjs(timestampLater).format("HH:mm")}`;
-}
-
-/**
  * 现在时间的十位 Unix 时间戳
  */
 export const now = () => new Date().getTime() / 1000;
@@ -121,12 +111,18 @@ export const timestampToHMString = (timestamp: number) =>
 /**
  * 将 字符串 'MM月DD日 hh:mm-hh:mm' 转换为已秒计数的起始与终止时间段
  */
-export const genSeconds = (date : string) :{begin_time: number, end_time: number} =>  {
+export const genSeconds = (date: string): { date: number, begin_time: number, end_time: number } => {
 
-  console.log('genSeconds:', date)
+  let seqIndex = date.indexOf('日');
+  let _date = date.slice(0, seqIndex + 1);
+  // @ts-ignore
+  _date = _date.split('月');
+  _date = `${new Date().getFullYear()}/${_date[0]}/${_date[1].split('日')[0]}`
+  // @ts-ignore
+  _date = new Date(_date).getTime() / 1000;
 
   // 计算生成 begin_time end_time   两者均为hh:mm 的秒计数
-  let tmp_date = date.split(' ')[1];
+  let tmp_date = date.slice(seqIndex + 1).replace(' ', '');
   // @ts-ignore
   tmp_date = tmp_date.split('-')
   // console.log('date:', tmp_date)
@@ -137,7 +133,15 @@ export const genSeconds = (date : string) :{begin_time: number, end_time: number
   const _end_time = tmp_date[1].split(':')
   const end_time = parseInt(_end_time[0]) * 3600 + parseInt(_end_time[1]) * 60;
   return {
+    date: Number(_date),
     begin_time,
     end_time
   }
+}
+
+/*
+*    传入 xx-xx-xx 返回 时间戳(s)
+*/
+export const ConvertingDatesToTimestamps = (data: string) => {
+  return dayjs(data).unix()
 }

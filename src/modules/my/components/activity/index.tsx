@@ -7,11 +7,10 @@ import {MyActivity} from "../../services/dto";
 
 // 将秒为单位的时间转换为 [00]:[00]
 const translateTimeToClock = (begin_time: number, end_time: number) => {
-  console.log(begin_time, end_time)
   const beginHour = parseInt(String(begin_time / (60 * 60)));
-  const beginMinute = parseInt(begin_time % (60 * 60) / 60);
+  const beginMinute = parseInt(String(begin_time % (60 * 60) / 60));
   const endHour = parseInt(String(end_time / (60 * 60)));
-  const endMinute = parseInt(end_time % (60 * 60) / 60);
+  const endMinute = parseInt(String(end_time % (60 * 60) / 60));
   const beginTime = [
     beginHour < 10 ? `0${beginHour}` : String(beginHour),
     beginMinute < 10 ? `0${beginMinute}` : String(beginMinute),
@@ -20,7 +19,6 @@ const translateTimeToClock = (begin_time: number, end_time: number) => {
     endHour < 10 ? `0${endHour}` : String(endHour),
     endMinute < 10 ? `0${endMinute}` : String(endMinute),
   ];
-  console.log("beginTime: ", beginTime, "\nendTime: ", endTime);
 
   return {
     beginTime: `${beginTime[0]}:${beginTime[1]}`,
@@ -29,26 +27,29 @@ const translateTimeToClock = (begin_time: number, end_time: number) => {
 };
 
 const Activity = ({
-                    rely_id,
-                    is_change,
-                    is_sign,
-                    type,
-                    id,
-                    name,
-                    team_name,
-                    last_date,
-                    start_date,
+                    activity_detail: {
+                      rely_id,
+                      name,
+                      id,
+                      start_date,
+                      last_date,
+                      date: activityDate,
+                      time_part,
+                      result,
+                      status: {
+                        is_change = 0,
+                        is_sign
+                      },
+                      team_name,
+                      type
+                    },
                     registration_time,
-                    result,
-                    time_part,
-                    date: activityDate,
                     if_read,
                   }: MyActivity) => {
   const [month, date] = timestampToDateString(registration_time)
     .split(".")
     .slice(1);
 
-  console.log(`month: ${month}, date: ${date}`);
 
   // 整个活动时间
   const startDate = timestampToFormString(start_date).split(" ")[0];
@@ -58,11 +59,10 @@ const Activity = ({
   const [acMonth, acDate] = timestampToDateString(activityDate as number)
     .split(".")
     .slice(1);
-  console.log(activityDate, acMonth, acDate);
 
   const {beginTime, endTime} = translateTimeToClock(
-    time_part.begin_time,
-    time_part.end_time
+    time_part?.begin_time as number,
+    time_part?.end_time as number
   );
   const time_area = `${acMonth}月${acDate}日 ${beginTime}-${endTime}`;
 
@@ -122,8 +122,6 @@ const Activity = ({
    * 报名结果的状态    1: 等待结果 2 :查看结果
    */
   const ifPassed = (): 1 | 2 => {
-    console.log("pass:", typeof result?.pass);
-
     return result?.pass === "0" ? 1 : 2;
   };
 

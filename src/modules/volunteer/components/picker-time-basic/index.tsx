@@ -10,6 +10,7 @@ type Prop = {
   onPickEnd: () => unknown;
   value: any;
   dateIndex: number;
+  valueIndex: number[];
   format?: 'YY.MM.DD' | 'Y.M';
 }
 
@@ -19,8 +20,13 @@ const PickerTimeBasic = ({
                            onPickEnd,
                            value,
                            dateIndex,
-                           format = 'YY.MM.DD'
+                           valueIndex = [0, 0],
+                           format = 'YY.MM.DD',
                          }: Prop) => {
+
+  console.log('value:', value);
+  console.log('dateIndex:', dateIndex);
+
   return (
     <PickerView
       indicatorStyle="height:58px"
@@ -28,8 +34,10 @@ const PickerTimeBasic = ({
       onChange={onTimeChange}
       onPickStart={onPickStart}
       onPickEnd={onPickEnd}
+      value={valueIndex}
     >
-      <PickerViewColumn>
+      <PickerViewColumn
+      >
         {value.dateList.map((item) => {
           return (
             <View style={{lineHeight: "58px"}} key={`${item}`}>
