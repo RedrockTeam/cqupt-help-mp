@@ -31,7 +31,7 @@ import {
   checkTicket,
   returnMyTicket,
 } from "../../services";
-import myTicketListRes from "../../../../mock/myTicketListRes.json";
+// import myTicketListRes from "../../../../mock/myTicketListRes.json";
 import SelectPopup from "../../components/select-popup";
 import SelectPopupContext from "@/stores/select-popup";
 
@@ -90,12 +90,12 @@ const MyTicket = () => {
   }
 
   const Popup = useContainer(PopupContext);
-  // const { data: myTicketListRes, isLoading, isError } = useQuery(
-  //   "getMyTiketList",
-  //   getMyTicketList
-  // );
-  const isLoading = false;
-  const isError = false;
+  const { data: myTicketListRes, isLoading, isError } = useQuery(
+    "getMyTiketList",
+    getMyTicketList
+  );
+  // const isLoading = false;
+  // const isError = false;
   const queryCache = useQueryCache();
   // const [visible, setVisible] = useState(false);
   // const handleConcel = () => {

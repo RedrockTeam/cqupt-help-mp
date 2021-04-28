@@ -28,6 +28,7 @@ import SelectPopup from "../../components/select-popup";
 import TypeHeader from "../../components/type-header";
 import { navTo } from "@/common/helpers/utils";
 import { resolvePage } from "@/common/helpers/utils";
+import { RobTicketListInfoRes, RobTicketInfo } from "../../services/dto";
 
 const PAGE_TITLE = "在线抢票";
 
@@ -40,7 +41,7 @@ const RobTicket = () => {
    * @description: 传入参数为影票种类，0为电影，1为讲座
    * @param {number} type
    * @return {*}
-   */  
+   */ 
    const filterObj = (type: number) => {
     if (ticketList === undefined) {
       return [];
@@ -99,7 +100,7 @@ const RobTicket = () => {
 
     return (
       <View>
-        <Button onClick={Click}>dianji</Button>
+        {/* <Button onClick={Click}>dianji</Button> */}
         <SelectPopup
           isShow={SelectPopupCounter.state}
           title="温馨提示"
@@ -114,19 +115,32 @@ const RobTicket = () => {
       </View>
     )
   }
+
+  const [ currentState, setCurrentState ] = useState<number>(0);
+  const [ ticketListMovie, setTicketListMovie ] = useState<RobTicketInfo[]>([]);
+  const [ ticketListLecture, setTicketListLecture ] = useState<RobTicketInfo[]>([]);
+
   const { data: ticketList, isLoading, isError } = useQuery(
     "robTicketListInfo",
     getRobTicketListInfo,
     {
       refetchInterval: 2000,
+      onSuccess: (data: RobTicketListInfoRes) => {
+        // if (data === undefined) {
+        //   return;
+        // }
+        setTicketListLecture(data.data.filter(res => res.type === 0));
+        setTicketListMovie(data.data.filter(res => res.type === 1));
+      }
     }
   );
   // const isLoading = false;
   // const isError = false;
 
-  const ticketListMovie = filterObj(0);
-  const ticketListLecture = filterObj(1);
-  const [ currentList, setCurrentList ] = useState(ticketListMovie);
+
+  // const ticketListMovie = filterObj(0);
+  // const ticketListLecture = filterObj(1);
+  // console.log(ticketListMovie);
 
   const [isRobing, setIsRobing] = useState(false);
   const [isAlternateRobing, setIsAlternateRobing] = useState(false);
@@ -231,11 +245,62 @@ const RobTicket = () => {
     <View>
       <NavBack title={PAGE_TITLE} background="#FFFFFF" />
       <TypeHeader
-        MovieFun={() => setCurrentList(ticketListMovie)}
-        LectureFun={() => setCurrentList(ticketListLecture)}
+        MovieFun={() => setCurrentState(1)}
+        LectureFun={() => setCurrentState(0)}
       />
       <View className={styles.wrapper}>
-        {currentList
+        {
+          currentState === 0?
+          (
+            ticketListLecture
+              .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
+              .map((e) => (
+                <Ticket
+                  id={e.id}
+                  playTime={dayjs(e.play_time).unix()}
+                  endTime={dayjs(e.end_time).unix()}
+                  robTime={dayjs(e.begin_time).unix()}
+                  location={e.location}
+                  remain={e.left}
+                  image={e.image}
+                  name={e.name}
+                  isReceived={e.is_received}
+                  onRobTicket={handleRobTicket}
+                  onAlternateRobTicket={handleAlternateRobTicket}
+                  key={e.id}
+                  type={e.type}
+                  all={e.all}
+                  re_send_num={e.re_send_num}
+                  chief={e.chief}
+                />
+            ))
+          ):
+          (
+            ticketListMovie
+              .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
+              .map((e) => (
+                <Ticket
+                  id={e.id}
+                  playTime={dayjs(e.play_time).unix()}
+                  endTime={dayjs(e.end_time).unix()}
+                  robTime={dayjs(e.begin_time).unix()}
+                  location={e.location}
+                  remain={e.left}
+                  image={e.image}
+                  name={e.name}
+                  isReceived={e.is_received}
+                  onRobTicket={handleRobTicket}
+                  onAlternateRobTicket={handleAlternateRobTicket}
+                  key={e.id}
+                  type={e.type}
+                  all={e.all}
+                  re_send_num={e.re_send_num}
+                  chief={e.chief}
+                />
+              ))
+          )
+        }
+        {/* {currentList
           .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
           .map((e) => (
             <Ticket
@@ -256,7 +321,7 @@ const RobTicket = () => {
               re_send_num={e.re_send_num}
               chief={e.chief}
             />
-        ))}
+        ))} */}
       </View>
       <Popup.Comp />
       <useSelectPopup.Provider>

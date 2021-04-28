@@ -8,7 +8,7 @@
  */
 import { BaseRes } from "@/common/helpers/request";
 
-interface RobTicketInfo {
+export interface RobTicketInfo {
   id: number; // 影票的id
   name: string; // 影票名称
   type: number; // 影票类型 0表示讲座 1表示影票

@@ -25,31 +25,32 @@ import { getCurrentInstance, navigateBack } from '@tarojs/taro';
 import Empty from "@/common/components/empty";
 import ticketList from "../../../../mock/TicketList.json";
 import dayjs from 'dayjs';
-import { timestampToTimeStreamString } from '@/common/helpers/date';
+import { now, timestampToTimeStreamString } from '@/common/helpers/date';
 import PrimaryButton from '@/common/components/primary-button';
 
 const PAGE_TITLE = "在线抢票";
 
 const RobTicketInfo = () => {
   const [ ticketId, setTicketId ] = useState<number>(Number(getCurrentInstance().router?.params.id));
-  const [ ticketInfo, setTicketInfo ] = useState();
+  // const [ ticketInfo, setTicketInfo ] = useState();
+  const [ params, setParams ] = useState(getCurrentInstance().router?.params);
   
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();
 
-  // const { data: ticketList, isLoading, isError } = useQuery(
-  //   "robTicketListInfo",
-  //   getRobTicketListInfo,
-  //   {
-  //     refetchInterval: 2000,
-  //     onSuccess: (data) => {
-  //       // 测试修改
-  //     }
-  //   }
-  // );
-  
-  const isLoading = false;
-  const isError = false;
+  const { data: ticketList, isLoading, isError } = useQuery(
+    "robTicketListInfo",
+    getRobTicketListInfo,
+    {
+      refetchInterval: 2000,
+      onSuccess: (data) => {
+        // 测试修改
+      }
+    }
+  );
+  const ticketInfo = ticketList?.data.filter(res => res.id === ticketId)[0];
+  // const isLoading = false;
+  // const isError = false;
 
   const [isRobing, setIsRobing] = useState(false);
   const [isAlternateRobing, setIsAlternateRobing] = useState(false);
@@ -138,7 +139,6 @@ const RobTicketInfo = () => {
   }
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
-  // console.log(ticketList);
   if (isError || !ticketList) return <Placeholder title={PAGE_TITLE} isError />;
   if (ticketList.data.length === 0)
     return (
@@ -152,29 +152,86 @@ const RobTicketInfo = () => {
     );
 
   console.log(getCurrentInstance());
-  
 
+
+  const renderRobBtn = () => {
+    const nowTimestamp = now();
+    if (isReceived)
+      return (
+        <PrimaryButton disabled className={styles.btn}>
+          您已抢票成功
+        </PrimaryButton>
+      );
+
+    if (nowTimestamp >= robTime && playTime >= nowTimestamp) {
+      if (remain <= 0) {
+        if (re_send_num < Math.ceil(all*0.2)) {
+          return (
+            <PrimaryButton className={styles.btn} onClick={() => robAlternateTicket(id, re_send_num)}>
+              候补抢票
+            </PrimaryButton>
+          )
+        }
+        return (
+          <PrimaryButton disabled className={styles.btn}>
+            已抢完
+          </PrimaryButton>
+        );
+      }
+      return (
+        <PrimaryButton className={styles.btn} onClick={() => onRobTicket(id)}>
+          立即抢票
+        </PrimaryButton>
+      );
+    }
+    if (nowTimestamp > playTime) {
+      return (
+        <PrimaryButton disabled className={styles.btn}>
+          已失效
+        </PrimaryButton>
+      );
+    }
+    if (robTime > nowTimestamp) {
+      const leftTime = Math.ceil((robTime - nowTimestamp) / 60);
+      if (leftTime < 120) {
+        return (
+          <PrimaryButton disabled className={styles.btn}>
+            距离抢票还有 {leftTime} min
+          </PrimaryButton>
+        );
+      }
+      return (
+        <PrimaryButton disabled className={styles.btn}>
+          等待开抢
+        </PrimaryButton>
+      );
+    }
+  };
+  
+  if (ticketInfo === undefined) {
+    return;
+  }
   return (
     <View className={styles.robTicketInfo}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
       <Image 
-        src={ticketList.data[ticketId-1].image}
+        src={ticketInfo.image}
         className={styles.previewImage}
       ></Image>
       {/* <View className={styles.placeholder}></View> */}
       <View className={styles.content}>
-        <View className={styles.title}>{ticketList.data[ticketId-1].name}</View>
+        <View className={styles.title}>{ticketInfo.name}</View>
         <View className={styles.text}>
           <Text>活动时间：</Text>
-          <Text>{timestampToTimeStreamString(dayjs(ticketList.data[ticketId-1].begin_time).unix(), dayjs(ticketList.data[ticketId-1].end_time).unix())}</Text>
+          <Text>{timestampToTimeStreamString(dayjs(ticketInfo.begin_time).unix(), dayjs(ticketInfo.end_time).unix())}</Text>
         </View>
         <View className={styles.text}>
           <Text>活动地点：</Text>
-          <Text>{ticketList.data[ticketId-1].location}</Text>
+          <Text>{ticketInfo.location}</Text>
         </View>
         <View className={styles.text}>
           <Text>主讲人：</Text>
-          <Text>{ticketList.data[ticketId-1].chierf}</Text>
+          <Text>{ticketInfo.chief}</Text>
         </View>
       </View>
 
@@ -182,7 +239,7 @@ const RobTicketInfo = () => {
         <View className={styles.introductionItem}>
           <View className={styles.title}>讲座简介</View>
           <View className={styles.body}>
-            {ticketList.data[ticketId-1].introduction}
+            {ticketInfo.introduction}
           </View>
         </View>
         <View className={styles.introductionItem}>

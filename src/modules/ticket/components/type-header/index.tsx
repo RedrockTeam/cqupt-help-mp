@@ -37,7 +37,7 @@ const TypeHeader = ({
     <View className={styles.typeHeader}>
       <View 
         className={`${styles.button} ${styles.flexRow}`}
-        onClick={() => changeTypeMovie(MovieFun)}
+        onClick={() => changeTypeMovie(LectureFun)}
       >
         <View className={typeState === 0?styles.titleSelect:styles.titleSelectOff}>讲座</View>
         {
@@ -46,7 +46,7 @@ const TypeHeader = ({
       </View>
       <View 
         className={`${styles.button} ${styles.flexRow}`}
-        onClick={() => changeTypeLecture(LectureFun)}
+        onClick={() => changeTypeLecture(MovieFun)}
       >
         <View className={typeState === 1?styles.titleSelect:styles.titleSelectOff}>影票</View>
         {
