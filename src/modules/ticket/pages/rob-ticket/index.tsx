@@ -172,6 +172,8 @@ const RobTicket = () => {
       let detail: string;
       if (res.status === 10004) {
         detail = "票已经被抢完了";
+      } else if (res.status === 10005) {
+        detail = "您已抢到票";
       } else if (res.status === 10006) {
         detail = "请求超时,请重试";
       } else if (res.status === 10007) {
@@ -210,6 +212,8 @@ const RobTicket = () => {
       let detail: string;
       if (res.status === 10004) {
         detail = "票已经被抢完了";
+      } else if (res.status === 10005) {
+        detail = "您已抢到票";
       } else if (res.status === 10006) {
         detail = "请求超时,请重试";
       } else if (res.status === 10007) {
