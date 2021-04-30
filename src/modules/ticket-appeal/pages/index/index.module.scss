@@ -54,9 +54,33 @@
   .picList {
     margin-top: 10px;
     width: 630px;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+    .picWrap {
+      margin: 0;
+      position: relative;
+      // margin-right: 15px;
+      // margin-bottom: 15px;
+      .picUp {
+        margin: 10px;
+        width: 190px;
+        height: 190px;
+        border-radius: 20px;
+      }
+      .del {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+    }
     .addList {
-      width: 200px;
-      height: 200px;
+      margin: 10px;
+      width: 190px;
+      height: 190px;
       background-color: #F2F1F9;
       border-radius: 20px;
       position: relative;

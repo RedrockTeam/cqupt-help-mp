@@ -231,16 +231,16 @@ const RobTicket = () => {
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   // console.log(ticketList);
   if (isError || !ticketList) return <Placeholder title={PAGE_TITLE} isError />;
-  if (ticketList.data.length === 0)
-    return (
-      <Empty
-        title={PAGE_TITLE}
-        detail="近期还没有影票可以抢哦～"
-        suggestion="去首页看看活动吧"
-        btnContent="查看活动"
-        onBtnClick={() => navigateBack()}
-      />
-    );
+  // if (ticketList.data.length === 0)
+  //   return (
+  //     <Empty
+  //       title={PAGE_TITLE}
+  //       detail="近期还没有影票可以抢哦～"
+  //       suggestion="去首页看看活动吧"
+  //       btnContent="查看活动"
+  //       onBtnClick={() => navigateBack()}
+  //     />
+  //   );
   return (
     <View>
       <NavBack title={PAGE_TITLE} background="#FFFFFF" />
@@ -252,31 +252,9 @@ const RobTicket = () => {
         {
           currentState === 0?
           (
-            ticketListLecture
-              .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
-              .map((e) => (
-                <Ticket
-                  id={e.id}
-                  playTime={dayjs(e.play_time).unix()}
-                  endTime={dayjs(e.end_time).unix()}
-                  robTime={dayjs(e.begin_time).unix()}
-                  location={e.location}
-                  remain={e.left}
-                  image={e.image}
-                  name={e.name}
-                  isReceived={e.is_received}
-                  onRobTicket={handleRobTicket}
-                  onAlternateRobTicket={handleAlternateRobTicket}
-                  key={e.id}
-                  type={e.type}
-                  all={e.all}
-                  re_send_num={e.re_send_num}
-                  chief={e.chief}
-                />
-            ))
-          ):
-          (
-            ticketListMovie
+            ticketListLecture.length !== 0?
+            (
+              ticketListLecture
               .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
               .map((e) => (
                 <Ticket
@@ -298,6 +276,52 @@ const RobTicket = () => {
                   chief={e.chief}
                 />
               ))
+            ):
+            (
+              <Empty
+                title={PAGE_TITLE}
+                detail="近期还没有影票可以抢哦～"
+                suggestion="去首页看看活动吧"
+                btnContent="查看活动"
+                onBtnClick={() => navigateBack()}
+              />
+            )
+          ):
+          (
+            ticketListMovie.length !== 0?
+            (
+              ticketListMovie
+              .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
+              .map((e) => (
+                <Ticket
+                  id={e.id}
+                  playTime={dayjs(e.play_time).unix()}
+                  endTime={dayjs(e.end_time).unix()}
+                  robTime={dayjs(e.begin_time).unix()}
+                  location={e.location}
+                  remain={e.left}
+                  image={e.image}
+                  name={e.name}
+                  isReceived={e.is_received}
+                  onRobTicket={handleRobTicket}
+                  onAlternateRobTicket={handleAlternateRobTicket}
+                  key={e.id}
+                  type={e.type}
+                  all={e.all}
+                  re_send_num={e.re_send_num}
+                  chief={e.chief}
+                />
+              ))
+            ):
+            (
+              <Empty
+                title={PAGE_TITLE}
+                detail="近期还没有影票可以抢哦～"
+                suggestion="去首页看看活动吧"
+                btnContent="查看活动"
+                onBtnClick={() => navigateBack()}
+              />
+            )  
           )
         }
         {/* {currentList

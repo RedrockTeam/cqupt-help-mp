@@ -16,10 +16,7 @@ const TicketHomeList = () => {
 
   const { data: MyBlackList , isLoading, isError } = useQuery(
     "getMyBlackList",
-    getMyBlackList,
-    {
-      refetchInterval: 2000,
-    }
+    getMyBlackList
   );
   // const isLoading = false;
   // const isError = false;

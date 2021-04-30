@@ -23,6 +23,7 @@
   // border: black solid 1px;
   margin-bottom: 30px;
   padding:0 30px;
+  position: relative;
   .title {
     font-size: 40px;
     width: 700;
@@ -41,7 +42,7 @@
 }
 .content::after {
   position: absolute;
-  top: 515px;
+  top: -48px;
   left: 0;
   content: "";
   height: 20px;

@@ -92,7 +92,12 @@ const MyTicket = () => {
   const Popup = useContainer(PopupContext);
   const { data: myTicketListRes, isLoading, isError } = useQuery(
     "getMyTiketList",
-    getMyTicketList
+    getMyTicketList,
+    {
+      refetchInterval: 2000,
+      onSuccess: (data: RobTicketListInfoRes) => {
+      }
+    }
   );
   // const isLoading = false;
   // const isError = false;

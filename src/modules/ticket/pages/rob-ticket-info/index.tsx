@@ -223,6 +223,7 @@ const RobTicketInfo = () => {
       ></Image>
       {/* <View className={styles.placeholder}></View> */}
       <View className={styles.content}>
+        <View className={styles.header}></View>
         <View className={styles.title}>{ticketInfo.name}</View>
         <View className={styles.text}>
           <Text>活动时间：</Text>

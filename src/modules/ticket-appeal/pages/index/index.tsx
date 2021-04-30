@@ -8,7 +8,7 @@
  * 
  */
 import NavBack from '@/common/components/nav-back';
-import { Button, View, Textarea } from '@tarojs/components';
+import { Button, View, Textarea, Image } from '@tarojs/components';
 import { chooseImage, getCurrentInstance, showModal, uploadFile } from '@tarojs/taro';
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
@@ -20,6 +20,7 @@ import { navTo, resolvePage } from '@/common/helpers/utils';
 import { postAppeal } from '../../services';
 import { useMutation } from 'react-query/dist/react-query.production.min';
 import WaitImg from '@/static/images/wait.png';
+import deleteImg from "@/static/images/delete.png";
 
 const PAGE_TITLE = "影票申诉";
 
@@ -30,6 +31,7 @@ const TicketAppealIndex = () => {
   }));
   const [mutatePush] = useMutation(postAppeal);
   const [ currentInput, setCurrentInput ] = useState(0);
+  const [ detail, setDetail ] = useState<string>("");
   const [ picNum, setPicNum ] = useState(0);
   const [ picList, setPicList ] = useState<string[]>([]);
   const [ picRes, setPicRes ] = useState<string[]>([]);
@@ -40,8 +42,9 @@ const TicketAppealIndex = () => {
 
   const Popup = useContainer(PopupContext);
 
-  const textAreaInputChange = () => {
+  const textAreaInputChange = (e) => {
     setCurrentInput(textarea.current.value.length);
+    setDetail(e.detail.value);
   }
 
   const handlePush = async (product_id: number, picRes: number[], detail: string) => {
@@ -51,13 +54,15 @@ const TicketAppealIndex = () => {
       detail,
       picture: picRes,
     })
-    if (res.status === 200) {
+    if (res.status === 10000) {
       const hide = Popup.show({
         title: "提交成功，请耐心等待处理结果！",
         img: WaitImg,
       });
-      await setTimeout(() => hide(), 3000);
-      navTo({ url: resolvePage("feedback", "result") });
+      setTimeout(() => {
+        hide();
+        navTo({ url: `${resolvePage("ticket-appeal", "record")}?product_id=${productId}&product_name=${productName}` });
+      }, 3000);
       setPicNum(0);
       setPicRes([]);
       setPicList([]);
@@ -71,6 +76,12 @@ const TicketAppealIndex = () => {
       setTimeout(() => hide(), 3000);
     }
   }
+
+  const deletePic = (index) => {
+    picList.splice(index, 1);
+    setPicList([...picList]);
+    setPicNum([...picList].length);
+  };
 
   const handleAddPicList = () => {
     chooseImage({
@@ -136,7 +147,7 @@ const TicketAppealIndex = () => {
               return;
             }
           }
-          handlePush(productId, picRes, currentInput);
+          handlePush(Number(productId), picRes, detail);
         })
         .catch(function (err) {
           // setLoding(false);
@@ -150,12 +161,11 @@ const TicketAppealIndex = () => {
     } else {
       // handlePush();
     }
-   
   };
 
   // handleUploadImg(picList, token, picRes);
 
-  console.log(getCurrentInstance().router?.params);
+  // console.log(getCurrentInstance().router?.params);
   
   
   return (
@@ -183,11 +193,21 @@ const TicketAppealIndex = () => {
           <View>{picNum}/3</View>
         </View>
         <View className={styles.picList}>
-
-          <View className={styles.picList}>
-            <Button className={styles.addList} onClick={handleAddPicList}/>
-            
-          </View>
+          {
+            picList.map((item, index) => {
+              return (
+                <View className={styles.picWrap} key={item}>
+                  <Image src={item} key={item} className={styles.picUp} />
+                  <Image
+                    className={styles.del}
+                    src={deleteImg}
+                    onClick={() => deletePic(index)}
+                  />
+                </View>
+              )
+            })
+          }
+          <Button className={styles.addList} onClick={handleAddPicList}/>
         </View>
       </View>
 

@@ -13,7 +13,7 @@ const resolvePage = (module: string, page: string) =>
 export default {
   pages: [
     // resolvePage("ticket", "rob-ticket"),
-    // resolvePage("ticket-appeal", "home-list"),
+    // resolvePage("ticket-appeal", "index"),
     resolvePage("index", "home"),
     resolvePage("index", "activity-detail"),
     resolvePage("campus", "index"),

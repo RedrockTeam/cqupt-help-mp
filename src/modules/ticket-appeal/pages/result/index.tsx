@@ -9,6 +9,7 @@ import TicketAppealList from '@/mock/TicketAppealList.json';
 import { navTo, resolvePage } from '@/common/helpers/utils';
 import { getCurrentInstance } from '@tarojs/taro';
 import FeedBackImg from '@/static/images/feedback.png';
+import Empty from '@/common/components/empty';
 
 const PAGE_TITLE = "申诉结果";
 
@@ -27,6 +28,8 @@ const TicketAppealResult = () => {
   // const queryCache = useQueryCache();
 
   // const TicketAppealListLength = TicketAppealList.data.length;
+  console.log(params?.pass);
+  
   if (params?.pass === "1") {
     return (
       <View>
@@ -37,7 +40,17 @@ const TicketAppealResult = () => {
         </View>
       </View>
     )
-    
+  } else if (params?.pass === "0") {
+    return (
+      <View>
+        <NavBack title={PAGE_TITLE} background="#F5F6F9" />
+        <Empty
+          title={PAGE_TITLE}
+          detail="申诉待处理哦~"
+          btnContent=""
+        />
+      </View>
+    )
   }
 
   return (
