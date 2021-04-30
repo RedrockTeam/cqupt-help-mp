@@ -49,6 +49,7 @@ const RobTicketInfo = () => {
     }
   );
   const ticketInfo = ticketList?.data.filter(res => res.id === ticketId)[0];
+  if (ticketInfo === undefined) return;
   // const isLoading = false;
   // const isError = false;
 
@@ -82,6 +83,8 @@ const RobTicketInfo = () => {
       let detail: string;
       if (res.status === 10004) {
         detail = "票已经被抢完了";
+      } else if (res.status === 10005) {
+        detail = "您已抢到票";
       } else if (res.status === 10006) {
         detail = "请求超时,请重试";
       } else if (res.status === 10007) {
@@ -108,7 +111,8 @@ const RobTicketInfo = () => {
     } else {
       return;
     }
-
+    console.log(res);
+    
     if (res.status === 10000) {
       const hide = Popup.show({
         img: robSuccessImg,
@@ -122,6 +126,8 @@ const RobTicketInfo = () => {
         detail = "票已经被抢完了";
       } else if (res.status === 10006) {
         detail = "请求超时,请重试";
+      } else if (res.status === 10005) {
+        detail = "您已抢到票";
       } else if (res.status === 10007) {
         detail = "请求过于频繁";
       } else if (res.status === 10008) {
@@ -151,23 +157,20 @@ const RobTicketInfo = () => {
       />
     );
 
-  console.log(getCurrentInstance());
-
-
   const renderRobBtn = () => {
     const nowTimestamp = now();
-    if (isReceived)
+    if (ticketInfo?.is_received)
       return (
         <PrimaryButton disabled className={styles.btn}>
           您已抢票成功
         </PrimaryButton>
       );
 
-    if (nowTimestamp >= robTime && playTime >= nowTimestamp) {
-      if (remain <= 0) {
-        if (re_send_num < Math.ceil(all*0.2)) {
+    if (nowTimestamp >= dayjs(ticketInfo?.begin_time).unix() && dayjs(ticketInfo?.play_time).unix() >= nowTimestamp) {
+      if (ticketInfo?.left <= 0) {
+        if (ticketInfo?.re_send_num < Math.ceil(ticketInfo?.all*0.2)) {
           return (
-            <PrimaryButton className={styles.btn} onClick={() => robAlternateTicket(id, re_send_num)}>
+            <PrimaryButton className={styles.btn} onClick={() => handleAlternateRobTicket(ticketInfo.id, ticketInfo.re_send_num)}>
               候补抢票
             </PrimaryButton>
           )
@@ -179,20 +182,20 @@ const RobTicketInfo = () => {
         );
       }
       return (
-        <PrimaryButton className={styles.btn} onClick={() => onRobTicket(id)}>
+        <PrimaryButton className={styles.btn} onClick={() => handleRobTicket(ticketInfo.id)}>
           立即抢票
         </PrimaryButton>
       );
     }
-    if (nowTimestamp > playTime) {
+    if (nowTimestamp > dayjs(ticketInfo?.play_time).unix()) {
       return (
         <PrimaryButton disabled className={styles.btn}>
           已失效
         </PrimaryButton>
       );
     }
-    if (robTime > nowTimestamp) {
-      const leftTime = Math.ceil((robTime - nowTimestamp) / 60);
+    if (dayjs(ticketInfo?.begin_time).unix() > nowTimestamp) {
+      const leftTime = Math.ceil((dayjs(ticketInfo?.begin_time).unix() - nowTimestamp) / 60);
       if (leftTime < 120) {
         return (
           <PrimaryButton disabled className={styles.btn}>
@@ -256,8 +259,9 @@ const RobTicketInfo = () => {
         </View>
       </View>
       <View className={styles.btnCover}>
-        <PrimaryButton disabled >等待开抢</PrimaryButton>
+        {renderRobBtn()}
       </View>
+      <Popup.Comp />
     </View>
   )
 }
