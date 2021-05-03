@@ -134,6 +134,7 @@ const RobTicket = () => {
   }
 
   const [ currentState, setCurrentState ] = useState<number>(0);
+  const [ blackListCounter, setBlackListCounter ] = useState<number>(0);
   const [ ticketListMovie, setTicketListMovie ] = useState<RobTicketInfo[]>([]);
   const [ ticketListLecture, setTicketListLecture ] = useState<RobTicketInfo[]>([]);
 
@@ -148,6 +149,7 @@ const RobTicket = () => {
         // }
         setTicketListLecture(data.data.filter(res => res.type === 0));
         setTicketListMovie(data.data.filter(res => res.type === 1));
+
       }
     }
   );
@@ -177,8 +179,13 @@ const RobTicket = () => {
     } else {
       return;
     }
+    // 处理关于失信影票的问题
+    
     // const item = ticketList.data.filter((item) => item.id === id)[0];
     if (res.status === 10000) {
+      if () {
+
+      }
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！抢票成功！",
