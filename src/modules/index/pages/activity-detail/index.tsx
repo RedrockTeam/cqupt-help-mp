@@ -22,9 +22,6 @@ const AcDetail = () => {
 
   const Popup = useContainer(PopupContext);
   const [mutateApply] = useMutation(applyActivity);
-  (() => {
-    console.log(params.image_with)
-  })()
   const handleApply = async () => {
     console.log("re")
     console.log(params)
@@ -71,7 +68,7 @@ const AcDetail = () => {
       <View className={styles.wrapper}>
         <NavBack title="活动详情" background="#F6F6F9" />
         {
-          params.image_with == "" ?
+          JSON.parse(params.image_with)[0] == "" ?
             <Image className={styles.pic} mode="aspectFill" src={params.image} />
             : (
               <Swiper
@@ -96,30 +93,6 @@ const AcDetail = () => {
                 })}
               </Swiper>
             )
-
-
-          // return (
-          //   <Swiper
-          //     className={styles.pic}
-          //     indicatorColor='#999'
-          //     indicatorActiveColor='#333'
-          //     circular
-          //     indicatorDots
-          //     autoplay>
-          //     {JSON.parse(params.image_with).map((e, index) => {
-          //       return (
-          //         <SwiperItem style={{
-          //           position: "absolute",
-          //           width: "100%",
-          //           height: "100%",
-          //           transform: `translate(${100 * index}%, 0px) translateZ(0px)`
-          //         }} key={e.id}>
-          //           <Image className={styles.pic} mode="aspectFill" src={e} />
-          //         </SwiperItem>
-          //       )
-          //     })}
-          //   </Swiper>
-          // )
         }
         <View className={styles.card}>
           <View className={styles.item1}>
