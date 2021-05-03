@@ -180,12 +180,9 @@ const RobTicket = () => {
       return;
     }
     // 处理关于失信影票的问题
-    
+
     // const item = ticketList.data.filter((item) => item.id === id)[0];
     if (res.status === 10000) {
-      if () {
-
-      }
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！抢票成功！",
