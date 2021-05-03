@@ -31,12 +31,16 @@ import {
   checkTicket,
   returnMyTicket,
 } from "../../services";
+import {
+  MyTicketInfo
+} from "../../services/dto";
 // import myTicketListRes from "../../../../mock/myTicketListRes.json";
 import SelectPopup from "../../components/select-popup";
 import SelectPopupContext from "@/stores/select-popup";
 
 const PAGE_TITLE = "我的影票";
 const MyTicket = () => {
+  const [ myTicketList, setMyTicketList ] = useState<MyTicketInfo[]>();
   // 控制退票弹窗
   const [ popupState, setPopupState ] = useState(false);
   const changePopupState = () => {
@@ -95,7 +99,9 @@ const MyTicket = () => {
     getMyTicketList,
     {
       refetchInterval: 2000,
-      onSuccess: (data: RobTicketListInfoRes) => {
+      onSuccess: () => {
+        if (myTicketListRes === undefined) return;
+        setMyTicketList([...myTicketListRes?.data.filter(res => res.effective !== 3)]);
       }
     }
   );
@@ -149,10 +155,10 @@ const MyTicket = () => {
   const handleSwiperChange: BaseEventOrigFunction<SwiperProps.onChangeEventDeatil> = (
     e
   ) => setCurrent(e.detail.current);
-  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isLoading || myTicketList === undefined) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !myTicketListRes)
     return <Placeholder title={PAGE_TITLE} isError />;
-  if (myTicketListRes.data.length === 0)
+  if (myTicketList.length === 0)
     return (
       <Empty
         title={PAGE_TITLE}
@@ -177,7 +183,7 @@ const MyTicket = () => {
           vertical={false}
           onChange={handleSwiperChange}
         >
-          {myTicketListRes.data.map((e) => (
+          {myTicketList.map((e) => (
             <SwiperItem key={e.id}>
               <OwedTicket
                 img={e.image}

@@ -26,8 +26,9 @@ type Props = {
   title: string;
   detail: string;
   bottomType?: number;
-  confirmFun: () => void,
-  cancelFun: () => void
+  confirmFun: () => void;
+  cancelFun: () => void;
+  remindCloseCount: number;
 };
 
 type BottomProp = {
@@ -35,22 +36,24 @@ type BottomProp = {
   confirmFun: () => void;
   cancelFun: () => void;
   isShow?: boolean;
+  remindCloseCount: number;
 }
 
 const Bottom = ({
   bottomType,
   confirmFun,
   cancelFun,
-  isShow
+  isShow,
+  remindCloseCount
 }:BottomProp) => {
-  const [ closeCount, setCloseCount ] = useState(5);
-  useEffect(() => {
-    if (closeCount > 0 && isShow) {
-      setTimeout(() => {
-        setCloseCount(closeCount -1)
-      }, 1000)
-    }
-  })
+  // const [ closeCount, setCloseCount ] = useState(5);
+  // useEffect(() => {
+  //   if (closeCount > 0 && isShow) {
+  //     setTimeout(() => {
+  //       setCloseCount(closeCount -1)
+  //     }, 1000)
+  //   }
+  // })
   // let timer = setInterval(() => {
   //   if (closeCount > 0) {
   //     setCloseCount(closeCount - 1);
@@ -61,17 +64,17 @@ const Bottom = ({
     return (
       <View>
         <View className={styles.line}></View>
-        {(closeCount <= 0)?
+        {(remindCloseCount <= 0)?
         (
           <Button 
             onClick={() => confirmFun()}
             className={`${styles.bottomOne} ${styles.confirm}`}
-          >我知道了（{closeCount}）</Button>
+          >我知道了（{remindCloseCount}）</Button>
         ):
         (
           <Button 
             className={`${styles.bottomOne} ${styles.unConfirm}`}
-          >我知道了（{closeCount}）</Button>
+          >我知道了（{remindCloseCount}）</Button>
         )}
         
       </View>
@@ -103,6 +106,7 @@ const SelectPopup = ({
   bottomType,
   confirmFun,
   cancelFun,
+  remindCloseCount,
 }: Props) => {
   return (
     <View className={`${styles.wrapper} ${isShow?styles.show:styles.hiden}`}>
@@ -114,6 +118,7 @@ const SelectPopup = ({
           confirmFun,
           cancelFun,
           isShow,
+          remindCloseCount,
         })}
       </View>
     </View>

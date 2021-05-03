@@ -27,7 +27,7 @@ type Props = {
   sequence: number;
   stu_num: string;
   PopupStateCounter: any;
-  effective: boolean;
+  effective: 1 | 2 | 3;
 };
 
 const OwedTicket = ({ 

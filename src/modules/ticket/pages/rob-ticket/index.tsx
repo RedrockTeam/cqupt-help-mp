@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { createContainer, useContainer } from "unstated-next";
 import { getStorage, navigateBack, removeStorage, setStorage } from "@tarojs/taro";
 import { Button, View } from "@tarojs/components";
@@ -35,6 +35,15 @@ const PAGE_TITLE = "在线抢票";
 const RobTicket = () => {
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();
+  const [ remindRuleState, setRemindRuleState ] = useState(true);
+  const [ remindCloseCount, setRemindCloseCount ] = useState(5);
+  useEffect(() => {
+    if (remindCloseCount > 0 && remindRuleState) {
+      setTimeout(() => {
+        setRemindCloseCount(remindCloseCount -1)
+      }, 1000)
+    }
+  })
 
   // 影票列表的处理
   /**
@@ -55,12 +64,12 @@ const RobTicket = () => {
 
   // 选择弹窗
   const SelectPopupFun = () => {
-    const [ state, setState ] = useState(false);
+    const [ state, setState ] = useState(true);
     const changeState = () => {
       if (state) {
-        setState(false)
+        setRemindRuleState(false)
       } else {
-        setState(true)
+        setRemindRuleState(true)
       }
     }
     return { state, setState , changeState }
@@ -72,12 +81,19 @@ const RobTicket = () => {
     getStorage({
       key: "remindRule",
       success: (res) => {
+        setRemindRuleState(res.data);
         if (res.data === true) {
           console.log(res.data);
-          setStorage({
-            key: "remindRule",
-            data: false,
-          })
+          setTimeout(() => {
+            setStorage({
+              key: "remindRule",
+              data: false,
+            })
+          }, 5000)
+        } else {
+          // console.log('====================================');
+          // console.log('不用弹窗');
+          // console.log('====================================');
         }
         // removeStorage({
         //   key: "remindRule"
@@ -89,7 +105,7 @@ const RobTicket = () => {
           key: "remindRule",
           data: true,
         })
-        SelectPopupCounter.setState(true);
+        setRemindRuleState(true);
       }
     })
 
@@ -102,7 +118,7 @@ const RobTicket = () => {
       <View>
         {/* <Button onClick={Click}>dianji</Button> */}
         <SelectPopup
-          isShow={SelectPopupCounter.state}
+          isShow={remindRuleState}
           title="温馨提示"
           detail="1：本次线上影票仅面向重庆邮电大学师生，为公益性活动，禁止以牟利为目的的影票倒卖活动，一经发现，将被记入不良信用档案。
           2：如有特殊情况，不能到场者。请在开场前半个小时，进入“我的影票”页面，选择“我要退票”，退回自己的影票。
@@ -111,6 +127,7 @@ const RobTicket = () => {
           bottomType={1}
           confirmFun={SelectPopupCounter.changeState}
           cancelFun={() => {}}
+          remindCloseCount={remindCloseCount}
         />
       </View>
     )
@@ -167,7 +184,7 @@ const RobTicket = () => {
         title: "恭喜您！抢票成功！",
         detail: `电影票卡券已存入“我的影票”中赶快去看看吧！`,
       });
-      setTimeout(() => hide(), 10000);
+      setTimeout(() => hide(), 1500);
     } else {
       let detail: string;
       if (res.status === 10004) {

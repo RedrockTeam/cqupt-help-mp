@@ -34,7 +34,7 @@ export interface RobTicketListInfoRes extends BaseRes {
 
 export type RobTicketRes = BaseRes;
 
-interface MyTicket {
+export interface MyTicketInfo {
   stu_num: string; // 表示学号
   id: number; // 影票的id
   name: string; // 影票名称
@@ -44,8 +44,8 @@ interface MyTicket {
   play_time: string; // 电影播放时间
   image: string; // 影票图片
   location: string; // 电影播放地点
-  effective: boolean; // 影票是否有效
+  effective: 1 | 2 | 3; // 影票是否有效
 }
 export interface MyTicketListRes extends BaseRes {
-  data: MyTicket[];
+  data: MyTicketInfo[];
 }

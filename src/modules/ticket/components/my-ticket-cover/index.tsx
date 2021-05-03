@@ -10,9 +10,12 @@ type Props = {
 const MyTicketCover = ({
   ticketState,
 }) => {
-  if (ticketState) {
+  if (ticketState !== 2) {
     return <View></View>;
   }
+  // console.log('====================================');
+  // console.log("State", ticketState);
+  // console.log('====================================');
 
   return (
     <View className={styles.wrapper}>
