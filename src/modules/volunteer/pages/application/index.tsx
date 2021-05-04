@@ -29,9 +29,13 @@ const KEY_CHANGE_TIME = "change-time";
 //  判断当前时间是否在签到开始前后15min内
 const timeLegal = (date: string) => {
   const nowStamp = Date.parse(new Date() as any) / 1000;
-  const nowDate = timestampToMDString(nowStamp);
+  let nowDate = timestampToMDString(nowStamp);
+  // nowDate = nowDate.split('月')[0].length < 2 ? '0' + nowDate : nowDate;
+  // nowDate = nowDate.split('月')[0].split('日')[0].length < 2 ? nowDate.split('月')[0] + '月' + '0' + nowDate.split('月')[1]: nowDate;
   const _date = date.split(" ")[0];
-  if (_date !== nowDate) return false;
+
+  if (parseInt(_date.split('月')[0]) !== parseInt(nowDate.split('月')[0])
+    || parseInt(_date.split('月')[1].split('日')[0]) !== parseInt(nowDate.split('月')[1].split('日')[0])) return false;
 
   // @ts-ignore
   const _time = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
@@ -185,8 +189,8 @@ const VolunteerApply = () => {
       }
   );
 
-  console.log('pass:', pass)
-  console.log('sheetTitle:', sheetTitle)
+  // console.log('pass:', pass)
+  // console.log('sheetTitle:', sheetTitle)
 
   const handleShowSheet = (key: string | symbol) => {
     if (isScanned) return;
