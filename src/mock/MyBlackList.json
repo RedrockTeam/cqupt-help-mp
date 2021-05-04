@@ -1,0 +1,18 @@
+{
+  "status": 200,
+  "info": "success",
+  "data": [
+    {
+      "product_name": "红色长波",
+      "product_id": 1
+    },
+    {
+      "product_name": "原神大电影",
+      "product_id": 2
+    },
+    {
+      "product_name": "原神小电影",
+      "product_id": 3
+    }
+  ]
+}

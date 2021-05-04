@@ -1,3 +1,12 @@
+/*
+ * @Author: myjdml
+ * @Date: 2021-03-23 22:51:42
+ * @LastEditTime: 2021-04-14 21:21:40
+ * @LastEditors: myjdml
+ * @Description: The sooner you start to code, the longer the program will take. —— Roy Carlson
+ * @FilePath: \cqupt-help-mp\src\common\helpers\request.ts
+ * 
+ */
 import { request as req } from "@tarojs/taro";
 import { getToken } from "@/stores/user";
 import { API } from "../constants";

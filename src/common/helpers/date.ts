@@ -85,6 +85,10 @@ export const timestampToTimeString = (param: number) => {
   return dayjs.unix(param).format("YYYY.MM.DD HH:mm");
 };
 
+export const timestampToTimeStreamString = (timestampEarly: number, timestampLater: number) => {
+  return `${timestampToDayjs(timestampEarly).format("MM 月 DD 日 HH:mm")}-${timestampToDayjs(timestampLater).format("HH:mm")}`;
+}
+
 /**
  * 计算现在到目标时间的剩余时间
  */

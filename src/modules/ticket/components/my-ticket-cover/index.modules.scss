@@ -1,0 +1,14 @@
+.wrapper {
+  position: absolute;
+  bottom: 150px;
+  background-color: rgba(255,255,255,.65);
+  width: 500px;
+  height: 530px;
+  .image {
+    width: 128px;
+    height: 128px;
+    position: absolute;
+    right: 70px;
+    top: 170px;
+  }
+}

@@ -61,7 +61,12 @@
         font-family: PingFang SC;
         font-weight: 400;
         font-size: 28px;
-        line-height: 32px;
+        line-height: 42px;
+        .imageIcon {
+          width: 24px;
+          height: 24px;
+          margin-right: 10px;
+        }
       }
       .btn {
         margin-top: 40px;
