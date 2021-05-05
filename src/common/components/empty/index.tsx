@@ -28,9 +28,19 @@ const Empty = ({
         <Image src={emptyImg} mode="aspectFit" className={styles.pageImg} />
         <Text className={styles.text}>{detail}</Text>
         <Text className={styles.text}>{suggestion}</Text>
-        <PrimaryButton className={styles.btn} onClick={onBtnClick}>
-          {btnContent}
-        </PrimaryButton>
+        {
+          (btnContent?.length !== 0)?
+            (
+              <PrimaryButton className={styles.btn} onClick={onBtnClick}>
+              {btnContent}
+              </PrimaryButton>
+            )
+          :
+            (
+              ""
+            )
+        }
+        
       </View>
     );
   return (
