@@ -40,8 +40,10 @@ const timeLegal = (date: string) => {
   // @ts-ignore
   const _time = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
   const dif = nowStamp - _time;
+  console.log('dif:', dif)
 
   const {begin_time} = genSeconds(date);
+  console.log('begin_time:', begin_time)
   const dif_minute = (dif - begin_time) / (60 * 15);
   return !(dif_minute > 1 || dif_minute < -1);
 };
@@ -49,6 +51,7 @@ const timeLegal = (date: string) => {
 const MutateConfig = (Popup, successFunc, ifBack: boolean, detail: string) => {
   return {
     onSuccess(res) {
+      console.log('onSuccess', res);
       if (res.status === 10000) {
         const hide = Popup.show({
           detail,
@@ -119,7 +122,7 @@ const VolunteerApply = () => {
 
   //  管理签到状态
   const [isScanned, setIsScanned] = useState<boolean>(is_sign === "1");
-  const [scanText, setScanText] = useState<string>("扫码签到");
+  const [scanText, setScanText] = useState<string>(is_sign === '1' ? "签到成功" :"扫码签到");
 
   //  管理是否更改班次的状态
   const [changeState, setChangeState] = useState<string>(is_change);
@@ -357,12 +360,13 @@ const VolunteerApply = () => {
       scanCode({
         async success({result}) {
           console.log("scan-result:", result);
-          const param = result.split("?")[1];
+          // const param = result.split("?")[1];
           const {begin_time, end_time} = genSeconds(date);
 
           if (timeLegal(date)) {
             await mutateScan({
-              code: param,
+              code: `code=${activity_id}`,
+              // code: param,
               data: {
                 activity_id: Number(activity_id),
                 begin_time,
