@@ -4,7 +4,7 @@ import NavBar from "taro3-navigationbar";
 
 type Props = {
   title: string;
-  background: "#FFFFFF" | "#F6F6F9";
+  background: "#FFFFFF" | "#F6F6F9" | "#F5F6F9";
 };
 
 /**

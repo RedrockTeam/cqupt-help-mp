@@ -28,19 +28,47 @@
       height: 40px;
       border-radius: 50%;
     }
-    .title {
+    .introduction {
       padding-left: 32px;
+      padding-top: 40px;
+      height: 280px;
       font-family: PingFang SC;
       font-style: normal;
-      font-weight: bold;
-      font-size: 36px;
-      line-height: 100px;
-      color: #1c184c;
+      color: #777494;
+      .title {
+        padding-top: 20px;
+        font-weight: bold;
+        font-size: 36px;
+        color: #1c184c;
+        padding: 14px 0;
+      }
+      .tip {
+        font-size: 24px;
+        padding: 14px 0;
+      }
+      .type {
+        font-size: 26px;
+        color: #494670;
+        padding: 14px 0;
+      }
     }
     .img {
-      width: 576px;
-      height: 324px;
+      position: absolute;
+      right: 46px;
+      top: 38px;
+      width: 144px;
+      height: 194px;
       margin-bottom: 68px;
+    }
+    .lineText {
+      position: absolute;
+      bottom: -15px;
+      left: 140px;
+      padding: 0 10px;
+      font-size: 24px;
+      font-weight: 400;
+      color: #A4A3B7;
+      background-color: white;
     }
   }
   .bottom {
@@ -55,7 +83,7 @@
     .subtitle {
       font-family: PingFang SC;
       font-style: normal;
-      font-weight: normal;
+      font-weight: 400;
       font-size: 28px;
       line-height: 32px;
       color: #777494;
@@ -64,11 +92,31 @@
     .content {
       font-family: PingFang SC;
       font-style: normal;
-      font-weight: bold;
+      font-weight: 700;
       font-size: 32px;
       line-height: 36px;
       color: #494670;
       margin-bottom: 34px;
+      margin-top: 10px;
+    }
+    .code {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      .ticketNumber {
+        width: 462px;
+        height: 74px;
+        border: 1px solid #e6e6e6;
+        border-radius: 4px;
+        line-height: 74px;
+        text-align: center;
+        margin: 20px 0;
+      }
+    }
+    .line {
+      height: 30px;
+      border-bottom: 1px dashed #CECDE8;
     }
   }
 }

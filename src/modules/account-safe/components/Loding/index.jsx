@@ -15,4 +15,4 @@ const LoadingPage = ({ isError }) => {
     )
 }
 
-export default LoadingPage
+export default LoadingPage;

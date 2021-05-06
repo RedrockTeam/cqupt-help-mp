@@ -1,9 +1,19 @@
+/*
+ * @Author: myjdml
+ * @Date: 2021-03-10 21:11:01
+ * @LastEditors: myjdml
+ * @LastEditTime: 2021-04-17 21:43:38
+ * @FilePath: \cqupt-help-mp\src\app.config.ts
+ * @Description: nothing is everything
+ */
 /* eslint-disable prettier/prettier */
 const resolvePage = (module: string, page: string) =>
   `modules/${module}/pages/${page}/index`;
 
 export default {
   pages: [
+    // resolvePage("ticket", "rob-ticket"),
+    // resolvePage("ticket-appeal", "index"),
     resolvePage("index", "home"),
     resolvePage("index", "activity-detail"),
     resolvePage("campus", "index"),
@@ -16,6 +26,7 @@ export default {
     resolvePage("volunteer", "application"),
     resolvePage("volunteer", "change-time"),
     resolvePage("ticket", "rob-ticket"),
+    resolvePage("ticket", "rob-ticket-info"),
     resolvePage("id", "index"),
     resolvePage("id", "apply"),
     resolvePage("my", "index"),
@@ -32,6 +43,10 @@ export default {
     resolvePage("account-safe", "resetpassword"),
     resolvePage("feedback", "index"),
     resolvePage("feedback", "result"),
+    resolvePage("ticket-appeal", "home-list"),
+    resolvePage("ticket-appeal", "index"),
+    resolvePage("ticket-appeal", "record"),
+    resolvePage("ticket-appeal", "result"),
     resolvePage("index", "bind"),
     "modules/webview/index",
   ],
