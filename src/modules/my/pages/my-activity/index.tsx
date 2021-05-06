@@ -7,13 +7,12 @@ import { resolvePage } from "@/common/helpers/utils";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
 import Empty from "@/common/components/empty";
+import { ConvertingDatesToTimestamps } from "@/common/helpers/date";
+import { postVolunteerActivityRead } from "@/modules/volunteer/services";
 import { getMyActivities } from "../../services/index";
 import Activity from "../../components/activity";
 import styles from "./index.module.scss";
-import {ConvertingDatesToTimestamps} from "@/common/helpers/date";
-import {MyActivities, MyActivitiesRes} from "../../services/dto";
-import {postVolunteerActivityRead} from "@/modules/volunteer/services";
-
+import { MyActivities, MyActivitiesRes } from "../../services/dto";
 
 const PAGE_TITLE = "我的活动";
 const BACKGROUND = "#FFFFFF";
@@ -27,15 +26,13 @@ const MyActivity = () => {
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
 
-
-
   //  获取我的所有活动
   const [mutateActivityListRes] = useMutation(getMyActivities, {
     onSuccess(activityListRes) {
       setActivityListRes(activityListRes);
       setLoading(false);
 
-      let activityList: MyActivities = activityListRes.data;
+      const activityList: MyActivities = activityListRes.data;
 
       if (activityList) {
         console.log("activityList: ", activityList);
@@ -43,39 +40,57 @@ const MyActivity = () => {
         const nowTimeStamp = parseInt(String(new Date().getTime() / 1000));
         let overdueActivity: MyActivities = [];
 
-        let commonList = activityList.filter((activity) => activity.activity_detail.type === 0)
+        let commonList = activityList.filter(
+          (activity) => activity.activity_detail.type === 0
+        );
         commonList = commonList.map((cur) => {
-          let dates = cur.activity_detail?.time?.split(' - ') as any;
+          const dates = cur.activity_detail?.time?.split(" - ") as any;
           const startDate = ConvertingDatesToTimestamps(dates[0]);
           const lastDate = ConvertingDatesToTimestamps(dates[1]);
           cur.activity_detail.start_date = startDate;
           cur.activity_detail.last_date = lastDate;
           cur.activity_detail.status = {
             is_change: 0,
-            is_sign: 0
-          }
+            is_sign: 0,
+          };
           return cur;
-
-        })
-        commonList.sort((pre, cur) => cur.activity_detail.last_date - pre.activity_detail.last_date)
-        overdueActivity = commonList.filter(cur => cur.activity_detail.last_date < nowTimeStamp);
-        commonList = commonList.filter(cur => cur.activity_detail.last_date > nowTimeStamp);
+        });
+        commonList.sort(
+          (pre, cur) =>
+            cur.activity_detail.last_date - pre.activity_detail.last_date
+        );
+        overdueActivity = commonList.filter(
+          (cur) => cur.activity_detail.last_date < nowTimeStamp
+        );
+        commonList = commonList.filter(
+          (cur) => cur.activity_detail.last_date > nowTimeStamp
+        );
         commonList = commonList.concat(overdueActivity);
 
         setCommonList(commonList);
 
-        let volunteerList = activityList.filter((activity) => activity.activity_detail.type === 1)
-        volunteerList.sort((pre, cur) => cur.activity_detail.last_date - pre.activity_detail.last_date)
-        overdueActivity = volunteerList.filter(cur => cur.activity_detail.last_date < nowTimeStamp);
-        volunteerList = volunteerList.filter(cur => cur.activity_detail.last_date > nowTimeStamp);
-        // @ts-ignore
-        volunteerList.sort((cur, next) => cur.activity_detail?.date - next.activity_detail?.date)
+        let volunteerList = activityList.filter(
+          (activity) => activity.activity_detail.type === 1
+        );
+        volunteerList.sort(
+          (pre, cur) =>
+            cur.activity_detail.last_date - pre.activity_detail.last_date
+        );
+        overdueActivity = volunteerList.filter(
+          (cur) => cur.activity_detail.last_date < nowTimeStamp
+        );
+        volunteerList = volunteerList.filter(
+          (cur) => cur.activity_detail.last_date > nowTimeStamp
+        );
+        volunteerList.sort(
+          (cur, next) => cur.activity_detail?.date - next.activity_detail?.date
+        );
         volunteerList = volunteerList.concat(overdueActivity);
 
         setVolunteerList(volunteerList);
 
-        console.log("普通活动", commonList);
-        console.log("志愿活动", volunteerList);
+        // console.log("普通活动", commonList);
+        // console.log("志愿活动", volunteerList);
       } else {
         setCommonList([]);
         setVolunteerList([]);
@@ -86,15 +101,19 @@ const MyActivity = () => {
     },
   });
   //  已读状态管理
-  const [mutationPostActivityRead] = useMutation(postVolunteerActivityRead, {})
+  const [mutationPostActivityRead] = useMutation(postVolunteerActivityRead, {});
   useDidShow(() => {
-    mutateActivityListRes().then(({ data } : MyActivitiesRes) => {
-      const unreadCommonList = data?.filter((activity) => activity.activity_detail.type === 0 && activity.if_read === 1)
-      unreadCommonList.map(commonAc => {
+    mutateActivityListRes().then(({ data }: MyActivitiesRes) => {
+      const unreadCommonList = data?.filter(
+        (activity) =>
+          activity.activity_detail.type === 0 && activity.if_read === 1
+      );
+      // eslint-disable-next-line no-unused-expressions
+      unreadCommonList?.map((commonAc) => {
         mutationPostActivityRead({
-          registration_time: String(commonAc.registration_time)
+          registration_time: String(commonAc.registration_time),
         }).then();
-      })
+      });
     });
   });
 
@@ -128,8 +147,8 @@ const MyActivity = () => {
             active === 0 && commonList.length === 0
               ? "block"
               : active === 0
-                ? "flex"
-                : "none",
+              ? "flex"
+              : "none",
         }}
         className={styles.container}
       >
@@ -148,8 +167,9 @@ const MyActivity = () => {
                 key={commonActivity.activity_detail.id}
                 activity_detail={commonActivity.activity_detail}
                 if_read={commonActivity.if_read}
-                registration_time={commonActivity.registration_time} />
-            )
+                registration_time={commonActivity.registration_time}
+              />
+            );
           })
         )}
       </View>
@@ -161,8 +181,8 @@ const MyActivity = () => {
             active === 1 && volunteerList.length === 0
               ? "block"
               : active === 1
-                ? "flex"
-                : "none",
+              ? "flex"
+              : "none",
         }}
         className={styles.container}
       >
@@ -181,8 +201,9 @@ const MyActivity = () => {
                 key={volunteerActivity.activity_detail.id}
                 activity_detail={volunteerActivity.activity_detail}
                 if_read={volunteerActivity.if_read}
-                registration_time={volunteerActivity.registration_time} />
-            )
+                registration_time={volunteerActivity.registration_time}
+              />
+            );
           })
         )}
       </View>

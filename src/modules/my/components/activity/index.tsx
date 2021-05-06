@@ -1,16 +1,20 @@
 import React from "react";
-import {Button, Text, View} from "@tarojs/components";
-import {now, timestampToDateString, timestampToFormString,} from "@/common/helpers/date";
-import {navTo, resolvePage} from "@/common/helpers/utils";
+import { Button, Text, View } from "@tarojs/components";
+import {
+  now,
+  timestampToDateString,
+  timestampToFormString,
+} from "@/common/helpers/date";
+import { navTo, resolvePage } from "@/common/helpers/utils";
 import styles from "./index.module.scss";
-import {MyActivity} from "../../services/dto";
+import { MyActivity } from "../../services/dto";
 
 // 将秒为单位的时间转换为 [00]:[00]
 const translateTimeToClock = (begin_time: number, end_time: number) => {
   const beginHour = parseInt(String(begin_time / (60 * 60)));
-  const beginMinute = parseInt(String(begin_time % (60 * 60) / 60));
+  const beginMinute = parseInt(String((begin_time % (60 * 60)) / 60));
   const endHour = parseInt(String(end_time / (60 * 60)));
-  const endMinute = parseInt(String(end_time % (60 * 60) / 60));
+  const endMinute = parseInt(String((end_time % (60 * 60)) / 60));
   const beginTime = [
     beginHour < 10 ? `0${beginHour}` : String(beginHour),
     beginMinute < 10 ? `0${beginMinute}` : String(beginMinute),
@@ -27,29 +31,25 @@ const translateTimeToClock = (begin_time: number, end_time: number) => {
 };
 
 const Activity = ({
-                    activity_detail: {
-                      rely_id,
-                      name,
-                      id,
-                      start_date,
-                      last_date,
-                      date: activityDate,
-                      time_part,
-                      result,
-                      status: {
-                        is_change = 0,
-                        is_sign
-                      },
-                      team_name,
-                      type
-                    },
-                    registration_time,
-                    if_read,
-                  }: MyActivity) => {
+  activity_detail: {
+    rely_id,
+    name,
+    id,
+    start_date,
+    last_date,
+    date: activityDate,
+    time_part,
+    result,
+    status: { is_change = 0, is_sign },
+    team_name,
+    type,
+  },
+  registration_time,
+  if_read,
+}: MyActivity) => {
   const [month, date] = timestampToDateString(registration_time)
     .split(".")
     .slice(1);
-
 
   // 整个活动时间
   const startDate = timestampToFormString(start_date).split(" ")[0];
@@ -60,7 +60,7 @@ const Activity = ({
     .split(".")
     .slice(1);
 
-  const {beginTime, endTime} = translateTimeToClock(
+  const { beginTime, endTime } = translateTimeToClock(
     time_part?.begin_time as number,
     time_part?.end_time as number
   );
@@ -97,18 +97,11 @@ const Activity = ({
                 url: `${resolvePage(
                   "volunteer",
                   "application"
-                )}?name=${name
-                }&team_name=${team_name
-                }&start_date=${startDate
-                }&last_date=${lastDate
-                }&concat=${result?.qq
-                }&pass=${result?.pass
-                }&date=${time_area
-                }&registration_time=${registration_time
-                }&activity_id=${id
-                }&rely_id=${rely_id
-                }&is_change=${is_change
-                }&is_sign=${is_sign}`,
+                )}?name=${name}&team_name=${team_name}&start_date=${startDate}&last_date=${lastDate}&concat=${
+                  result?.qq
+                }&pass=${
+                  result?.pass
+                }&date=${time_area}&registration_time=${registration_time}&activity_id=${id}&rely_id=${rely_id}&is_change=${is_change}&is_sign=${is_sign}`,
               });
             }}
           >
@@ -161,17 +154,16 @@ const Activity = ({
         )}
 
         {/* 志愿活动的按钮 */}
-        {type !== 0 && !isOverdue() ?
+        {type !== 0 && !isOverdue() ? (
           // {type !== 0 ?
-          (<View className={styles.btnWrapper}>
+          <View className={styles.btnWrapper}>
             {renderBtn(0, id)}
             {renderBtn(ifPassed(), id)}
             {if_read === 1 && ifPassed() === 2 ? (
-              <View className={styles.btn_red_point}/>
+              <View className={styles.btn_red_point} />
             ) : null}
-          </View>)
-          : null
-        }
+          </View>
+        ) : null}
       </View>
     </View>
   );
