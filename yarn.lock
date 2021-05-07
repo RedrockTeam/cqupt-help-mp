@@ -7361,6 +7361,14 @@ global-prefix@^1.0.1:
     is-windows "^1.0.1"
     which "^1.2.14"
 
+global@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.npm.taobao.org/global/download/global-4.4.0.tgz?cache=0&sync_timestamp=1616491465619&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fglobal%2Fdownload%2Fglobal-4.4.0.tgz#3e7b105179006a323ed71aafca3e9c57a5cc6406"
+  integrity sha1-PnsQUXkAajI+1xqvyj6cV6XMZAY=
+  dependencies:
+    min-document "^2.19.0"
+    process "^0.11.10"
+
 global@~4.4.0:
   version "4.4.0"
   resolved "https://registry.npm.taobao.org/global/download/global-4.4.0.tgz#3e7b105179006a323ed71aafca3e9c57a5cc6406"
@@ -13089,6 +13097,13 @@ tar@^6.0.2:
     minizlib "^2.1.1"
     mkdirp "^1.0.3"
     yallist "^4.0.0"
+
+taro-code@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/taro-code/download/taro-code-3.2.0.tgz#00a66acea79738ecff26b97b4a82f5bf98d18ff0"
+  integrity sha1-AKZqzqeXOOz/Jrl7SoL1v5jRj/A=
+  dependencies:
+    prop-types "^15.7.2"
 
 taro3-navigationbar@^3.0.1:
   version "3.0.1"
