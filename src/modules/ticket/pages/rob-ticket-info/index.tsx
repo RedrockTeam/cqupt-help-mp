@@ -132,6 +132,8 @@ const RobTicketInfo = () => {
         detail = "请求过于频繁";
       } else if (res.status === 10008) {
         detail = "客户端错误,请稍后再试";
+      } else if (res.status === 10010) {
+        detail = "你存在信用问题";
       } else {
         detail = "出错了...";
       }
