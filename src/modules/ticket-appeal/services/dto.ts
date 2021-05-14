@@ -17,7 +17,7 @@ interface MyBlackList {
     product_id: number;
 }
 
-interface AppealInfo {
+export interface AppealInfo {
     product_id: number;
     detail: string;
     picture: string[];

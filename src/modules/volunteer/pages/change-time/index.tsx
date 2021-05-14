@@ -33,7 +33,7 @@ const VolunteerChangeTime = () => {
     date: date_part,
     activity_id,
   } = useRouter().params as Params;
-  console.log("useRouter().params:", useRouter().params);
+  // console.log("useRouter().params:", useRouter().params);
 
   // picker
   const Popup = useContainer(PopupContext);
@@ -56,11 +56,11 @@ const VolunteerChangeTime = () => {
           setIsLoading(false);
 
         //  处理获取的 data.detail 生成正确的 piker 的值
-          console.log("date:", date, "timePart:", timePart);
+        //   console.log("date:", date, "timePart:", timePart);
           const {date: _date, begin_time, end_time} = genSeconds(
             `${date} ${timePart}`
           );
-          console.log("_date:", _date, "begin:", begin_time, "end:", end_time);
+          // console.log("_date:", _date, "begin:", begin_time, "end:", end_time);
 
           let dateList = res.data.detail.map((item) => {
             return {id: item.id, date: item.date, timePart: item.time_part_info};
@@ -77,10 +77,10 @@ const VolunteerChangeTime = () => {
             };
           });
           const timePartList = dateList.map((date) => date.timePart);
-          console.log("timePartList:", timePartList);
+          // console.log("timePartList:", timePartList);
           let _dateIndex = dateList.findIndex((val) => val.date === _date);
           _dateIndex = _dateIndex === -1 ? 0 : dateIndex; //  容错
-          console.log('dateList:', dateList, '_dateIndex:', _dateIndex)
+          // console.log('dateList:', dateList, '_dateIndex:', _dateIndex)
           // @ts-ignore
           dateList = dateList.map((date) => date.date);
           const _timeIndex = timePartList[_dateIndex].findIndex(
@@ -88,9 +88,9 @@ const VolunteerChangeTime = () => {
               timePart.begin_time === begin_time && timePart.end_time === end_time
           );
 
-          console.log("_dateIndex:", _dateIndex);
-          console.log("_timeIndex:", _timeIndex);
-          console.log(dateIndex, timePartIndex);
+          // console.log("_dateIndex:", _dateIndex);
+          // console.log("_timeIndex:", _timeIndex);
+          // console.log(dateIndex, timePartIndex);
           if (
             _dateIndex !== -1 &&
             timePartIndex !== -1 &&
@@ -100,8 +100,8 @@ const VolunteerChangeTime = () => {
             setTimePartIndex(_timeIndex);
           }
 
-          console.log("dateList:", dateList);
-          console.log("timePartList:", timePartList);
+          // console.log("dateList:", dateList);
+          // console.log("timePartList:", timePartList);
           setPickerValue({
             dateList,
             timePartList,
@@ -136,8 +136,8 @@ const VolunteerChangeTime = () => {
     date = timestampToMDString(date.date);
     setDate(date);
     setTimePart(
-      `${timestampToHMString(timePart.begin_time)}-${timestampToHMString(
-        timePart.end_time
+      `${timestampToHMString(timePart?.begin_time)}-${timestampToHMString(
+        timePart?.end_time
       )}`
     );
     // console.log('date:', date)

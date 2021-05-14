@@ -135,7 +135,7 @@ const RobTicketInfo = () => {
       } else if (res.status === 10008) {
         detail = "客户端错误,请稍后再试";
       } else if (res.status === 10010) {
-        detail = "由于您过往观影活动存在不良信用记录，本次抢票时间延后五分钟。";
+        detail = "你存在信用问题";
       } else {
         detail = "出错了...";
       }

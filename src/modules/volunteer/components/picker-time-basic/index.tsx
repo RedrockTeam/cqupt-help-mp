@@ -24,8 +24,8 @@ const PickerTimeBasic = ({
                            format = 'YY.MM.DD',
                          }: Prop) => {
 
-  console.log('value:', value);
-  console.log('dateIndex:', dateIndex);
+  // console.log('value:', value);
+  // console.log('dateIndex:', dateIndex);
 
   return (
     <PickerView
