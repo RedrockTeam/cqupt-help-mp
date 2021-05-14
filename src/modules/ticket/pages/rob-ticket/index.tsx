@@ -229,6 +229,8 @@ const RobTicket = () => {
       return;
     }
 
+    console.log("候补抢票res: ", res);
+    
     if (res.status === 10000) {
       const hide = Popup.show({
         img: robSuccessImg,
@@ -260,6 +262,7 @@ const RobTicket = () => {
       });
       setTimeout(() => hide(), 1500);
     }
+    
   }
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
