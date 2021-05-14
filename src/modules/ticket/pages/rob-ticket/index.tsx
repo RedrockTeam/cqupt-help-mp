@@ -193,7 +193,7 @@ const RobTicket = () => {
         title: "恭喜您！抢票成功！",
         detail: `电影票卡券已存入“我的影票”中赶快去看看吧！`,
       });
-      setTimeout(() => hide(), 1500);
+      setTimeout(() => hide(), 3000);
     } else {
       let detail: string;
       if (res.status === 10004) {
@@ -216,7 +216,7 @@ const RobTicket = () => {
         title: "抢票失败...",
         detail,
       });
-      setTimeout(() => hide(), 1500);
+      setTimeout(() => hide(), 3000);
     }
   };
   const handleAlternateRobTicket = async (id: number, re_send_num: number) => {
@@ -237,7 +237,7 @@ const RobTicket = () => {
         title: "恭喜您！候补成功！",
         detail: `目前您排在第${re_send_num}位。候补结果将通过重邮小帮手通知`,
       });
-      setTimeout(() => hide(), 10000);
+      setTimeout(() => hide(), 3000);
     } else {
       let detail: string;
       if (res.status === 10004) {
@@ -260,7 +260,7 @@ const RobTicket = () => {
         title: "抢票失败...",
         detail,
       });
-      setTimeout(() => hide(), 1500);
+      setTimeout(() => hide(), 3000);
     }
     
   }
