@@ -119,7 +119,7 @@ const RobTicketInfo = () => {
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！候补成功！",
-        detail: `目前您排在第${re_send_num}位。候补结果将通过重邮小帮手通知`,
+        detail: `目前您排在第${re_send_num + 1}位。候补结果将通过重邮小帮手通知`,
       });
       setTimeout(() => hide(), 3000);
     } else {

@@ -5,6 +5,7 @@ import request from "@/common/helpers/request";
 import avator from "@/static/images/empty.png";
 import aboutIcon from "@/static/images/about-icon.png";
 import loginOut from "@/static/images/login-out-icon.png";
+import SafetyIcon from "@/static/images/safety-icon.png";
 import feedbackIcon from "@/static/images/feedback-icon.png";
 import ticketAppeal from "@/static/images/ticketappeal-icon.png";
 import enter from "@/static/images/campus-enter-icon.png";
@@ -139,7 +140,7 @@ function MyIndex() {
           className={styles.about}
           onClick={() =>
             navTo({
-              url: "https://wx.redrock.team/game/about-us/mobile.html",
+              url: "https://redrock.team/#/",
               payload: {title: "红岩网校 - 关于我们"},
             })
           }
@@ -151,7 +152,7 @@ function MyIndex() {
       </View>
       <View className={styles.listAccount}>
         <View className={styles.loginOut} onClick={() => navTo({url: resolvePage("account-safe", "index")})}>
-          <Image className={styles.icon} src={loginOut}/>
+          <Image className={styles.icon} src={SafetyIcon}/>
           <Text className={styles.text}>账号安全</Text>
           <Image src={enter} className={styles.enter}/>
         </View>

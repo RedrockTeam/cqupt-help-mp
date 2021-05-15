@@ -59,6 +59,7 @@
       width: 144px;
       height: 194px;
       margin-bottom: 68px;
+      border-radius: 12px;
     }
     .lineText {
       position: absolute;
@@ -112,6 +113,10 @@
         line-height: 74px;
         text-align: center;
         margin: 20px 0;
+        color: #a4a3b7;
+        .innerNumber {
+          color: #494670;
+        }
       }
     }
     .line {

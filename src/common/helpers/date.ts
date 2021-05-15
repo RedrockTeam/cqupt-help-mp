@@ -80,13 +80,24 @@ export const isOpen = () => {
  * 时区时间转化
  * "2020-08-06T05:55:11Z" => "2020.08.06 13:55"
  */
-
 export const timestampToTimeString = (param: number) => {
   return dayjs.unix(param).format("YYYY.MM.DD HH:mm");
 };
 
+/**
+ * 时间String转换
+ * "2021-05-15 22:09:38" => ""
+ */
+export const timestringToDayTimeString = (timeString: string) => {
+  return dayjs(timeString).format("MM月DD日 ")
+}
+
+/**
+ * 将两个时间戳转换为时间段字符串
+ * 
+ */
 export const timestampToTimeStreamString = (timestampEarly: number, timestampLater: number) => {
-  return `${timestampToDayjs(timestampEarly).format("MM 月 DD 日 HH:mm")}-${timestampToDayjs(timestampLater).format("HH:mm")}`;
+  return `${timestampToDayjs(timestampEarly).format("MM月DD日 HH:mm")}-${timestampToDayjs(timestampLater).format("HH:mm")}`;
 }
 
 /**
