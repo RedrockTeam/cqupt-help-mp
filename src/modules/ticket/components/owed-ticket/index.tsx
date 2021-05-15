@@ -16,6 +16,7 @@ import SelectPopup from "../select-popup";
 import ReturnTicketBtn from "../return-ticket-btn";
 import SelectPopupContext from "@/stores/select-popup";
 import MyTicketCover from "../my-ticket-cover";
+import dayjs from "dayjs";
 
 type Props = {
   name: string;
@@ -98,7 +99,9 @@ const OwedTicket = ({
             errorCorrectLevel='M'
             typeNumber={2}
           />
-          <View className={styles.ticketNumber}>票码编号：{countTicketNum()}</View>
+          <View className={styles.ticketNumber}>
+            票码编号：<Text className={styles.innerNumber}>{countTicketNum()}</Text>
+          </View>
         </View>
         <View className={styles.line}></View>
 

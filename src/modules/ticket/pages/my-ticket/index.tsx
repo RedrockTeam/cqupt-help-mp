@@ -207,6 +207,7 @@ const MyTicket = () => {
           isShow={popupState}
           title="退票说明"
           detail={`1.距离开场半个小时以内将不支持退票，若未退票且未观影者，将被计入不良信用档案。
+          
             2.规定时间内退票不会对您的信用度造成任何影响。
           `}
           bottomType={2}
