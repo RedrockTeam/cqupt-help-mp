@@ -78,7 +78,7 @@ const RobTicketInfo = () => {
         title: "恭喜您！抢票成功！",
         detail: `电影票卡券已存入“我的影票”中赶快去看看吧！`,
       });
-      setTimeout(() => hide(), 10000);
+      setTimeout(() => hide(), 3000);
     } else {
       let detail: string;
       if (res.status === 10004) {
@@ -91,6 +91,8 @@ const RobTicketInfo = () => {
         detail = "请求过于频繁";
       } else if (res.status === 10008) {
         detail = "客户端错误,请稍后再试";
+      } else if (res.status === 10010) {
+        detail = "由于您过往观影活动存在不良信用记录，本次抢票时间延后五分钟。";
       } else {
         detail = "出错了...";
       }
@@ -119,7 +121,7 @@ const RobTicketInfo = () => {
         title: "恭喜您！候补成功！",
         detail: `目前您排在第${re_send_num}位。候补结果将通过重邮小帮手通知`,
       });
-      setTimeout(() => hide(), 10000);
+      setTimeout(() => hide(), 3000);
     } else {
       let detail: string;
       if (res.status === 10004) {
@@ -132,6 +134,8 @@ const RobTicketInfo = () => {
         detail = "请求过于频繁";
       } else if (res.status === 10008) {
         detail = "客户端错误,请稍后再试";
+      } else if (res.status === 10010) {
+        detail = "你存在信用问题";
       } else {
         detail = "出错了...";
       }

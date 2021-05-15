@@ -55,13 +55,14 @@ const MyTicket = () => {
   // SelectPopup退票函数
   const handelReturnTicket = async () => {
     console.log("开始退票");
+    setPopupState(!popupState);
     if (!myTicketListRes) return;
     try {
       const res = await mutateReturnTicket(myTicketListRes.data[current].id);
       console.log(myTicketListRes.data[current].id);
       console.log(dayjs(myTicketListRes.data[current].play_time).unix() - 1800 < now());
       
-      if (res.Status === 200) {
+      if (res.status === 10000) {
         if (dayjs(myTicketListRes.data[current].play_time).unix() - 1800 > now()) {
           const hide = Popup.show({
             img: robSuccessImg,

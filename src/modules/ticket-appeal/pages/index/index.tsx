@@ -38,16 +38,18 @@ const TicketAppealIndex = () => {
   const [ loading, setLoading ] = useState(false);
   const [ productId, setProduct ] = useState(getCurrentInstance().router?.params.product_id);
   const [ productName, setProductName ] = useState(getCurrentInstance().router?.params.product_name)
-  const textarea = useRef(null);
 
   const Popup = useContainer(PopupContext);
 
   const textAreaInputChange = (e) => {
-    setCurrentInput(textarea.current.value.length);
+    setCurrentInput(e.detail.value.length);
     setDetail(e.detail.value);
+    if (e.detail.value.length > 300) {
+      setCurrentInput(300);
+    }
   }
 
-  const handlePush = async (product_id: number, picRes: number[], detail: string) => {
+  const handlePush = async (product_id: number, picRes: string[], detail: string) => {
     console.log(picRes);
     const res = await mutatePush({
       product_id,
@@ -183,7 +185,6 @@ const TicketAppealIndex = () => {
           placeholder="请输入您的详细申诉理由，我们会认真看完哒~"
           maxlength={300}
           autoFocus
-          ref={textarea}
           onInput={textAreaInputChange}
         />
         <View className={styles.textAreaSize}>{currentInput}/300</View>

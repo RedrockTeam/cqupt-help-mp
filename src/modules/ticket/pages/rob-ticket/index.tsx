@@ -35,8 +35,9 @@ const PAGE_TITLE = "在线抢票";
 const RobTicket = () => {
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();
-  const [ remindRuleState, setRemindRuleState ] = useState(true);
-  const [ remindCloseCount, setRemindCloseCount ] = useState(5);
+  const [ remindRuleStateLoading, setRemindRuleStateLoading ] = useState<boolean>(false);
+  const [ remindRuleState, setRemindRuleState ] = useState<boolean>(true);// 判断当前是否需要弹窗
+  const [ remindCloseCount, setRemindCloseCount ] = useState<number>(5);
   useEffect(() => {
     if (remindCloseCount > 0 && remindRuleState) {
       setTimeout(() => {
@@ -81,7 +82,11 @@ const RobTicket = () => {
     getStorage({
       key: "remindRule",
       success: (res) => {
-        setRemindRuleState(res.data);
+        if (!remindRuleStateLoading) {
+          setRemindRuleState(res.data);
+        }
+        setRemindRuleStateLoading(true);
+        // setRemindRuleState(res.data);
         if (res.data === true) {
           console.log(res.data);
           setTimeout(() => {
@@ -188,7 +193,7 @@ const RobTicket = () => {
         title: "恭喜您！抢票成功！",
         detail: `电影票卡券已存入“我的影票”中赶快去看看吧！`,
       });
-      setTimeout(() => hide(), 1500);
+      setTimeout(() => hide(), 3000);
     } else {
       let detail: string;
       if (res.status === 10004) {
@@ -201,6 +206,8 @@ const RobTicket = () => {
         detail = "请求过于频繁";
       } else if (res.status === 10008) {
         detail = "客户端错误,请稍后再试";
+      } else if (res.status === 10010) {
+        detail = "你存在信用问题";
       } else {
         detail = "出错了...";
       }
@@ -209,7 +216,7 @@ const RobTicket = () => {
         title: "抢票失败...",
         detail,
       });
-      setTimeout(() => hide(), 1500);
+      setTimeout(() => hide(), 3000);
     }
   };
   const handleAlternateRobTicket = async (id: number, re_send_num: number) => {
@@ -222,13 +229,15 @@ const RobTicket = () => {
       return;
     }
 
+    console.log("候补抢票res: ", res);
+    
     if (res.status === 10000) {
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！候补成功！",
         detail: `目前您排在第${re_send_num}位。候补结果将通过重邮小帮手通知`,
       });
-      setTimeout(() => hide(), 10000);
+      setTimeout(() => hide(), 3000);
     } else {
       let detail: string;
       if (res.status === 10004) {
@@ -241,6 +250,8 @@ const RobTicket = () => {
         detail = "请求过于频繁";
       } else if (res.status === 10008) {
         detail = "客户端错误,请稍后再试";
+      } else if (res.status === 10010) {
+        detail = "你存在信用问题";
       } else {
         detail = "出错了...";
       }
@@ -249,8 +260,9 @@ const RobTicket = () => {
         title: "抢票失败...",
         detail,
       });
-      setTimeout(() => hide(), 1500);
+      setTimeout(() => hide(), 3000);
     }
+    
   }
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;

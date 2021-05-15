@@ -27,7 +27,7 @@ export const robAlternateTicket = (id: number) =>
 request<RobTicketRes>("/cyb-secondkill/resend", {
   method: "POST",
   data: {
-    product_id: id,
+    film_id: id,
   },
 });
 

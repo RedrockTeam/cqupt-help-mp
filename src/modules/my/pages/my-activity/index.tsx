@@ -90,7 +90,7 @@ const MyActivity = () => {
   useDidShow(() => {
     mutateActivityListRes().then(({ data } : MyActivitiesRes) => {
       const unreadCommonList = data?.filter((activity) => activity.activity_detail.type === 0 && activity.if_read === 1)
-      unreadCommonList.map(commonAc => {
+      unreadCommonList?.map(commonAc => {
         mutationPostActivityRead({
           registration_time: String(commonAc.registration_time)
         }).then();

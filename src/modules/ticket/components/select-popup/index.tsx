@@ -28,7 +28,7 @@ type Props = {
   bottomType?: number;
   confirmFun: () => void;
   cancelFun: () => void;
-  remindCloseCount: number;
+  remindCloseCount?: number;
 };
 
 type BottomProp = {
