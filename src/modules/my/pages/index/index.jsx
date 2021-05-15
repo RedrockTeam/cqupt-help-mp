@@ -140,7 +140,7 @@ function MyIndex() {
           className={styles.about}
           onClick={() =>
             navTo({
-              url: "https://wx.redrock.team/game/about-us/mobile.html",
+              url: "https://redrock.team/#/",
               payload: {title: "红岩网校 - 关于我们"},
             })
           }
