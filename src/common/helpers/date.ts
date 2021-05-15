@@ -97,7 +97,7 @@ export const timestringToDayTimeString = (timeString: string) => {
  * 
  */
 export const timestampToTimeStreamString = (timestampEarly: number, timestampLater: number) => {
-  return `${timestampToDayjs(timestampEarly).format("MM 月 DD 日 HH:mm")}-${timestampToDayjs(timestampLater).format("HH:mm")}`;
+  return `${timestampToDayjs(timestampEarly).format("MM月DD日 HH:mm")}-${timestampToDayjs(timestampLater).format("HH:mm")}`;
 }
 
 /**
