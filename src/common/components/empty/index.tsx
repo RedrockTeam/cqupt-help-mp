@@ -12,6 +12,7 @@ type Props = {
   suggestion?: string;
   onBtnClick?: (event: ITouchEvent) => unknown;
   btnContent?: string;
+  style?: Object;
 };
 
 const Empty = ({
@@ -20,10 +21,11 @@ const Empty = ({
   suggestion,
   onBtnClick,
   btnContent,
+  style
 }: Props) => {
   if (title)
     return (
-      <View className={styles.emptyPageWrapper}>
+      <View className={styles.emptyPageWrapper} style={style}>
         <NavBack title={title} background="#FFFFFF" />
         <Image src={emptyImg} mode="aspectFit" className={styles.pageImg} />
         <Text className={styles.text}>{detail}</Text>

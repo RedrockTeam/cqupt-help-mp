@@ -72,14 +72,17 @@ const Volunteer = () => {
     return (
       <View>
       {_list.length === 0 ? (
-        <Empty
+          <Empty
+          style={{
+            padding : '0px',
+          }}
           title={PAGE_TITLE}
           detail="志愿活动空空如也哦～"
           suggestion="去看看活动吧"
           btnContent="查看活动"
           onBtnClick={() => navigateBack()}
         />
-      ) : (
+        ) : (
         _list
           .sort((a, b) => b.sign_up_start - a.sign_up_start)
           .map((item) => (
@@ -121,7 +124,7 @@ const Volunteer = () => {
   }
   return (
     <View className={styles.wrapper}>
-      <NavBack title={PAGE_TITLE} background="#F6F6F9" />
+      <NavBack title={PAGE_TITLE} background="#FFFFFF" />
       <View className={styles.header}>
         <View
           className={`${styles.title} ${active === 0 && styles.active}`}
