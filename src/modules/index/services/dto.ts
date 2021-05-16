@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-14 14:45:51
- * @LastEditTime: 2021-04-18 17:20:00
+ * @LastEditTime: 2021-05-16 15:39:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /cqupt-help-mp/src/modules/index/services/dto.ts
@@ -9,6 +9,7 @@
 import { BaseRes } from "@/common/helpers/request";
 
 interface Activity {
+  is_online: number;
   id: number;
   name: string;
   team_name: string;

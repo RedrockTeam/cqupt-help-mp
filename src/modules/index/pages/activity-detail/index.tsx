@@ -62,13 +62,16 @@ const AcDetail = () => {
         hide();
       }, 1500);
     }
+
   };
   return (
     <View>
       <View className={styles.wrapper}>
         <NavBack title="活动详情" background="#F6F6F9" />
         {
-          JSON.parse(params.image_with)[0] == "" ?
+          JSON.parse(params.image_with)[0] == "" ||
+            params.image_with == ""
+            ?
             <Image className={styles.pic} mode="aspectFill" src={params.image} />
             : (
               <Swiper

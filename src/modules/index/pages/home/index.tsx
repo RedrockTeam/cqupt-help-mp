@@ -86,6 +86,7 @@ export default function Index() {
               type={e.type}
               image={e.image}
               image_with={e.image_with}
+              is_online={e.is_online}
             />
           );
         })

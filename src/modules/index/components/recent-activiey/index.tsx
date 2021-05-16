@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-14 14:45:51
- * @LastEditTime: 2021-04-18 17:20:30
+ * @LastEditTime: 2021-05-16 15:40:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /cqupt-help-mp/src/modules/index/components/recent-activiey/index.tsx
@@ -26,6 +26,7 @@ type Props = {
   image: string;
   image_with: string;
   id: number;
+  is_online: number
 };
 
 const RecentActivity = ({
@@ -40,7 +41,8 @@ const RecentActivity = ({
   type,
   image,
   image_with,
-  id
+  id,
+  is_online
 }: Props) => {
   if (gapDay(timeDone) < 0) {
     return null;
@@ -87,7 +89,7 @@ const RecentActivity = ({
             className={`${styles.tag} ${type === 1 ? styles.online : styles.offline
               }`}
           >
-            {type === 1 ? "线上" : "线下"}
+            {is_online === 1 ? "线上" : "线下"}
           </View>
         </View>
         <Text className={styles.text}>{getString(teamName)}</Text>
