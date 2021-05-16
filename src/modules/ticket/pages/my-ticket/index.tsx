@@ -21,6 +21,8 @@ import { resolvePage } from "@/common/helpers/utils";
 import { SwiperProps } from "@tarojs/components/types/Swiper";
 import PopupContext from "@/stores/popup";
 import robSuccessImg from "@/static/images/rob-success.png";
+import returnTicketSuccess from "@/static/images/return-ticket-success.png";
+import returnTicketFalse from "@/static/images/return-ticket-false.png";
 import error from "@/static/images/error.png";
 import { createContainer, useContainer } from "unstated-next";
 import BottomPop from "@/common/components/bottomPop";
@@ -65,13 +67,13 @@ const MyTicket = () => {
       if (res.status === 10000) {
         if (dayjs(myTicketListRes.data[current].play_time).unix() - 1800 > now()) {
           const hide = Popup.show({
-            img: robSuccessImg,
+            img: returnTicketSuccess,
             title: "恭喜您！退票成功！"
           });
           setTimeout(() => hide(), 3000);
         } else {
           const hide = Popup.show({
-            img: robSuccessImg,
+            img: returnTicketFalse,
             title: "很抱歉！该票已过期！"
           });
           setTimeout(() => hide(), 3000);
@@ -207,7 +209,7 @@ const MyTicket = () => {
           isShow={popupState}
           title="退票说明"
           detail={`1.距离开场半个小时以内将不支持退票，若未退票且未观影者，将被计入不良信用档案。
-          
+
             2.规定时间内退票不会对您的信用度造成任何影响。
           `}
           bottomType={2}
