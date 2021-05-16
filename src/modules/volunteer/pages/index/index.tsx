@@ -67,6 +67,58 @@ const Volunteer = () => {
   //       onBtnClick={() => navigateBack()}
   //     />
   //   );
+
+  const renderList = (_list) => {
+    return (
+      <View>
+      {_list.length === 0 ? (
+        <Empty
+          title={PAGE_TITLE}
+          detail="志愿活动空空如也哦～"
+          suggestion="去看看活动吧"
+          btnContent="查看活动"
+          onBtnClick={() => navigateBack()}
+        />
+      ) : (
+        _list
+          .sort((a, b) => b.sign_up_start - a.sign_up_start)
+          .map((item) => (
+            <View
+              className={styles.card}
+              key={item.rely_id}
+              onClick={() =>
+                navTo({
+                  url: `${resolvePage("volunteer", "detail")}?rely_id=${
+                    item.rely_id
+                  }`,
+                })
+              }
+            >
+              <View className={styles.cardTop}>
+                <View className={styles.cardName}>{item.name}</View>
+                <View
+                  className={
+                    item.sign_up_last < now()
+                      ? styles.cardTimeGray
+                      : styles.cardTime
+                  }
+                >
+                  {activitySignUpStatus(
+                    item.sign_up_start,
+                    item.sign_up_last
+                  )}
+                </View>
+              </View>
+              <View className={styles.cardInfo}>
+                活动简介：
+                {item.description}
+              </View>
+            </View>
+          ))
+      )}
+      </View>
+    )
+  }
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
@@ -84,102 +136,12 @@ const Volunteer = () => {
           院级志愿
         </View>
       </View>
-      {/* 校级志愿 */}
-      <View style={{ display: active === 0 ? "block" : "none" }}>
-        {xiaojiList.length === 0 ? (
-          <Empty
-            title={PAGE_TITLE}
-            detail="志愿活动空空如也哦～"
-            suggestion="去看看活动吧"
-            btnContent="查看活动"
-            onBtnClick={() => navigateBack()}
-          />
-        ) : (
-          xiaojiList
-            .sort((a, b) => b.sign_up_start - a.sign_up_start)
-            .map((item) => (
-              <View
-                className={styles.card}
-                key={item.rely_id}
-                onClick={() =>
-                  navTo({
-                    url: `${resolvePage("volunteer", "detail")}?rely_id=${
-                      item.rely_id
-                    }`,
-                  })
-                }
-              >
-                <View className={styles.cardTop}>
-                  <View className={styles.cardName}>{item.name}</View>
-                  <View
-                    className={
-                      item.sign_up_last < now()
-                        ? styles.cardTimeGray
-                        : styles.cardTime
-                    }
-                  >
-                    {activitySignUpStatus(
-                      item.sign_up_start,
-                      item.sign_up_last
-                    )}
-                  </View>
-                </View>
-                <View className={styles.cardInfo}>
-                  活动简介：
-                  {item.description}
-                </View>
-              </View>
-            ))
-        )}
-      </View>
-      {/* 院级志愿 */}
-      <View style={{ display: active === 1 ? "block" : "none" }}>
-        {yuanjiList.length === 0 ? (
-          <Empty
-            title={PAGE_TITLE}
-            detail="志愿活动空空如也哦～"
-            suggestion="去看看活动吧"
-            btnContent="查看活动"
-            onBtnClick={() => navigateBack()}
-          />
-        ) : (
-          yuanjiList
-            .sort((a, b) => b.sign_up_start - a.sign_up_start)
-            .map((item) => (
-              <View
-                className={styles.card}
-                key={item.rely_id}
-                onClick={() =>
-                  navTo({
-                    url: `${resolvePage("volunteer", "detail")}?rely_id=${
-                      item.rely_id
-                    }`,
-                  })
-                }
-              >
-                <View className={styles.cardTop}>
-                  <View className={styles.cardName}>{item.name}</View>
-                  <View
-                    className={
-                      item.sign_up_last < now()
-                        ? styles.cardTimeGray
-                        : styles.cardTime
-                    }
-                  >
-                    {activitySignUpStatus(
-                      item.sign_up_start,
-                      item.sign_up_last
-                    )}
-                  </View>
-                </View>
-                <View className={styles.cardInfo}>
-                  活动简介：
-                  {item.description}
-                </View>
-              </View>
-            ))
-        )}
-      </View>
+      {active === 0 ? 
+      // {/* 校级志愿 */}
+      renderList(xiaojiList)
+      // {/* 院级志愿 */}
+      : renderList(yuanjiList)
+      }
     </View>
   );
 };
