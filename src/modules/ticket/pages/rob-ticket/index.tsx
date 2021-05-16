@@ -285,7 +285,7 @@ const RobTicket = () => {
         MovieFun={() => setCurrentState(1)}
         LectureFun={() => setCurrentState(0)}
       />
-      <View className={styles.wrapper}>
+      <View className={`${styles.wrapper} ${((currentState === 0 && ticketListLecture.length === 0) || (currentState !== 0 && ticketListMovie.length === 0))?styles.wrapperBlank:""}`}>
         {
           currentState === 0?
           (

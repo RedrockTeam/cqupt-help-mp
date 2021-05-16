@@ -118,7 +118,7 @@ const Ticket = ({
               <Text>{name}</Text>
               <Text className={styles.remain}>剩余 {remain} 张</Text>
             </View>
-            <Text className={styles.text}>
+            <Text className={`${styles.text} ${styles.textChief}`}>
               主讲人：{chief}
             </Text>
             <View className={styles.text}>
@@ -157,7 +157,7 @@ const Ticket = ({
       <View className={styles.date}>
         <Image src={dateIcon} className={styles.dateImg} />
         <Text className={styles.robTime}>
-          {timestampToTimeCNString(robTime)}
+          {timestampToTimeCNString(robTime)} 开抢
         </Text>
       </View>
       {RenderListInfo()}
