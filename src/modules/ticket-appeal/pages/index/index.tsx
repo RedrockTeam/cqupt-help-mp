@@ -30,14 +30,14 @@ const TicketAppealIndex = () => {
     token = res;
   }));
   const [mutatePush] = useMutation(postAppeal);
-  const [ currentInput, setCurrentInput ] = useState(0);
-  const [ detail, setDetail ] = useState<string>("");
-  const [ picNum, setPicNum ] = useState(0);
+  const [ currentInput, setCurrentInput ] = useState<number>(0); //当前输入框文字的字数
+  const [ detail, setDetail ] = useState<string>(""); //当前输入的内容
+  const [ picNum, setPicNum ] = useState<number>(0);
   const [ picList, setPicList ] = useState<string[]>([]);
   const [ picRes, setPicRes ] = useState<string[]>([]);
-  const [ loading, setLoading ] = useState(false);
+  const [ loading, setLoading ] = useState<boolean>(true);
   const [ productId, setProduct ] = useState(getCurrentInstance().router?.params.product_id);
-  const [ productName, setProductName ] = useState(getCurrentInstance().router?.params.product_name)
+  const [ productName, setProductName ] = useState(getCurrentInstance().router?.params.product_name);
 
   const Popup = useContainer(PopupContext);
 
@@ -51,6 +51,7 @@ const TicketAppealIndex = () => {
 
   const handlePush = async (product_id: number, picRes: string[], detail: string) => {
     console.log(picRes);
+    setLoading(true);
     const res = await mutatePush({
       product_id,
       detail,
@@ -113,10 +114,9 @@ const TicketAppealIndex = () => {
 
   const handleUploadImg = (picList, token, picRes) => {
     const n = picList.length;
-    console.log(token);
-    
+    // console.log(token);
 
-    if (n) {
+    if (currentInput) {
       const promises = picList.map((picSrc) =>
         uploadFile({
           url:
@@ -183,6 +183,7 @@ const TicketAppealIndex = () => {
         <Textarea
           className={styles.textArea}
           placeholder="请输入您的详细申诉理由，我们会认真看完哒~"
+          placeholderClass={styles.textAreaPlaceholder}
           maxlength={300}
           autoFocus
           onInput={textAreaInputChange}
@@ -212,10 +213,22 @@ const TicketAppealIndex = () => {
         </View>
       </View>
 
-      <Button 
-        className={`${styles.submit} ${loading?styles.unConfirm:styles.confirm}`}
-        onClick={() => handleUploadImg(picList, token, picRes)}
-      >提交申诉</Button>
+      {
+        currentInput?
+        (
+          <Button 
+            className={`${styles.submit} ${loading?styles.unConfirm:styles.confirm}`}
+            onClick={() => handleUploadImg(picList, token, picRes)}
+          >{loading?`提交中...`:`提交申诉`}</Button>
+        ):
+        (
+          <Button 
+            className={`${styles.submit} ${loading?styles.unConfirm:styles.confirm}`}
+            onClick={() => handleUploadImg(picList, token, picRes)}
+            disabled
+          >提交申诉</Button>
+        )
+      }
 
       <Popup.Comp />
     </View>
