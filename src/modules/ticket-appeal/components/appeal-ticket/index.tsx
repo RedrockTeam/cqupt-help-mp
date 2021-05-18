@@ -28,9 +28,10 @@ type ticketAppealDataProps = {
 const AppealTicket = ({
   TicketAppealData,
 }: Props) => {
-  const [ title, setTitle ] = useState<string>(TicketAppealData.message)
+  const [ title, setTitle ] = useState<string>(TicketAppealData.message.replace(/\r|\n|\\s/g,""))
+  
   // 处理过长的字符串
-  const currentTitle = TicketAppealData.message.slice(0, 14);
+  const currentTitle = TicketAppealData.message.slice(0, 14).replace(/\r|\n|\\s/g,"");
   if (TicketAppealData.message.length > 15) {
     setTitle(`${currentTitle}...`);
     TicketAppealData.message = currentTitle;
@@ -52,8 +53,10 @@ const AppealTicket = ({
 
 
   console.log(TicketAppealData);
+  console.log(title);
+  
   return (
-    <View 
+    <View
       className={styles.wrapper}
       onClick={() => navTo({ url: `${resolvePage("ticket-appeal", "result")}?pass=${TicketAppealData.pass}&reply=${TicketAppealData.reply}`})}
     >

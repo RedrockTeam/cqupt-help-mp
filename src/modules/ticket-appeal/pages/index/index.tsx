@@ -35,7 +35,7 @@ const TicketAppealIndex = () => {
   const [ picNum, setPicNum ] = useState<number>(0);
   const [ picList, setPicList ] = useState<string[]>([]);
   const [ picRes, setPicRes ] = useState<string[]>([]);
-  const [ loading, setLoading ] = useState<boolean>(true);
+  const [ loading, setLoading ] = useState<boolean>(false);
   const [ productId, setProduct ] = useState(getCurrentInstance().router?.params.product_id);
   const [ productName, setProductName ] = useState(getCurrentInstance().router?.params.product_name);
 
@@ -70,6 +70,7 @@ const TicketAppealIndex = () => {
       setPicRes([]);
       setPicList([]);
       setCurrentInput(0);
+      setDetail("");
       setLoading(false);
     } else {
       const hide = Popup.show({
