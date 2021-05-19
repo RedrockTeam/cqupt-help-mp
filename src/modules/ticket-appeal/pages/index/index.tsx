@@ -102,7 +102,7 @@ const TicketAppealIndex = () => {
             content: "最多添加三张图片",
           });
           console.log(picList);
-        } else { 
+        } else {
           picList.push(...tempFilePaths);
           setPicList(picList);
           setPicNum(tempLength);

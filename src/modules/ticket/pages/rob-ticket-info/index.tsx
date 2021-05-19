@@ -25,8 +25,9 @@ import { getCurrentInstance, navigateBack } from '@tarojs/taro';
 import Empty from "@/common/components/empty";
 import ticketList from "../../../../mock/TicketList.json";
 import dayjs from 'dayjs';
-import { now, timestampToTimeStreamString } from '@/common/helpers/date';
+import { now, timestampToTimeCNString, timestampToTimeStreamString } from '@/common/helpers/date';
 import PrimaryButton from '@/common/components/primary-button';
+import Ticket from '../../components/ticket';
 
 const PAGE_TITLE = "在线抢票";
 
@@ -231,7 +232,7 @@ const RobTicketInfo = () => {
         <View className={styles.title}>{ticketInfo.name}</View>
         <View className={styles.text}>
           <Text>活动时间：</Text>
-          <Text>{timestampToTimeStreamString(dayjs(ticketInfo.begin_time).unix(), dayjs(ticketInfo.end_time).unix())}</Text>
+          <Text>{timestampToTimeCNString(dayjs(ticketInfo.play_time).unix())}</Text>
         </View>
         <View className={styles.text}>
           <Text>活动地点：</Text>
