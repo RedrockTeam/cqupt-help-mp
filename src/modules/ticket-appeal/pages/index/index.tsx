@@ -5,7 +5,7 @@
  * @LastEditors: myjdml
  * @Description: The sooner you start to code, the longer the program will take. —— Roy Carlson
  * @FilePath: \cqupt-help-mp\src\modules\ticket-appeal\pages\index\index.tsx
- * 
+ *
  */
 import NavBack from '@/common/components/nav-back';
 import { Button, View, Textarea, Image } from '@tarojs/components';
@@ -100,7 +100,7 @@ const TicketAppealIndex = () => {
             content: "最多添加三张图片",
           });
           console.log(picList);
-        } else { 
+        } else {
           picList.push(...tempFilePaths);
           setPicList(picList);
           setPicNum(tempLength);
@@ -114,13 +114,13 @@ const TicketAppealIndex = () => {
   const handleUploadImg = (picList, token, picRes) => {
     const n = picList.length;
     console.log(token);
-    
+
 
     if (n) {
       const promises = picList.map((picSrc) =>
         uploadFile({
           url:
-            "https://be-prod.redrock.team/cyb-permissioncenter/upload/file",
+            "https://be-prod.redrock.cqupt.edu.cn/cyb-permissioncenter/upload/file",
           filePath: picSrc,
           name: "file",
           header: {
@@ -168,13 +168,13 @@ const TicketAppealIndex = () => {
   // handleUploadImg(picList, token, picRes);
 
   // console.log(getCurrentInstance().router?.params);
-  
-  
+
+
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
       <View className={styles.toAppealInfo}>
-        <View 
+        <View
           className={styles.btn}
           onClick={() => navTo({ url: `${resolvePage("ticket-appeal", "record")}?product_id=${productId}&product_name=${productName}`})}
         >申诉记录</View>
@@ -212,7 +212,7 @@ const TicketAppealIndex = () => {
         </View>
       </View>
 
-      <Button 
+      <Button
         className={`${styles.submit} ${loading?styles.unConfirm:styles.confirm}`}
         onClick={() => handleUploadImg(picList, token, picRes)}
       >提交申诉</Button>

@@ -23,7 +23,7 @@ function MyIndex() {
   const userInfo = useUserInfo();
   const [showPop, setshowPop] = useState(false);
   const handleLoginout = async () => {
-    const res = await request("https://be-prod.redrock.team/magicloop/unbind/xcx");
+    const res = await request("https://be-prod.redrock.cqupt.edu.cn/magicloop/unbind/xcx");
     if (res.status === 10000) {
       redirectTo({
         url: resolvePage("index", "bind"),
