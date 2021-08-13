@@ -1,0 +1,108 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn install
+
+PATH: 
+  /usr/local/opt/sphinx-doc/bin:/bin:/usr/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/mysql/bin:/usr/local/sbin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  14.15.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: EINVAL: invalid argument, mkdir '/Users/firework/Desktop/RedRock/cqupt-help-mp/node_modules/@babel/plugin-syntax-typescript/node_modules'
+
+npm manifest: 
+  {
+    "name": "cqupt-help-mp",
+    "version": "1.0.0",
+    "private": true,
+    "description": "",
+    "templateInfo": {
+      "name": "default",
+      "typescript": true,
+      "css": "sass"
+    },
+    "scripts": {
+      "build:weapp": "taro build --type weapp",
+      "build:swan": "taro build --type swan",
+      "build:alipay": "taro build --type alipay",
+      "build:tt": "taro build --type tt",
+      "build:h5": "taro build --type h5",
+      "build:rn": "taro build --type rn",
+      "build:qq": "taro build --type qq",
+      "build:jd": "taro build --type jd",
+      "build:quickapp": "taro build --type quickapp",
+      "dev:weapp": "npm run build:weapp -- --watch",
+      "dev:swan": "npm run build:swan -- --watch",
+      "dev:alipay": "npm run build:alipay -- --watch",
+      "dev:tt": "npm run build:tt -- --watch",
+      "dev:h5": "npm run build:h5 -- --watch",
+      "dev:rn": "npm run build:rn -- --watch",
+      "dev:qq": "npm run build:qq -- --watch",
+      "dev:jd": "npm run build:jd -- --watch",
+      "dev:quickapp": "npm run build:quickapp -- --watch",
+      "upload": "node ./config/upload.js"
+    },
+    "browserslist": [
+      "last 3 versions",
+      "Android >= 4.1",
+      "ios >= 8"
+    ],
+    "author": "",
+    "dependencies": {
+      "@babel/runtime": "^7.7.7",
+      "@tarojs/components": "3.0.5",
+      "@tarojs/react": "3.0.5",
+      "@tarojs/runtime": "3.0.5",
+      "@tarojs/taro": "3.0.5",
+      "@welldone-software/why-did-you-render": "^4.2.7",
+      "Base64": "^1.1.0",
+      "dayjs": "^1.8.30",
+      "miniprogram-ci": "^1.0.60",
+      "react": "^16.10.0",
+      "react-dom": "^16.10.0",
+      "react-query": "^2.5.11",
+      "sentry-miniapp": "^0.11.1",
+      "taro3-navigationbar": "^3.0.1",
+      "unstated-next": "^1.1.0"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.8.0",
+      "@tarojs/mini-runner": "3.0.5",
+      "@tarojs/webpack-runner": "3.0.5",
+      "@types/react": "^16.0.0",
+      "@types/webpack-env": "^1.13.6",
+      "@typescript-eslint/eslint-plugin": "^2.x",
+      "@typescript-eslint/parser": "^2.x",
+      "babel-preset-taro": "3.0.5",
+      "commitizen": "^4.1.2",
+      "cz-conventional-changelog": "^3.2.0",
+      "eslint": "7.2.0",
+      "eslint-config-prettify-ts-react": "^0.1.8",
+      "eslint-config-taro": "3.0.5",
+      "eslint-plugin-import": "^2.12.0",
+      "eslint-plugin-react": "^7.8.2",
+      "eslint-plugin-react-hooks": "^1.6.1",
+      "prettier": "^2.0.5",
+      "stylelint": "9.3.0",
+      "terser-webpack-plugin": "^3.1.0",
+      "typescript": "^3.7.0",
+      "webpack-bundle-analyzer": "^3.8.0"
+    },
+    "config": {
+      "commitizen": {
+        "path": "./node_modules/cz-conventional-changelog"
+      }
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

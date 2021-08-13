@@ -14,7 +14,7 @@ import error from "@/static/images/error.png";
 import accountIcon from "@/static/images/account-icon.png";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import { switchTab } from "@tarojs/taro";
-import { resolvePage } from "@/common/helpers/utils";
+import { navTo, resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
 import { setToken } from "@/stores/user";
 import styles from "./index.module.scss";
@@ -41,7 +41,13 @@ const Bind = () => {
       if (data.errcode === "10010") {
         const hide = Popup.show({
           title: "登录失败",
-          detail: "已绑定，不能重复绑定",
+          detail: "账号与密码不匹配哦！",
+        });
+        setTimeout(() => hide(), 1500);
+      } else if (data.errcode === "10012") {
+        const hide = Popup.show({
+          title: "登录失败",
+          detail: "账号与密码不匹配哦！",
         });
         setTimeout(() => hide(), 1500);
       } else if (data.status === "10000") {
@@ -105,13 +111,18 @@ const Bind = () => {
               className={styles.input}
               placeholderClass={styles.placeholder}
               password
-              maxlength={6}
               value={password}
               onInput={handlePasswordInput}
-              placeholder="身份证后六位"
+              placeholder="身份证/统一认证码后六位"
             />
           </View>
         </View>
+        <Text className={styles.forget} onClick={() => navTo({ url: resolvePage("account-safe", "forget") })}>
+          忘记密码？
+        </Text>
+        <Text className={styles.tips}>
+          研究生和20届学生登陆密码为统一认证码后六位，其余同学密码为身份证后6位。
+        </Text>
         <PrimaryButton className={styles.btn} onClick={handleBind}>
           {isLoading ? "Loading..." : "登录"}
         </PrimaryButton>

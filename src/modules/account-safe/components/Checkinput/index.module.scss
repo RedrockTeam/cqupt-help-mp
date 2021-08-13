@@ -1,0 +1,71 @@
+.list{
+    font-family: PingFang SC;
+    .title{
+        margin-top: 60px;
+        margin-left: 86px;
+        margin-bottom: 16px;
+        font-style: normal;
+        font-weight: bold;
+        color: #494670;
+        .reset{
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+        }
+    }
+    .input{
+        width: 622px;
+        height: 88px;
+        border-radius: 44px;
+        border-left: 52px;
+        background-color: #ffffff;
+        border: 1.5px solid #CDCCE0;
+        margin-left: 64px;
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        .inputcontent{
+            width: 342px;
+            height: 88px;
+            color: #A4A3B7;
+            margin:0 40px;
+        }
+        .resend{
+            color: #A4A3B7;
+            margin-right: 40px;
+            text-align: right;
+        }
+    }
+    .message{
+        font-size: 32px;
+        margin-left: 80px;
+        margin-bottom: 28px;
+    }
+    .contect{
+        color: #777494;
+        position: absolute;
+        font-size: 26px;
+        top: 280px;
+        right: 84px;
+    }
+}
+.next{
+    position: absolute;
+    top: 652px;
+    left: 64px;
+    width: 622px;
+    height: 92px;
+    color:#ffffff;
+    background: #CECDE8;
+    border-radius: 64px;
+}
+.nextActive{
+    position: absolute;
+    top: 652px;
+    left: 64px;
+    width: 622px;
+    height: 92px;
+    color:#ffffff;
+    background: #625AF8;
+    border-radius: 64px;
+}

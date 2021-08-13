@@ -69,7 +69,9 @@ const MyReward = () => {
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !myRewardListRes)
     return <Placeholder title={PAGE_TITLE} isError />;
-  if (myRewardListRes.prizes.length === 0)
+
+  console.log('myRewardListRes:', myRewardListRes)
+  if (myRewardListRes?.prizes?.length === 0)
     return (
       <Empty
         title={PAGE_TITLE}
@@ -82,7 +84,7 @@ const MyReward = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      {myRewardListRes.prizes.map((e) => (
+      {myRewardListRes?.prizes?.map((e) => (
         <Reward
           activityName={e.activity_name}
           name={e.name}

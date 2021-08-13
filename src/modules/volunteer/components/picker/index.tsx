@@ -1,5 +1,4 @@
 import React from "react";
-import { timePart } from "@/common/constants";
 import {
   View,
   Button,
@@ -9,16 +8,39 @@ import {
   ITouchEvent,
 } from "@tarojs/components";
 import cancel from "@/static/images/cancel.png";
+import {
+  timestampToDateString,
+  timestampToHMString,
+} from "@/common/helpers/date";
 import styles from "./index.module.scss";
 
 type Props = {
+  title?: string;
+  btnText?: string;
   visible: boolean;
   onCancel: (event: ITouchEvent) => unknown;
   onOk: (event: ITouchEvent) => unknown;
   onTimeChange: (event: ITouchEvent) => unknown;
+  onPickStart: () => unknown;
+  onPickEnd: () => unknown;
+  viewItems: any;
+  dateIndex: number;
+  value: number[];
 };
 
-const Picker = ({ visible, onCancel, onOk, onTimeChange }: Props) => {
+const Picker = ({
+  visible,
+  title = "选择时间",
+  btnText = "确认提交",
+  onCancel,
+  onOk,
+  onTimeChange,
+  onPickStart,
+  onPickEnd,
+  viewItems,
+  dateIndex,
+  value,
+}: Props) => {
   return (
     <View
       className={`${styles.mask} ${
@@ -29,7 +51,7 @@ const Picker = ({ visible, onCancel, onOk, onTimeChange }: Props) => {
         className={`${styles.verify} ${visible ? styles.show : styles.hide}`}
       >
         <View className={styles.vTop}>
-          <View className={styles.vTitle}>选择时间</View>
+          <View className={styles.vTitle}>{title}</View>
           <Image src={cancel} className={styles.vIcon} onClick={onCancel} />
         </View>
         <View className={styles.vInfos}>
@@ -37,12 +59,34 @@ const Picker = ({ visible, onCancel, onOk, onTimeChange }: Props) => {
             indicatorStyle="height:58px"
             className={styles.picker}
             onChange={onTimeChange}
+            onPickStart={onPickStart}
+            onPickEnd={onPickEnd}
+            value={value}
           >
-            <PickerViewColumn>
-              {timePart.map((item) => {
+            <PickerViewColumn className={styles.pickerItem}>
+              {viewItems.dateList.map((item) => {
                 return (
-                  <View style={{ lineHeight: "58px" }} key={item}>
-                    {item}
+                  <View
+                    style={{ lineHeight: "58px" }}
+                    key={`${item}`}
+                    className={styles.pickerItem}
+                  >
+                    {`${timestampToDateString(item)}`}
+                  </View>
+                );
+              })}
+            </PickerViewColumn>
+            <PickerViewColumn>
+              {viewItems.timePartList[dateIndex].map((item) => {
+                return (
+                  <View
+                    style={{ lineHeight: "58px" }}
+                    className={styles.pickerItem}
+                    key={`${item.begin_time} + ${item.end_time}`}
+                  >
+                    {`${timestampToHMString(
+                      item.begin_time
+                    )} - ${timestampToHMString(item.end_time)}`}
                   </View>
                 );
               })}
@@ -50,7 +94,7 @@ const Picker = ({ visible, onCancel, onOk, onTimeChange }: Props) => {
           </PickerView>
         </View>
         <Button className={styles.vBtn} onClick={onOk}>
-          确认提交
+          {btnText}
         </Button>
       </View>
     </View>

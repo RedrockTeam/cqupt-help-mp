@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React from "react";
 import { View, Image, Text, ITouchEvent } from "@tarojs/components";
 import emptyImg from "@/static/images/empty.png";
@@ -11,6 +12,7 @@ type Props = {
   suggestion?: string;
   onBtnClick?: (event: ITouchEvent) => unknown;
   btnContent?: string;
+  style?: Object;
 };
 
 const Empty = ({
@@ -19,17 +21,28 @@ const Empty = ({
   suggestion,
   onBtnClick,
   btnContent,
+  style
 }: Props) => {
   if (title)
     return (
-      <View className={styles.emptyPageWrapper}>
+      <View className={styles.emptyPageWrapper} style={style}>
         <NavBack title={title} background="#FFFFFF" />
         <Image src={emptyImg} mode="aspectFit" className={styles.pageImg} />
         <Text className={styles.text}>{detail}</Text>
         <Text className={styles.text}>{suggestion}</Text>
-        <PrimaryButton className={styles.btn} onClick={onBtnClick}>
-          {btnContent}
-        </PrimaryButton>
+        {
+          (btnContent?.length !== 0)?
+            (
+              <PrimaryButton className={styles.btn} onClick={onBtnClick}>
+              {btnContent}
+              </PrimaryButton>
+            )
+          :
+            (
+              ""
+            )
+        }
+        
       </View>
     );
   return (

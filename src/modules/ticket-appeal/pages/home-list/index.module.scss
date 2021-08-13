@@ -1,0 +1,30 @@
+.wrapper {
+  padding: 20px;
+}
+.card {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 15px;
+  margin: 15px 0;
+  position: relative;
+  overflow: hidden;
+  .title {
+    margin-left: 10px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1C184C;
+    .tip {
+      color: rgb(255, 0, 98);
+      font-size: 24px;
+    }
+  }
+  .appeal {
+    color: #777494;
+    font-size: 26px;
+  }
+}

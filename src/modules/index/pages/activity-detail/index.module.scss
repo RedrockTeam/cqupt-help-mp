@@ -6,7 +6,8 @@
     width: 100vw;
     height: 376px;
     margin-bottom: 0;
-    display: block;
+    display: flex;
+    flex-direction: row;
   }
 
   .card {

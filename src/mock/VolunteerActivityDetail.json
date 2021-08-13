@@ -1,0 +1,45 @@
+{
+  "status": 10000,
+  "info": "success",
+  "data": {
+    "rely_id": 1,
+    "name": "测试",
+    "team_name": "红岩网校工作站—Web研发部",
+    "description": "param test",
+    "place": "红岩网校工作站",
+    "sign_up_start": 1616163200,
+    "sign_up_last": 1717163200,
+    "hour": "1",
+    "last_date": 1685996800,
+    "start_date": 1615996800,
+    "num": "1-2人",
+    "imagines": "['https://www.bilibili.com/', 'https://www.bilibili.com/']",
+    "need_additions": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]",
+    "detail": [
+      {
+        "id": 1,
+        "date": 1615996800,
+        "time_part_info": [
+          {
+            "begin_time": 3600,
+            "end_time": 3720,
+            "now": 0,
+            "max": 0
+          },
+          {
+            "begin_time": 7200,
+            "end_time": 25440,
+            "now": 0,
+            "max": 0
+          },
+          {
+            "begin_time": 25440,
+            "end_time": 26440,
+            "now": 0,
+            "max": 0
+          }
+        ]
+      }
+    ]
+  }
+}

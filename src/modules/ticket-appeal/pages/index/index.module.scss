@@ -1,0 +1,127 @@
+.wrapper {
+  padding: 20px;
+}
+.toAppealInfo {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  font-size: 30px;
+  .btn {
+    text-align: right;
+    width: 120px;
+    color: #494670;
+    font-size: 30px;
+    font-weight: 700;
+  }
+}
+.content {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: 780px;
+  background-color: white;
+  border-radius: 16px;
+  margin-top: 15px;
+  overflow: hidden;
+  .textArea {
+    margin: 35px;
+    width: 650px;
+    height: 350px;
+    &::placeholder {
+      color: #C9C8D2;
+      font-size: 28px;
+    }
+  }
+  .textAreaSize {
+    width: 650px;
+    text-align: right;
+    color: #C9C8D2;
+  }
+  .line {
+    width: 670px;
+    margin-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .picTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 630px;
+    margin-top: 10px;
+    font-size: 28px;
+    color: #D2D1DB;
+  }
+  .picList {
+    margin-top: 10px;
+    width: 630px;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+    .picWrap {
+      margin: 0;
+      position: relative;
+      // margin-right: 15px;
+      // margin-bottom: 15px;
+      .picUp {
+        margin: 10px;
+        width: 190px;
+        height: 190px;
+        border-radius: 20px;
+      }
+      .del {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+    }
+    .addList {
+      margin: 10px;
+      width: 190px;
+      height: 190px;
+      background-color: #F2F1F9;
+      border-radius: 20px;
+      position: relative;
+      &::before {
+        display: block;
+        content: "";
+        width: 60px;
+        height: 4px;
+        background-color: #C9C8D2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-30px, -2px);
+      }
+      &::after {
+        display: block;
+        content: "";
+        width: 4px;
+        height: 60px;
+        background-color: #C9C8D2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-2px, -30px);
+      }
+    }
+  }
+}
+
+.submit {
+  width: 634px;
+  height: 92px;
+  color: white;
+  border-radius: 50px;
+  margin-top: 90px;
+  margin-left: 50%;
+  transform: translateX(-317px);
+}
+.confirm {
+  background-color: #625AF8;
+}
+.unConfirm {
+  background-color: #CECDE8;
+}

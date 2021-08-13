@@ -1,0 +1,171 @@
+.wrapper {
+  padding: 30px 0;
+
+  .container {
+    width: 100vw;
+    display: flex;
+    position: relative;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    .content {
+      width: 690px;
+      //max-height: 540px;
+      border-radius: 16px;
+      background-color: #FFFFFF;
+      padding: 0 25px 40px 22px;
+      margin: 0 30px;
+      display: flex;
+      flex-flow: column;
+      font-weight: 340;
+
+      ._content {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-flow: column;
+
+        position: relative;
+      }
+
+      .scan {
+        position: absolute;
+
+        right: 0;
+        top: 40px;
+
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 340;
+
+        &_png {
+          width: 44px;
+          height: 40px;
+          margin-bottom: 12px;
+        }
+
+        &_text_un {     //  未扫码
+          color: #817BF9;
+          font-size: 16px;
+        }
+
+        &_text_suc {    //  成功扫码
+          color: #817BF9;
+          font-size: 28px;
+          font-weight: 350;
+        }
+      }
+
+      .appellation {
+        margin-top: 50px;
+        font-family: PingFang SC;
+        font-weight: 350;
+        font-size: 32px;
+        line-height: 36px;
+        color: #494670;
+      }
+
+      .waiting_desc {
+        width: 100%;
+        min-height: 368px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #777494;
+        font-family: PingFang SC;
+        font-size: 28px;
+        letter-spacing: 5%;
+      }
+
+      .desc {
+        margin-top: 32px;
+        margin-bottom: 40px;
+        font-family: PingFang SC;
+        font-weight: 340;
+        color: #777494;
+        font-size: 28px;
+        line-height: 60px;
+        letter-spacing: 5%;
+      }
+
+      .copyPng {
+        width: 26px;
+        height: 22px;
+        margin-left: 20px;
+      }
+
+      .concat {
+        color: #494670;
+        font-weight: 400;
+      }
+
+    }
+
+    .btnWrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 18px;
+      margin-top: 30px;
+      //padding-top: 88px;
+      //position: absolute;
+      //bottom: 40px;
+      //right: 55px;
+
+      .btn {
+        width: 240px;
+        height: 72px;
+        border-radius: 64px;
+        background: #ffffff;
+        border: 2px solid #625af8;
+        color: #625af8;
+        font-family: PingFang SC;
+        font-weight: 330;
+        font-size: 32px;
+        line-height: 70px;
+        text-align: center;
+        margin-left: 25px;
+
+        &_change {
+          color: #cdcce0;
+          border: 2px solid #cdcce0;
+        }
+
+        &_quit {
+          color: #1678FE;
+          border: 2px solid #1678FE;
+        }
+
+        &_waiting {
+          color: #cdcce0;
+          border: 2px solid #cdcce0;
+        }
+
+      }
+
+    }
+
+  }
+}
+
+.time_out {
+  color: #494670;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.time {
+  color: #494670;
+  font-weight: 400;
+}
+
+.hint {
+  color: #CECDE8;
+  text-align: center;
+  font-size: 28px;
+  line-height: 60px;
+  font-weight: 330;
+}
+

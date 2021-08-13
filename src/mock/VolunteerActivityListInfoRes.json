@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "id": 9,
+      "name": "rpc",
+      "description": "test",
+      "sign_up_last": 0,
+      "hour": "1-2小时",
+      "time_part": [
+        {
+          "begin_time": 1622338539,
+          "end_time": 1652338539
+        },
+        {
+          "begin_time": 1622338539,
+          "end_time": 1622338539
+        }
+      ],
+      "team_level": "校级"
+    },
+    {
+      "id": 12,
+      "name": "rpc",
+      "description": "test",
+      "sign_up_last": 0,
+      "hour": "1-2小时",
+      "time_part": [
+        {
+          "begin_time": 1622338539,
+          "end_time": 1652338539
+        },
+        {
+          "begin_time": 1622338539,
+          "end_time": 1622338539
+        }
+      ],
+      "team_level": "院级"
+    }
+  ],
+  "Info": "success",
+  "Status": 10000
+}

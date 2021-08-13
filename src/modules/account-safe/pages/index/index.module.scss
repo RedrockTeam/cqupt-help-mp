@@ -1,0 +1,146 @@
+.list{
+    width: 700px;
+    background: #ffffff;
+    border-radius: 16px;
+    margin: 0 auto;
+    .change{
+        height: 140px;
+        margin: 0 40px;
+        display: flex;
+        align-items: center;
+    }
+    .setprotect{
+        height: 140px;
+        margin: 0 40px;
+        display: flex;
+        align-items: center;
+        border-top:1px solid rgba(0, 0, 0, 0.05);
+        border-bottom:1px solid rgba(0, 0, 0, 0.05);
+    }
+    .bindemail{
+        height: 140px;
+        margin: 0 40px;
+        display: flex;
+        align-items: center;
+    }
+}
+.enter {
+    margin-left: 20px;
+    width: 16px;
+    height: 28px;
+}
+.textName{
+    color: #494670;
+    font-family: PingFang SC;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: 0px;
+    text-align: left;
+    padding-left: 12px;
+}
+.nowState{
+    background-color: #fff !important;
+    color: #A4A3B7;
+    font-family: PingFang SC;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: 0px;
+    margin-left: auto;
+    outline: none;
+    border: none;
+}
+.cover{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.25);
+    position: absolute;
+    top: 0;
+    z-index: 999;
+}
+.popWindow{
+    width: 100vw;
+    background-color: #ffffff;
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+    font-family: PingFang SC;
+    position: fixed;
+    transform: translate3d(0,150%,0);
+    transition: all 0.5s ease-in-out;
+    bottom: 0;
+    z-index: 1000;
+    .title{
+        font-size: 28px;
+        color: #777494;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .bindemail{
+        font-size: 32px;
+        color: #494670;
+        font-weight: bold;
+        padding-top: 45px;
+        padding-bottom: 45px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .setprotect{
+        font-size: 32px;
+        color: #494670;
+        font-weight: bold;
+        padding-top: 45px;
+        padding-bottom: 45px;
+        border-bottom:20px solid #f5f5f5;
+    }
+    .cancel{
+    padding-top: 45px;
+    padding-bottom: 45px;
+    font-size: 32px;
+    color: #A4A3B7;
+    font-weight: bold;
+    border-bottom: solid 1px #1c184c;
+    }
+}
+.popWindowActive{
+    width: 100vw;
+    background-color: #ffffff;
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+    font-family: PingFang SC;
+    position: fixed;
+    transform: translate3d(0,0,0);
+    transition: all 0.5s ease-in-out;
+    bottom: 0;
+    z-index: 1000;
+    .title{
+        font-size: 28px;
+        color: #777494;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .bindemail{
+        font-size: 32px;
+        color: #494670;
+        font-weight: bold;
+        padding-top: 45px;
+        padding-bottom: 45px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .setprotect{
+        font-size: 32px;
+        color: #494670;
+        font-weight: bold;
+        padding-top: 45px;
+        padding-bottom: 45px;
+        border-bottom:20px solid #f5f5f5;
+    }
+    .cancel{
+    padding-top: 45px;
+    padding-bottom: 45px;
+    font-size: 32px;
+    color: #A4A3B7;
+    font-weight: bold;
+    border-bottom: solid 1px #1c184c;
+    }
+}

@@ -1,0 +1,22 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #999;
+  .inputImage,
+  .img {
+    width: 100%;
+    height: 100%;
+    background: #f2f1f9;
+    border-radius: 16px;
+    object-fit: cover;
+    transform: scale(1.1);
+  }
+  .inputImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: #cecde8;
+    line-height: 42px;
+  }
+}
