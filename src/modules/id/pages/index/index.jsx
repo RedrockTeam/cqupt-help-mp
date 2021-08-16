@@ -23,17 +23,6 @@ const IdIndex = () => {
   if (isError || !idCardListRes)
     return <Placeholder title={PAGE_TITLE} isError />;
 
-  // if (idCardListRes.identity_cards.length === 0) {
-  //   return (
-  //     <Empty
-  //       title={PAGE_TITLE}
-  //       detail="证件空空如也哦～"
-  //       suggestion="快去申请新的会员证吧"
-  //       onBtnClick={() => navTo({ url: resolvePage("id", "apply") })}
-  //       btnContent="申请证件"
-  //     />
-  //   );
-  // }
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#FFFFFF" />
