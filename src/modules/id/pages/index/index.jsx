@@ -61,7 +61,7 @@ const IdIndex = () => {
             >
               <View className={styles.top}>
                 <OpenData
-                  className={styles.avator}
+                  className={styles.avatar}
                   type="userAvatarUrl"
                   defaultAvatar={emptyImg}
                 />
