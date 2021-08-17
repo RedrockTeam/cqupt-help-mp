@@ -46,7 +46,7 @@ const IdIndex = () => {
           idCardListRes.data
             ?.filter((e) => e.type === types[active])
             .map((item) => (
-              <View className={styles.card} key={item.team_name + item.job}>
+              <View className={styles.card} key={item.team_name + item.title}>
                 <View className={styles.top}>
                   <OpenData
                     className={styles.avatar}
