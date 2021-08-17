@@ -27,10 +27,6 @@ const Apply = () => {
   const Popup = useContainer(PopupContext);
   const [mutateApply] = useMutation(applyIdCard);
 
-  const InputChange = (e) => {
-    setName(e.detail.value);
-  };
-
   const handleClick = async () => {
     if (!associationsRes?.data.includes(name)) {
       const hide = Popup.show({
@@ -102,7 +98,7 @@ const Apply = () => {
               <Input
                 className={`${styles.input} ${showSelect ? styles.active : ""}`}
                 value={name}
-                onInput={InputChange}
+                onInput={(e) => setName(e.detail.value)}
                 placeholder="请选择组织名称"
                 onFocus={() => setShowSelect(true)}
                 onBlur={() => setShowSelect(false)}
