@@ -1,9 +1,13 @@
 import request from "@/common/helpers/request";
-import { GetIdCardRes, IdCardApplyRes } from "./dto";
+import { GetIdCardRes, IdCardApplyRes, GetAssociationsRes } from "./dto";
 
 export const getIdCardList = (_key: string) =>
   request<GetIdCardRes>("/cyb-idcard/idCard/getCards", {
-    method: "POST",
+    method: "GET",
+  });
+export const getAssociations = (_key: string) =>
+  request<GetAssociationsRes>("/cyb-idcard/idCard/getCards", {
+    method: "GET",
   });
 
 export const applyIdCard = (associationName: string) =>

@@ -13,5 +13,8 @@ export interface IdCard {
 export interface GetIdCardRes extends BaseRes {
   data: IdCard[];
 }
+export interface GetAssociationsRes extends BaseRes {
+  data: string[];
+}
 
 export type IdCardApplyRes = BaseRes;
