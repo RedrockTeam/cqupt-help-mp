@@ -48,13 +48,7 @@ const IdIndex = () => {
             .map((item) => (
               <View className={styles.card} key={item.team_name + item.title}>
                 <View className={styles.top}>
-                  <OpenData
-                    className={styles.avatar}
-                    type="userAvatarUrl"
-                    defaultAvatar={emptyImg}
-                  />
                   <View className={styles.top_right}>
-                    <View className={styles.name}>{item.name}</View>
                     <View className={styles.info}>
                       {item.team_name}
                       {item.title}

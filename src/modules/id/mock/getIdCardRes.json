@@ -4,7 +4,6 @@
   "data": [
     {
       "type": "组织",
-      "name": "卷卷",
       "team_name": "红岩网校",
       "title": "站长",
       "certification": "红岩网校工作站",
@@ -13,7 +12,6 @@
     },
     {
       "type": "组织",
-      "name": "卷卷",
       "team_name": "学生会",
       "title": "主席",
       "certification": "学生会",
@@ -22,7 +20,6 @@
     },
     {
       "type": "社团",
-      "name": "卷卷",
       "team_name": "爱心社",
       "title": "成员",
       "certification": "学生社团管理部",
@@ -31,7 +28,6 @@
     },
     {
       "type": "社团",
-      "name": "卷卷",
       "team_name": "围棋社",
       "title": "成员",
       "certification": "学生社团管理部",
