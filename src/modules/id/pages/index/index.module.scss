@@ -5,9 +5,9 @@
     width: 690px;
     height: 328px;
     border-radius: 16px;
-    margin: 0 auto 54px;
+    margin: 40px auto;
     background-color: pink;
-    padding: 32px;
+    padding: 40px 40px 36px;
     box-sizing: border-box;
     background-size: cover;
     &:nth-child(4n + 1) {
@@ -25,63 +25,24 @@
   }
   .top {
     display: flex;
-    align-items: center;
-    .avatar {
-      display: block;
-      width: 112px;
-      height: 112px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      overflow: hidden;
-    }
-    .top_right {
-      padding-left: 26px;
-      padding-top: 10px;
-      .name {
-        font-family: PingFang SC;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 40px;
-        line-height: 36px;
-        color: #ffffff;
-        margin-bottom: 8px;
-      }
-      .info {
-        font-family: PingFang SC;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 32px;
-        line-height: 56px;
-        text-align: center;
-        letter-spacing: 0.06em;
-        color: #f2f1f9;
-      }
+    .teamName {
+      font-size: 40px;
+      color: #fff;
+      font-weight: 900;
     }
   }
 
   .footer {
-    display: flex;
-    margin-top: 114px;
-    justify-content: space-between;
-    .time {
-      font-family: PingFang SC;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 28px;
-      line-height: 56px;
-      text-align: center;
-      letter-spacing: 0.03em;
-      color: #f2f1f9;
+    margin-top: 110px;
+    font-weight: 900;
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.8);
+    .title {
+      margin-bottom: 8px;
     }
-    .department {
-      font-family: PingFang SC;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 28px;
-      line-height: 56px;
-      text-align: center;
-      letter-spacing: 0.06em;
-      color: #f2f1f9;
+    .time {
+      font-family: DIN;
+      font-weight: bold;
     }
   }
 

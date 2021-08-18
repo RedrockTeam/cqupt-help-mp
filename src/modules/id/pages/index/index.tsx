@@ -48,18 +48,13 @@ const IdIndex = () => {
             .map((item) => (
               <View className={styles.card} key={item.team_name + item.title}>
                 <View className={styles.top}>
-                  <View className={styles.top_right}>
-                    <View className={styles.info}>
-                      {item.team_name}
-                      {item.title}
-                    </View>
-                  </View>
+                  <View className={styles.teamName}>{item.team_name}</View>
                 </View>
                 <View className={styles.footer}>
+                  <View className={styles.title}>{item.title}</View>
                   <View className={styles.time}>
                     {item.start_time} - {item.end_time}
                   </View>
-                  <View className={styles.department}>学生社团管理部</View>
                 </View>
               </View>
             ))
