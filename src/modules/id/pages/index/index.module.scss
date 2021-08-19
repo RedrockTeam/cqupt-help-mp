@@ -11,16 +11,16 @@
     box-sizing: border-box;
     background-size: cover;
     &:nth-child(4n + 1) {
-      background-image: url("../../../../static/images/id1.png");
+      background-image: url("../../../../static/images/id/id1.png");
     }
     &:nth-child(4n + 2) {
-      background-image: url("../../../../static/images/id2.png");
+      background-image: url("../../../../static/images/id/id2.png");
     }
     &:nth-child(4n + 3) {
-      background-image: url("../../../../static/images/id3.png");
+      background-image: url("../../../../static/images/id/id3.png");
     }
     &:nth-child(4n + 4) {
-      background-image: url("../../../../static/images/id4.png");
+      background-image: url("../../../../static/images/id/id4.png");
     }
   }
   .top {

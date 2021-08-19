@@ -1,9 +1,9 @@
 import NavBack from "@/common/components/nav-back";
 import icon from "@/static/images/account-icon.png";
-import apply from "@/static/images/apply.png";
-import input from "@/static/images/id-input.png";
-import repeat from "@/static/images/id-repeat.png";
 import error from "@/static/images/error.png";
+import apply from "@/static/images/id/id-apply.png";
+import input from "@/static/images/id/id-input.png";
+import repeat from "@/static/images/id/id-repeat.png";
 import PopupContext from "@/stores/popup";
 import { Button, Image, Input, View } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
