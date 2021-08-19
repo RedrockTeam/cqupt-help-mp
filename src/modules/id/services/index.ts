@@ -10,10 +10,10 @@ export const getAssociations = (_key: string) =>
     method: "GET",
   });
 
-export const applyIdCard = (associationName: string) =>
+export const applyIdCard = (team_id: string) =>
   request<IdCardApplyRes, string>("/cyb-idcard/idCard/register", {
     method: "POST",
-    data: associationName,
+    data: team_id,
     header: {
       "content-type": "application/x-www-form-urlencoded",
     },

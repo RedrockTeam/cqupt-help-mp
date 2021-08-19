@@ -43,8 +43,12 @@ const Apply = () => {
       return;
     }
     try {
-      const res = await mutateApply({ associationName: name });
-      if (res.status === 10000) {
+      // @ts-ignore
+      const res = await mutateApply({
+        team_id: associationsRes?.data.find((e) => e.team_name === name)
+          ?.team_id,
+      });
+      if (res!.status === 10000) {
         const hide = Popup.show({
           img: apply,
           title: "申请成功",
@@ -55,7 +59,7 @@ const Apply = () => {
           setName("");
           navigateBack();
         }, 1500);
-      } else if (res.status === 10010) {
+      } else if (res!.status === 10010) {
         const hide = Popup.show({
           img: repeat,
           title: "你已拥有该会员身份了，不要重复申请哦~",
