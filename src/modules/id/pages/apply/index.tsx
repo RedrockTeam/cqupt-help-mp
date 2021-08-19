@@ -13,7 +13,8 @@ import {
   useQuery,
 } from "react-query/dist/react-query.production.min";
 import { useContainer } from "unstated-next";
-import getAssociationsRes from "../../mock/getAssociationsRes.json";
+// TODO: mock数据，发布时注释
+import { getAssociationsRes } from "../../mock/getAssociationsRes";
 import { applyIdCard, getAssociations } from "../../services";
 import styles from "./index.module.scss";
 
@@ -23,12 +24,14 @@ const Apply = () => {
   const [name, setName] = useState("");
   const [showSelect, setShowSelect] = useState(false);
   let { data: associationsRes } = useQuery("getAssociations", getAssociations);
-  associationsRes = JSON.parse(JSON.stringify(getAssociationsRes));
+  // TODO: mock数据，发布时注释
+  associationsRes = getAssociationsRes;
+  const teamNames = Object.keys(associationsRes.data);
   const Popup = useContainer(PopupContext);
   const [mutateApply] = useMutation(applyIdCard);
 
   const handleClick = async () => {
-    if (!associationsRes?.data.includes(name)) {
+    if (!teamNames.includes(name)) {
       const hide = Popup.show({
         img: input,
         title: "请输入正确的社团名称哦~",
@@ -110,15 +113,15 @@ const Apply = () => {
                 }}
               >
                 <View className={styles.itemWrapper}>
-                  {associationsRes?.data
-                    .filter((group) => group.includes(name))
-                    .map((group) => (
+                  {teamNames
+                    .filter((teamName) => teamName.includes(name))
+                    .map((teamName) => (
                       <View
                         className={styles.item}
-                        key={group}
-                        onClick={() => setName(group)}
+                        key={teamName}
+                        onClick={() => setName(teamName)}
                       >
-                        {group}
+                        {teamName}
                       </View>
                     ))}
                 </View>

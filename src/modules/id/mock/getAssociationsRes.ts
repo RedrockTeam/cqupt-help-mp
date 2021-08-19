@@ -1,7 +1,9 @@
-{
-  "status": 10000,
-  "info": "success",
-  "data": [
+import { GetAssociationsRes } from "../services/dto";
+
+export const getAssociationsRes: GetAssociationsRes = {
+  status: 10000,
+  info: "success",
+  data: [
     "红岩网校工作站",
     "科技联合会",
     "团委组织部",
@@ -15,6 +17,6 @@
     "习近平新时代中国特色社会主义思想学习研究会",
     "硬件技术与应用协会",
     "电子竞技协会",
-    "人工智能协会"
-  ]
-}
+    "人工智能协会",
+  ].map((e, i) => ({ team_name: e, team_id: i })),
+};

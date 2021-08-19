@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import { View, Button, OpenData } from "@tarojs/components";
-import { resolvePage, navTo } from "@/common/helpers/utils";
-import NavBack from "@/common/components/nav-back";
 import Empty from "@/common/components/empty";
-import { useQuery } from "react-query/dist/react-query.production.min";
+import NavBack from "@/common/components/nav-back";
 import Placeholder from "@/common/components/placeholder";
-import emptyImg from "@/static/images/empty.png";
-import { getIdCardList } from "../../services";
 import SwitchHeader from "@/common/components/switchHeader";
+import { navTo, resolvePage } from "@/common/helpers/utils";
+import { Button, View } from "@tarojs/components";
+import React, { useState } from "react";
+import { useQuery } from "react-query/dist/react-query.production.min";
+// TODO: mock数据，发布时注释
+import { getIdCardRes } from "../../mock/getIdCardRes";
+import { getIdCardList } from "../../services";
 import styles from "./index.module.scss";
 const PAGE_TITLE = "身份有证";
-
-import getIdCardRes from "../../mock/getIdCardRes.json";
 
 const IdIndex = () => {
   const [active, setActive] = useState(0);
@@ -20,8 +19,8 @@ const IdIndex = () => {
     getIdCardList
   );
   const types = ["组织", "社团"];
-
-  idCardListRes = JSON.parse(JSON.stringify(getIdCardRes));
+  // TODO: mock数据，发布时注释
+  idCardListRes = getIdCardRes;
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !idCardListRes)
