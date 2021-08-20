@@ -45,7 +45,16 @@ const IdIndex = () => {
           idCardListRes.data
             ?.filter((e) => e.type === types[active])
             .map((item) => (
-              <View className={styles.card} key={item.team_name + item.title}>
+              <View
+                className={styles.card}
+                key={item.team_id}
+                style={{
+                  backgroundImage: `url(${
+                    require(`@/static/images/id/card-${item.certification}.png`)
+                      .default
+                  })`,
+                }}
+              >
                 <View className={styles.top}>
                   <View className={styles.teamName}>{item.team_name}</View>
                 </View>
