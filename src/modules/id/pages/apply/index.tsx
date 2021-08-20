@@ -26,7 +26,7 @@ const Apply = () => {
   let { data: associationsRes } = useQuery("getAssociations", getAssociations);
   // TODO: mock数据，发布时注释
   associationsRes = getAssociationsRes;
-  const teamNames = Object.keys(associationsRes.data);
+  const teamNames = associationsRes.data.map((e) => e.team_name);
   const Popup = useContainer(PopupContext);
   const [mutateApply] = useMutation(applyIdCard);
 
