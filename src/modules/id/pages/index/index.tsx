@@ -43,15 +43,18 @@ const IdIndex = () => {
           />
         ) : (
           idCardListRes.data
-            ?.filter((e) => e.type === types[active])
+            ?.filter((e) => e.team_leave === types[active])
             .map((item) => (
               <View
                 className={styles.card}
                 key={item.team_id}
                 style={{
                   backgroundImage: `url(${
-                    require(`@/static/images/id/card-${item.certification}.png`)
-                      .default
+                    require(`@/static/images/id/card-${
+                      item.team_leave === "组织"
+                        ? item.team_name
+                        : "学生社团联合部"
+                    }.png`).default
                   })`,
                 }}
               >
@@ -59,7 +62,7 @@ const IdIndex = () => {
                   <View className={styles.teamName}>{item.team_name}</View>
                 </View>
                 <View className={styles.footer}>
-                  <View className={styles.title}>{item.title}</View>
+                  <View className={styles.title}>{item.role}</View>
                   <View className={styles.time}>
                     {item.start_time} - {item.end_time}
                   </View>

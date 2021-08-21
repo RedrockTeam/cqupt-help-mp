@@ -1,11 +1,10 @@
 import { BaseRes } from "@/common/helpers/request";
 
 export interface IdCard {
-  type: "组织" | "社团";
+  team_leave: "组织" | "社团";
   team_name: string;
   team_id: number;
-  title: string;
-  certification: string;
+  role: string;
   start_time: string;
   end_time: string;
 }
