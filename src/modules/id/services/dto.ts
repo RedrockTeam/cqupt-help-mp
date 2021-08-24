@@ -1,12 +1,12 @@
 import { BaseRes } from "@/common/helpers/request";
 
 export interface IdCard {
-  team_leave: "组织" | "社团";
+  team_level: "组织" | "社团";
   team_name: string;
-  team_id: number;
-  role: string;
-  start_time: string;
-  end_time: string;
+  team_id: number; // team_id 为 10 的时候，team_level 为 社团，对的你没看错😊
+  role: string; // team_level 为 社团的时候，role的格式为“team_name role”😊
+  start_time: number | string;
+  end_time: number | string;
 }
 
 export interface Association {
