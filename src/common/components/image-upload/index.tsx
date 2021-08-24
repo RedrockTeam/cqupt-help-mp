@@ -26,7 +26,8 @@ const ImageUpload = ({
     try {
       uploadFile({
         filePath: tempFilePaths[0],
-        url: "https://be-prod.redrock.team/cyb-permissioncenter/upload/file",
+        url:
+          "https://be-prod.redrock.cqupt.edu.cn/cyb-permissioncenter/upload/file",
         name: "file",
         header: {
           Authorization: `Bearer ${await token}`,
