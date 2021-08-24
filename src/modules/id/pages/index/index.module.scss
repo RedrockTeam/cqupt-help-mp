@@ -1,3 +1,12 @@
+@font-face {
+  font-family: XuanRen;
+  src: url(../../../../static/fonts/XuanRen.ttf);
+}
+
+@font-face {
+  font-family: REEJI-HonghuangLiGB;
+  src: url(../../../../static/fonts/REEJI-HonghuangLiGB.ttf);
+}
 .wrapper {
   background: #f6f6f9;
   min-height: 100vh;
@@ -13,23 +22,29 @@
   .top {
     display: flex;
     .teamName {
-      font-size: 40px;
+      font-family: XuanRen;
+      line-height: 56px;
+      letter-spacing: 0.05em;
+      font-size: 44px;
       color: #fff;
-      font-weight: 900;
     }
   }
 
   .footer {
     margin-top: 110px;
-    font-weight: 900;
-    font-size: 32px;
-    color: rgba(255, 255, 255, 0.8);
+    color: #fff;
     .title {
       margin-bottom: 8px;
+      font-family: XuanRen;
+      font-size: 36px;
+      line-height: 46px;
+      letter-spacing: 0.05em;
     }
     .time {
-      font-family: DIN;
-      font-weight: bold;
+      font-weight: 900;
+      font-size: 28px;
+      font-family: REEJI-HonghuangLiGB;
+      line-height: 30px;
     }
   }
 
