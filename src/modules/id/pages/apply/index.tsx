@@ -6,7 +6,7 @@ import input from "@/static/images/id/id-input.png";
 import repeat from "@/static/images/id/id-repeat.png";
 import PopupContext from "@/stores/popup";
 import { Button, Image, Input, View } from "@tarojs/components";
-import { navigateBack } from "@tarojs/taro";
+import { navigateBack, useRouter } from "@tarojs/taro";
 import React, { useState } from "react";
 import {
   useMutation,
@@ -21,6 +21,9 @@ import styles from "./index.module.scss";
 const PAGE_TITLE = "身份有证";
 
 const Apply = () => {
+  const {
+    params: { type },
+  } = useRouter();
   const [name, setName] = useState("");
   const [showSelect, setShowSelect] = useState(false);
   let { data: associationsRes } = useQuery("getAssociations", getAssociations);
@@ -90,7 +93,7 @@ const Apply = () => {
   return (
     <View className={styles.contain}>
       <NavBack title={PAGE_TITLE} background="#FFFFFF" />
-      <View className={styles.wrap}>
+      <View className={styles.wrap} onClick={() => setShowSelect(false)}>
         <View className={styles.top}>
           <View className={styles.title}>申请新会员</View>
           <View className={styles.tips}>要保证名称信息的正确性哦~</View>
@@ -99,16 +102,19 @@ const Apply = () => {
           <View className={styles.mid}>
             <View className={styles.iconWrap}>
               <Image src={icon} className={styles.icon} mode="aspectFit" />
-              <View>组织名称</View>
+              <View>{type}名称</View>
             </View>
             <View className={styles.inputWrapper}>
               <Input
                 className={`${styles.input} ${showSelect ? styles.active : ""}`}
                 value={name}
-                onInput={(e) => setName(e.detail.value)}
-                placeholder="请选择组织名称"
+                placeholderClass={styles.placeholder}
+                onInput={(e) => {
+                  setShowSelect(true);
+                  setName(e.detail.value);
+                }}
+                placeholder={`请选择${type}名称`}
                 onFocus={() => setShowSelect(true)}
-                onBlur={() => setShowSelect(false)}
               />
               <View
                 className={styles.select}
@@ -123,7 +129,10 @@ const Apply = () => {
                       <View
                         className={styles.item}
                         key={teamName}
-                        onClick={() => setName(teamName)}
+                        onClick={() => {
+                          setName(teamName);
+                          setShowSelect(false);
+                        }}
                       >
                         {teamName}
                       </View>

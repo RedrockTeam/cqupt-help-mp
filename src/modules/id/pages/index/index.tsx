@@ -73,7 +73,9 @@ const IdIndex = () => {
       </View>
       <Button
         className={styles.btn}
-        onClick={() => navTo({ url: resolvePage("id", "apply") })}
+        onClick={() =>
+          navTo({ url: `${resolvePage("id", "apply")}?type=${types[active]}` })
+        }
       >
         申请新证
       </Button>
