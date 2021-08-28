@@ -120,7 +120,7 @@ const TicketAppealIndex = () => {
       const promises = picList.map((picSrc) =>
         uploadFile({
           url:
-            "https://be-prod.redrock.cqupt.edu.cn/cyb-permissioncenter/upload/file",
+            "https://be-dev.redrock.cqupt.edu.cn/cyb-permissioncenter/upload/file",
           filePath: picSrc,
           name: "file",
           header: {

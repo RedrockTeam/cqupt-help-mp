@@ -21,9 +21,10 @@ import Placeholder from "@/common/components/placeholder";
 function MyIndex() {
 
   const userInfo = useUserInfo();
+  // console.log(useUserInfo());
   const [showPop, setshowPop] = useState(false);
   const handleLoginout = async () => {
-    const res = await request("https://be-prod.redrock.cqupt.edu.cn/magicloop/unbind/xcx");
+    const res = await request("https://be-dev.redrock.cqupt.edu.cn/magicloop/unbind/xcx");
     if (res.status === 10000) {
       redirectTo({
         url: resolvePage("index", "bind"),
@@ -32,35 +33,35 @@ function MyIndex() {
   };
 
 
-  let [myReadsRes, setReadsRes] = useState(null)
-  let [isLoading, setLoading] = useState(true)
-  let [isError, setError] = useState(false)
+  const [myReadsRes, setReadsRes] = useState(null)
+  const [isLoading, setLoading] = useState(true)
+  const [isError, setError] = useState(false)
 
-  const [mutateReadRes] = useMutation(getMyReads, {
-    onSuccess(myReadsRes) {
-      setReadsRes(myReadsRes);
-      setLoading(false);
-    },
-    onError() {
-      setError(true)
-    }
-  })
-  useDidShow(() => {
-    mutateReadRes();
-  })
+  // const [mutateReadRes] = useMutation(getMyReads, {
+  //   onSuccess(myReadsRes) {
+  //     setReadsRes(myReadsRes);
+  //     setLoading(false);
+  //   },
+  //   onError() {
+  //     setError(true)
+  //   }
+  // })
+  // useDidShow(() => {
+  //   mutateReadRes();
+  // })
 
-  if (isLoading) {
-    return (
-      <View className={styles.holder}>
-        <Placeholder/>
-      </View>
-    )
-  }
-  if (isError || !myReadsRes)
-    return <Placeholder isError/>;
+  // if (isLoading) {
+  //   return (
+  //     <View className={styles.holder}>
+  //       <Placeholder/>
+  //     </View>
+  //   )
+  // }
+  // if (isError || !myReadsRes)
+  //   return <Placeholder isError/>;
 
 
-  const {number, unread} = myReadsRes.data
+  // const {number, unread} = myReadsRes.data
 
   return (
     <View className={styles.wrapper}>
@@ -74,9 +75,9 @@ function MyIndex() {
             />
           </View>
           <View className={styles.top_left}>
-            <View className={styles.name}>{userInfo.realName}</View>
-            <View className={styles.info}>学号：{userInfo.stuNum}</View>
-            <View className={styles.info}>专业：{userInfo.college}</View>
+             <View className={styles.name}>{userInfo.realName}</View>
+             <View className={styles.info}>学号：{userInfo.stuNum}</View>
+             {/*<View className={styles.info}>专业：{userInfo.college}</View>*/}
           </View>
         </View>
         <View className={styles.top_bottom}>
@@ -89,22 +90,22 @@ function MyIndex() {
           <View
             onClick={() => navTo({url: resolvePage("my", "my-activity")})}
           >
-            {unread ? (
-              <View className={styles.hint_point}>{unread}</View>
-            ) : null
-            }
+            {/*{unread ? (*/}
+            {/*  <View className={styles.hint_point}>{unread}</View>*/}
+            {/*) : null*/}
+            {/*}*/}
             <Image className={styles.pic2} src={campusIcon}/>
             <View className={styles.desc}>
               <Text className={styles.text}>
                 我的活动
               </Text>
-              {
-                number === undefined ? (
-                  <Text className={styles.hint_number}>0</Text>
-                ) : (
-                  <Text className={styles.hint_number}>{number}</Text>
-                )
-              }
+              {/*{*/}
+              {/*  number === undefined ? (*/}
+              {/*    <Text className={styles.hint_number}>0</Text>*/}
+              {/*  ) : (*/}
+              {/*    <Text className={styles.hint_number}>{number}</Text>*/}
+              {/*  )*/}
+              {/*}*/}
             </View>
           </View>
           <View

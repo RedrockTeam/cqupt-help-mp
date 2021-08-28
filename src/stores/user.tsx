@@ -1,6 +1,7 @@
 import { atob } from "Base64";
 import { login, request } from "@tarojs/taro";
 import { useQuery } from "react-query/dist/react-query.production.min";
+// import { dateToStr } from "miniprogram-ci/dist/@types/vendor/cloud-api/src/utils/common";
 
 let TOKEN: string | undefined;
 
@@ -8,10 +9,11 @@ export const genGetToken = () => {
   const getToken = async (): Promise<string | undefined> => {
     const { code } = await login();
     const { data } = await request({
-      url: `https://be-prod.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
+      url: `https://be-dev.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
       method: "POST",
     });
     if (data.status === "10000") {
+      console.log(data);
       return data.data.token;
     }
   };
@@ -37,6 +39,8 @@ const parseToken = (token: string): UserInfo =>
   JSON.parse(decodeURIComponent(escape(atob(token.split(".")[0]))));
 
 type UserInfo = {
+  stu_num: string;
+  real_name: string;
   college: string;
   realName: string;
   stuNum: string;
@@ -52,11 +56,19 @@ export const getUserInfo = (token: string | undefined) => {
       token: "",
     };
   const userInfo = parseToken(token);
+  // console.log("info");
+  // console.log(userInfo);
   userInfo.token = TOKEN ?? "";
-  return userInfo;
+  console.log(userInfo);
+  return {
+    realName: userInfo.Data.real_name,
+    stuNum: userInfo.Data.stu_num
+  };
 };
 
 export const useUserInfo = () => {
   const { data } = useQuery("getToken", getToken);
+  console.log("token");
+  console.log(data);
   return getUserInfo(data);
 };
