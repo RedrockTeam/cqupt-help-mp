@@ -18,7 +18,7 @@
 ├── babel.config.js
 ├── config
 │   ├── dev.js
-│   ├── index.js
+│   ├── index.jsx
 │   ├── prod.js
 │   └── upload.js # 小程序 CI
 ├── global.d.ts
