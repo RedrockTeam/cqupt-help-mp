@@ -16,6 +16,7 @@ import { useContainer } from "unstated-next";
 // TODO: mock数据，发布时注释
 // import { getAssociationsRes } from "../../mock/getAssociationsRes";
 import { applyIdCard, getAssociations } from "../../services";
+import { ApplyTeamInfo } from "../../services/dto";
 import styles from "./index.module.scss";
 
 const PAGE_TITLE = "身份有证";
@@ -139,16 +140,14 @@ const Apply = () => {
       return;
     }
     try {
-      const applyData = {
+      const applyData: ApplyTeamInfo = {
         team_id: associationsRes?.data.find((e) => e.team_name === name)
-          ?.team_id,
+          ?.team_id!,
       };
       if (type === "社团") {
         applyData.team_id = 10;
-        // @ts-ignore
         applyData.remarks = name;
       }
-      // @ts-ignore
       const res = await mutateApply(applyData);
       if (res!.status === 10000) {
         const hide = Popup.show({
