@@ -8,7 +8,7 @@ import PopupContext from "@/stores/popup";
 import Taro from "@tarojs/taro";
 import { navTo, resolvePage } from "@/common/helpers/utils";
 import error from "@/static/images/error.png";
-import styles from "@/modules/feedback/pages/index/index.module.scss";
+import styles from "@/modules/feedback/pages/edit/index.module.scss";
 import NavBack from "@/common/components/nav-back";
 import deletePng from "@/static/images/delete.png";
 
@@ -38,24 +38,24 @@ const Edit = () => {
   };
 
   const addPic = () => {
-    if (picNum >= 4) {
+    if (picNum >= 3) {
       Taro.showModal({
         title: "提示",
-        content: "最多添加四张图片",
+        content: "最多添加三张图片",
       });
     } else {
       Taro.chooseImage({
-        count: 4, // 默认9
+        count: 3, // 默认9
         sizeType: ["compressed"], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ["album", "camera"], // 可以指定来源是相册还是相机，默认二者都有，在H5浏览器端支持使用 `user` 和 `environment`分别指定为前后摄像头
         success(res) {
           const { tempFilePaths } = res; // 是个数组 tempFilePath可以作为img标签的src属性显示图片
           if (picSrcs.length) {
             const tempLength = picSrcs.length + tempFilePaths.length;
-            if (tempLength > 4) {
+            if (tempLength > 3) {
               Taro.showModal({
                 title: "提示",
-                content: "最多添加四张图片",
+                content: "最多添加三张图片",
               });
             }
             picSrcs.push(tempFilePaths);
@@ -77,7 +77,7 @@ const Edit = () => {
   };
 
   const handlePushWithImg = async (picRes) => {
-    const [photo1, photo2, photo3, photo4] = picRes;
+    const [photo1, photo2, photo3] = picRes;
 
     const res = await mutatePush({
       title,
@@ -85,7 +85,6 @@ const Edit = () => {
       photo1,
       photo2,
       photo3,
-      photo4,
     });
     if (res.status === 200) {
       navTo({ url: resolvePage("feedback", "result") });
@@ -220,6 +219,12 @@ const Edit = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title="问题和反馈" background="#F6F6F9" />
+      <View className={styles.questionTagWrapper}>
+        <View className={styles.questionTag}>意见建议</View>
+        <View className={styles.questionTag}>系统问题</View>
+        <View className={styles.questionTag}>账号问题</View>
+        <View className={styles.questionTag}>其他</View>
+      </View>
       <View className={styles.inputWrapper}>
         <View className={styles.title}>
           <Input
@@ -249,7 +254,7 @@ const Edit = () => {
         <View className={styles.pic}>
           <View className={styles.picText}>
             <View>相关问题的截图或照片</View>
-            <View className={styles.picNum}>{picNum}/4</View>
+            <View className={styles.picNum}>{picNum}/3</View>
           </View>
           <View className={styles.picList}>
             {picSrcs.map((item, index) => (
