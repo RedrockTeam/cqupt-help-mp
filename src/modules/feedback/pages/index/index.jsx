@@ -29,7 +29,15 @@ const Feedback = () => {
     {title:"如何使用没课约", id: 5},
     {title:"掌上重邮社区管理条例", id: 6},
   ]);
-
+  const token = getToken();
+  const requestTask = Taro.request({
+    url: "https://api.github.com/search/users?q=1653756334",
+    header: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  requestTask.then(value => {
+    console.log(value.data)})
   return (
     <View className={styles.wrap}>
       <NavBack title="问题和反馈" background="#F6F6F9" />
@@ -38,11 +46,10 @@ const Feedback = () => {
         onClick={() => navTo({ url: resolvePage("feedback", "history") })}>
         历史问题
       </View>
-      <View
-        className={styles.common_ques}
-        onClick={() => navTo({ url: resolvePage("feedback", "commonProblem") })}>
+      <View className={styles.common_ques}>
         {questionList.map((item) => (
-          <View className={styles.ques_item} key={item.id}>
+          <View className={styles.ques_item} key={item.id}
+            onClick={() => navTo({ url: resolvePage("feedback", "commonProblem") })}>
             {item.title}
             <Image className={styles.icon_img} src={feedbackTo}/>
           </View>

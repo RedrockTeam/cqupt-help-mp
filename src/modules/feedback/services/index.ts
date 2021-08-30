@@ -11,7 +11,6 @@ export const pushFeedback = (data: FeedbackInfo) =>
   });
 
 export const uploadImg = (file) => {
-  console.log("1");
   request<UploadImgRes>("/cyb-permissioncenter/upload/file", {
     method: "POST",
     data: file,
@@ -20,3 +19,13 @@ export const uploadImg = (file) => {
     },
   });
 };
+
+export const pushFeedbackTest = (data: FeedbackInfo) =>
+  request<FeedbackInfoRes, FeedbackInfo>("https://yapi.redrock.team/mock/230/feedback-center/feedback/create", {
+    method: "POST",
+    data,
+    header: {
+        "content-type": "application/x-www-form-urlencoded",
+        "authorization": "Bearer [token]",
+    },
+  });

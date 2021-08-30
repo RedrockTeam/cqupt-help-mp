@@ -22,6 +22,8 @@ const Edit = () => {
   const [picNum, setPicNum] = useState(0);
   const [picRes, setPicRes] = useState([]);
   const [loading, setLoding] = useState(false);
+  const [type, setType] = useState();
+  const [activeIndex, setActiveIndex] = useState();
 
   const [mutatePush] = useMutation(pushFeedback);
   const Popup = useContainer(PopupContext);
@@ -215,15 +217,22 @@ const Edit = () => {
       setTimeout(() => hide(), 1500);
     }
   };
+  // 听不问题类型
+  const types = ["意见建议", "系统问题", "账号问题", "其他"];
+  const chooseType = (index) => {
+    return () => {
+      setType(types[index]);
+      setActiveIndex(index)
+    };
+  };
 
   return (
     <View className={styles.wrapper}>
       <NavBack title="问题和反馈" background="#F6F6F9" />
       <View className={styles.questionTagWrapper}>
-        <View className={styles.questionTag}>意见建议</View>
-        <View className={styles.questionTag}>系统问题</View>
-        <View className={styles.questionTag}>账号问题</View>
-        <View className={styles.questionTag}>其他</View>
+        {
+          types.map((type, index) => <View key={type} className={styles.questionTag + ' ' + (index === activeIndex ? styles.activeQue : '')} onClick={chooseType(index)}>{type}</View>)
+        }
       </View>
       <View className={styles.inputWrapper}>
         <View className={styles.title}>
