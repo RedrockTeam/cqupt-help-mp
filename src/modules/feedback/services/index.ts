@@ -20,12 +20,13 @@ export const uploadImg = (file) => {
   });
 };
 
-export const pushFeedbackTest = (data: FeedbackInfo) =>
-  request<FeedbackInfoRes, FeedbackInfo>("https://yapi.redrock.team/mock/230/feedback-center/feedback/create", {
-    method: "POST",
+export const getCommonQuestionList = () =>
+  request("https://yapi.redrock.team/mock/230/feedback-center/question/list")
+
+export const getHistoryQuestionList = () =>
+  request("https://yapi.redrock.team/mock/230/feedback-center/feedback/list");
+
+export const getHistoryQuestionDetail = (data) =>
+  request("https://yapi.redrock.team/mock/230/feedback-center/feedback/view", {
     data,
-    header: {
-        "content-type": "application/x-www-form-urlencoded",
-        "authorization": "Bearer [token]",
-    },
-  });
+  })

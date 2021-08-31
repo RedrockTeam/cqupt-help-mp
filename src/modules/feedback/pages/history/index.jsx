@@ -18,7 +18,7 @@ const History = () => {
     return () => {
       questionList[index].isView = true;
       setQuestionList([...questionList]);
-      navTo({ url: resolvePage("feedback", "result") });
+      navTo({ url: resolvePage("feedback", "result"), payload: {...questionList[index]} });
     }
   }
   return (

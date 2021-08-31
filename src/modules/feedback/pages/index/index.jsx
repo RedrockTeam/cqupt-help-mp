@@ -17,7 +17,7 @@ import { useContainer } from "unstated-next";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import { getToken } from "@/stores/user";
 import feedbackTo from "@/static/images/feedback-to.png";
-import { pushFeedback } from "../../services";
+import { pushFeedback, getCommonQuestionList } from "../../services";
 import styles from "./index.module.scss";
 
 const Feedback = () => {
@@ -29,15 +29,14 @@ const Feedback = () => {
     {title:"如何使用没课约", id: 5},
     {title:"掌上重邮社区管理条例", id: 6},
   ]);
-  const token = getToken();
-  const requestTask = Taro.request({
-    url: "https://api.github.com/search/users?q=1653756334",
-    header: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  requestTask.then(value => {
-    console.log(value.data)})
+
+  const copy = () => {
+    Taro.setClipboardData({
+      data: "2576373041",
+    });
+  };
+  getCommonQuestionList().then(res => {
+    console.log(res)})
   return (
     <View className={styles.wrap}>
       <NavBack title="问题和反馈" background="#F6F6F9" />
@@ -62,7 +61,7 @@ const Feedback = () => {
       </View>
       <View className={styles.add_group}>
         实时反馈可添加QQ反馈群：
-        <View className={styles.group_num}>2576373041</View>
+        <View className={styles.group_num} onClick={copy}>2576373041</View>
       </View>
     </View>
   );

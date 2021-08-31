@@ -11,6 +11,7 @@ import error from "@/static/images/error.png";
 import styles from "@/modules/feedback/pages/edit/index.module.scss";
 import NavBack from "@/common/components/nav-back";
 import deletePng from "@/static/images/delete.png";
+import feedbackSucImg from "@/static/images/feedback-suc.png"
 
 
 const Edit = () => {
@@ -112,7 +113,14 @@ const Edit = () => {
       detail: content,
     });
     if (res.status === 200) {
-      navTo({ url: resolvePage("feedback", "result") });
+      const hide = Popup.show({
+        img: feedbackSucImg,
+        detail: "提交成功，十四工作日内回复~",
+      });
+      setTimeout(() => {
+        hide();
+        navTo({ url: resolvePage("feedback", "index") });
+      }, 1500);
       setTitle();
       setContent();
       setContentNum();
@@ -217,7 +225,7 @@ const Edit = () => {
       setTimeout(() => hide(), 1500);
     }
   };
-  // 听不问题类型
+  // 问题类型
   const types = ["意见建议", "系统问题", "账号问题", "其他"];
   const chooseType = (index) => {
     return () => {
