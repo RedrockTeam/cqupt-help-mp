@@ -1,0 +1,166 @@
+.wrapper {
+  padding: 22px 30px;
+  .questionTagWrapper {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .questionTag {
+      font-family: PingFang SC;
+      padding: 0 20px;
+      color: #a4a3b7;
+      height: 56px;
+      line-height: 56px;
+      font-size: 28px;
+      border-radius: 28px;
+      border: 1px solid #a4a3b7;
+    }
+  }
+  .inputWrapper {
+    border-radius: 20px;
+    background-color: #ffffff;
+    margin-bottom: 80px;
+    padding: 22px 34px 44px;
+    .title {
+      border-bottom: 1px solid #f2f2f2;
+      padding: 26px 16px;
+      .titleInput {
+        color: #494670;
+        font-weight: bold;
+        font-size: 28px;
+        text-align: left;
+        font-weight: normal;
+        font-family: PingFang SC;
+      }
+      .titleInputHolder {
+        color: #c9c8d2;
+      }
+    }
+    .textWrap {
+      padding: 32px 12px;
+      border-bottom: 1px solid #f2f2f2;
+      text-align: left;
+      height: 346px;
+      .text {
+        width: 614px;
+        color: #494670;
+        font-family: PingFang SC;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 36px;
+        height: 240px;
+      }
+      .textHolder {
+        color: #c9c8d2;
+      }
+      .textNum {
+        text-align: right;
+        color: #a4a3b7;
+        font-size: 28px;
+      }
+    }
+    .pic {
+      .picText {
+        padding: 32px 0 24px;
+        color: #a4a3b7;
+        font-family: PingFang SC;
+        font-weight: 400;
+        font-size: 28px;
+        display: flex;
+        letter-spacing: 3px;
+        .picNum {
+          margin-right: 0;
+          margin-left: auto;
+        }
+      }
+      .picList {
+        display: flex;
+        flex-wrap: wrap;
+        .picWrap {
+          margin: 0;
+          // margin-right: 15px;
+          // margin-bottom: 15px;
+          .picUp {
+            width: 180px;
+            height: 180px;
+            border-radius: 20px;
+          }
+          .del {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            bottom: 150px;
+            left: -30px;
+          }
+        }
+        .picAdd {
+          .addBtn {
+            display: none;
+          }
+          .addLabel {
+            display: block;
+            border-radius: 20px;
+            width: 180px;
+            height: 180px;
+            background-color: #f1f1f8;
+            box-sizing: border-box;
+            color: #c9c8d2;
+            position: relative;
+            &:before {
+              content: "";
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              width: 50px;
+              margin-left: -25px;
+              margin-top: -4px;
+              border-top: 4px solid;
+            }
+            &:after {
+              content: "";
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              height: 50px;
+              margin-left: -4px;
+              margin-top: -25px;
+              border-left: 4px solid;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .button {
+    width: 572px;
+    height: 92px;
+    border-radius: 64px;
+    background: #cecde8;
+    color: #ffffff;
+    font-family: PingFang SC;
+    font-weight: 400;
+    font-size: 36px;
+    margin: 0 auto 48px;
+  }
+  .buttonPush {
+    width: 572px;
+    height: 92px;
+    border-radius: 64px;
+    background: #625af8;
+    color: #ffffff;
+    font-family: PingFang SC;
+    font-weight: 400;
+    font-size: 36px;
+    margin: 0 auto 48px;
+  }
+  .tips {
+    color: #a4a3b7;
+    font-family: PingFang SC;
+    font-weight: 400;
+    font-size: 28px;
+    text-align: center;
+  }
+}

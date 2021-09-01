@@ -62,7 +62,7 @@ const MyTicket = () => {
       console.log(myTicketListRes.data[current].id);
       console.log(dayjs(myTicketListRes.data[current].play_time).unix() - 1800 < now());
       
-      if (res.Status === 200) {
+      if (res.status === 10000) {
         if (dayjs(myTicketListRes.data[current].play_time).unix() - 1800 > now()) {
           const hide = Popup.show({
             img: robSuccessImg,

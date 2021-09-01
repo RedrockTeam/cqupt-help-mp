@@ -13,7 +13,7 @@ import { ActivitiesHomeRes, ApplyActivityInfo, ApplyActivityRes } from "./dto";
 export const bindReq = async ({ account, password }) => {
   const { code } = await login();
   return TaroRequest({
-    url: `https://be-prod.redrock.team/magicloop/rushAb?code=${code}`,
+    url: `https://be-dev.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
     method: "POST",
     header: {
       "content-type": "application/x-www-form-urlencoded",

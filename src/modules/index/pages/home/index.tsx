@@ -23,7 +23,6 @@ import Empty from "@/common/components/empty";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
-
 // TODO: 图床链接已失效，仅一个可用，下次找别的换了
 const list = [
   // "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",

@@ -24,7 +24,7 @@ import Empty from "@/common/components/empty";
 import {
   getRobTicketListInfo,
   robAlternateTicket,
-  robTicket,
+  robTicket
 } from "../../services";
 import Ticket from "../../components/ticket";
 import styles from "./index.module.scss";
@@ -72,7 +72,7 @@ const RobTicket = () => {
 
   // 选择弹窗
   const SelectPopupFun = () => {
-    const [state, setState] = useState(true);
+    const [ state, setState ] = useState(true);
     const changeState = () => {
       if (state) {
         setRemindRuleState(false);
@@ -142,15 +142,13 @@ const RobTicket = () => {
           remindCloseCount={remindCloseCount}
         />
       </View>
-    );
-  };
+    )
+  }
 
-  const [currentState, setCurrentState] = useState<number>(0);
-  const [blackListCounter, setBlackListCounter] = useState<number>(0);
-  const [ticketListMovie, setTicketListMovie] = useState<RobTicketInfo[]>([]);
-  const [ticketListLecture, setTicketListLecture] = useState<RobTicketInfo[]>(
-    []
-  );
+  const [ currentState, setCurrentState ] = useState<number>(0);
+  const [ blackListCounter, setBlackListCounter ] = useState<number>(0);
+  const [ ticketListMovie, setTicketListMovie ] = useState<RobTicketInfo[]>([]);
+  const [ ticketListLecture, setTicketListLecture ] = useState<RobTicketInfo[]>([]);
 
   const { data: ticketList, isLoading, isError } = useQuery(
     "robTicketListInfo",
@@ -161,9 +159,10 @@ const RobTicket = () => {
         // if (data === undefined) {
         //   return;
         // }
-        setTicketListLecture(data.data.filter((res) => res.type === 0));
-        setTicketListMovie(data.data.filter((res) => res.type === 1));
-      },
+        setTicketListLecture(data.data.filter(res => res.type === 0));
+        setTicketListMovie(data.data.filter(res => res.type === 1));
+
+      }
     }
   );
   // const isLoading = false;
