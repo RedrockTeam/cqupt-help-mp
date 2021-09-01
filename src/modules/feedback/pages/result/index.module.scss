@@ -20,20 +20,23 @@
       .title {
         font-size: 36px;
         font-weight: 700;
+        height: 36px;
+        line-height: 36px;
         display: inline-block;
         font-family: PingFang SC;
         .tag {
-          height: 36px;
+          height: 32px;
           color: #625AF8;
           font-size: 18px;
           display: inline-block;
           border: 1px solid #625af8;
           border-radius: 2px 14px 14px 14px;
           text-align: center;
-          line-height: 30px;
+          line-height: 32px;
           margin-left: 20px;
-          vertical-align: middle;
+          vertical-align: bottom;
           padding: 0 16px;
+          box-sizing: border-box;
         }
       }
       .content {
@@ -59,6 +62,12 @@
     color: #777494;
     position: relative;
     text-align: center;
-    margin-top: 380px;
+    margin-top: 100px;
+    .icon {
+      display: block;
+      width: 360px;
+      height: 284px;
+      margin: 0 auto 50px auto;
+    }
   }
 }

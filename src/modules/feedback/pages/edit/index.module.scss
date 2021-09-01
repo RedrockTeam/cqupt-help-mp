@@ -27,6 +27,7 @@
     margin-bottom: 80px;
     padding: 22px 34px 44px;
     .title {
+      position: relative;
       border-bottom: 1px solid #f2f2f2;
       padding: 26px 16px;
       .titleInput {
@@ -39,6 +40,13 @@
       }
       .titleInputHolder {
         color: #c9c8d2;
+      }
+      .titleNum {
+        color: #C9C8D2;
+        font-size: 28px;
+        position: absolute;
+        right: 36px;
+        top: 30px;
       }
     }
     .textWrap {
@@ -80,34 +88,40 @@
         }
       }
       .picList {
-        display: flex;
-        flex-wrap: wrap;
+        //display: flex;
+        //flex-wrap: wrap;
         .picWrap {
-          margin: 0;
-          // margin-right: 15px;
-          // margin-bottom: 15px;
+          position: relative;
+          margin-right: 26px;
+          display: inline-block;
+          width: 190px;
+          height: 190px;
           .picUp {
-            width: 180px;
-            height: 180px;
+            width: 190px;
+            height: 190px;
             border-radius: 20px;
           }
           .del {
             width: 20px;
             height: 20px;
-            position: relative;
-            bottom: 150px;
-            left: -30px;
+            position: absolute;
+            bottom: 155px;
+            right: 14px;
+          }
+          &:nth-child(3) {
+            margin-right: 0;
           }
         }
         .picAdd {
+          display: inline-block;
           .addBtn {
             display: none;
           }
           .addLabel {
             display: block;
             border-radius: 20px;
-            width: 180px;
-            height: 180px;
+            width: 190px;
+            height: 190px;
             background-color: #f1f1f8;
             box-sizing: border-box;
             color: #c9c8d2;

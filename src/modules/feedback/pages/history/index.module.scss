@@ -33,6 +33,7 @@
       line-height: 70px;
       text-align: center;
       border-radius: 66px 66px 0 0;
+      color: #CECDE8;
 
       background: #f2f1f9;
 
@@ -58,6 +59,7 @@
       line-height: 70px;
       text-align: center;
       border-radius: 66px 66px 0 0;
+      color: #FF6195;
 
       background: #ffe5ee;
     }
@@ -66,11 +68,16 @@
 
   .none_feedback {
     position: absolute;
-    width: 346px;
-    height: 56px;
+    text-align: center;
     color: #777494;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-50%);
+
+    .icon {
+      display: block;
+      width: 400px;
+      height: 300px;
+    }
   }
 }

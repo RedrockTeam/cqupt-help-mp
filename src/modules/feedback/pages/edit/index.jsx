@@ -20,8 +20,10 @@ const Edit = () => {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [contentNum, setContentNum] = useState(0);
+  const [titleNum, setTitleNum] = useState(0);
   const [picNum, setPicNum] = useState(0);
   const [picRes, setPicRes] = useState([]);
+  const [showAddPic, setShowAddPic] = useState(true);
   const [loading, setLoding] = useState(false);
   const [type, setType] = useState();
   const [activeIndex, setActiveIndex] = useState();
@@ -32,6 +34,7 @@ const Edit = () => {
   const titleChange = (e) => {
     const { value } = e.detail;
     setTitle(value);
+    setTitleNum(value.length);
   };
 
   const contentChange = (e) => {
@@ -53,6 +56,9 @@ const Edit = () => {
         sourceType: ["album", "camera"], // 可以指定来源是相册还是相机，默认二者都有，在H5浏览器端支持使用 `user` 和 `environment`分别指定为前后摄像头
         success(res) {
           const { tempFilePaths } = res; // 是个数组 tempFilePath可以作为img标签的src属性显示图片
+          if (tempFilePaths.length + picSrcs.length >= 3) {
+            setShowAddPic(false);
+          }
           if (picSrcs.length) {
             const tempLength = picSrcs.length + tempFilePaths.length;
             if (tempLength > 3) {
@@ -61,9 +67,10 @@ const Edit = () => {
                 content: "最多添加三张图片",
               });
             }
-            picSrcs.push(tempFilePaths);
-            setPicSrcs([...picSrcs]);
-            setPicNum(tempLength);
+            // picSrcs.push(tempFilePaths);
+            const tempPaths = [...picSrcs, ...tempFilePaths].slice(0, 3);
+            setPicSrcs([...tempPaths]);
+            setPicNum(tempPaths.length);
           } else {
             setPicSrcs(tempFilePaths);
             setPicNum(tempFilePaths.length);
@@ -77,6 +84,7 @@ const Edit = () => {
     picSrcs.splice(index, 1);
     setPicSrcs([...picSrcs]);
     setPicNum([...picSrcs].length);
+    setShowAddPic(true);
   };
 
   const handlePushWithImg = async (picRes) => {
@@ -90,7 +98,7 @@ const Edit = () => {
       photo3,
     });
     if (res.status === 200) {
-      navTo({ url: resolvePage("feedback", "result") });
+      navTo({ url: resolvePage("feedback", "index") });
       setPicNum(0);
       setPicRes();
       setPicSrcs([]);
@@ -245,8 +253,8 @@ const Edit = () => {
       <View className={styles.inputWrapper}>
         <View className={styles.title}>
           <Input
-            placeholder="请输入标题(不超过十个字)"
-            maxlength="10"
+            placeholder="请输入标题(不超过十二个字)"
+            maxlength="12"
             onInput={(e) => {
               titleChange(e);
             }}
@@ -254,19 +262,20 @@ const Edit = () => {
             className={styles.titleInput}
             placeholderClass={styles.titleInputHolder}
           />
+          <View className={styles.titleNum}>{12 - titleNum}</View>
         </View>
         <View className={styles.textWrap}>
           <Textarea
             className={styles.text}
             placeholder="请输入您的详细问题和意见，我们会认真看完哒~"
-            maxlength={150}
+            maxlength={200}
             onInput={(e) => {
               contentChange(e);
             }}
             value={content}
             placeholderClass={styles.textHolder}
           />
-          <View className={styles.textNum}>{contentNum}/150</View>
+          <View className={styles.textNum}>{contentNum}/200</View>
         </View>
         <View className={styles.pic}>
           <View className={styles.picText}>
@@ -285,17 +294,20 @@ const Edit = () => {
               </View>
             ))}
 
-            <View className={styles.picAdd}>
-              <Button className={styles.addBtn} id="add" onClick={addPic} />
-              <Label className={styles.addLabel} for="add" />
-            </View>
+            {
+              showAddPic ? (
+              <View className={styles.picAdd}>
+                <Button className={styles.addBtn} id="add" onClick={addPic} />
+                <Label className={styles.addLabel} for="add" />
+              </View>
+            ) : <></>}
           </View>
         </View>
       </View>
 
       <Button
-        className={title && content ? styles.buttonPush : styles.button}
-        disabled={!(title && content)}
+        className={title && content && type ? styles.buttonPush : styles.button}
+        disabled={!(title && content && type)}
         onClick={handlePushFeedback}
       >
         {loading ? "提交中..." : "提交反馈"}

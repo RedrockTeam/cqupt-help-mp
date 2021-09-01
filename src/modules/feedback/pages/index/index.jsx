@@ -17,7 +17,7 @@ import { useContainer } from "unstated-next";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import { getToken } from "@/stores/user";
 import feedbackTo from "@/static/images/feedback-to.png";
-import { pushFeedback, getCommonQuestionList } from "../../services";
+import { pushFeedback } from "../../services";
 import styles from "./index.module.scss";
 
 const Feedback = () => {
@@ -32,11 +32,9 @@ const Feedback = () => {
 
   const copy = () => {
     Taro.setClipboardData({
-      data: "2576373041",
+      data: "948304245",
     });
   };
-  getCommonQuestionList().then(res => {
-    console.log(res)})
   return (
     <View className={styles.wrap}>
       <NavBack title="问题和反馈" background="#F6F6F9" />
@@ -61,7 +59,7 @@ const Feedback = () => {
       </View>
       <View className={styles.add_group}>
         实时反馈可添加QQ反馈群：
-        <View className={styles.group_num} onClick={copy}>2576373041</View>
+        <View className={styles.group_num} onClick={copy}>948304245</View>
       </View>
     </View>
   );

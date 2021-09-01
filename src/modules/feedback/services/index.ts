@@ -19,14 +19,3 @@ export const uploadImg = (file) => {
     },
   });
 };
-
-export const getCommonQuestionList = () =>
-  request("https://yapi.redrock.team/mock/230/feedback-center/question/list")
-
-export const getHistoryQuestionList = () =>
-  request("https://yapi.redrock.team/mock/230/feedback-center/feedback/list");
-
-export const getHistoryQuestionDetail = (data) =>
-  request("https://yapi.redrock.team/mock/230/feedback-center/feedback/view", {
-    data,
-  })
