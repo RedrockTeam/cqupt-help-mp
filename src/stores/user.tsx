@@ -1,7 +1,6 @@
 import { atob } from "Base64";
 import { login, request } from "@tarojs/taro";
 import { useQuery } from "react-query/dist/react-query.production.min";
-// import { dateToStr } from "miniprogram-ci/dist/@types/vendor/cloud-api/src/utils/common";
 
 let TOKEN: string | undefined;
 
@@ -9,11 +8,10 @@ export const genGetToken = () => {
   const getToken = async (): Promise<string | undefined> => {
     const { code } = await login();
     const { data } = await request({
-      url: `https://be-dev.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
+      url: `https://be-prod.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
       method: "POST",
     });
     if (data.status === "10000") {
-      console.log(data);
       return data.data.token;
     }
   };

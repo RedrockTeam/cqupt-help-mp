@@ -41,30 +41,111 @@
         padding-right: 10px;
       }
     }
-    .input {
-      background: #ffffff;
-      border: 3px solid #cdcce0;
-      box-sizing: border-box;
-      border-radius: 122px;
-      width: 622px;
-      height: 88px;
-      color: #1c184c;
-      padding-left: 52px;
-      font-family: PingFang SC;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 30px;
-      line-height: 48px;
+    .inputWrapper {
+      position: relative;
+      .input {
+        position: relative;
+        z-index: 50;
+        background: #ffffff;
+        box-sizing: border-box;
+        border-radius: 44px;
+        width: 622px;
+        height: 88px;
+        color: #494670;
+        padding-left: 52px;
+        padding-right: 76px;
+        font-size: 30px;
+        line-height: 48px;
+        border: 3px solid #cdcce0;
+        &::after {
+          content: "";
+          position: absolute;
+          right: 45px;
+          top: 22px;
+          width: 30px;
+          height: 30px;
+          background-image: url(../../../../static/images/id/angle.png);
+          background-size: 80% 80%;
+          background-position: center;
+          background-repeat: no-repeat;
+
+          // border-style: solid;
+          // border-width: 0 15px 30px 15px;
+          // border-color: transparent transparent #cdcce0 transparent;
+          // border-radius: 1px;
+        }
+        &.active {
+          border: 3px solid transparent;
+        }
+        &.active::after {
+          content: "";
+          position: absolute;
+          right: 45px;
+          top: 22px;
+          width: 30px;
+          height: 30px;
+          background-image: url(../../../../static/images/id/angle-active.png);
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+      }
+      .select {
+        width: 627px;
+        height: 850px;
+        border: 3px solid #625af8;
+        border-radius: 20px;
+        background-color: transparent;
+        top: -2px;
+        left: -2px;
+        position: absolute;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(20px);
+        .itemWrapper {
+          box-sizing: border-box;
+          overflow-y: auto;
+          height: 742px;
+          padding-top: 10px;
+          margin: 88px 32px 0;
+          border-top: 2px solid rgba(0, 0, 0, 0.05);
+          &::-webkit-scrollbar {
+            border-radius: 99px;
+            width: 10px;
+            background-color: transparent;
+          }
+          &::-webkit-scrollbar-track {
+            border-radius: 99px;
+            background-color: transparent;
+          }
+          &::-webkit-scrollbar-thumb {
+            width: 10px;
+            background: #d1ceff;
+            border-radius: 99px;
+          }
+          .item {
+            padding: 16px 20px;
+            line-height: 48px;
+            font-size: 30px;
+            color: #494670;
+          }
+        }
+      }
     }
   }
-  .buttonPush {
-    margin-top: 132px;
-    width: 622px;
-  }
-  .button {
-    background: #cecde8;
+  .btn {
+    width: 356px;
+    height: 90px;
+    position: fixed;
+    z-index: 0;
+    bottom: 40px;
+    left: 25%;
+    background: #625af8;
+    border-radius: 64px;
+    font-size: 36px;
+    line-height: 90px;
     color: #ffffff;
-    margin-top: 132px;
-    width: 622px;
+  }
+  .placeholder {
+    color: #a4a3b7;
   }
 }

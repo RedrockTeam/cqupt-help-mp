@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {Image, OpenData, Text, View} from "@tarojs/components";
-import {navTo, resolvePage} from "@/common/helpers/utils";
+import React, { useState } from "react";
+import { Image, OpenData, Text, View } from "@tarojs/components";
+import { navTo, resolvePage } from "@/common/helpers/utils";
 import request from "@/common/helpers/request";
 import avator from "@/static/images/empty.png";
 import aboutIcon from "@/static/images/about-icon.png";
@@ -11,17 +11,15 @@ import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
-import {useUserInfo} from "@/stores/user";
-import {redirectTo, useDidShow, scanCode} from "@tarojs/taro";
+import { useUserInfo } from "@/stores/user";
+import { redirectTo, useDidShow, scanCode } from "@tarojs/taro";
 import styles from "./index.module.scss";
-import {useMutation} from "react-query/dist/react-query.production.min";
-import {getMyReads} from "../../services";
+import { useMutation } from "react-query/dist/react-query.production.min";
+import { getMyReads } from "../../services";
 import Placeholder from "@/common/components/placeholder";
 
 function MyIndex() {
-
   const userInfo = useUserInfo();
-  // console.log(useUserInfo());
   const [showPop, setshowPop] = useState(false);
   const handleLoginout = async () => {
     const res = await request("https://be-dev.redrock.cqupt.edu.cn/magicloop/unbind/xcx");
@@ -32,10 +30,9 @@ function MyIndex() {
     }
   };
 
-
-  const [myReadsRes, setReadsRes] = useState(null)
-  const [isLoading, setLoading] = useState(true)
-  const [isError, setError] = useState(false)
+  let [myReadsRes, setReadsRes] = useState(null);
+  let [isLoading, setLoading] = useState(true);
+  let [isError, setError] = useState(false);
 
   // const [mutateReadRes] = useMutation(getMyReads, {
   //   onSuccess(myReadsRes) {
@@ -81,14 +78,14 @@ function MyIndex() {
           </View>
         </View>
         <View className={styles.top_bottom}>
-          <View onClick={() => navTo({url: resolvePage("my", "my-reward")})}>
-            <Image className={styles.pic1} src={prizeIcon}/>
+          <View onClick={() => navTo({ url: resolvePage("my", "my-reward") })}>
+            <Image className={styles.pic1} src={prizeIcon} />
             <View className={styles.desc}>
               <Text className={styles.text}>我的奖品</Text>
             </View>
           </View>
           <View
-            onClick={() => navTo({url: resolvePage("my", "my-activity")})}
+            onClick={() => navTo({ url: resolvePage("my", "my-activity") })}
           >
             {/*{unread ? (*/}
             {/*  <View className={styles.hint_point}>{unread}</View>*/}
@@ -109,9 +106,9 @@ function MyIndex() {
             </View>
           </View>
           <View
-            onClick={() => navTo({url: resolvePage("ticket", "my-ticket")})}
+            onClick={() => navTo({ url: resolvePage("ticket", "my-ticket") })}
           >
-            <Image className={styles.pic3} src={ticketIcon}/>
+            <Image className={styles.pic3} src={ticketIcon} />
             <View className={styles.desc}>
               <Text className={styles.text}>我的影票</Text>
             </View>
@@ -122,15 +119,17 @@ function MyIndex() {
       <View className={styles.list}>
         <View
           className={styles.feedback}
-          onClick={() => navTo({url: resolvePage("feedback", "index")})}
+          onClick={() => navTo({ url: resolvePage("feedback", "index") })}
         >
-          <Image src={feedbackIcon} className={styles.icon}/>
+          <Image src={feedbackIcon} className={styles.icon} />
           <Text className={styles.text}>意见反馈</Text>
-          <Image src={enter} className={styles.enter}/>
+          <Image src={enter} className={styles.enter} />
         </View>
         <View
           className={styles.feedback}
-          onClick={() => navTo({ url: resolvePage("ticket-appeal", "home-list") })}
+          onClick={() =>
+            navTo({ url: resolvePage("ticket-appeal", "home-list") })
+          }
         >
           <Image src={ticketAppeal} className={styles.icon} />
           <Text className={styles.text}>影票申诉</Text>
@@ -141,35 +140,46 @@ function MyIndex() {
           onClick={() =>
             navTo({
               url: "https://wx.redrock.team/game/about-us/mobile.html",
-              payload: {title: "红岩网校 - 关于我们"},
+              payload: { title: "红岩网校 - 关于我们" },
             })
           }
         >
-          <Image src={aboutIcon} className={styles.icon}/>
+          <Image src={aboutIcon} className={styles.icon} />
           <Text className={styles.text}>关于我们</Text>
-          <Image src={enter} className={styles.enter}/>
+          <Image src={enter} className={styles.enter} />
         </View>
       </View>
       <View className={styles.listAccount}>
-        <View className={styles.loginOut} onClick={() => navTo({url: resolvePage("account-safe", "index")})}>
-          <Image className={styles.icon} src={loginOut}/>
+        <View
+          className={styles.loginOut}
+          onClick={() => navTo({ url: resolvePage("account-safe", "index") })}
+        >
+          <Image className={styles.icon} src={loginOut} />
           <Text className={styles.text}>账号安全</Text>
-          <Image src={enter} className={styles.enter}/>
+          <Image src={enter} className={styles.enter} />
         </View>
         <View className={styles.loginOut} onClick={() => setshowPop(true)}>
-          <Image className={styles.icon} src={loginOut}/>
+          <Image className={styles.icon} src={loginOut} />
           <Text className={styles.text}>切换账号</Text>
         </View>
       </View>
       <View>
-        <View className={styles.cover} style={showPop ? null : "display:none;"}/>
+        <View
+          className={styles.cover}
+          style={showPop ? null : "display:none;"}
+        />
         <View className={showPop ? styles.popWindowActive : styles.popWindow}>
           <View className={styles.title}>确定退出当前账号？</View>
-          <View className={styles.confirm} onClick={() => handleLoginout()}>确定</View>
-          <View className={styles.cancel} onClick={() => setshowPop(false)}>取消</View>
+          <View className={styles.confirm} onClick={() => handleLoginout()}>
+            确定
+          </View>
+          <View className={styles.cancel} onClick={() => setshowPop(false)}>
+            取消
+          </View>
         </View>
       </View>
-    </View>);
+    </View>
+  );
 }
 
 

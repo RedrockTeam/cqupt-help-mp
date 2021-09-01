@@ -1,105 +1,63 @@
+@font-face {
+  font-family: XuanRen;
+  src: url(../../../../static/fonts/XuanRen.ttf);
+}
+
+@font-face {
+  font-family: REEJI-HonghuangLiGB;
+  src: url(../../../../static/fonts/REEJI-HonghuangLiGB.ttf);
+}
 .wrapper {
-  background: #ffffff;
+  background: #f6f6f9;
   min-height: 100vh;
-  margin-bottom: 16px;
-  padding: 42px 30px;
   .card {
     width: 690px;
     height: 328px;
     border-radius: 16px;
-    margin: 0 auto 54px;
-    background-color: pink;
-    padding: 32px;
+    margin: 40px auto;
+    padding: 40px 40px 36px;
     box-sizing: border-box;
     background-size: cover;
-    &:nth-child(4n + 1) {
-      background-image: url("../../../../static/images/id1.png");
-    }
-    &:nth-child(4n + 2) {
-      background-image: url("../../../../static/images/id2.png");
-    }
-    &:nth-child(4n + 3) {
-      background-image: url("../../../../static/images/id3.png");
-    }
-    &:nth-child(4n + 4) {
-      background-image: url("../../../../static/images/id4.png");
-    }
   }
   .top {
     display: flex;
-    align-items: center;
-    .avator {
-      display: block;
-      width: 112px;
-      height: 112px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      overflow: hidden;
-    }
-    .top_right {
-      padding-left: 26px;
-      padding-top: 10px;
-      .name {
-        font-family: PingFang SC;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 40px;
-        line-height: 36px;
-        color: #ffffff;
-        margin-bottom: 8px;
-      }
-      .info {
-        font-family: PingFang SC;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 32px;
-        line-height: 56px;
-        text-align: center;
-        letter-spacing: 0.06em;
-        color: #f2f1f9;
-      }
+    .teamName {
+      font-family: XuanRen;
+      line-height: 56px;
+      letter-spacing: 0.05em;
+      font-size: 44px;
+      color: #fff;
     }
   }
 
   .footer {
-    display: flex;
-    margin-top: 114px;
-    justify-content: space-between;
-    .time {
-      font-family: PingFang SC;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 28px;
-      line-height: 56px;
-      text-align: center;
-      letter-spacing: 0.03em;
-      color: #f2f1f9;
+    margin-top: 110px;
+    color: #fff;
+    .title {
+      margin-bottom: 8px;
+      font-family: XuanRen;
+      font-size: 36px;
+      line-height: 46px;
+      letter-spacing: 0.05em;
     }
-    .department {
-      font-family: PingFang SC;
-      font-style: normal;
-      font-weight: normal;
+    .time {
+      font-weight: 900;
       font-size: 28px;
-      line-height: 56px;
-      text-align: center;
-      letter-spacing: 0.06em;
-      color: #f2f1f9;
+      font-family: REEJI-HonghuangLiGB;
+      line-height: 30px;
     }
   }
 
   .btn {
-    width: 360px;
-    height: 88px;
+    width: 356px;
+    height: 90px;
     position: fixed;
     bottom: 40px;
     left: 25%;
     background: #625af8;
     border-radius: 64px;
-    font-family: PingFang SC;
-    font-style: normal;
-    font-weight: normal;
     font-size: 36px;
-    line-height: 88px;
+    line-height: 90px;
     color: #ffffff;
   }
 }
