@@ -13,7 +13,7 @@ import { ActivitiesHomeRes, ApplyActivityInfo, ApplyActivityRes } from "./dto";
 export const bindReq = async ({ account, password }) => {
   const { code } = await login();
   return TaroRequest({
-    url: `https://be-prod.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
+    url: `https://be-dev.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
     method: "POST",
     header: {
       "content-type": "application/x-www-form-urlencoded",
@@ -26,7 +26,7 @@ export const bindReq = async ({ account, password }) => {
 };
 
 export const getHomeActivities = (_key: string) =>
-  request<ActivitiesHomeRes>("/cyb-myactivities/allac");
+  request<ActivitiesHomeRes>("/christina-activity/activity/front/activities");
 
 export const applyActivity = (data: ApplyActivityInfo) =>
   request<ApplyActivityRes, ApplyActivityInfo>("/cyb-myactivities/registe", {

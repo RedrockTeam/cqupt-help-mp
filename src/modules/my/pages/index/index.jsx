@@ -15,12 +15,18 @@ import { useUserInfo } from "@/stores/user";
 import { redirectTo, useDidShow, scanCode } from "@tarojs/taro";
 import styles from "./index.module.scss";
 import { useMutation } from "react-query/dist/react-query.production.min";
-import { getMyReads } from "../../services";
+import { getMyVolunteerReads , getMyActivityReads} from "../../services";
 import Placeholder from "@/common/components/placeholder";
 
 function MyIndex() {
   const userInfo = useUserInfo();
   const [showPop, setshowPop] = useState(false);
+  const [myVolunteerReadsRes, setMyVolunteerReadsRes] = useState(null);
+  const [myActivityReadsRes, setMyActivityReadsRes] = useState(null);
+
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
+
   const handleLoginout = async () => {
     const res = await request("https://be-dev.redrock.cqupt.edu.cn/magicloop/unbind/xcx");
     if (res.status === 10000) {
@@ -29,37 +35,42 @@ function MyIndex() {
       });
     }
   };
+  const [mutateVolunteerReadRes] = useMutation(getMyVolunteerReads, {
+    onSuccess(myReadsRes) {
+      setMyVolunteerReadsRes(myReadsRes.data);
+      setLoading(false);
+    },
+    onError() {
+      setError(true)
+    }
+  })
+  const [mutateActivityReadRes] = useMutation(getMyActivityReads, {
+    onSuccess(myReadsRes) {
+      setMyActivityReadsRes(myReadsRes.data);
+      setLoading(false);
+    },
+    onError() {
+      setError(true)
+    }
+  })
+  useDidShow(() => {
+    mutateVolunteerReadRes();
+    mutateActivityReadRes()
+  })
 
-  let [myReadsRes, setReadsRes] = useState(null);
-  let [isLoading, setLoading] = useState(true);
-  let [isError, setError] = useState(false);
-
-  // const [mutateReadRes] = useMutation(getMyReads, {
-  //   onSuccess(myReadsRes) {
-  //     setReadsRes(myReadsRes);
-  //     setLoading(false);
-  //   },
-  //   onError() {
-  //     setError(true)
-  //   }
-  // })
-  // useDidShow(() => {
-  //   mutateReadRes();
-  // })
-
-  // if (isLoading) {
-  //   return (
-  //     <View className={styles.holder}>
-  //       <Placeholder/>
-  //     </View>
-  //   )
-  // }
-  // if (isError || !myReadsRes)
-  //   return <Placeholder isError/>;
+  if (isLoading) {
+    return (
+      <View className={styles.holder}>
+        <Placeholder/>
+      </View>
+    )
+  }
+  if (isError || !myVolunteerReadsRes || !myActivityReadsRes)
+    return <Placeholder isError/>;
 
 
-  // const {number, unread} = myReadsRes.data
-
+  const [number, unread] = [myVolunteerReadsRes.number + myActivityReadsRes.number , myVolunteerReadsRes.un_read + myActivityReadsRes.un_read]
+  console.log(number,unread);
   return (
     <View className={styles.wrapper}>
       <View className={styles.top}>
@@ -87,20 +98,21 @@ function MyIndex() {
           <View
             onClick={() => navTo({ url: resolvePage("my", "my-activity") })}
           >
-            {/*{unread ? (*/}
-            {/*  <View className={styles.hint_point}>{unread}</View>*/}
-            {/*) : null*/}
-            {/*}*/}
+            {unread ? (
+              <View className={styles.hint_point}>{unread}</View>
+            ) : null
+            }
             <Image className={styles.pic2} src={campusIcon}/>
             <View className={styles.desc}>
               <Text className={styles.text}>
                 我的活动
               </Text>
+              <Text className={styles.hint_number}>{number}</Text>
               {/*{*/}
-              {/*  number === undefined ? (*/}
+              {/*  number === 0 ? (*/}
               {/*    <Text className={styles.hint_number}>0</Text>*/}
               {/*  ) : (*/}
-              {/*    <Text className={styles.hint_number}>{number}</Text>*/}
+              {/*    <Text className={styles.hint_number}>0</Text>*/}
               {/*  )*/}
               {/*}*/}
             </View>
@@ -119,7 +131,7 @@ function MyIndex() {
       <View className={styles.list}>
         <View
           className={styles.feedback}
-          onClick={() => navTo({ url: resolvePage("feedback", "index") })}
+          onClick={() => navTo({ url: resolvePage("feedback", "edit") })}
         >
           <Image src={feedbackIcon} className={styles.icon} />
           <Text className={styles.text}>意见反馈</Text>
@@ -139,7 +151,7 @@ function MyIndex() {
           className={styles.about}
           onClick={() =>
             navTo({
-              url: "https://wx.redrock.team/game/about-us/mobile.html",
+              url: "https://redrock.team/#/",
               payload: { title: "红岩网校 - 关于我们" },
             })
           }

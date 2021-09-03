@@ -219,12 +219,12 @@ const Edit = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title="问题和反馈" background="#F6F6F9" />
-      <View className={styles.questionTagWrapper}>
-        <View className={styles.questionTag}>意见建议</View>
-        <View className={styles.questionTag}>系统问题</View>
-        <View className={styles.questionTag}>账号问题</View>
-        <View className={styles.questionTag}>其他</View>
-      </View>
+      {/*<View className={styles.questionTagWrapper}>*/}
+      {/*  <View className={styles.questionTag}>意见建议</View>*/}
+      {/*  <View className={styles.questionTag}>系统问题</View>*/}
+      {/*  <View className={styles.questionTag}>账号问题</View>*/}
+      {/*  <View className={styles.questionTag}>其他</View>*/}
+      {/*</View>*/}
       <View className={styles.inputWrapper}>
         <View className={styles.title}>
           <Input

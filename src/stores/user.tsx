@@ -8,7 +8,7 @@ export const genGetToken = () => {
   const getToken = async (): Promise<string | undefined> => {
     const { code } = await login();
     const { data } = await request({
-      url: `https://be-prod.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
+      url: `https://be-dev.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
       method: "POST",
     });
     if (data.status === "10000") {
@@ -60,7 +60,8 @@ export const getUserInfo = (token: string | undefined) => {
   console.log(userInfo);
   return {
     realName: userInfo.Data.real_name,
-    stuNum: userInfo.Data.stu_num
+    stuNum: userInfo.Data.stu_num,
+    token : token
   };
 };
 

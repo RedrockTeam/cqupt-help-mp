@@ -9,6 +9,8 @@ import {
   Text,
   View,
 } from "@tarojs/components";
+import newIcon from "@/static/images/new-icon.png";
+import homeYoungIcon from "@/static/images/home-young-icon.png";
 import homeTicketIcon from "@/static/images/home-ticket-icon.png";
 import homeCampusIcon from "@/static/images/home-campus-icon.png";
 import homeVolunteerIcon from "@/static/images/home-volunteer-icon.png";
@@ -23,6 +25,7 @@ import Empty from "@/common/components/empty";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
+import { useUserInfo } from "@/stores/user";
 // TODO: 图床链接已失效，仅一个可用，下次找别的换了
 const list = [
   // "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",
@@ -33,8 +36,7 @@ const list = [
 ]; // 轮播图的图片
 
 export default function Index() {
-  // const {token} = useUserInfo();
-
+  const {token} = useUserInfo();
   const [slidePercent, setSlidePercent] = useState(0);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
     e
@@ -141,11 +143,11 @@ export default function Index() {
             <Image src={homeVolunteerIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>志愿报名</Text>
           </View>
-          {/* <View
+       <View
             className={styles.slideItem}
             onClick={() =>
               navTo({
-                url: "https://wx.redrock.team/game/youyue/#/",
+                url: "https://fe-prod.redrock.cqupt.edu.cn/youyue#/",
                 payload: {
                   title: "青春邮约",
                   t: token,
@@ -157,7 +159,7 @@ export default function Index() {
             <Image src={homeYoungIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>青春邮约</Text>
             <Image className={styles.newIcon} src={newIcon} />
-          </View> */}
+          </View>
           <View
             className={styles.slideItem}
             onClick={() => navTo({ url: resolvePage("id", "index") })}
@@ -173,7 +175,7 @@ export default function Index() {
             className={styles.scrollBarSlide}
             style={{
               // FIXME: 大于四个的时候删掉下面这行
-              width: "100%",
+              // width: "100%",
               left: slidePercent,
             }}
           />
@@ -186,3 +188,4 @@ export default function Index() {
     </View>
   );
 }
+
