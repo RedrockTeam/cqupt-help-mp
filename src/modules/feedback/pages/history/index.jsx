@@ -15,7 +15,7 @@ const History = () => {
   const [time, setTime] = useState([]);
   const [date, setDate] = useState([]);
   useEffect(() => {
-    getHistoryQuestionList().then(res => {
+    getHistoryQuestionList().then(async res => {
       const list = [];
       const { feedbacks } = res.data;
       const reversedBack = feedbacks.reverse()
@@ -28,23 +28,23 @@ const History = () => {
         tempTime.push(ele.UpdatedAt.slice(11, 16));
         list.push({id: ele.ID, UpdatedAt: ele.UpdatedAt})
       });
-      getStorage({
+      await getStorage({
         key: "list",
         success: (res) => {
-          const list = JSON.parse(res.data)
-          list.forEach((ele, index) => {
+          const list = res.data;
+          list.forEach((ele) => {
             if (!ele.isClick) {
               tempViewList.push(false);
-            }else {
+            } else {
               tempViewList.push(true);
             }
-          })
-          setViewList([...tempViewList])
+          });
         },
         fail: () => {
-          setStorage({key: "list", data: []})
-        }
-      })
+          setStorage({ key: "list", data: list });
+        },
+      });
+      setViewList([...tempViewList]);
       setTime([...tempTime]);
       setDate([...tempDate]);
     });
@@ -54,17 +54,19 @@ const History = () => {
     return () => {
       const { ID } = questionList[index];
       viewList[index] = true;
-      setViewList([...viewList])
+      setViewList([...viewList]);
       getStorage({
         key: "list",
         success: (res) => {
-          const list = JSON.parse(res.data);
+          const list = res.data;
           let i;
-          const clickItem = list.find((obj, index) => {
+          list.find((obj, index) => {
             i = index;
             return obj.id === ID;
-          })
-          list[i].isClick = true;
+          });
+          if (questionList[i].replied) {
+            list[i].isClick = true;
+          }
           setStorage({key: "list", data: list});
         }
       })
@@ -83,7 +85,7 @@ const History = () => {
             <View className={styles.up_time}>{date[index]} &nbsp; {time[index]}提交</View>
             <View className={item.replied ? styles.replied : styles.no_reply}>
               {item.replied ? '已' : '未'}回复
-              {viewList[index] ? <></> : <View className={styles.point}> </View>}
+              {!viewList[index] ? <></> : <View className={styles.point}> </View>}
             </View>
           </View>
         )})
