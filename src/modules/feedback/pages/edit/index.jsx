@@ -2,7 +2,7 @@ import { Button, Image, Input, Label, Textarea, View } from "@tarojs/components"
 import { getToken } from "@/stores/user";
 import React, { useState } from "react";
 import { useMutation } from "react-query/dist/react-query.production.min";
-import { pushFeedback } from "@/modules/feedback/services";
+import { pushFeedback, pushFeedbackTest } from "@/modules/feedback/services";
 import { useContainer } from "unstated-next";
 import PopupContext from "@/stores/popup";
 import Taro from "@tarojs/taro";
@@ -28,7 +28,7 @@ const Edit = () => {
   const [type, setType] = useState();
   const [activeIndex, setActiveIndex] = useState();
 
-  const [mutatePush] = useMutation(pushFeedback);
+  const [mutatePush] = useMutation(pushFeedbackTest);
   const Popup = useContainer(PopupContext);
 
   const titleChange = (e) => {
@@ -116,10 +116,13 @@ const Edit = () => {
   };
 
   const handlePush = async () => {
-    const res = await mutatePush({
+    const res = await pushFeedbackTest({
+      product_id: "2",
       title,
-      detail: content,
+      content,
+      type,
     });
+    console.log(res)
     if (res.status === 200) {
       const hide = Popup.show({
         img: feedbackSucImg,
@@ -139,6 +142,7 @@ const Edit = () => {
         detail: "请稍后再试",
       });
       setTimeout(() => hide(), 1500);
+      setLoding(false);
     }
   };
 

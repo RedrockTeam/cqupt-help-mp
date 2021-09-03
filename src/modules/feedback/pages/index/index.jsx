@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Taro from "@tarojs/taro";
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import {
@@ -16,19 +16,17 @@ import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import { getToken } from "@/stores/user";
+import { pushFeedback, getCommonQuestionList } from "@/modules/feedback/services";
 import feedbackTo from "@/static/images/feedback-to.png";
-import { pushFeedback } from "../../services";
 import styles from "./index.module.scss";
 
 const Feedback = () => {
-  const [questionList, setQuestionList] = useState([
-    {title:"如何查看我的课表", id: 1},
-    {title:"怎么才能把我的课表放到桌面鸭", id: 2},
-    {title:"如何取消用户屏蔽", id: 3},
-    {title:"如何查看我的志愿时长", id: 4},
-    {title:"如何使用没课约", id: 5},
-    {title:"掌上重邮社区管理条例", id: 6},
-  ]);
+  const [questionList, setQuestionList] = useState([]);
+  useEffect(() => {
+    getCommonQuestionList().then(res => {
+      setQuestionList(res.data);
+    })
+  }, [])
 
   const copy = () => {
     Taro.setClipboardData({
@@ -45,8 +43,8 @@ const Feedback = () => {
       </View>
       <View className={styles.common_ques}>
         {questionList.map((item) => (
-          <View className={styles.ques_item} key={item.id}
-            onClick={() => navTo({ url: resolvePage("feedback", "commonProblem") })}>
+          <View className={styles.ques_item} key={item.ID}
+            onClick={() => navTo({ url: resolvePage("feedback", "commonProblem"), payload:{title: item.title,content: item.content}})}>
             {item.title}
             <Image className={styles.icon_img} src={feedbackTo}/>
           </View>

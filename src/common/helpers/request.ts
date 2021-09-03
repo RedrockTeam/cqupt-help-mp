@@ -5,7 +5,7 @@
  * @LastEditors: myjdml
  * @Description: The sooner you start to code, the longer the program will take. —— Roy Carlson
  * @FilePath: \cqupt-help-mp\src\common\helpers\request.ts
- * 
+ *
  */
 import { request as req } from "@tarojs/taro";
 import { getToken } from "@/stores/user";

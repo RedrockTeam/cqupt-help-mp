@@ -28,11 +28,12 @@
           height: 32px;
           color: #625AF8;
           font-size: 18px;
-          display: inline-block;
+          display: inline-flex;
+          align-items: center;
           border: 1px solid #625af8;
           border-radius: 2px 14px 14px 14px;
           text-align: center;
-          line-height: 32px;
+          //line-height: 32px;
           margin-left: 20px;
           vertical-align: bottom;
           padding: 0 16px;
@@ -62,7 +63,7 @@
     color: #777494;
     position: relative;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 150px;
     .icon {
       display: block;
       width: 360px;
