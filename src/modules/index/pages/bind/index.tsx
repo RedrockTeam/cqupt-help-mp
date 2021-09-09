@@ -127,7 +127,7 @@ const Bind = () => {
           {isLoading ? "Loading..." : "登录"}
         </PrimaryButton>
       </View>
-      <Text className={styles.copyright}>COPYRICHT@红岩网校工作站</Text>
+      <Text className={styles.copyright}>COPYRIGHT@红岩网校工作站</Text>
       <Popup.Comp />
     </View>
   );
