@@ -8,6 +8,9 @@ module.exports = {
   },
   defineConstants: {},
   mini: {
+    optimizeMainPackage: {
+      enable: true
+    },
     webpackChain(chain) {
       chain.mode("production");
       chain.optimization.minimize(true);

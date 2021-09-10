@@ -26,6 +26,7 @@ import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
 import { useUserInfo } from "@/stores/user";
+import { redirectTo } from "@tarojs/taro";
 // TODO: 图床链接已失效，仅一个可用，下次找别的换了
 const list = [
   // "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",
@@ -145,15 +146,21 @@ export default function Index() {
           </View>
        <View
             className={styles.slideItem}
-            onClick={() =>
-              navTo({
-                url: "https://fe-prod.redrock.cqupt.edu.cn/youyue#/",
-                payload: {
-                  title: "青春邮约",
-                  t: token,
-                },
-                encode: true,
-              })
+            onClick={() =>{
+              console.log("token"+token);
+              if(token){
+                navTo({
+                  url: "https://fe-prod.redrock.cqupt.edu.cn/youyue#/",
+                  payload: {
+                    title: "青春邮约",
+                    t: token,
+                  },
+                  encode: true,
+                })
+              }else{
+                redirectTo({ url: resolvePage("index", "bind") });
+              }
+            }
             }
           >
             <Image src={homeYoungIcon} className={styles.slideImg} />

@@ -49,6 +49,7 @@ const Edit = () => {
         sizeType: ["compressed"], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ["album", "camera"], // 可以指定来源是相册还是相机，默认二者都有，在H5浏览器端支持使用 `user` 和 `environment`分别指定为前后摄像头
         success(res) {
+          console.log(res);
           const { tempFilePaths } = res; // 是个数组 tempFilePath可以作为img标签的src属性显示图片
           if (picSrcs.length) {
             const tempLength = picSrcs.length + tempFilePaths.length;
@@ -142,7 +143,6 @@ const Edit = () => {
             const info = JSON.parse(data);
             picRes.push(info.data.name);
             setPicRes([...picRes]);
-            // do something
           },
         })
       );

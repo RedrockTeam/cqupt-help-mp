@@ -13,6 +13,7 @@ Sentry.init({
 // Sentry.captureException(new Error("test"));
 // Sentry.captureMessage("Hello, world!");
 getToken().then((token) => {
+  console.log("获取token");
   if (!token) {
     redirectTo({ url: resolvePage("index", "bind") });
   }

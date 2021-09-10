@@ -121,13 +121,13 @@ const Bind = () => {
           忘记密码？
         </Text>
         <Text className={styles.tips}>
-          研究生和20届学生登陆密码为统一认证码后六位，其余同学密码为身份证后6位。
+          研究生和20级及以后的学生登陆密码为统一认证码后六位，其余同学密码为身份证后6位。
         </Text>
         <PrimaryButton className={styles.btn} onClick={handleBind}>
           {isLoading ? "Loading..." : "登录"}
         </PrimaryButton>
       </View>
-      <Text className={styles.copyright}>COPYRICHT@红岩网校工作站</Text>
+      <Text className={styles.copyright}>COPYRIGHT@红岩网校工作站</Text>
       <Popup.Comp />
     </View>
   );

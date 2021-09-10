@@ -28,22 +28,22 @@ function MyIndex() {
   const [isError, setError] = useState(false);
 
   const handleLoginout = async () => {
-    const res = await request("https://be-dev.redrock.cqupt.edu.cn/magicloop/unbind/xcx");
+    const res = await request("https://be-prod.redrock.cqupt.edu.cn/magicloop/unbind/xcx");
     if (res.status === 10000) {
       redirectTo({
         url: resolvePage("index", "bind"),
       });
     }
   };
-  const [mutateVolunteerReadRes] = useMutation(getMyVolunteerReads, {
-    onSuccess(myReadsRes) {
-      setMyVolunteerReadsRes(myReadsRes.data);
-      setLoading(false);
-    },
-    onError() {
-      setError(true)
-    }
-  })
+  // const [mutateVolunteerReadRes] = useMutation(getMyVolunteerReads, {
+  //   onSuccess(myReadsRes) {
+  //     setMyVolunteerReadsRes(myReadsRes.data);
+  //     setLoading(false);
+  //   },
+  //   onError() {
+  //     setError(true)
+  //   }
+  // })
   const [mutateActivityReadRes] = useMutation(getMyActivityReads, {
     onSuccess(myReadsRes) {
       setMyActivityReadsRes(myReadsRes.data);
@@ -54,7 +54,7 @@ function MyIndex() {
     }
   })
   useDidShow(() => {
-    mutateVolunteerReadRes();
+    // mutateVolunteerReadRes();
     mutateActivityReadRes()
   })
 
@@ -65,11 +65,13 @@ function MyIndex() {
       </View>
     )
   }
-  if (isError || !myVolunteerReadsRes || !myActivityReadsRes)
+  if (isError || !myActivityReadsRes)
     return <Placeholder isError/>;
 
 
-  const [number, unread] = [myVolunteerReadsRes.number + myActivityReadsRes.number , myVolunteerReadsRes.un_read + myActivityReadsRes.un_read]
+  // const [number, unread] = [myVolunteerReadsRes.number + myActivityReadsRes.number , myVolunteerReadsRes.un_read + myActivityReadsRes.un_read]
+  const [number, unread] = [ myActivityReadsRes.number , myActivityReadsRes.un_read]
+
   console.log(number,unread);
   return (
     <View className={styles.wrapper}>
