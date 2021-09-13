@@ -94,6 +94,8 @@ const IdIndex = () => {
           e.team_level = "社团";
           e.team_name = e.role.split(" ")[0];
           e.role = e.role.split(" ")[1];
+        } else {
+          e.team_level = "组织";
         }
         e.start_time = timestampToDateString(e.start_time as number);
         e.end_time = timestampToDateString(e.end_time as number);
