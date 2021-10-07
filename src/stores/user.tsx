@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-09-04 17:08:57
+ * @LastEditTime: 2021-10-07 17:01:34
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /cqupt-help-mp/src/stores/user.tsx
+ */
 import { atob } from "Base64";
 import { login, redirectTo, request } from "@tarojs/taro";
 import { useQuery } from "react-query/dist/react-query.production.min";
@@ -6,7 +14,7 @@ import { resolvePage } from "@/common/helpers/utils";
 let TOKEN: string | undefined;
 
 export const genGetToken = () => {
-  const getToke n = async (): Promise<string | undefined> => {
+  const getToken = async (): Promise<string | undefined> => {
     const { code } = await login();
     const { data } = await request({
       url: `https://be-prod.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
