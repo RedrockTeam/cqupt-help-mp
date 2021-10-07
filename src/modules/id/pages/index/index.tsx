@@ -16,6 +16,7 @@ const PAGE_TITLE = "身份有证";
 
 const IdIndex = () => {
   const [active, setActive] = useState(0);
+  const [firstRender, setFirstRedner] = useState(true)
   const { data: idCardListRes, isLoading, isError } = useQuery(
     "getIdCardList",
     getIdCardList
@@ -32,6 +33,8 @@ const IdIndex = () => {
    * @Date: 2021/9/4
    */
   const getImgUrl = (team_name: string, team_level: string) => {
+    console.log("渲染图片");
+
     if (team_level !== "组织") {
       return "http://cdn.redrock.team/id_1_18.png";
     }
@@ -88,7 +91,8 @@ const IdIndex = () => {
   };
   // FIXME: 一个由于后端传的数据问题，做的很傻逼的数据转换，建议干掉后端
   useEffect(() => {
-    if (idCardListRes) {
+    if (idCardListRes && firstRender) {
+      setFirstRedner(false)
       idCardListRes.data = idCardListRes.data.map((e) => {
         if (e.team_id === 10) {
           e.team_level = "社团";
@@ -101,12 +105,15 @@ const IdIndex = () => {
         e.end_time = timestampToDateString(e.end_time as number);
         return e;
       });
-    }
-  }, [idCardListRes]);
+    } z
+  });
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   if (isError || !idCardListRes)
     return <Placeholder title={PAGE_TITLE} isError />;
+  console.log("log");
+
+  console.log(idCardListRes);
 
   return (
     <View className={styles.wrapper}>

@@ -1,6 +1,7 @@
 import { atob } from "Base64";
-import { login, request } from "@tarojs/taro";
+import { login, redirectTo, request } from "@tarojs/taro";
 import { useQuery } from "react-query/dist/react-query.production.min";
+import { resolvePage } from "@/common/helpers/utils";
 
 let TOKEN: string | undefined;
 
@@ -10,9 +11,14 @@ export const genGetToken = () => {
     const { data } = await request({
       url: `https://be-prod.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
       method: "POST",
-    });
+    }).catch(e=>{
+      redirectTo({ url: resolvePage("index", "bind") });
+    })
     if (data.status === "10000") {
       return data.data.token;
+    }
+    if(data.status === "10020"){
+      redirectTo({ url: resolvePage("index", "bind") });
     }
   };
   let getting: Promise<string | undefined> | undefined;

@@ -50,6 +50,7 @@ export default {
     resolvePage("ticket-appeal", "index"),
     resolvePage("ticket-appeal", "record"),
     resolvePage("ticket-appeal", "result"),
+    resolvePage("index", "bind"),
     "modules/webview/index",
   ],
   window: {

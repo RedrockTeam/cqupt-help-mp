@@ -65,14 +65,19 @@ function MyIndex() {
       </View>
     )
   }
-  if (isError || !myActivityReadsRes)
-    return <Placeholder isError/>;
+  // if (isError || !myActivityReadsRes)
+  //   return <Placeholder isError/>;
 
 
   // const [number, unread] = [myVolunteerReadsRes.number + myActivityReadsRes.number , myVolunteerReadsRes.un_read + myActivityReadsRes.un_read]
-  const [number, unread] = [ myActivityReadsRes.number , myActivityReadsRes.un_read]
+  if (myVolunteerReadsRes && myActivityReadsRes){
+    const [number, unread] = [ myVolunteerReadsRes.number?myActivityReadsRes.number:0 , myVolunteerReadsRes.un_read?myActivityReadsRes.un_read:0]
+  }else {
+    const [number,unread] = [0,0]
+  }
 
-  console.log(number,unread);
+
+
   return (
     <View className={styles.wrapper}>
       <View className={styles.top}>
@@ -100,16 +105,15 @@ function MyIndex() {
           <View
             onClick={() => navTo({ url: resolvePage("my", "my-activity") })}
           >
-            {unread ? (
-              <View className={styles.hint_point}>{unread}</View>
-            ) : null
-            }
+            {/*{unread &&*/}
+            {/*  <View className={styles.hint_point}>{unread}</View>*/}
+            {/*}*/}
             <Image className={styles.pic2} src={campusIcon}/>
             <View className={styles.desc}>
               <Text className={styles.text}>
                 我的活动
               </Text>
-              <Text className={styles.hint_number}>{number}</Text>
+              {/*{number &&<Text className={styles.hint_number}>{number}</Text>}*/}
               {/*{*/}
               {/*  number === 0 ? (*/}
               {/*    <Text className={styles.hint_number}>0</Text>*/}
