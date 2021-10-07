@@ -6,18 +6,18 @@ import { resolvePage } from "@/common/helpers/utils";
 let TOKEN: string | undefined;
 
 export const genGetToken = () => {
-  const getToken = async (): Promise<string | undefined> => {
+  const getToke n = async (): Promise<string | undefined> => {
     const { code } = await login();
     const { data } = await request({
       url: `https://be-prod.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
       method: "POST",
-    }).catch(e=>{
+    }).catch(e => {
       redirectTo({ url: resolvePage("index", "bind") });
     })
     if (data.status === "10000") {
       return data.data.token;
     }
-    if(data.status === "10020"){
+    if (data.status === "10020") {
       redirectTo({ url: resolvePage("index", "bind") });
     }
   };
@@ -67,7 +67,7 @@ export const getUserInfo = (token: string | undefined) => {
   return {
     realName: userInfo.Data.real_name,
     stuNum: userInfo.Data.stu_num,
-    token : token
+    token: token
   };
 };
 
