@@ -1,16 +1,16 @@
-import React, {useState} from "react";
-import {Button, Image, Text, View} from "@tarojs/components";
+import React, { useState } from "react";
+import { Button, Image, Text, View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
-import Taro, {navigateBack, scanCode, useDidShow, useRouter,} from "@tarojs/taro";
-import {useUserInfo} from "@/stores/user";
+import Taro, { navigateBack, scanCode, useDidShow, useRouter, } from "@tarojs/taro";
+import { getUserInfo } from "@/stores/user";
 import copyPng from "@/static/images/volunteer-copy.png";
 import scanPng from "@/static/images/scan-code.png";
-import {navTo, resolvePage} from "@/common/helpers/utils";
+import { navTo, resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
-import {useContainer} from "unstated-next";
-import {useMutation} from "react-query";
-import {genSeconds, timestampToMDString} from "@/common/helpers/date";
-import {getMyActivities} from "@/modules/my/services";
+import { useContainer } from "unstated-next";
+import { useMutation } from "react-query";
+import { genSeconds, timestampToMDString } from "@/common/helpers/date";
+import { getMyActivities } from "@/modules/my/services";
 import {
   postVolunteerActivityChange,
   postVolunteerActivityQuit,
@@ -42,7 +42,7 @@ const timeLegal = (date: string) => {
   const dif = nowStamp - _time;
   console.log('dif:', dif)
 
-  const {begin_time} = genSeconds(date);
+  const { begin_time } = genSeconds(date);
   console.log('begin_time:', begin_time)
   const dif_minute = (dif - begin_time) / (60 * 15);
   return !(dif_minute > 1 || dif_minute < -1);
@@ -108,7 +108,7 @@ const VolunteerApply = () => {
     rely_id,
     is_change,
     name,
-    pass : pass_state,
+    pass: pass_state,
     concat,
     date,
     registration_time,
@@ -118,11 +118,11 @@ const VolunteerApply = () => {
     activity_id,
     is_sign,
   } = params;
-  const {realName} = useUserInfo();
+  const { realName } = getUserInfo();
 
   //  管理签到状态
   const [isScanned, setIsScanned] = useState<boolean>(is_sign === "1");
-  const [scanText, setScanText] = useState<string>(is_sign === '1' ? "签到成功" :"扫码签到");
+  const [scanText, setScanText] = useState<string>(is_sign === '1' ? "签到成功" : "扫码签到");
 
   //  管理是否更改班次的状态
   const [changeState, setChangeState] = useState<string>(is_change);
@@ -137,8 +137,8 @@ const VolunteerApply = () => {
       console.log("getMyActivities-data:", data);
 
       if (data?.data) {
-        const tarActivity = data.data.filter(({activity_detail: activity}) => {
-          const {begin_time, end_time} = genSeconds(date);
+        const tarActivity = data.data.filter(({ activity_detail: activity }) => {
+          const { begin_time, end_time } = genSeconds(date);
           return (
             activity.rely_id == Number(rely_id) &&
             activity.id == Number(activity_id) &&
@@ -266,16 +266,16 @@ const VolunteerApply = () => {
           "volunteer",
           "change-time"
         )}?name=${name
-        }&team_name=${team_name
-        }&start_date=${start_date
-        }&last_date=${last_date
-        }&date=${_date
-        }&rely_id=${rely_id
-        }&activity_id=${activity_id}`,
+          }&team_name=${team_name
+          }&start_date=${start_date
+          }&last_date=${last_date
+          }&date=${_date
+          }&rely_id=${rely_id
+          }&activity_id=${activity_id}`,
       });
     } else if (pass === "1") {
       //  成功录取的情况下
-      const {begin_time, end_time} = genSeconds(date);
+      const { begin_time, end_time } = genSeconds(date);
       await mutateChange({
         old: {
           activity_id: Number(activity_id),
@@ -318,7 +318,7 @@ const VolunteerApply = () => {
 
   const handleQuit = async () => {
     console.log("quit");
-    const {begin_time, end_time} = genSeconds(date);
+    const { begin_time, end_time } = genSeconds(date);
     console.log(typeof begin_time, typeof end_time);
     await mutateQuit({
       activity_id: Number(activity_id),
@@ -328,7 +328,7 @@ const VolunteerApply = () => {
   };
 
   //  actionSheet handle hook
-  const handleActionClick = ({sheetKey}) => {
+  const handleActionClick = ({ sheetKey }) => {
     console.log("sheetKey:", sheetKey);
     if (sheetKey === KEY_CHANGE_TIME) {
       cancelShowSheet();
@@ -358,10 +358,10 @@ const VolunteerApply = () => {
   const handleScan = async () => {
     if (!isScanned)
       scanCode({
-        async success({result}) {
+        async success({ result }) {
           console.log("scan-result:", result);
           // const param = result.split("?")[1];
-          const {begin_time, end_time} = genSeconds(date);
+          const { begin_time, end_time } = genSeconds(date);
 
           if (timeLegal(date)) {
             await mutateScan({
@@ -394,7 +394,7 @@ const VolunteerApply = () => {
 
   return (
     <View className={styles.wrapper}>
-      <NavBack title={PAGE_TITLE} background={NAV_BACKGROUND}/>
+      <NavBack title={PAGE_TITLE} background={NAV_BACKGROUND} />
       <View className={styles.container}>
         <View className={styles.content}>
           {pass === "0" ? (
@@ -406,7 +406,7 @@ const VolunteerApply = () => {
                 //  扫码签到
                 <View className={styles.scan} onClick={handleScan}>
                   {!isScanned ? (
-                    <Image src={scanPng} className={styles.scan_png}/>
+                    <Image src={scanPng} className={styles.scan_png} />
                   ) : null}
                   <Text
                     className={
@@ -487,7 +487,7 @@ const VolunteerApply = () => {
         title={sheetTitle}
       />
 
-      <Popup.Comp/>
+      <Popup.Comp />
     </View>
   );
 };

@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-09-04 17:08:57
- * @LastEditTime: 2021-10-07 17:01:34
- * @LastEditors: your name
+ * @LastEditTime: 2021-10-07 21:56:47
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /cqupt-help-mp/src/stores/user.tsx
  */
@@ -17,12 +17,19 @@ export const genGetToken = () => {
   const getToken = async (): Promise<string | undefined> => {
     const { code } = await login();
     const { data } = await request({
-      url: `https://be-prod.redrock.cqupt.edu.cn/magicloop/rushAb?code=${code}`,
-      method: "POST",
+      url: `https://be-prod.redrock.cqupt.edu.cn/magicloop-wx/auth/enter/christina?code=${code}`,
+      method: "GET",
     }).catch(e => {
       redirectTo({ url: resolvePage("index", "bind") });
     })
+    console.log(114514)
+    console.log(data);
+
     if (data.status === "10000") {
+      localStorage.setItem("realName", data.data.real_name)
+      localStorage.setItem("stuNum", data.data.stu_num)
+      localStorage.setItem("college", data.data.college)
+      localStorage.setItem("token", data.data.token)
       return data.data.token;
     }
     if (data.status === "10020") {
@@ -59,29 +66,18 @@ type UserInfo = {
   token: string;
 };
 
-export const getUserInfo = (token: string | undefined) => {
-  if (!token)
+export const getUserInfo = () => {
+  if (!localStorage.getItem("realName"))
     return {
       realName: "Loading...",
       stuNum: "Loading...",
       college: "Loading...",
       token: "",
     };
-  const userInfo = parseToken(token);
-  // console.log("info");
-  // console.log(userInfo);
-  userInfo.token = TOKEN ?? "";
-  console.log(userInfo);
   return {
-    realName: userInfo.Data.real_name,
-    stuNum: userInfo.Data.stu_num,
-    token: token
+    realName: localStorage.getItem("realName"),
+    stuNum: localStorage.getItem("realName"),
+    college: localStorage.getItem("college"),
+    token: localStorage.getItem("token")
   };
-};
-
-export const useUserInfo = () => {
-  const { data } = useQuery("getToken", getToken);
-  console.log("token111");
-  console.log(data);
-  return getUserInfo(data);
 };

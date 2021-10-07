@@ -8,10 +8,10 @@ import request from "@/common/helpers/request";
 import { redirectTo } from "@tarojs/taro";
 import enter from "@/static/images/campus-enter-icon.png";
 import styles from "./index.module.scss";
-import { useUserInfo } from "@/stores/user";
+import { getUserInfo } from "@/stores/user";
 import { useEffect } from "react";
 const AccountSafe = () => {
-    const { stuNum } = useUserInfo();
+    const { stuNum } = getUserInfo();
     const [showPop, setshowPop] = useState(false);
     const [originLoading, setoriginLoading] = useState(true)
     const [PasswordText, setPasswordText] = useState(null)

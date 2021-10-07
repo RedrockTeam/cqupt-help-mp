@@ -11,15 +11,15 @@ import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
-import { useUserInfo } from "@/stores/user";
+import { getUserInfo } from "@/stores/user";
 import { redirectTo, useDidShow, scanCode } from "@tarojs/taro";
 import styles from "./index.module.scss";
 import { useMutation } from "react-query/dist/react-query.production.min";
-import { getMyVolunteerReads , getMyActivityReads} from "../../services";
+import { getMyVolunteerReads, getMyActivityReads } from "../../services";
 import Placeholder from "@/common/components/placeholder";
 
 function MyIndex() {
-  const userInfo = useUserInfo();
+  const userInfo = getUserInfo();
   const [showPop, setshowPop] = useState(false);
   const [myVolunteerReadsRes, setMyVolunteerReadsRes] = useState(null);
   const [myActivityReadsRes, setMyActivityReadsRes] = useState(null);
@@ -61,7 +61,7 @@ function MyIndex() {
   if (isLoading) {
     return (
       <View className={styles.holder}>
-        <Placeholder/>
+        <Placeholder />
       </View>
     )
   }
@@ -70,10 +70,10 @@ function MyIndex() {
 
 
   // const [number, unread] = [myVolunteerReadsRes.number + myActivityReadsRes.number , myVolunteerReadsRes.un_read + myActivityReadsRes.un_read]
-  if (myVolunteerReadsRes && myActivityReadsRes){
-    const [number, unread] = [ myVolunteerReadsRes.number?myActivityReadsRes.number:0 , myVolunteerReadsRes.un_read?myActivityReadsRes.un_read:0]
-  }else {
-    const [number,unread] = [0,0]
+  if (myVolunteerReadsRes && myActivityReadsRes) {
+    const [number, unread] = [myVolunteerReadsRes.number ? myActivityReadsRes.number : 0, myVolunteerReadsRes.un_read ? myActivityReadsRes.un_read : 0]
+  } else {
+    const [number, unread] = [0, 0]
   }
 
 
@@ -90,9 +90,9 @@ function MyIndex() {
             />
           </View>
           <View className={styles.top_left}>
-             <View className={styles.name}>{userInfo.realName}</View>
-             <View className={styles.info}>学号：{userInfo.stuNum}</View>
-             {/*<View className={styles.info}>专业：{userInfo.college}</View>*/}
+            <View className={styles.name}>{userInfo.realName}</View>
+            <View className={styles.info}>学号：{userInfo.stuNum}</View>
+            <View className={styles.info}>专业：{userInfo.college}</View>
           </View>
         </View>
         <View className={styles.top_bottom}>
@@ -108,7 +108,7 @@ function MyIndex() {
             {/*{unread &&*/}
             {/*  <View className={styles.hint_point}>{unread}</View>*/}
             {/*}*/}
-            <Image className={styles.pic2} src={campusIcon}/>
+            <Image className={styles.pic2} src={campusIcon} />
             <View className={styles.desc}>
               <Text className={styles.text}>
                 我的活动

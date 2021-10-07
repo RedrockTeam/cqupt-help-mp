@@ -105,7 +105,7 @@ const IdIndex = () => {
         e.end_time = timestampToDateString(e.end_time as number);
         return e;
       });
-    } z
+    }
   });
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;

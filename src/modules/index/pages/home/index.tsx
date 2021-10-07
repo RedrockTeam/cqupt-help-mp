@@ -19,13 +19,12 @@ import homeIdIcon from "@/static/images/home-id-icon.png";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { navTo, resolvePage } from "@/common/helpers/utils";
 import { useQuery } from "react-query/dist/react-query.production.min";
-// import {useUserInfo} from "@/stores/user";
 import Placeholder from "@/common/components/placeholder";
 import Empty from "@/common/components/empty";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
-import { useUserInfo } from "@/stores/user";
+import { getUserInfo } from "@/stores/user";
 import { redirectTo } from "@tarojs/taro";
 // TODO: 图床链接已失效，仅一个可用，下次找别的换了
 const list = [
@@ -37,7 +36,7 @@ const list = [
 ]; // 轮播图的图片
 
 export default function Index() {
-  const {token} = useUserInfo();
+  const { token } = getUserInfo();
   const [slidePercent, setSlidePercent] = useState(0);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
     e
@@ -64,9 +63,9 @@ export default function Index() {
     // TODO: 后端将所有活动均返回，过滤掉已过期掉活动，喊后端有空修
     homeActivityListRes.data = homeActivityListRes?.data?.length
       ? homeActivityListRes?.data?.filter(
-          // @ts-ignore
-          (activity) => activity.time_done > Date.parse(new Date()) / 1000
-        )
+        // @ts-ignore
+        (activity) => activity.time_done > Date.parse(new Date()) / 1000
+      )
       : [];
 
     return homeActivityListRes.data.length !== 0 ? (
@@ -107,7 +106,7 @@ export default function Index() {
         indicatorDots
         circular
         autoplay
-        // TODO: 修改 dot 样式
+      // TODO: 修改 dot 样式
       >
         {list.map((e) => (
           <SwiperItem key={e}>
@@ -144,11 +143,11 @@ export default function Index() {
             <Image src={homeVolunteerIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>志愿报名</Text>
           </View>
-       <View
+          <View
             className={styles.slideItem}
-            onClick={() =>{
-              console.log("token"+token);
-              if(token){
+            onClick={() => {
+              console.log("token" + token);
+              if (token) {
                 navTo({
                   url: "https://fe-prod.redrock.cqupt.edu.cn/youyue#/",
                   payload: {
@@ -157,7 +156,7 @@ export default function Index() {
                   },
                   encode: true,
                 })
-              }else{
+              } else {
                 redirectTo({ url: resolvePage("index", "bind") });
               }
             }

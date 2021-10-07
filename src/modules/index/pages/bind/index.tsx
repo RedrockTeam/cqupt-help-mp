@@ -36,21 +36,24 @@ const Bind = () => {
   const [mutateBind, { isLoading }] = useMutation(bindReq);
 
   const handleBind = async () => {
+    console.log(1);
+
     try {
       const data = await mutateBind({ account, password });
-      if (data.errcode === "10010") {
+      console.log(data);
+      if (data.errcode === 10010) {
         const hide = Popup.show({
           title: "登录失败",
           detail: "账号与密码不匹配哦！",
         });
         setTimeout(() => hide(), 1500);
-      } else if (data.errcode === "10012") {
+      } else if (data.errcode === 10012) {
         const hide = Popup.show({
           title: "登录失败",
           detail: "账号与密码不匹配哦！",
         });
         setTimeout(() => hide(), 1500);
-      } else if (data.status === "10000") {
+      } else if (data.status === 10000) {
         setToken(data.data.token);
         switchTab({ url: resolvePage("index", "home") });
       }
