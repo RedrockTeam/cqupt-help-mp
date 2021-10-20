@@ -16,7 +16,7 @@ import { useMutation } from "react-query/dist/react-query.production.min";
 import { switchTab } from "@tarojs/taro";
 import { navTo, resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
-import { setToken } from "@/stores/user";
+import { setLocalUserInfo} from "@/stores/user";
 import styles from "./index.module.scss";
 import { bindReq } from "../../services";
 
@@ -36,8 +36,6 @@ const Bind = () => {
   const [mutateBind, { isLoading }] = useMutation(bindReq);
 
   const handleBind = async () => {
-    console.log(1);
-
     try {
       const data = await mutateBind({ account, password });
       console.log(data);
@@ -54,7 +52,7 @@ const Bind = () => {
         });
         setTimeout(() => hide(), 1500);
       } else if (data.status === 10000) {
-        setToken(data.data.token);
+        setLocalUserInfo("token",data.data.token);
         switchTab({ url: resolvePage("index", "home") });
       }
       // requestSubscribeMessage({ // 长期订阅的逻辑，但是现在不能申请到长期订阅，等 wx 开放

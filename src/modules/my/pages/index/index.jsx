@@ -13,13 +13,21 @@ import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
 import { getUserInfo } from "@/stores/user";
 import { redirectTo, useDidShow, scanCode } from "@tarojs/taro";
-import styles from "./index.module.scss";
-import { useMutation } from "react-query/dist/react-query.production.min";
-import { getMyVolunteerReads, getMyActivityReads } from "../../services";
 import Placeholder from "@/common/components/placeholder";
+import { useMutation } from "react-query/dist/react-query.production.min";
+import styles from "./index.module.scss";
+import { getMyVolunteerReads, getMyActivityReads } from "../../services";
 
-function MyIndex() {
-  const userInfo = getUserInfo();
+function MyIndex(){
+  const [realName, setRealName] = useState("");
+  const [stuNum, setStuNum] = useState("");
+  const [college, setCollege] = useState("")
+  getUserInfo().then(e =>{
+    console.log(e);
+    setRealName(e.realName)
+    setStuNum(e.stuNum)
+    setCollege(e.college)
+  });
   const [showPop, setshowPop] = useState(false);
   const [myVolunteerReadsRes, setMyVolunteerReadsRes] = useState(null);
   const [myActivityReadsRes, setMyActivityReadsRes] = useState(null);
@@ -90,9 +98,9 @@ function MyIndex() {
             />
           </View>
           <View className={styles.top_left}>
-            <View className={styles.name}>{userInfo.realName}</View>
-            <View className={styles.info}>学号：{userInfo.stuNum}</View>
-            <View className={styles.info}>专业：{userInfo.college}</View>
+            <View className={styles.name}>{realName}</View>
+            <View className={styles.info}>学号：{stuNum}</View>
+            <View className={styles.info}>专业：{college}</View>
           </View>
         </View>
         <View className={styles.top_bottom}>

@@ -1,8 +1,14 @@
+/*
+ * @Author: your name
+ * @Date: 2021-09-01 22:01:22
+ * @LastEditTime: 2021-10-08 13:43:13
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /cqupt-help-mp/src/app.tsx
+ */
 import React, { Component } from "react";
 import { ReactQueryConfigProvider } from "react-query/dist/react-query.production.min";
-import { getToken } from "@/stores/user";
-import { redirectTo } from "@tarojs/taro";
-import { resolvePage } from "./common/helpers/utils";
+import { isTokenExpired } from "@/stores/user";
 import PopupContext from "./stores/popup";
 import "./app.scss";
 import * as Sentry from "sentry-miniapp";
@@ -12,13 +18,8 @@ Sentry.init({
 });
 // Sentry.captureException(new Error("test"));
 // Sentry.captureMessage("Hello, world!");
-getToken().then((token) => {
-  console.log("获取token");
-  if (!token) {
-    redirectTo({ url: resolvePage("index", "bind") });
-  }
-});
 
+isTokenExpired()
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
   // this.props.children 是将要会渲染的页面
