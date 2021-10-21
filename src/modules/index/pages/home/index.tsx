@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BaseEventOrigFunction,
   Image,
@@ -18,14 +18,14 @@ import homeIdIcon from "@/static/images/home-id-icon.png";
 // import tmpHomeRecent from "@/static/images/tmp-home-recent.jpg";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { navTo, resolvePage } from "@/common/helpers/utils";
+import { getUserInfo } from "@/stores/user";
+import { redirectTo } from "@tarojs/taro";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
 import Empty from "@/common/components/empty";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
-import { getUserInfo } from "@/stores/user";
-import { redirectTo } from "@tarojs/taro";
 // TODO: 图床链接已失效，仅一个可用，下次找别的换了
 const list = [
   // "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",
@@ -34,9 +34,14 @@ const list = [
   // "https://wx.redrock.team/game/cqupt-help-mp/slider-img3.jpg",
   // "https://wx.redrock.team/game/cqupt-help-mp/slider-img4.jpg",
 ]; // 轮播图的图片
-
 export default function Index() {
-  const { token } = getUserInfo();
+  // @ts-ignore
+  const { data } = useQuery("token", getUserInfo);
+
+  useEffect(() => {
+    setToken(data?.token);
+  }, [data]);
+  const [token, setToken] = useState("")
   const [slidePercent, setSlidePercent] = useState(0);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
     e
@@ -63,9 +68,9 @@ export default function Index() {
     // TODO: 后端将所有活动均返回，过滤掉已过期掉活动，喊后端有空修
     homeActivityListRes.data = homeActivityListRes?.data?.length
       ? homeActivityListRes?.data?.filter(
-        // @ts-ignore
-        (activity) => activity.time_done > Date.parse(new Date()) / 1000
-      )
+          // @ts-ignore
+          (activity) => activity.time_done > Date.parse(new Date()) / 1000
+        )
       : [];
 
     return homeActivityListRes.data.length !== 0 ? (
@@ -106,7 +111,7 @@ export default function Index() {
         indicatorDots
         circular
         autoplay
-      // TODO: 修改 dot 样式
+        // TODO: 修改 dot 样式
       >
         {list.map((e) => (
           <SwiperItem key={e}>
@@ -131,10 +136,10 @@ export default function Index() {
           </View>
           <View
             className={styles.slideItem}
-            onClick={() => navTo({ url: resolvePage("campus", "index") })}
+            onClick={() => navTo({ url: resolvePage("id", "index") })}
           >
-            <Image src={homeCampusIcon} className={styles.slideImg} />
-            <Text className={styles.slideText}>校园服务</Text>
+            <Image src={homeIdIcon} className={styles.slideImg} />
+            <Text className={styles.slideText}>身份有证</Text>
           </View>
           <View
             className={styles.slideItem}
@@ -146,7 +151,7 @@ export default function Index() {
           <View
             className={styles.slideItem}
             onClick={() => {
-              console.log("token" + token);
+              console.log(`token${token}`);
               if (token) {
                 navTo({
                   url: "https://fe-prod.redrock.cqupt.edu.cn/youyue#/",
@@ -155,12 +160,11 @@ export default function Index() {
                     t: token,
                   },
                   encode: true,
-                })
+                });
               } else {
                 redirectTo({ url: resolvePage("index", "bind") });
               }
-            }
-            }
+            }}
           >
             <Image src={homeYoungIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>青春邮约</Text>
@@ -168,10 +172,10 @@ export default function Index() {
           </View>
           <View
             className={styles.slideItem}
-            onClick={() => navTo({ url: resolvePage("id", "index") })}
+            onClick={() => navTo({ url: resolvePage("campus", "index") })}
           >
-            <Image src={homeIdIcon} className={styles.slideImg} />
-            <Text className={styles.slideText}>身份有证</Text>
+            <Image src={homeCampusIcon} className={styles.slideImg} />
+            <Text className={styles.slideText}>校园服务</Text>
           </View>
         </ScrollView>
       </View>
@@ -194,4 +198,3 @@ export default function Index() {
     </View>
   );
 }
-

@@ -1,5 +1,5 @@
 import { Button, Image, Input, Label, Textarea, View } from "@tarojs/components";
-import { getToken } from "@/stores/user";
+import { getUserInfo } from "@/stores/user";
 import React, { useState } from "react";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import { pushFeedback } from "@/modules/feedback/services";
@@ -14,7 +14,7 @@ import deletePng from "@/static/images/delete.png";
 
 
 const Edit = () => {
-  const token = getToken();
+  const { token } = getUserInfo();
   const [picSrcs, setPicSrcs] = useState([]);
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
@@ -132,7 +132,7 @@ const Edit = () => {
       const promises = picSrcs.map((picSrc) =>
         Taro.uploadFile({
           url:
-            "https://cyxbsmobile.redrock.team/wxapi/cyb-permissioncenter/upload/file",
+            "https://be-prod.redrock.cqupt.edu.cn/wxapi/cyb-permissioncenter/upload/file",
           filePath: picSrc,
           name: "file",
           header: {
@@ -177,7 +177,7 @@ const Edit = () => {
 
     // Taro.uploadFile({
     //   url:
-    //     "https://cyxbsmobile.redrock.team/wxapi/cyb-permissioncenter/upload/file",
+    //     "https://be-prod.redrock.cqupt.edu.cn/wxapi/cyb-permissioncenter/upload/file",
     //   filePath: picSrcs[index],
     //   name: "file",
     //   header: {

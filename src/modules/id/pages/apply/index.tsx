@@ -18,6 +18,7 @@ import { useContainer } from "unstated-next";
 import { applyIdCard, getAssociations } from "../../services";
 import { ApplyTeamInfo } from "../../services/dto";
 import styles from "./index.module.scss";
+import { getUserInfo } from "@/stores/user";
 
 const PAGE_TITLE = "身份有证";
 
@@ -107,6 +108,7 @@ const associationList = [
 ];
 
 const Apply = () => {
+  const { data } = useQuery("getUserInfo",getUserInfo)
   const {
     params: { type },
   } = useRouter();
@@ -140,6 +142,7 @@ const Apply = () => {
       return;
     }
     try {
+      console.log(data.college);
       const applyData: ApplyTeamInfo = {
         team_id: associationsRes?.data.find((e) => e.team_name === name)
           ?.team_id!,
@@ -147,6 +150,7 @@ const Apply = () => {
       if (type === "社团") {
         applyData.team_id = 10;
         applyData.remarks = name;
+        applyData.school = data.college;
       }
       const res = await mutateApply(applyData);
       if (res!.status === 10000) {
