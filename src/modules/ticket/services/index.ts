@@ -5,7 +5,7 @@
  * @LastEditors: myjdml
  * @Description: The sooner you start to code, the longer the program will take. —— Roy Carlson
  * @FilePath: \cqupt-help-mp\src\modules\ticket\services\index.ts
- * 
+ *
  */
 import request from "@/common/helpers/request";
 import { RobTicketListInfoRes, RobTicketRes, MyTicketListRes } from "./dto";
@@ -42,7 +42,7 @@ export const checkTicket = (id: number) =>
     },
   });
 
-export const returnMyTicket = (id: number) => 
+export const returnMyTicket = (id: number) =>
   request("/christina-seckill/ticket/refund", {
     method: "POST",
     data: {
