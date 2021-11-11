@@ -8,7 +8,7 @@ import { resolvePage, navTo } from "@/common/helpers/utils";
 import request from "@/common/helpers/request";
 import { redirectTo } from "@tarojs/taro";
 import enter from "@/static/images/campus-enter-icon.png";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 import styles from "./index.module.scss";
 import {
   getQuesAndEmailState,
@@ -18,7 +18,7 @@ import LoadingPage from "../../components/Loding/index.jsx";
 
 const AccountSafe = (callback, deps) => {
   let stuNum;
-  getUserInfo().then((e) => {
+  getInfo().then((e) => {
     console.log(1111111);
     console.log(e);
     stuNum = e.stuNum;

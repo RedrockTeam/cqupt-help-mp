@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Image, Text, View } from "@tarojs/components";
 import NavBack from "@/common/components/nav-back";
 import Taro, { navigateBack, scanCode, useDidShow, useRouter, } from "@tarojs/taro";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 import copyPng from "@/static/images/volunteer-copy.png";
 import scanPng from "@/static/images/scan-code.png";
 import { navTo, resolvePage } from "@/common/helpers/utils";
@@ -118,7 +118,7 @@ const VolunteerApply = () => {
     activity_id,
     is_sign,
   } = params;
-  const { realName } = getUserInfo();
+  const { realName } = getInfo();
 
   //  管理签到状态
   const [isScanned, setIsScanned] = useState<boolean>(is_sign === "1");

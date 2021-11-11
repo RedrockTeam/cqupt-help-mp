@@ -18,7 +18,7 @@ import { useContainer } from "unstated-next";
 import { applyIdCard, getAssociations } from "../../services";
 import { ApplyTeamInfo } from "../../services/dto";
 import styles from "./index.module.scss";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 
 const PAGE_TITLE = "身份有证";
 
@@ -108,7 +108,7 @@ const associationList = [
 ];
 
 const Apply = () => {
-  const { data } = useQuery("getUserInfo",getUserInfo)
+  const { data } = useQuery("getInfo",getInfo)
   const {
     params: { type },
   } = useRouter();

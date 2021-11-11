@@ -1,5 +1,5 @@
 import { Button, Image, Input, Label, Textarea, View } from "@tarojs/components";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 import React, { useState } from "react";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import { pushFeedback } from "@/modules/feedback/services";
@@ -14,7 +14,7 @@ import deletePng from "@/static/images/delete.png";
 
 
 const Edit = () => {
-  const { token } = getUserInfo();
+  const { token } = getInfo();
   const [picSrcs, setPicSrcs] = useState([]);
   const [title, setTitle] = useState();
   const [content, setContent] = useState();

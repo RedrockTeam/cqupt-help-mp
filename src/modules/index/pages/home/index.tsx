@@ -18,7 +18,7 @@ import homeIdIcon from "@/static/images/home-id-icon.png";
 // import tmpHomeRecent from "@/static/images/tmp-home-recent.jpg";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { navTo, resolvePage } from "@/common/helpers/utils";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 import { redirectTo } from "@tarojs/taro";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
@@ -36,7 +36,7 @@ const list = [
 ]; // 轮播图的图片
 export default function Index() {
   // @ts-ignore
-  const { data } = useQuery("token", getUserInfo);
+  const { data } = useQuery("token", getInfo);
 
   useEffect(() => {
     setToken(data?.token);
@@ -54,12 +54,17 @@ export default function Index() {
   );
 
   const renderHomeActivityList = () => {
-    if (isLoading)
+    console.log("loading"+isLoading);
+    console.log(isError);
+    console.log(homeActivityListRes?.data);
+    if (isLoading){
+      console.log("isTrue"+isLoading);
       return (
         <View className={styles.holder}>
           <Placeholder />
         </View>
       );
+    }
 
     if (isError || !homeActivityListRes) {
       return <Placeholder isError={isError} />;
@@ -80,8 +85,8 @@ export default function Index() {
           return (
             <RecentActivity
               name={e.name}
-              id={e.id}
-              key={e.id}
+              id={e.activity_id}
+              key={e.activity_id}
               teamName={e.team_name}
               timeDone={e.time_done}
               time={e.time}

@@ -1,6 +1,6 @@
 import request from "@/common/helpers/request";
 import { getQuestionLists } from "./dto";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 
 // {domain}/user/password/personal修改密码
 export const changPassword = ({ Origin, New }) =>
@@ -67,7 +67,7 @@ export const getQuestionList = (_key: string) =>
 export const getQuesAndEmailState = async () => {
   // https://run.mocky.io/v3/201b1ee2-e943-46a4-8962-4da5d9fbddc4
   console.log(114514);
-  const { stuNum } = await getUserInfo();
+  const { stuNum } = await getInfo();
   return request<getQuestionLists>(
     "https://be-prod.redrock.cqupt.edu.cn/user-secret/christina/user/bind/is",
     {
@@ -83,7 +83,7 @@ export const getQuesAndEmailState = async () => {
 };
 // {domain}/user/judge/origin判断是否是默认密码
 export const getPasswordState = async () => {
-  const { stuNum } = await getUserInfo();
+  const { stuNum } = await getInfo();
   return  request<getQuestionLists>(
     "https://be-prod.redrock.cqupt.edu.cn/user-secret/christina/user/judge/origin",
     {

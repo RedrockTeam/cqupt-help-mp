@@ -9,13 +9,13 @@ import robSuccess from '@/static/images/rob-success.png'
 import styles from "./index.module.scss";
 import request from "@/common/helpers/request";
 import LoadingPage from '../../components/Loding/index.jsx'
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 import { getQuesAndEmailState, changPassword, judgePassword } from '../../services/index.ts'
 import { resolvePage, navTo } from "@/common/helpers/utils";
 import { redirectTo, switchTab } from "@tarojs/taro";
 
 const ResetPassword = () => {
-    const { stuNum } = getUserInfo();
+    const { stuNum } = getInfo();
     const [showPop, setshowPop] = useState(false);
     const [isSuccess, setisSuccess] = useState(false);
     const myinput = useRef(null);

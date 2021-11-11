@@ -9,6 +9,7 @@
 import { BaseRes } from "@/common/helpers/request";
 
 interface Activity {
+  activity_id: number;
   id: number;
   name: string;
   team_name: string;
@@ -20,7 +21,7 @@ interface Activity {
   registration: string;
   type: 1 | 2; // 1是线上 2是线下
   image: string;
-  image_with: string;
+  image_with: string[];
 }
 
 export type ActivitiesHome = Activity[];
