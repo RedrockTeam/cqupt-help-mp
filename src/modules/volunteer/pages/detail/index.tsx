@@ -58,6 +58,8 @@ const VolunteerDetail = () => {
     // console.log(data.data.imagines);
 
     info = data.data;
+    console.log("info");
+    console.log(info);
     //  判断是否为字符串
     if (typeof info.need_additions === "string") {
       if (info.need_additions !== "")

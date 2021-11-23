@@ -16,7 +16,7 @@ import { useMutation } from "react-query/dist/react-query.production.min";
 import { switchTab } from "@tarojs/taro";
 import { navTo, resolvePage } from "@/common/helpers/utils";
 import PopupContext from "@/stores/popup";
-import { setToken } from "@/stores/user";
+import { setLocalUserInfo} from "@/stores/user";
 import styles from "./index.module.scss";
 import { bindReq } from "../../services";
 
@@ -38,20 +38,21 @@ const Bind = () => {
   const handleBind = async () => {
     try {
       const data = await mutateBind({ account, password });
-      if (data.errcode === "10010") {
+      console.log(data);
+      if (data.errcode === 10010) {
         const hide = Popup.show({
           title: "登录失败",
           detail: "账号与密码不匹配哦！",
         });
         setTimeout(() => hide(), 1500);
-      } else if (data.errcode === "10012") {
+      } else if (data.errcode === 10012) {
         const hide = Popup.show({
           title: "登录失败",
           detail: "账号与密码不匹配哦！",
         });
         setTimeout(() => hide(), 1500);
-      } else if (data.status === "10000") {
-        setToken(data.data.token);
+      } else if (data.status === 10000) {
+        setLocalUserInfo("token",data.data.token);
         switchTab({ url: resolvePage("index", "home") });
       }
       // requestSubscribeMessage({ // 长期订阅的逻辑，但是现在不能申请到长期订阅，等 wx 开放
@@ -121,7 +122,7 @@ const Bind = () => {
           忘记密码？
         </Text>
         <Text className={styles.tips}>
-          研究生和20届学生登陆密码为统一认证码后六位，其余同学密码为身份证后6位。
+          研究生和20级及以后的学生登陆密码为统一认证码后六位，其余同学密码为身份证后6位。
         </Text>
         <PrimaryButton className={styles.btn} onClick={handleBind}>
           {isLoading ? "Loading..." : "登录"}

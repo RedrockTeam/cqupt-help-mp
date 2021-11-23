@@ -1,8 +1,16 @@
+/*
+ * @Author: your name
+ * @Date: 2021-09-01 22:34:25
+ * @LastEditTime: 2021-10-08 13:39:33
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /cqupt-help-mp/src/common/components/image-upload/index.tsx
+ */
 import React, { useState, useEffect } from "react";
 import { View, Image, Text } from "@tarojs/components";
 import { chooseImage, uploadFile } from "@tarojs/taro";
 import styles from "./index.module.scss";
-import { getToken } from "@/stores/user";
+import { getUserInfo } from "@/stores/user";
 type Props = {
   placeholder?: string;
   className?: string;
@@ -11,13 +19,13 @@ type Props = {
   // onClick?: () => any;
 };
 
-const ImageUpload = ({
+const ImageUpload = async ({
   placeholder = "上传图片",
   className,
   dispatchImage,
   image,
 }: Props) => {
-  const token = getToken();
+  const { token } = await getUserInfo();
   const [uploaded, setUploaded] = useState<boolean>(false);
   useEffect(() => {
     setUploaded(!!image);
@@ -26,8 +34,7 @@ const ImageUpload = ({
     try {
       uploadFile({
         filePath: tempFilePaths[0],
-        url:
-          "https://be-prod.redrock.cqupt.edu.cn/cyb-permissioncenter/upload/file",
+        url: "https://be-prod.redrock.cqupt.edu.cn/cyb-permissioncenter/upload/file",
         name: "file",
         header: {
           Authorization: `Bearer ${await token}`,
@@ -39,7 +46,7 @@ const ImageUpload = ({
           setUploaded(true);
         },
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   const upload = () => {
     chooseImage({

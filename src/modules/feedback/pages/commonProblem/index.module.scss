@@ -1,0 +1,23 @@
+.wrap {
+  .detail {
+    padding: 48px 40px 0 40px;
+    margin: 24px auto;
+    background-color: #fff;
+    width: 90%;
+    height: 300px;
+    box-sizing: border-box;
+    border-radius: 16px;
+  }
+  .title {
+    font-family: PingFang SC;
+    font-weight:700;
+    color: #1C184C;
+  }
+  .description {
+    font-size: 28px;
+    color: #777494;
+    margin-top: 20px;
+    align-items: center;
+    line-height: 48px;
+  }
+}

@@ -215,14 +215,14 @@ const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
                   key: "resume",
                   data: JSON.stringify({
                     ...data,
-                    [seq]: value,
-                  }),
+                    [seq]: value
+                  })
                 });
-              },
+              }
             });
           }}
           // onBlur={() => setFocus("")}
-        ></Input>
+          />
       </View>
     );
   };
@@ -252,15 +252,15 @@ const ResumeForm = ({ info, pickerValue }: IResumeFormProps) => {
                   key: "resume",
                   data: JSON.stringify({
                     ...data,
-                    [seq]: value,
-                  }),
+                    [seq]: value
+                  })
                 });
-              },
+              }
             });
           }}
           // onBlur={() => setFocus("")}
           value={text}
-        ></Textarea>
+        />
         <Text className={styles.count}>{`${text.length}/${maxLength}`}</Text>
       </View>
     );

@@ -16,10 +16,10 @@ import {
 } from "./dto";
 
 export const checkIsVolunteer = (_key: string) =>
-  request<CheckIsVolunteerRes>("/cyb-volunteer/volunteer/is");
+  request<CheckIsVolunteerRes>("/cyb-volunteer/front/is");
 
 export const loginVolunteer = (info: VolunteerInfo) =>
-  request<LoginVolunteerRes, VolunteerInfo>("/cyb-volunteer/volunteer/login", {
+  request<LoginVolunteerRes, VolunteerInfo>("/cyb-volunteer/front/login", {
     method: "POST",
     data: info,
     header: {
@@ -28,11 +28,11 @@ export const loginVolunteer = (info: VolunteerInfo) =>
   });
 
 export const getVolunteerActivityListInfo = (_key: string) =>
-  request<VolunteerActivityListInfoRes>("/cyb-volunteer/volunteer/activities");
+  request<VolunteerActivityListInfoRes>("/cyb-volunteer/front/user/activities");
 
 export const getVolunteerActivityDetail = (_key: string, rely_id: string) =>
   request<VolunteerActivityDetailRes>(
-    "/cyb-volunteer/volunteer/activity/info",
+    "/cyb-volunteer/front/activity/info",
     {
       method: "POST",
       data: { rely_id },

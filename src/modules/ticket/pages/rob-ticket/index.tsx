@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { createContainer, useContainer } from "unstated-next";
-import { getStorage, navigateBack, removeStorage, setStorage } from "@tarojs/taro";
+import {
+  getStorage,
+  navigateBack,
+  removeStorage,
+  setStorage,
+} from "@tarojs/taro";
 import { Button, View } from "@tarojs/components";
 import dayjs from "dayjs";
 import {
@@ -35,46 +40,48 @@ const PAGE_TITLE = "在线抢票";
 const RobTicket = () => {
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();
-  const [ remindRuleStateLoading, setRemindRuleStateLoading ] = useState<boolean>(false);
-  const [ remindRuleState, setRemindRuleState ] = useState<boolean>(true);// 判断当前是否需要弹窗
-  const [ remindCloseCount, setRemindCloseCount ] = useState<number>(5);
+  const [remindRuleStateLoading, setRemindRuleStateLoading] = useState<boolean>(
+    false
+  );
+  const [remindRuleState, setRemindRuleState] = useState<boolean>(true); // 判断当前是否需要弹窗
+  const [remindCloseCount, setRemindCloseCount] = useState<number>(5);
   useEffect(() => {
     if (remindCloseCount > 0 && remindRuleState) {
       setTimeout(() => {
-        setRemindCloseCount(remindCloseCount -1)
-      }, 1000)
+        setRemindCloseCount(remindCloseCount - 1);
+      }, 1000);
     }
-  })
+  });
 
   // 影票列表的处理
   /**
    * @description: 传入参数为影票种类，0为电影，1为讲座
    * @param {number} type
    * @return {*}
-   */ 
-   const filterObj = (type: number) => {
+   */
+  const filterObj = (type: number) => {
     if (ticketList === undefined) {
       return [];
     }
     if (type === 0) {
-      return ticketList.data.filter(item => item.type === 0)
+      return ticketList.data.filter((item) => item.type === 0);
     } else if (type === 1) {
-      return ticketList.data.filter(item => item.type === 1)
+      return ticketList.data.filter((item) => item.type === 1);
     }
-  }
+  };
 
   // 选择弹窗
   const SelectPopupFun = () => {
     const [ state, setState ] = useState(true);
     const changeState = () => {
       if (state) {
-        setRemindRuleState(false)
+        setRemindRuleState(false);
       } else {
-        setRemindRuleState(true)
+        setRemindRuleState(true);
       }
-    }
-    return { state, setState , changeState }
-  }
+    };
+    return { state, setState, changeState };
+  };
   const useSelectPopup = createContainer(SelectPopupFun);
   const SelectPopupDisplay = () => {
     const SelectPopupCounter = useSelectPopup.useContainer();
@@ -93,8 +100,8 @@ const RobTicket = () => {
             setStorage({
               key: "remindRule",
               data: false,
-            })
-          }, 5000)
+            });
+          }, 5000);
         } else {
           // console.log('====================================');
           // console.log('不用弹窗');
@@ -109,15 +116,15 @@ const RobTicket = () => {
         setStorage({
           key: "remindRule",
           data: true,
-        })
+        });
         setRemindRuleState(true);
-      }
-    })
+      },
+    });
 
     const Click = () => {
       // navTo({ url: resolvePage("ticket", "rob-ticket-info") })
       SelectPopupCounter.changeState();
-    }
+    };
 
     return (
       <View>
@@ -160,7 +167,6 @@ const RobTicket = () => {
   );
   // const isLoading = false;
   // const isError = false;
-
 
   // const ticketListMovie = filterObj(0);
   // const ticketListLecture = filterObj(1);
@@ -230,7 +236,7 @@ const RobTicket = () => {
     }
 
     console.log("候补抢票res: ", res);
-    
+
     if (res.status === 10000) {
       const hide = Popup.show({
         img: robSuccessImg,
@@ -262,8 +268,7 @@ const RobTicket = () => {
       });
       setTimeout(() => hide(), 1500);
     }
-    
-  }
+  };
 
   if (isLoading) return <Placeholder title={PAGE_TITLE} />;
   // console.log(ticketList);
@@ -286,13 +291,13 @@ const RobTicket = () => {
         LectureFun={() => setCurrentState(0)}
       />
       <View className={styles.wrapper}>
-        {
-          currentState === 0?
-          (
-            ticketListLecture.length !== 0?
-            (
-              ticketListLecture
-              .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
+        {currentState === 0 ? (
+          ticketListLecture.length !== 0 ? (
+            ticketListLecture
+              .sort(
+                (a, b) =>
+                  dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix()
+              )
               .map((e) => (
                 <Ticket
                   id={e.id}
@@ -313,54 +318,49 @@ const RobTicket = () => {
                   chief={e.chief}
                 />
               ))
-            ):
-            (
-              <Empty
-                title={PAGE_TITLE}
-                detail="近期还没有影票可以抢哦～"
-                suggestion="去首页看看活动吧"
-                btnContent="查看活动"
-                onBtnClick={() => navigateBack()}
-              />
-            )
-          ):
-          (
-            ticketListMovie.length !== 0?
-            (
-              ticketListMovie
-              .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
-              .map((e) => (
-                <Ticket
-                  id={e.id}
-                  playTime={dayjs(e.play_time).unix()}
-                  endTime={dayjs(e.end_time).unix()}
-                  robTime={dayjs(e.begin_time).unix()}
-                  location={e.location}
-                  remain={e.left}
-                  image={e.image}
-                  name={e.name}
-                  isReceived={e.is_received}
-                  onRobTicket={handleRobTicket}
-                  onAlternateRobTicket={handleAlternateRobTicket}
-                  key={e.id}
-                  type={e.type}
-                  all={e.all}
-                  re_send_num={e.re_send_num}
-                  chief={e.chief}
-                />
-              ))
-            ):
-            (
-              <Empty
-                title={PAGE_TITLE}
-                detail="近期还没有影票可以抢哦～"
-                suggestion="去首页看看活动吧"
-                btnContent="查看活动"
-                onBtnClick={() => navigateBack()}
-              />
-            )  
+          ) : (
+            <Empty
+              title={PAGE_TITLE}
+              detail="近期还没有影票可以抢哦～"
+              suggestion="去首页看看活动吧"
+              btnContent="查看活动"
+              onBtnClick={() => navigateBack()}
+            />
           )
-        }
+        ) : ticketListMovie.length !== 0 ? (
+          ticketListMovie
+            .sort(
+              (a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix()
+            )
+            .map((e) => (
+              <Ticket
+                id={e.id}
+                playTime={dayjs(e.play_time).unix()}
+                endTime={dayjs(e.end_time).unix()}
+                robTime={dayjs(e.begin_time).unix()}
+                location={e.location}
+                remain={e.left}
+                image={e.image}
+                name={e.name}
+                isReceived={e.is_received}
+                onRobTicket={handleRobTicket}
+                onAlternateRobTicket={handleAlternateRobTicket}
+                key={e.id}
+                type={e.type}
+                all={e.all}
+                re_send_num={e.re_send_num}
+                chief={e.chief}
+              />
+            ))
+        ) : (
+          <Empty
+            title={PAGE_TITLE}
+            detail="近期还没有影票可以抢哦～"
+            suggestion="去首页看看活动吧"
+            btnContent="查看活动"
+            onBtnClick={() => navigateBack()}
+          />
+        )}
         {/* {currentList
           .sort((a, b) => dayjs(a.begin_time).unix() - dayjs(b.begin_time).unix())
           .map((e) => (

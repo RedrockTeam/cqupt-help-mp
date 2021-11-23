@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BaseEventOrigFunction,
   Image,
@@ -9,6 +9,8 @@ import {
   Text,
   View,
 } from "@tarojs/components";
+import newIcon from "@/static/images/new-icon.png";
+import homeYoungIcon from "@/static/images/home-young-icon.png";
 import homeTicketIcon from "@/static/images/home-ticket-icon.png";
 import homeCampusIcon from "@/static/images/home-campus-icon.png";
 import homeVolunteerIcon from "@/static/images/home-volunteer-icon.png";
@@ -16,14 +18,14 @@ import homeIdIcon from "@/static/images/home-id-icon.png";
 // import tmpHomeRecent from "@/static/images/tmp-home-recent.jpg";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { navTo, resolvePage } from "@/common/helpers/utils";
+import { getUserInfo } from "@/stores/user";
+import { redirectTo } from "@tarojs/taro";
 import { useQuery } from "react-query/dist/react-query.production.min";
-// import {useUserInfo} from "@/stores/user";
 import Placeholder from "@/common/components/placeholder";
 import Empty from "@/common/components/empty";
 import { getHomeActivities } from "../../services";
 import styles from "./index.module.scss";
 import RecentActivity from "../../components/recent-activiey";
-
 // TODO: 图床链接已失效，仅一个可用，下次找别的换了
 const list = [
   // "https://wx.redrock.team/game/cqupt-help-mp/slider-img0.jpg",
@@ -32,10 +34,14 @@ const list = [
   // "https://wx.redrock.team/game/cqupt-help-mp/slider-img3.jpg",
   // "https://wx.redrock.team/game/cqupt-help-mp/slider-img4.jpg",
 ]; // 轮播图的图片
-
 export default function Index() {
-  // const {token} = useUserInfo();
+  // @ts-ignore
+  const { data } = useQuery("token", getUserInfo);
 
+  useEffect(() => {
+    setToken(data?.token);
+  }, [data]);
+  const [token, setToken] = useState("")
   const [slidePercent, setSlidePercent] = useState(0);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
     e
@@ -60,12 +66,12 @@ export default function Index() {
     }
 
     // TODO: 后端将所有活动均返回，过滤掉已过期掉活动，喊后端有空修
-    homeActivityListRes.data = homeActivityListRes?.data?.length ? homeActivityListRes?.data?.filter(
-      // @ts-ignore
-      (activity) => activity.time_done > Date.parse(new Date()) / 1000
-    ) : [];
-
-
+    homeActivityListRes.data = homeActivityListRes?.data?.length
+      ? homeActivityListRes?.data?.filter(
+          // @ts-ignore
+          (activity) => activity.time_done > Date.parse(new Date()) / 1000
+        )
+      : [];
 
     return homeActivityListRes.data.length !== 0 ? (
       homeActivityListRes.data
@@ -105,7 +111,7 @@ export default function Index() {
         indicatorDots
         circular
         autoplay
-      // TODO: 修改 dot 样式
+        // TODO: 修改 dot 样式
       >
         {list.map((e) => (
           <SwiperItem key={e}>
@@ -130,10 +136,10 @@ export default function Index() {
           </View>
           <View
             className={styles.slideItem}
-            onClick={() => navTo({ url: resolvePage("campus", "index") })}
+            onClick={() => navTo({ url: resolvePage("id", "index") })}
           >
-            <Image src={homeCampusIcon} className={styles.slideImg} />
-            <Text className={styles.slideText}>校园服务</Text>
+            <Image src={homeIdIcon} className={styles.slideImg} />
+            <Text className={styles.slideText}>身份有证</Text>
           </View>
           <View
             className={styles.slideItem}
@@ -142,29 +148,34 @@ export default function Index() {
             <Image src={homeVolunteerIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>志愿报名</Text>
           </View>
-          {/* <View
+          <View
             className={styles.slideItem}
-            onClick={() =>
-              navTo({
-                url: "https://wx.redrock.team/game/youyue/#/",
-                payload: {
-                  title: "青春邮约",
-                  t: token,
-                },
-                encode: true,
-              })
-            }
+            onClick={() => {
+              console.log(`token${token}`);
+              if (token) {
+                navTo({
+                  url: "https://fe-prod.redrock.cqupt.edu.cn/youyue#/",
+                  payload: {
+                    title: "青春邮约",
+                    t: token,
+                  },
+                  encode: true,
+                });
+              } else {
+                redirectTo({ url: resolvePage("index", "bind") });
+              }
+            }}
           >
             <Image src={homeYoungIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>青春邮约</Text>
             <Image className={styles.newIcon} src={newIcon} />
-          </View> */}
+          </View>
           <View
             className={styles.slideItem}
-            onClick={() => navTo({ url: resolvePage("id", "index") })}
+            onClick={() => navTo({ url: resolvePage("campus", "index") })}
           >
-            <Image src={homeIdIcon} className={styles.slideImg} />
-            <Text className={styles.slideText}>身份有证</Text>
+            <Image src={homeCampusIcon} className={styles.slideImg} />
+            <Text className={styles.slideText}>校园服务</Text>
           </View>
         </ScrollView>
       </View>
@@ -174,18 +185,16 @@ export default function Index() {
             className={styles.scrollBarSlide}
             style={{
               // FIXME: 大于四个的时候删掉下面这行
-              width: "100%",
+              // width: "100%",
               left: slidePercent,
             }}
           />
         </View>
       </View>
       <View className={styles.recentActivitiesWrapper}>
-        <Text className={styles.title}
-        >热门活动</Text>
+        <Text className={styles.title}>热门活动</Text>
         <View>{renderHomeActivityList()}</View>
       </View>
-
     </View>
   );
 }

@@ -1,12 +1,15 @@
 import React from "react";
 import { View, Image, Text } from "@tarojs/components";
 import PrimaryButton from "@/common/components/primary-button";
-import { timestampToTimeCNString, now, timestampToTimeStreamString } from "@/common/helpers/date";
+import {
+  timestampToTimeCNString,
+  now,
+  timestampToTimeStreamString,
+} from "@/common/helpers/date";
 import dateIcon from "@/static/images/date.png";
 import timeIcon from "@/static/images/robticketinfo-time-icon.png";
 import placeIcon from "@/static/images/robticketinfo-place-icon.png";
 import styles from "./index.module.scss";
-import { navigateTo } from "@tarojs/taro";
 import { navTo, resolvePage } from "@/common/helpers/utils";
 
 /**
@@ -64,12 +67,15 @@ const Ticket = ({
 
     if (nowTimestamp >= robTime && playTime >= nowTimestamp) {
       if (remain <= 0) {
-        if (re_send_num < Math.ceil(all*0.2)) {
+        if (re_send_num < Math.ceil(all * 0.2)) {
           return (
-            <PrimaryButton className={styles.btn} onClick={() => onAlternateRobTicket(id, re_send_num)}>
+            <PrimaryButton
+              className={styles.btn}
+              onClick={() => onAlternateRobTicket(id, re_send_num)}
+            >
               候补抢票
             </PrimaryButton>
-          )
+          );
         }
         return (
           <PrimaryButton disabled className={styles.btn}>
@@ -111,27 +117,30 @@ const Ticket = ({
     if (type === 0) {
       return (
         <View
-          onClick={(e) => { navTo({ url: `${resolvePage("ticket", "rob-ticket-info")}?id=${id}` }) }}
-          className={styles.content}>
+          onClick={(e) => {
+            navTo({
+              url: `${resolvePage("ticket", "rob-ticket-info")}?id=${id}`,
+            });
+          }}
+          className={styles.content}
+        >
           <View className={styles.info} style="width: 100%">
             <View className={styles.header}>
               <Text>{name}</Text>
               <Text className={styles.remain}>剩余 {remain} 张</Text>
             </View>
-            <Text className={styles.text}>
-              主讲人：{chief}
-            </Text>
+            <Text className={styles.text}>主讲人：{chief}</Text>
             <View className={styles.text}>
-              <Image src={timeIcon} className={styles.imageIcon}/>
+              <Image src={timeIcon} className={styles.imageIcon} />
               {timestampToTimeStreamString(playTime, endTime)}
             </View>
             <View className={styles.text}>
-              <Image src={placeIcon} className={styles.imageIcon}/>
+              <Image src={placeIcon} className={styles.imageIcon} />
               {location}
             </View>
           </View>
         </View>
-      )
+      );
     } else if (type === 1) {
       return (
         <View className={styles.content}>
@@ -148,9 +157,9 @@ const Ticket = ({
             {renderRobBtn()}
           </View>
         </View>
-      )
+      );
     }
-  }
+  };
 
   return (
     <View className={styles.wrapper}>

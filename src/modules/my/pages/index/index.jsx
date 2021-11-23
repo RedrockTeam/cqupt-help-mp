@@ -11,54 +11,80 @@ import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
-import { useUserInfo } from "@/stores/user";
+import { getUserInfo } from "@/stores/user";
 import { redirectTo, useDidShow, scanCode } from "@tarojs/taro";
-import styles from "./index.module.scss";
-import { useMutation } from "react-query/dist/react-query.production.min";
-import { getMyReads } from "../../services";
 import Placeholder from "@/common/components/placeholder";
+import { useMutation } from "react-query/dist/react-query.production.min";
+import styles from "./index.module.scss";
+import { getMyVolunteerReads, getMyActivityReads } from "../../services";
 
-function MyIndex() {
-  const userInfo = useUserInfo();
+function MyIndex(){
+  const [realName, setRealName] = useState("");
+  const [stuNum, setStuNum] = useState("");
+  const [college, setCollege] = useState("")
+  getUserInfo().then(e =>{
+    console.log(e);
+    setRealName(e.realName)
+    setStuNum(e.stuNum)
+    setCollege(e.college)
+  });
   const [showPop, setshowPop] = useState(false);
+  const [myVolunteerReadsRes, setMyVolunteerReadsRes] = useState(null);
+  const [myActivityReadsRes, setMyActivityReadsRes] = useState(null);
+
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
+
   const handleLoginout = async () => {
-    const res = await request(
-      "https://be-prod.redrock.cqupt.edu.cn/magicloop/unbind/xcx"
-    );
+    const res = await request("https://be-prod.redrock.cqupt.edu.cn/magicloop/unbind/xcx");
     if (res.status === 10000) {
       redirectTo({
         url: resolvePage("index", "bind"),
       });
     }
   };
-
-  let [myReadsRes, setReadsRes] = useState(null);
-  let [isLoading, setLoading] = useState(true);
-  let [isError, setError] = useState(false);
-
-  const [mutateReadRes] = useMutation(getMyReads, {
+  // const [mutateVolunteerReadRes] = useMutation(getMyVolunteerReads, {
+  //   onSuccess(myReadsRes) {
+  //     setMyVolunteerReadsRes(myReadsRes.data);
+  //     setLoading(false);
+  //   },
+  //   onError() {
+  //     setError(true)
+  //   }
+  // })
+  const [mutateActivityReadRes] = useMutation(getMyActivityReads, {
     onSuccess(myReadsRes) {
-      setReadsRes(myReadsRes);
+      setMyActivityReadsRes(myReadsRes.data);
       setLoading(false);
     },
     onError() {
-      setError(true);
-    },
-  });
+      setError(true)
+    }
+  })
   useDidShow(() => {
-    mutateReadRes();
-  });
+    // mutateVolunteerReadRes();
+    mutateActivityReadRes()
+  })
 
   if (isLoading) {
     return (
       <View className={styles.holder}>
         <Placeholder />
       </View>
-    );
+    )
   }
-  if (isError || !myReadsRes) return <Placeholder isError />;
+  // if (isError || !myActivityReadsRes)
+  //   return <Placeholder isError/>;
 
-  const { number, unread } = myReadsRes.data;
+
+  // const [number, unread] = [myVolunteerReadsRes.number + myActivityReadsRes.number , myVolunteerReadsRes.un_read + myActivityReadsRes.un_read]
+  if (myVolunteerReadsRes && myActivityReadsRes) {
+    const [number, unread] = [myVolunteerReadsRes.number ? myActivityReadsRes.number : 0, myVolunteerReadsRes.un_read ? myActivityReadsRes.un_read : 0]
+  } else {
+    const [number, unread] = [0, 0]
+  }
+
+
 
   return (
     <View className={styles.wrapper}>
@@ -72,9 +98,9 @@ function MyIndex() {
             />
           </View>
           <View className={styles.top_left}>
-            <View className={styles.name}>{userInfo.realName}</View>
-            <View className={styles.info}>学号：{userInfo.stuNum}</View>
-            <View className={styles.info}>专业：{userInfo.college}</View>
+            <View className={styles.name}>{realName}</View>
+            <View className={styles.info}>学号：{stuNum}</View>
+            <View className={styles.info}>专业：{college}</View>
           </View>
         </View>
         <View className={styles.top_bottom}>
@@ -87,17 +113,22 @@ function MyIndex() {
           <View
             onClick={() => navTo({ url: resolvePage("my", "my-activity") })}
           >
-            {unread ? (
-              <View className={styles.hint_point}>{unread}</View>
-            ) : null}
+            {/*{unread &&*/}
+            {/*  <View className={styles.hint_point}>{unread}</View>*/}
+            {/*}*/}
             <Image className={styles.pic2} src={campusIcon} />
             <View className={styles.desc}>
-              <Text className={styles.text}>我的活动</Text>
-              {number === undefined ? (
-                <Text className={styles.hint_number}>0</Text>
-              ) : (
-                <Text className={styles.hint_number}>{number}</Text>
-              )}
+              <Text className={styles.text}>
+                我的活动
+              </Text>
+              {/*{number &&<Text className={styles.hint_number}>{number}</Text>}*/}
+              {/*{*/}
+              {/*  number === 0 ? (*/}
+              {/*    <Text className={styles.hint_number}>0</Text>*/}
+              {/*  ) : (*/}
+              {/*    <Text className={styles.hint_number}>0</Text>*/}
+              {/*  )*/}
+              {/*}*/}
             </View>
           </View>
           <View
@@ -114,7 +145,7 @@ function MyIndex() {
       <View className={styles.list}>
         <View
           className={styles.feedback}
-          onClick={() => navTo({ url: resolvePage("feedback", "index") })}
+          onClick={() => navTo({ url: resolvePage("feedback", "edit") })}
         >
           <Image src={feedbackIcon} className={styles.icon} />
           <Text className={styles.text}>意见反馈</Text>
@@ -134,7 +165,7 @@ function MyIndex() {
           className={styles.about}
           onClick={() =>
             navTo({
-              url: "https://wx.redrock.team/game/about-us/mobile.html",
+              url: "https://redrock.team/#/",
               payload: { title: "红岩网校 - 关于我们" },
             })
           }
@@ -176,5 +207,6 @@ function MyIndex() {
     </View>
   );
 }
+
 
 export default MyIndex;

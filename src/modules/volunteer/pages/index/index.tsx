@@ -41,7 +41,7 @@ const Volunteer = () => {
     return <Placeholder title={PAGE_TITLE} />;
   }
   if (isVolunteerRes.status === 10000) {
-    if (!isVolunteerRes.exist) {
+    if (!isVolunteerRes.data) {
       redirectTo({ url: resolvePage("volunteer", "bind") });
     }
   }

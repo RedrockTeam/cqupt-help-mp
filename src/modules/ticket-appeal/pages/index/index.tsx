@@ -15,25 +15,22 @@ import {
   showModal,
   uploadFile,
 } from "@tarojs/taro";
-import React, { useEffect, useRef, useState } from "react";
-import styles from "./index.module.scss";
-import { getToken } from "@/stores/user";
+import React, { useState } from "react";
+import { getUserInfo } from "@/stores/user";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import error from "@/static/images/error.png";
 import { navTo, resolvePage } from "@/common/helpers/utils";
-import { postAppeal } from "../../services";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import WaitImg from "@/static/images/wait.png";
 import deleteImg from "@/static/images/delete.png";
+import styles from "./index.module.scss";
+import { postAppeal } from "../../services";
+
 
 const PAGE_TITLE = "影票申诉";
-
 const TicketAppealIndex = () => {
-  let token: string | undefined;
-  getToken().then((res) => {
-    token = res;
-  });
+  const { token } = getUserInfo()
   const [mutatePush] = useMutation(postAppeal);
   const [currentInput, setCurrentInput] = useState(0);
   const [detail, setDetail] = useState<string>("");
@@ -133,6 +130,7 @@ const TicketAppealIndex = () => {
     const n = picList.length;
     console.log(token);
 
+
     if (n) {
       const promises = picList.map((picSrc) =>
         uploadFile({
@@ -185,6 +183,7 @@ const TicketAppealIndex = () => {
   // handleUploadImg(picList, token, picRes);
 
   // console.log(getCurrentInstance().router?.params);
+
 
   return (
     <View className={styles.wrapper}>

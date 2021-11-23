@@ -7,7 +7,7 @@
  * @FilePath: /cqupt-help-mp/src/modules/ticket/components/owed-ticket/index.tsx
  * 
  */
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { View, Image, Text, Button } from "@tarojs/components";
 import { Barcode, QRCode } from 'taro-code';
 import styles from "./index.module.scss";
@@ -42,7 +42,8 @@ const OwedTicket = ({
   PopupStateCounter,
   effective,
 }: Props) => {
-  const [ ticketState, setTicketState ] = useState<boolean>(effective);
+  const [ ticketState, setTicketState ] = useState<number>(effective);
+  useMemo(() => setTicketState(effective), [effective]);
 
   const countTicketNum = () => {
     let typeNum,sessionNum,orderNum;
@@ -69,7 +70,7 @@ const OwedTicket = ({
     
     return `${typeNum}${sessionNum}${orderNum}`;
   }
-  const num = 12;
+  // const num = 12;
   
   
   
