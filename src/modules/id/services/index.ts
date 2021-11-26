@@ -6,7 +6,7 @@ import {
   ApplyTeamInfo,
 } from "./dto";
 
-const BASE_URL = "https://be-prod.redrock.cqupt.edu.cn/christina-seckill";
+const BASE_URL = "https://be-prod.redrock.cqupt.edu.cn/christina-identity/front";
 
 export const getIdCardList = (_key: string) =>
   request<GetIdCardRes>(`${BASE_URL}/myTeam`, {

@@ -153,7 +153,7 @@ export default function Index() {
             <Image src={homeVolunteerIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>志愿报名</Text>
           </View>
-          <View
+          {/* <View
             className={styles.slideItem}
             onClick={() => {
               console.log(`token${token}`);
@@ -174,7 +174,7 @@ export default function Index() {
             <Image src={homeYoungIcon} className={styles.slideImg} />
             <Text className={styles.slideText}>青春邮约</Text>
             <Image className={styles.newIcon} src={newIcon} />
-          </View>
+          </View> */}
           <View
             className={styles.slideItem}
             onClick={() => navTo({ url: resolvePage("campus", "index") })}
@@ -190,7 +190,7 @@ export default function Index() {
             className={styles.scrollBarSlide}
             style={{
               // FIXME: 大于四个的时候删掉下面这行
-              // width: "100%",
+              width: "100%",
               left: slidePercent,
             }}
           />
