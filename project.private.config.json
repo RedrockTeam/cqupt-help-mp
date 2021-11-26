@@ -1,0 +1,36 @@
+{
+    "setting": {},
+    "condition": {
+        "plugin": {
+            "list": []
+        },
+        "game": {
+            "list": []
+        },
+        "gamePlugin": {
+            "list": []
+        },
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "modules/ticket/pages/rob-ticket/index",
+                    "pathName": "modules/ticket/pages/rob-ticket/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "modules/index/pages/home/index",
+                    "pathName": "modules/index/pages/home/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "modules/index/pages/home/index",
+                    "pathName": "modules/index/pages/home/index",
+                    "query": "",
+                    "scene": null
+                }
+            ]
+        }
+    }
+}

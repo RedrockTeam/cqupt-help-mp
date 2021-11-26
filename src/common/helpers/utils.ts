@@ -39,6 +39,10 @@ function urlStringify(
  * @param param
  */
 export const getString = (param: string) => {
+  console.log(param);
+  if(!param){
+    return ""
+  }
   const index = param.lastIndexOf("—");
   if (index === -1) return param;
   return param.substring(0, index);

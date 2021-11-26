@@ -49,10 +49,12 @@ const RecentActivity = ({
     <View
       className={styles.activity}
       onClick={() => {
+        console.log("点击跳转");
         if (type === 1 /* 线上活动 */) {
           navTo({ url: registration, payload: { title: name } });
         } else {
           // 线下活动
+          console.log("触发线下活动");
           navTo({
             url: resolvePage("index", "activity-detail"),
             payload: {
@@ -83,12 +85,12 @@ const RecentActivity = ({
       <View className={styles.right}>
         <View className={styles.activityTitle}>
           {name}
-          <View
-            className={`${styles.tag} ${type === 1 ? styles.online : styles.offline
-              }`}
-          >
-            {type === 1 ? "线上" : "线下"}
-          </View>
+          {/*<View*/}
+          {/*  className={`${styles.tag} ${type === 1 ? styles.online : styles.offline*/}
+          {/*    }`}*/}
+          {/*>*/}
+          {/*  {type === 1 ? "线上" : "线下"}*/}
+          {/*</View>*/}
         </View>
         <Text className={styles.text}>{getString(teamName)}</Text>
         <Text className={styles.text}>

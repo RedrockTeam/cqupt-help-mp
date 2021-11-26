@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import { View, Image, Text } from "@tarojs/components";
 import { chooseImage, uploadFile } from "@tarojs/taro";
 import styles from "./index.module.scss";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 type Props = {
   placeholder?: string;
   className?: string;
@@ -25,7 +25,7 @@ const ImageUpload = async ({
   dispatchImage,
   image,
 }: Props) => {
-  const { token } = await getUserInfo();
+  const { token } = await getInfo();
   const [uploaded, setUploaded] = useState<boolean>(false);
   useEffect(() => {
     setUploaded(!!image);

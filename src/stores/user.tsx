@@ -77,7 +77,7 @@ type UserInfo = {
   localOk?: boolean;
 };
 
-export const getUserInfo = async () => {
+export const getInfo = async () => {
   // 本地的用户数据数据库可用
   let UserInfo;
   if (localUserInfo.localOk) {
@@ -101,7 +101,7 @@ export const getUserInfo = async () => {
 export const isTokenExpired = async () => {
   // 检测token
   console.log("检测token");
-  const { token } = await getUserInfo();
+  const { token } = await getInfo();
   const pages = getCurrentInstance();
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore

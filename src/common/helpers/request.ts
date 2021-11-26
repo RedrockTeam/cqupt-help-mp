@@ -1,5 +1,5 @@
 import { request as req } from "@tarojs/taro";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 import { API } from "../constants";
 
 const request = async <ResType = any, ReqType = any>(
@@ -10,7 +10,7 @@ const request = async <ResType = any, ReqType = any>(
     data,
   }: Pick<req.Option<ReqType>, "method" | "header" | "data"> = {}
 ) => {
-  const { token }= await getUserInfo();
+  const { token }= await getInfo();
   // eslint-disable-next-line no-console
   console.log(1);
   console.log(token);

@@ -11,7 +11,7 @@ import enter from "@/static/images/campus-enter-icon.png";
 import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 import { redirectTo, useDidShow, scanCode } from "@tarojs/taro";
 import Placeholder from "@/common/components/placeholder";
 import { useMutation } from "react-query/dist/react-query.production.min";
@@ -22,7 +22,7 @@ function MyIndex(){
   const [realName, setRealName] = useState("");
   const [stuNum, setStuNum] = useState("");
   const [college, setCollege] = useState("")
-  getUserInfo().then(e =>{
+  getInfo().then(e =>{
     console.log(e);
     setRealName(e.realName)
     setStuNum(e.stuNum)

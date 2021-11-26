@@ -31,7 +31,7 @@ export const getHomeActivities = (_key: string) =>
   request<ActivitiesHomeRes>("/christina-activity/activity/front/activities");
 
 export const applyActivity = (data: ApplyActivityInfo) =>
-  request<ApplyActivityRes, ApplyActivityInfo>("/cyb-myactivities/registe", {
+  request<ApplyActivityRes, ApplyActivityInfo>("/christina-activity/activity/front/register", {
     method: "POST",
     data,
   });

@@ -16,7 +16,7 @@ import {
   uploadFile,
 } from "@tarojs/taro";
 import React, { useState } from "react";
-import { getUserInfo } from "@/stores/user";
+import { getInfo } from "@/stores/user";
 import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import error from "@/static/images/error.png";
@@ -30,7 +30,7 @@ import { postAppeal } from "../../services";
 
 const PAGE_TITLE = "影票申诉";
 const TicketAppealIndex = () => {
-  const { token } = getUserInfo()
+  const { token } = getInfo()
   const [mutatePush] = useMutation(postAppeal);
   const [currentInput, setCurrentInput] = useState(0);
   const [detail, setDetail] = useState<string>("");
