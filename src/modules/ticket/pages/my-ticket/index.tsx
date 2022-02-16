@@ -26,7 +26,7 @@ import { createContainer, useContainer } from "unstated-next";
 import BottomPop from "@/common/components/bottomPop";
 import styles from "./index.module.scss";
 import OwedTicket from "../../components/owed-ticket";
-import { 
+import {
   getMyTicketList,
   checkTicket,
   returnMyTicket,
@@ -61,7 +61,6 @@ const MyTicket = () => {
       const res = await mutateReturnTicket(myTicketListRes.data[current].id);
       console.log(myTicketListRes.data[current].id);
       console.log(dayjs(myTicketListRes.data[current].play_time).unix() - 1800 < now());
-      
       if (res.status === 10000) {
         if (dayjs(myTicketListRes.data[current].play_time).unix() - 1800 > now()) {
           const hide = Popup.show({
@@ -214,7 +213,7 @@ const MyTicket = () => {
           cancelFun={changePopupState}
         />
       </View>
-      
+
       {/* <PrimaryButton
         onClick={handleCheck}
         className={styles.btn}
