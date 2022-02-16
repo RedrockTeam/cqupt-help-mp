@@ -8,7 +8,7 @@
  *
  */
 import request from "@/common/helpers/request";
-import { RobTicketListInfoRes, RobTicketRes, MyTicketListRes } from "./dto";
+import {RobTicketListInfoRes, RobTicketRes, MyTicketListRes} from "./dto";
 
 export const getRobTicketListInfo = (_key: string) =>
   request<RobTicketListInfoRes>("/christina-seckill/secKillInfo", {
@@ -24,12 +24,12 @@ export const robTicket = (id: number) =>
   });
 
 export const robAlternateTicket = (id: number) =>
-request<RobTicketRes>("/christina-seckill/resend", {
-  method: "POST",
-  data: {
-    film_id: id,
-  },
-});
+  request<RobTicketRes>("/christina-seckill/resend", {
+    method: "POST",
+    data: {
+      film_id: id,
+    },
+  });
 
 export const getMyTicketList = (_key: string) =>
   request<MyTicketListRes>("/christina-seckill/ticket/myTicket");
