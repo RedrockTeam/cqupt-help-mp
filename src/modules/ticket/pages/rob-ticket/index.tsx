@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { createContainer, useContainer } from "unstated-next";
+import React, {useCallback, useEffect, useState} from "react";
+import {createContainer, useContainer} from "unstated-next";
 import {
   getStorage,
   navigateBack,
   removeStorage,
   setStorage,
 } from "@tarojs/taro";
-import { Button, View } from "@tarojs/components";
+import {Button, View} from "@tarojs/components";
 import dayjs from "dayjs";
 import {
   useQuery,
@@ -31,9 +31,9 @@ import styles from "./index.module.scss";
 // import ticketList from "../../../../mock/TicketList.json";
 import SelectPopup from "../../components/select-popup";
 import TypeHeader from "../../components/type-header";
-import { navTo } from "@/common/helpers/utils";
-import { resolvePage } from "@/common/helpers/utils";
-import { RobTicketListInfoRes, RobTicketInfo } from "../../services/dto";
+import {navTo} from "@/common/helpers/utils";
+import {resolvePage} from "@/common/helpers/utils";
+import {RobTicketListInfoRes, RobTicketInfo} from "../../services/dto";
 
 const PAGE_TITLE = "在线抢票";
 
@@ -65,14 +65,15 @@ const RobTicket = () => {
     }
     if (type === 0) {
       return ticketList.data.filter((item) => item.type === 0);
-    } else if (type === 1) {
+    }
+    if (type === 1) {
       return ticketList.data.filter((item) => item.type === 1);
     }
   };
 
   // 选择弹窗
   const SelectPopupFun = () => {
-    const [ state, setState ] = useState(true);
+    const [state, setState] = useState(true);
     const changeState = () => {
       if (state) {
         setRemindRuleState(false);
@@ -80,7 +81,7 @@ const RobTicket = () => {
         setRemindRuleState(true);
       }
     };
-    return { state, setState, changeState };
+    return {state, setState, changeState};
   };
   const useSelectPopup = createContainer(SelectPopupFun);
   const SelectPopupDisplay = () => {
@@ -138,19 +139,20 @@ const RobTicket = () => {
           4.候补票用户与正常抢票用户一致，遵守信用制等相关规定。获得候补票后未按时到场验票，也将被记录至不良信用档案。"
           bottomType={1}
           confirmFun={SelectPopupCounter.changeState}
-          cancelFun={() => {}}
+          cancelFun={() => {
+          }}
           remindCloseCount={remindCloseCount}
         />
       </View>
     )
   }
 
-  const [ currentState, setCurrentState ] = useState<number>(0);
-  const [ blackListCounter, setBlackListCounter ] = useState<number>(0);
-  const [ ticketListMovie, setTicketListMovie ] = useState<RobTicketInfo[]>([]);
-  const [ ticketListLecture, setTicketListLecture ] = useState<RobTicketInfo[]>([]);
+  const [currentState, setCurrentState] = useState<number>(0);
+  const [blackListCounter, setBlackListCounter] = useState<number>(0);
+  const [ticketListMovie, setTicketListMovie] = useState<RobTicketInfo[]>([]);
+  const [ticketListLecture, setTicketListLecture] = useState<RobTicketInfo[]>([]);
 
-  const { data: ticketList, isLoading, isError } = useQuery(
+  const {data: ticketList, isLoading, isError} = useQuery(
     "robTicketListInfo",
     getRobTicketListInfo,
     {
@@ -186,6 +188,7 @@ const RobTicket = () => {
     if (!isRobing) {
       setIsRobing(true);
       res = await mutateRobTicket(id);
+      // console.log(res)
       setIsRobing(false);
     } else {
       return;
@@ -193,7 +196,7 @@ const RobTicket = () => {
     // 处理关于失信影票的问题
 
     // const item = ticketList.data.filter((item) => item.id === id)[0];
-    if (res.status === 10000) {
+    if (res.data === "秒杀成功") {
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！抢票成功！",
@@ -201,22 +204,7 @@ const RobTicket = () => {
       });
       setTimeout(() => hide(), 1500);
     } else {
-      let detail: string;
-      if (res.status === 10004) {
-        detail = "票已经被抢完了";
-      } else if (res.status === 10005) {
-        detail = "您已抢到票";
-      } else if (res.status === 10006) {
-        detail = "请求超时,请重试";
-      } else if (res.status === 10007) {
-        detail = "请求过于频繁";
-      } else if (res.status === 10008) {
-        detail = "客户端错误,请稍后再试";
-      } else if (res.status === 10010) {
-        detail = "你存在信用问题";
-      } else {
-        detail = "出错了...";
-      }
+      const detail = res.data;
       const hide = Popup.show({
         img: error,
         title: "抢票失败...",
@@ -237,7 +225,7 @@ const RobTicket = () => {
 
     console.log("候补抢票res: ", res);
 
-    if (res.status === 10000) {
+    if (res.data === "秒杀成功") {
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！候补成功！",
@@ -245,22 +233,7 @@ const RobTicket = () => {
       });
       setTimeout(() => hide(), 10000);
     } else {
-      let detail: string;
-      if (res.status === 10004) {
-        detail = "票已经被抢完了";
-      } else if (res.status === 10005) {
-        detail = "您已抢到票";
-      } else if (res.status === 10006) {
-        detail = "请求超时,请重试";
-      } else if (res.status === 10007) {
-        detail = "请求过于频繁";
-      } else if (res.status === 10008) {
-        detail = "客户端错误,请稍后再试";
-      } else if (res.status === 10010) {
-        detail = "你存在信用问题";
-      } else {
-        detail = "出错了...";
-      }
+      const detail = res.data;
       const hide = Popup.show({
         img: error,
         title: "抢票失败...",
@@ -270,9 +243,9 @@ const RobTicket = () => {
     }
   };
 
-  if (isLoading) return <Placeholder title={PAGE_TITLE} />;
+  if (isLoading) return <Placeholder title={PAGE_TITLE}/>;
   // console.log(ticketList);
-  if (isError || !ticketList) return <Placeholder title={PAGE_TITLE} isError />;
+  if (isError || !ticketList) return <Placeholder title={PAGE_TITLE} isError/>;
   // if (ticketList.data.length === 0)
   //   return (
   //     <Empty
@@ -285,7 +258,7 @@ const RobTicket = () => {
   //   );
   return (
     <View>
-      <NavBack title={PAGE_TITLE} background="#FFFFFF" />
+      <NavBack title={PAGE_TITLE} background="#FFFFFF"/>
       <TypeHeader
         MovieFun={() => setCurrentState(1)}
         LectureFun={() => setCurrentState(0)}
@@ -384,7 +357,7 @@ const RobTicket = () => {
             />
         ))} */}
       </View>
-      <Popup.Comp />
+      <Popup.Comp/>
       <useSelectPopup.Provider>
         <SelectPopupDisplay></SelectPopupDisplay>
       </useSelectPopup.Provider>

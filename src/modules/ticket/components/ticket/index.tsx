@@ -132,7 +132,7 @@ const Ticket = ({
             <Text className={styles.text}>主讲人：{chief}</Text>
             <View className={styles.text}>
               <Image src={timeIcon} className={styles.imageIcon} />
-              {timestampToTimeStreamString(playTime, endTime)}
+              {timestampToTimeCNString(playTime)}
             </View>
             <View className={styles.text}>
               <Image src={placeIcon} className={styles.imageIcon} />

@@ -25,7 +25,7 @@ import { getCurrentInstance, navigateBack } from '@tarojs/taro';
 import Empty from "@/common/components/empty";
 import ticketList from "../../../../mock/TicketList.json";
 import dayjs from 'dayjs';
-import { now, timestampToTimeStreamString } from '@/common/helpers/date';
+import {now, timestampToTimeCNString, timestampToTimeStreamString} from '@/common/helpers/date';
 import PrimaryButton from '@/common/components/primary-button';
 
 const PAGE_TITLE = "在线抢票";
@@ -34,7 +34,7 @@ const RobTicketInfo = () => {
   const [ ticketId, setTicketId ] = useState<number>(Number(getCurrentInstance().router?.params.id));
   // const [ ticketInfo, setTicketInfo ] = useState();
   const [ params, setParams ] = useState(getCurrentInstance().router?.params);
-  
+
   const Popup = useContainer(PopupContext);
   const queryCache = useQueryCache();
 
@@ -49,6 +49,7 @@ const RobTicketInfo = () => {
     }
   );
   const ticketInfo = ticketList?.data.filter(res => res.id === ticketId)[0];
+  // console.log(ticketInfo)
   if (ticketInfo === undefined) return;
   // const isLoading = false;
   // const isError = false;
@@ -72,7 +73,7 @@ const RobTicketInfo = () => {
       return;
     }
     // const item = ticketList.data.filter((item) => item.id === id)[0];
-    if (res.status === 10000) {
+    if (res.data === "秒杀成功") {
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！抢票成功！",
@@ -80,22 +81,7 @@ const RobTicketInfo = () => {
       });
       setTimeout(() => hide(), 3000);
     } else {
-      let detail: string;
-      if (res.status === 10004) {
-        detail = "票已经被抢完了";
-      } else if (res.status === 10005) {
-        detail = "您已抢到票";
-      } else if (res.status === 10006) {
-        detail = "请求超时,请重试";
-      } else if (res.status === 10007) {
-        detail = "请求过于频繁";
-      } else if (res.status === 10008) {
-        detail = "客户端错误,请稍后再试";
-      } else if (res.status === 10010) {
-        detail = "由于您过往观影活动存在不良信用记录，本次抢票时间延后五分钟。";
-      } else {
-        detail = "出错了...";
-      }
+      const detail = res.data;
       const hide = Popup.show({
         img: error,
         title: "抢票失败...",
@@ -114,8 +100,8 @@ const RobTicketInfo = () => {
       return;
     }
     console.log(res);
-    
-    if (res.status === 10000) {
+
+    if (res.data === "秒杀成功") {
       const hide = Popup.show({
         img: robSuccessImg,
         title: "恭喜您！候补成功！",
@@ -123,22 +109,7 @@ const RobTicketInfo = () => {
       });
       setTimeout(() => hide(), 3000);
     } else {
-      let detail: string;
-      if (res.status === 10004) {
-        detail = "票已经被抢完了";
-      } else if (res.status === 10006) {
-        detail = "请求超时,请重试";
-      } else if (res.status === 10005) {
-        detail = "您已抢到票";
-      } else if (res.status === 10007) {
-        detail = "请求过于频繁";
-      } else if (res.status === 10008) {
-        detail = "客户端错误,请稍后再试";
-      } else if (res.status === 10010) {
-        detail = "你存在信用问题";
-      } else {
-        detail = "出错了...";
-      }
+      const detail = res.data;
       const hide = Popup.show({
         img: error,
         title: "抢票失败...",
@@ -214,14 +185,14 @@ const RobTicketInfo = () => {
       );
     }
   };
-  
+
   if (ticketInfo === undefined) {
     return;
   }
   return (
     <View className={styles.robTicketInfo}>
       <NavBack title={PAGE_TITLE} background="#F6F6F9" />
-      <Image 
+      <Image
         src={ticketInfo.image}
         className={styles.previewImage}
       ></Image>
@@ -231,7 +202,7 @@ const RobTicketInfo = () => {
         <View className={styles.title}>{ticketInfo.name}</View>
         <View className={styles.text}>
           <Text>活动时间：</Text>
-          <Text>{timestampToTimeStreamString(dayjs(ticketInfo.begin_time).unix(), dayjs(ticketInfo.end_time).unix())}</Text>
+          <Text>{timestampToTimeCNString(dayjs(ticketInfo.play_time).unix())}</Text>
         </View>
         <View className={styles.text}>
           <Text>活动地点：</Text>
@@ -254,11 +225,11 @@ const RobTicketInfo = () => {
           <View className={styles.title}>参与须知</View>
           <View className={styles.body}>
             <Text>
-              {`1：本次线上影票仅面向重庆邮电大学师生，为公益性活动，禁止以牟利为目的的影票倒卖活动，一经发现，将被记入不良信用档案。
+              1：本次线上影票仅面向重庆邮电大学师生，为公益性活动，禁止以牟利为目的的影票倒卖活动，一经发现，将被记入不良信用档案。
               2：如有特殊情况，不能到场者。请在开场前半个小时，进入“我的影票”页面，选择“我要退票”，退回自己的影票。
               3：若开场半个小时后，仍未验票入场，该票失效，同时您将被记入不良信用档案。
               4.影票发完后自动进入候补录入阶段，参与候补的用户也有机会获得影票。
-              5.候补票用户与正常抢票用户一致，遵守信用制等相关规定。获得候补票后未按时到场验票，也将被记录至不良信用档案。`}
+              5.候补票用户与正常抢票用户一致，遵守信用制等相关规定。获得候补票后未按时到场验票，也将被记录至不良信用档案。
             </Text>
           </View>
         </View>
