@@ -30,8 +30,6 @@ export const getMyVolunteerReads = (_key: string) =>
   });
 /**
  * @description: 获取普通活动小红点
- * @param {*}
- * @return {*}
  * @Author: kyingStar
  * @Date: 2021/9/2
  */

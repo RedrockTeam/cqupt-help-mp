@@ -1,7 +1,7 @@
 import { BaseRes } from "@/common/helpers/request";
 
 export interface CheckIsVolunteerRes extends BaseRes {
-  exist: boolean;
+  data: boolean;
 }
 
 export type LoginVolunteerRes = BaseRes;
@@ -13,12 +13,32 @@ export interface VolunteerInfo {
 }
 
 export interface VolunteerActivity {
-  id: number;
+  volunteer_list_id: number;
+  start_date: number;
+  last_date: number;
+  date: number; 
+  time_part: {
+    time_id: number;
+    begin_time: number;
+    end_time: number;
+  }
+  result: {
+    pass: number;
+    qq: number;
+  }
+  status: {
+    is_change: number;
+    is_sign: number;
+    is_read: number
+  }
+  rely_id: number;
   name: string;
-  description: string;
-  date: number; // 截止志愿活动时间戳
-  last_date: number; // 截止报名的时间戳
-  team_level: "校级" | "院级";
+  team_name: string;
+  introduction: string;
+  sign_up_start: number;
+  sign_up_last: number;
+  hour: string;
+  team_level: string;
 }
 
 export interface VolunteerActivityListInfoRes extends BaseRes {
@@ -37,27 +57,28 @@ export interface TimeDetail {
 }
 
 interface IVolunteerTimePartDetail {
-  id: number; // 每天的志愿有不同的id
+  detail_id: number; // 每天的志愿有不同的id
   date: number; //活动日期时间戳
   time_part_info: IVolunteerTimePartInfo[];
 }
 
 interface IVolunteerTimePartInfo {
+  time_id: number;
   begin_time: number; // 时段开始时间戳
   end_time: number; // 时段结束时间戳
   now: number; //当前报名人数
-  max: number; // 最大报名人数
 }
 
 export interface IVolunteerActivityDetail {
-  rely_id: number;
+  activity_id: number,
+  name: string;
   team_name: string;
+  introduction: string;
   sign_up_start: number; // 报名开始时间戳
   sign_up_last: number; // 报名结束时间戳
-  name: string;
-  description: string;
-  place: string;
   hour: string;
+  team_level: string;
+  place: string;
   start_date: number; // 活动开始时间戳
   last_date: number; // 活动截止时间戳
   num: string;

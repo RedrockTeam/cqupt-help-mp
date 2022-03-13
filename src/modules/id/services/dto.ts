@@ -24,7 +24,6 @@ export interface GetAssociationsRes extends BaseRes {
 export type IdCardApplyRes = BaseRes;
 
 export interface ApplyTeamInfo {
-  school: string;
   team_id: number;
-  remarks?: string;
+  addition: string
 }
