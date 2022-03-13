@@ -104,9 +104,7 @@ export type VolunteerActivityApplyRes = BaseRes;
  * 退出志愿活动相关
  */
 export interface VolunteerActivityQuitReq {
-  activity_id: number;
-  begin_time: number;
-  end_time: number;
+  volunteer_list_id: string
 }
 
 export interface VolunteerActivityQuitRes {
@@ -119,16 +117,8 @@ export interface VolunteerActivityQuitRes {
  * 志愿活动更改班次相关
  */
 export interface VolunteerActivityChangeReq {
-  old: {
-    activity_id: number;
-    begin_time: number;
-    end_time: number;
-  };
-  new: {
-    activity_id: number;
-    begin_time: number;
-    end_time: number;
-  };
+  volunteer_list: string; // 志愿活动者ID
+  new_time_id: string;
 }
 
 export interface VolunteerActivityChangeRes extends VolunteerActivityQuitRes {} // 跟退出活动的响应是一样的

@@ -25,7 +25,7 @@ export const applyMyRewards = (activity_id: number) =>
  * @Date: 2021/9/2
  */
 export const getMyVolunteerReads = (_key: string) =>
-  request<MyReadsRes>("/cyb-volunteer/front/user/showRead", {
+  request<MyReadsRes>("/christina-volunteer/front/user/showRead", {
     method: "GET",
   });
 /**
