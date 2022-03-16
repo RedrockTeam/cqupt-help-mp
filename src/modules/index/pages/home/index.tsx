@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   BaseEventOrigFunction,
   Image,
@@ -9,8 +9,6 @@ import {
   Text,
   View,
 } from "@tarojs/components";
-import newIcon from "@/static/images/new-icon.png";
-import homeYoungIcon from "@/static/images/home-young-icon.png";
 import homeTicketIcon from "@/static/images/home-ticket-icon.png";
 import homeCampusIcon from "@/static/images/home-campus-icon.png";
 import homeVolunteerIcon from "@/static/images/home-volunteer-icon.png";
@@ -19,7 +17,6 @@ import homeIdIcon from "@/static/images/home-id-icon.png";
 import { ScrollViewProps } from "@tarojs/components/types/ScrollView";
 import { navTo, resolvePage } from "@/common/helpers/utils";
 import { getInfo } from "@/stores/user";
-import { redirectTo } from "@tarojs/taro";
 import { useQuery } from "react-query/dist/react-query.production.min";
 import Placeholder from "@/common/components/placeholder";
 import Empty from "@/common/components/empty";
@@ -38,10 +35,6 @@ export default function Index() {
   // @ts-ignore
   const { data } = useQuery("token", getInfo);
 
-  useEffect(() => {
-    setToken(data?.token);
-  }, [data]);
-  const [token, setToken] = useState("")
   const [slidePercent, setSlidePercent] = useState(0);
   const handleSlideScroll: BaseEventOrigFunction<ScrollViewProps.onScrollDetail> = (
     e
@@ -54,11 +47,7 @@ export default function Index() {
   );
 
   const renderHomeActivityList = () => {
-    console.log("loading"+isLoading);
-    console.log(isError);
-    console.log(homeActivityListRes?.data);
     if (isLoading){
-      console.log("isTrue"+isLoading);
       return (
         <View className={styles.holder}>
           <Placeholder />
@@ -71,16 +60,18 @@ export default function Index() {
     }
 
     // TODO: 后端将所有活动均返回，过滤掉已过期掉活动，喊后端有空修
+    console.log(homeActivityListRes.data)
     homeActivityListRes.data = homeActivityListRes?.data?.length
       ? homeActivityListRes?.data?.filter(
           // @ts-ignore
-          (activity) => activity.time_done > Date.parse(new Date()) / 1000
+          (activity) => activity.sign_up_last > Date.parse(new Date()) / 1000
         )
       : [];
-
+    
+    console.log(homeActivityListRes.data)
     return homeActivityListRes.data.length !== 0 ? (
       homeActivityListRes.data
-        .sort((a, b) => a.time_done - b.time_done)
+        .sort((a, b) => a.sign_up_last - b.sign_up_last)
         .map((e) => {
           return (
             <RecentActivity
@@ -88,15 +79,9 @@ export default function Index() {
               id={e.activity_id}
               key={e.activity_id}
               teamName={e.team_name}
-              timeDone={e.time_done}
-              time={e.time}
+              signUpEnd={e.sign_up_last}
+              signUpStart={e.sign_up_start}
               introduction={e.introduction}
-              location={e.location}
-              rule={e.rule}
-              registration={e.registration}
-              type={e.type}
-              image={e.image}
-              image_with={e.image_with}
             />
           );
         })

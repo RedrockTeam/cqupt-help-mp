@@ -28,10 +28,10 @@ export const bindReq = async ({ account, password }) => {
 };
 
 export const getHomeActivities = (_key: string) =>
-  request<ActivitiesHomeRes>("/christina-activity/activity/front/activities");
+  request<ActivitiesHomeRes>("/christina-volunteer/front/activities");
 
 export const applyActivity = (data: ApplyActivityInfo) =>
-  request<ApplyActivityRes, ApplyActivityInfo>("/christina-activity/activity/front/register", {
+  request<ApplyActivityRes, ApplyActivityInfo>("/christina-volunteer/front/user/apply", {
     method: "POST",
     data,
   });

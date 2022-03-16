@@ -13,7 +13,7 @@ export interface VolunteerInfo {
 }
 
 export interface VolunteerActivity {
-  volunteer_list_id: number;
+  activity_id: number;
   start_date: number;
   last_date: number;
   date: number; 
@@ -31,7 +31,6 @@ export interface VolunteerActivity {
     is_sign: number;
     is_read: number
   }
-  rely_id: number;
   name: string;
   team_name: string;
   introduction: string;
@@ -82,7 +81,7 @@ export interface IVolunteerActivityDetail {
   start_date: number; // 活动开始时间戳
   last_date: number; // 活动截止时间戳
   num: string;
-  imagines: string;
+  images: string[];
   need_additions: number[];
   detail: IVolunteerTimePartDetail[];
 }

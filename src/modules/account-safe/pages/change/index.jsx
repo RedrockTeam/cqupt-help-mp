@@ -69,7 +69,6 @@ const ResetPassword = () => {
                     } else if (res.status === 10002) {
                         setIndex(0)
                         setIndex(Index.slice())
-                        console.log(Index)
                         setTimeout(() => {
                             setshowPop(true)
                         }, 400)

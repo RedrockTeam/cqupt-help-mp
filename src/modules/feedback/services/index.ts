@@ -11,7 +11,6 @@ export const pushFeedback = (data: FeedbackInfo) =>
   });
 
 export const uploadImg = (file) => {
-  console.log("1");
   request<UploadImgRes>("/cyb-permissioncenter/upload/file", {
     method: "POST",
     data: file,

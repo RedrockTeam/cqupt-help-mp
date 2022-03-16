@@ -321,7 +321,7 @@ const VolunteerApply = () => {
     const { begin_time, end_time } = genSeconds(date);
     console.log(typeof begin_time, typeof end_time);
     await mutateQuit({
-      activity_id: Number(activity_id),
+      activity_id: parseInt(activity_id),
       begin_time,
       end_time,
     });

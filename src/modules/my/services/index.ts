@@ -2,7 +2,7 @@ import request from "@/common/helpers/request";
 import {MyActivitiesRes, MyReadsRes, MyRewardsApplyRes, MyRewardsRes,} from "./dto";
 
 export const getMyActivities = (_key: string) =>
-  request<MyActivitiesRes>("/christina-activity/activity/front/activity");
+  request<MyActivitiesRes>("/christina-volunteer/front/activity");
 
 export const getMyRewards = (_key: string) =>
   request<MyRewardsRes>("/cyb-prize/lookPrize", {
@@ -34,6 +34,6 @@ export const getMyVolunteerReads = (_key: string) =>
  * @Date: 2021/9/2
  */
 export const getMyActivityReads = (_key: string) =>
-  request<MyReadsRes>("/christina-activity/activity/front/badge", {
+  request<MyReadsRes>("/christina-volunteer/front/badge", {
     method: "GET",
   });

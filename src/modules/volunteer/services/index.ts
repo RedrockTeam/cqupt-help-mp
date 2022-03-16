@@ -27,10 +27,10 @@ export const loginVolunteer = (info: VolunteerInfo) =>
     },
   });
 
-export const getVolunteerActivityListInfo = (_key: string) =>
+export const getVolunteerActivityListInfo = () =>
   request<VolunteerActivityListInfoRes>("/christina-volunteer/front/user/activities");
 
-export const getVolunteerActivityDetail = (_key: string, activity_id: string) =>
+export const getVolunteerActivityDetail = (activity_id: string) =>
   request<VolunteerActivityDetailRes>(
     "/christina-volunteer/front/activity/info",
     {
