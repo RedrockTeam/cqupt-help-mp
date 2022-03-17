@@ -85,7 +85,7 @@ export type MyRewardsApplyRes = BaseRes;
 // 已读与未读
 interface MyRead {
   number: number;
-  unread: number;
+  un_read: number;
 }
 
 export interface MyReadsRes extends BaseRes {

@@ -11,6 +11,7 @@ import { getVolunteerActivityListInfo, checkIsVolunteer } from "../../services";
 import styles from "./index.module.scss";
 // import VolunteerActivityListInfoRes from "../../../../mock/VolunteerActivityListInfoRes.json";
 import SwitchHeader from "@/common/components/switchHeader";
+import { VolunteerActivity } from "../../services/dto";
 
 const PAGE_TITLE = "志愿报名";
 
@@ -28,8 +29,8 @@ const Volunteer = () => {
     getVolunteerActivityListInfo
   );
   // list = VolunteerActivityListInfoRes;
-  let xiaojiList;
-  let yuanjiList;
+  let xiaojiList: VolunteerActivity[] = [];
+  let yuanjiList: VolunteerActivity[] = [];
 
   if (list) {
     xiaojiList = list.data.filter((item) => item.team_level === "校级");
@@ -59,10 +60,11 @@ const Volunteer = () => {
     }
   };
 
-  const renderList = (_list) => {
+  const renderList = (list: VolunteerActivity[]) => {
+    console.log(list)
     return (
       <View>
-        {_list.length === 0 ? (
+        {list.length === 0 ? (
           <Empty
             style={{
               padding: "0px",
@@ -74,16 +76,16 @@ const Volunteer = () => {
             onBtnClick={() => navigateBack()}
           />
         ) : (
-          _list
+          list
             .sort((a, b) => b.sign_up_start - a.sign_up_start)
-            .map((item) => (
+            .map((item: VolunteerActivity) => (
               <View
                 className={styles.card}
-                key={item.rely_id}
+                key={item.activity_id}
                 onClick={() =>
                   navTo({
                     url: `${resolvePage("volunteer", "detail")}?rely_id=${
-                      item.rely_id
+                      item.activity_id
                     }`,
                   })
                 }
@@ -105,7 +107,7 @@ const Volunteer = () => {
                 </View>
                 <View className={styles.cardInfo}>
                   活动简介：
-                  {item.description}
+                  {item.introduction}
                 </View>
               </View>
             ))

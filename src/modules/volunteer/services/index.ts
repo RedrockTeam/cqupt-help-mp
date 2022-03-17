@@ -16,10 +16,10 @@ import {
 } from "./dto";
 
 export const checkIsVolunteer = (_key: string) =>
-  request<CheckIsVolunteerRes>("/cyb-volunteer/front/is");
+  request<CheckIsVolunteerRes>("/christina-volunteer/front/user/is");
 
 export const loginVolunteer = (info: VolunteerInfo) =>
-  request<LoginVolunteerRes, VolunteerInfo>("/cyb-volunteer/front/login", {
+  request<LoginVolunteerRes, VolunteerInfo>("/christina-volunteer/front/user/register", {
     method: "POST",
     data: info,
     header: {
@@ -27,25 +27,22 @@ export const loginVolunteer = (info: VolunteerInfo) =>
     },
   });
 
-export const getVolunteerActivityListInfo = (_key: string) =>
-  request<VolunteerActivityListInfoRes>("/cyb-volunteer/front/user/activities");
+export const getVolunteerActivityListInfo = () =>
+  request<VolunteerActivityListInfoRes>("/christina-volunteer/front/user/activities");
 
-export const getVolunteerActivityDetail = (_key: string, rely_id: string) =>
+export const getVolunteerActivityDetail = (activity_id: string) =>
   request<VolunteerActivityDetailRes>(
-    "/cyb-volunteer/front/activity/info",
+    "/christina-volunteer/front/activity/info",
     {
-      method: "POST",
-      data: { rely_id },
-      header: {
-        "content-type": "application/x-www-form-urlencoded",
-      },
+      method: "GET",
+      data: { activity_id }
     }
   );
 
 //  改成mutation配合useDidShow提升性能( change-time )
 export const getVolunteerActivityDetailMutation = (data: { rely_id: string }) =>
   request<VolunteerActivityDetailRes>(
-    "/cyb-volunteer/volunteer/activity/info",
+    "/christina-volunteer/volunteer/activity/info",
     {
       method: "POST",
       data: { rely_id: data.rely_id },
@@ -57,7 +54,7 @@ export const getVolunteerActivityDetailMutation = (data: { rely_id: string }) =>
 
 export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
   request<VolunteerActivityApplyRes, VolunteerActivityApply>(
-    "/cyb-volunteer/volunteer/activity/apply",
+    "/christina-volunteer/volunteer/activity/apply",
     {
       method: "POST",
       data,
@@ -72,13 +69,13 @@ export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
  */
 export const postVolunteerActivityRead = ({
   // eslint-disable-next-line @typescript-eslint/camelcase
-  registration_time,
+  volunteer_list_id,
 }: {
-  registration_time: string;
+  volunteer_list_id: string;
 }) =>
-  request("/cyb-myactivities/read", {
+  request("/christina-volunteer/front/user/read", {
     method: "POST",
-    data: { RegistrationTime: registration_time },
+    data: { volunteer_list_id },
     header: {
       "content-type": "application/x-www-form-urlencoded",
     },
@@ -89,11 +86,11 @@ export const postVolunteerActivityRead = ({
  * @param data : VolunteerActivityQuitReq
  */
 export const postVolunteerActivityQuit = (data: VolunteerActivityQuitReq) =>
-  request<VolunteerActivityQuitRes>("/cyb-myactivities/quit", {
+  request<VolunteerActivityQuitRes, VolunteerActivityQuitReq>("/christina-volunteer/front/user/quit", {
     method: "POST",
     data,
     header: {
-      "content-type": "application/json",
+      "content-type": "application/x-www-form-urlencoded ",
     },
   });
 
@@ -102,11 +99,11 @@ export const postVolunteerActivityQuit = (data: VolunteerActivityQuitReq) =>
  * @param data : VolunteerActivityChangeReq
  */
 export const postVolunteerActivityChange = (data: VolunteerActivityChangeReq) =>
-  request<VolunteerActivityChangeRes>("/cyb-myactivities/change", {
+  request<VolunteerActivityChangeRes, VolunteerActivityChangeReq>("/christina-volunteer/front/user/change", {
     method: "POST",
     data,
     header: {
-      "content-type": "application/json",
+      "content-type": "application/x-www-form-urlencoded",
     },
   });
 
@@ -122,10 +119,10 @@ export const postVolunteerActivitySignIn = ({
   code: string;
   data: VolunteerActivitySignInReq;
 }) =>
-  request<VolunteerActivitySignInRes>(`/cyb-myactivities/sign?${code}`, {
+  request<VolunteerActivitySignInRes>(`/christina-volunteer/front/user/sign?code=${code}`, {
     method: "POST",
     data,
     header: {
-      "content-type": "application/json",
+      "content-type": "application/x-www-form-urlencoded",
     },
   });

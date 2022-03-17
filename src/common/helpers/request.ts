@@ -12,8 +12,6 @@ const request = async <ResType = any, ReqType = any>(
 ) => {
   const { token }= await getInfo();
   // eslint-disable-next-line no-console
-  console.log(1);
-  console.log(token);
   const res = await req<ResType, ReqType>({
     url: /^https?:\/\//.test(key) ? key : `${API}${key}`,
     method,

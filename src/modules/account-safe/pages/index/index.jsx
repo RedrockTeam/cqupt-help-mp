@@ -19,7 +19,6 @@ import LoadingPage from "../../components/Loding/index.jsx";
 const AccountSafe = (callback, deps) => {
   let stuNum;
   getInfo().then((e) => {
-    console.log(1111111);
     console.log(e);
     stuNum = e.stuNum;
   });
@@ -30,7 +29,6 @@ const AccountSafe = (callback, deps) => {
     [stuNum],
     getQuesAndEmailState,
   );
-  console.log(data, isLoading);
   const [mutateOrigin] = useMutation(getPasswordState, {
     onSuccess: (res) => {
       if (res.status === 10001) {

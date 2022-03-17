@@ -28,16 +28,13 @@ const BindEmail = () => {
             //当ti>0时执行更新方法
             ti = ti - 1;
             setcountdown(ti);
-            console.log(ti);
         } else {
             //当ti=0时执行终止循环方法
-            console.log('zhongzhi')
             clearInterval(timeChange);
         }
     };
     const sendCode = () => {
         //每隔一秒执行一次clock方法
-        console.log('hh')
         timeChange = setInterval(clock, 1000);
     };
 
