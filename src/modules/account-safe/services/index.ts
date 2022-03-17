@@ -66,7 +66,6 @@ export const getQuestionList = (_key: string) =>
 // {domain}/user/bind/is是否绑定信息
 export const getQuesAndEmailState = async () => {
   // https://run.mocky.io/v3/201b1ee2-e943-46a4-8962-4da5d9fbddc4
-  console.log(114514);
   const { stuNum } = await getInfo();
   return request<getQuestionLists>(
     "https://be-prod.redrock.cqupt.edu.cn/user-secret/christina/user/bind/is",

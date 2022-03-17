@@ -36,10 +36,8 @@ function urlStringify(
 
 /**
  * 只显示部门 不显示组织
- * @param param
  */
 export const getString = (param: string) => {
-  console.log(param);
   if(!param){
     return ""
   }

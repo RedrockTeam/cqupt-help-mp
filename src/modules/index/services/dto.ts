@@ -9,19 +9,15 @@
 import { BaseRes } from "@/common/helpers/request";
 
 interface Activity {
-  activity_id: number;
-  id: number;
-  name: string;
-  team_name: string;
-  time_done: number;
-  time: string;
-  introduction: string;
-  location: string;
-  rule: string;
-  registration: string;
-  type: 1 | 2; // 1是线上 2是线下
-  image: string;
-  image_with: string[];
+  activity_id: number, //志愿活动ID
+  name: string, //活动名
+  team_name: string, //组织名
+  introduction: string, //活动介绍
+  sign_up_start: number, //招募开始时间戳
+  sign_up_last: number, //招募结束时间戳
+  // 为什么小时会是字符串？？？
+  hour: string, //志愿时长 (小时)
+  team_level: string //志愿级别
 }
 
 export type ActivitiesHome = Activity[];

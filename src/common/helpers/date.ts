@@ -48,12 +48,11 @@ export const timestampToTimeCNString = (timestamp: number) =>
 export const now = () => new Date().getTime() / 1000;
 
 /**
- *  两个时间戳相差天数
- * @param 传入的时间戳
+ * 两个时间戳相差天数
+ * @param param 传入的时间戳
  * now()现在的时间戳
  */
-
-export const gapDay = (param) => {
+export const gapDay = (param: number) => {
   const gap = param - now();
   return Math.floor(gap / 24 / 3600);
 };
@@ -129,11 +128,9 @@ export const genSeconds = (date: string): { date: number, begin_time: number, en
   let tmp_date = date.slice(seqIndex + 1).replace(' ', '');
   // @ts-ignore
   tmp_date = tmp_date.split('-')
-  // console.log('date:', tmp_date)
 
   const _begin_time = tmp_date[0].split(':')
   const begin_time = parseInt(_begin_time[0]) * 3600 + parseInt(_begin_time[1]) * 60;
-  // console.log('b:', begin_time)
   const _end_time = tmp_date[1].split(':')
   const end_time = parseInt(_end_time[0]) * 3600 + parseInt(_end_time[1]) * 60;
   return {

@@ -111,7 +111,7 @@ const VolunteerDetail = () => {
       const [dateIndex, timePartIndex] = pickerValue;
       const date = info!.detail[dateIndex];
       const timePart = date.time_part_info[timePartIndex];
-      if (timePart.now >= timePart.max + 10) {
+      if (timePart.now >= timePart.end_time + 10) {
         const hide = Popup.show({
           title: "申请失败",
           detail: "报名人数已满",
@@ -121,7 +121,7 @@ const VolunteerDetail = () => {
         return;
       }
       await mutateApply({
-        id: date.id,
+        id: date.detail_id,
         begin_time: timePart.begin_time,
         end_time: timePart.end_time,
         addition: JSON.stringify({}),
@@ -143,8 +143,6 @@ const VolunteerDetail = () => {
     const { value } = e.detail;
     const dateIndex = value[0]; // 要更改才生效
     const timePartIndex = value[1]; // 要更改才生效
-    console.log("date", dateIndex);
-    console.log("time", timePartIndex);
     setPickerValue([dateIndex, timePartIndex]);
   };
 
@@ -193,17 +191,17 @@ const VolunteerDetail = () => {
 
   const Detail = () => (
     <Fragment>
-      {info.imagines ? (
+      {info.images.length === 0 ?
+        <Image className={styles.pic} mode="aspectFill" src={volunteerImg} /> :
         <Swiper className={styles.pic} circular autoplay>
-          {JSON.parse(info.imagines).map((e) => (
+          {info.images.map((e) => (
             <SwiperItem key={e}>
               <Image src={e} className={styles.pic} mode="aspectFill" />
             </SwiperItem>
           ))}
         </Swiper>
-      ) : (
-        <Image className={styles.pic} mode="aspectFill" src={volunteerImg} />
-      )}
+      }
+
       <View className={styles.card}>
         <View className={styles.item1}>
           <View className={styles.title}>
@@ -214,13 +212,13 @@ const VolunteerDetail = () => {
           </View>
           <View className={styles.timeWrap}>
             <View className={styles.label}>报名开始时间:</View>
-            <Text userSelect selectable className={styles.time}>
+            <Text selectable className={styles.time}>
               {timestampToFormString(info.sign_up_start)}
             </Text>
           </View>
           <View className={styles.timeWrap}>
             <View className={styles.label}>报名截止时间:</View>
-            <Text userSelect selectable className={styles.time}>
+            <Text selectable className={styles.time}>
               {timestampToFormString(info.sign_up_last)}
             </Text>
           </View>
@@ -230,7 +228,7 @@ const VolunteerDetail = () => {
             <View className={styles.subTitle}>
               <Text>活动时间</Text>
             </View>
-            <Text userSelect selectable className={styles.text}>
+            <Text selectable className={styles.text}>
               {`${timestampToDateString(
                 info.start_date
               )} - ${timestampToDateString(info.last_date)}`}
@@ -240,7 +238,7 @@ const VolunteerDetail = () => {
             <View className={styles.subTitle}>
               <Text>志愿时长</Text>
             </View>
-            <Text userSelect selectable className={styles.text}>
+            <Text selectable className={styles.text}>
               {info.hour}
             </Text>
           </View>
@@ -248,7 +246,7 @@ const VolunteerDetail = () => {
             <View className={styles.subTitle}>
               <Text>招募人数</Text>
             </View>
-            <Text userSelect selectable className={styles.text}>
+            <Text selectable className={styles.text}>
               {info.num}
             </Text>
           </View>
@@ -257,15 +255,15 @@ const VolunteerDetail = () => {
           <View className={styles.subTitle}>
             <Text>活动介绍</Text>
           </View>
-          <Text userSelect selectable className={styles.text}>
-            {info.description}
+          <Text selectable className={styles.text}>
+            {info.introduction}
           </Text>
         </View>
         <View className={styles.item2}>
           <View className={styles.subTitle}>
             <Text>活动地点</Text>
           </View>
-          <Text userSelect selectable className={styles.text}>
+          <Text selectable className={styles.text}>
             {info.place}
           </Text>
         </View>

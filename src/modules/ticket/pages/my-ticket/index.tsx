@@ -54,7 +54,6 @@ const MyTicket = () => {
 
   // SelectPopup退票函数
   const handelReturnTicket = async () => {
-    console.log("开始退票");
     setPopupState(!popupState);
     if (!myTicketListRes) return;
     try {
