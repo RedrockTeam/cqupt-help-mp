@@ -32,7 +32,7 @@ const Volunteer = () => {
   let xiaojiList: VolunteerActivity[] = [];
   let yuanjiList: VolunteerActivity[] = [];
 
-  if (list) {
+  if (list?.data) {
     xiaojiList = list.data.filter((item) => item.team_level === "校级");
     yuanjiList = list.data.filter((item) => item.team_level === "院级");
   }
