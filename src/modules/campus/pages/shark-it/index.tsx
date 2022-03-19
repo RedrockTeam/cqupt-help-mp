@@ -28,7 +28,6 @@ const SafeRun = () => {
   };
 
   const cb: Taro.onAccelerometerChange.Callback = (res) => {
-    // console.log(res.x, res.y, res.y);
     if (res.x > 0.5) {
       console.log("摇一摇");
       setIsPop(true);

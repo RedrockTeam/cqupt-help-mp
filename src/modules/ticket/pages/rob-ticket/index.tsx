@@ -96,7 +96,6 @@ const RobTicket = () => {
         setRemindRuleStateLoading(true);
         // setRemindRuleState(res.data);
         if (res.data === true) {
-          console.log(res.data);
           setTimeout(() => {
             setStorage({
               key: "remindRule",

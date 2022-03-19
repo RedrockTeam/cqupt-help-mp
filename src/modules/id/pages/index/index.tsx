@@ -113,8 +113,6 @@ const IdIndex = () => {
     return <Placeholder title={PAGE_TITLE} isError />;
   console.log("log");
 
-  console.log(idCardListRes);
-
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background="#FFFFFF" />

@@ -118,7 +118,6 @@ const BindEmail = () => {
                     setshowBind(true);
                     setTimeout(() => {
                         setshowBind(false);
-                        console.log(res.data)
                         navTo({ url: resolvePage("account-safe", "resetpassword"), payload: { code: res.data.code, stuNum } });
                     }, 1500)
                 } else if (res.status == 10007) {

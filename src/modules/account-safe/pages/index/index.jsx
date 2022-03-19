@@ -19,7 +19,6 @@ import LoadingPage from "../../components/Loding/index.jsx";
 const AccountSafe = (callback, deps) => {
   let stuNum;
   getInfo().then((e) => {
-    console.log(e);
     stuNum = e.stuNum;
   });
   const [showPop, setshowPop] = useState(false);
@@ -43,7 +42,6 @@ const AccountSafe = (callback, deps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleOrigin = useCallback(async () => {
     const res = await mutateOrigin(stuNum);
-    console.log(res);
   }, [mutateOrigin, stuNum]);
   useEffect(() => {
     handleOrigin();

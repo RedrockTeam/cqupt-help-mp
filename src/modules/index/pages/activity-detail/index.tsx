@@ -12,32 +12,39 @@ import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
 import icon1 from "@/static/images/volunteer-icon1.png";
-import icon2 from "@/static/images/volunteer-icon2.png";
+import { resolvePage } from "@/common/helpers/utils";
+import { redirectTo } from "@tarojs/taro";
+// import icon2 from "@/static/images/volunteer-icon2.png";
 import success from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
 import {
   useMutation,
 } from "react-query/dist/react-query.production.min";
 
-import { ConvertingDatesToTimestamps } from "@/common/helpers/date";
+// import { ConvertingDatesToTimestamps } from "@/common/helpers/date";
 import styles from "./index.module.scss";
 import { applyActivity } from "../../services";
+import { checkIsVolunteer } from "../../../volunteer/services";
 import { getVolunteerActivityDetail } from "../../../volunteer/services"
-import { setLocale } from "miniprogram-ci";
+// import { setLocale } from "miniprogram-ci";
 import { IVolunteerActivityDetail } from "@/modules/volunteer/services/dto";
 
 
 const AcDetail = () => {
   const { params: initialParams } = useRouter();
   console.log(initialParams);
-  const [params, setParams] = useState({} as  IVolunteerActivityDetail);
+  const [params, setParams] = useState({} as IVolunteerActivityDetail);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getVolunteerActivityDetail(initialParams.id).then(data => {
       setParams(data.data)
       setIsLoading(false)
-      console.log("wtf", data.data)
+    })
+    checkIsVolunteer().then(data => {
+      if (!data.data) {
+        redirectTo({ url: resolvePage("volunteer", "bind") });
+      }
     })
   }, [])
 
@@ -102,28 +109,28 @@ const AcDetail = () => {
               autoplay
             >
               {params.images
-                  .filter((e) => e != "")
-                  .map((e, index) => {
-                    return (
-                      // 修改 taro swpier样式清除问题
-                      <SwiperItem
-                        style={{
-                          position: "absolute",
-                          width: "100%",
-                          height: "100%",
-                          transform: `translate(${100 * index
-                            }%, 0px) translateZ(0px)`,
-                        }}
-                        key={index}
-                      >
-                        <Image
-                          className={styles.pic}
-                          mode="aspectFill"
-                          src={e}
-                        />
-                      </SwiperItem>
-                    );
-                  })}
+                .filter((e) => e != "")
+                .map((e, index) => {
+                  return (
+                    // 修改 taro swpier样式清除问题
+                    <SwiperItem
+                      style={{
+                        position: "absolute",
+                        width: "100%",
+                        height: "100%",
+                        transform: `translate(${100 * index
+                          }%, 0px) translateZ(0px)`,
+                      }}
+                      key={index}
+                    >
+                      <Image
+                        className={styles.pic}
+                        mode="aspectFill"
+                        src={e}
+                      />
+                    </SwiperItem>
+                  );
+                })}
             </Swiper>
           )
         }

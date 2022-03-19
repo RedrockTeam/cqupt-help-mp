@@ -60,7 +60,6 @@ export default function Index() {
     }
 
     // TODO: 后端将所有活动均返回，过滤掉已过期掉活动，喊后端有空修
-    console.log(homeActivityListRes.data)
     homeActivityListRes.data = homeActivityListRes?.data?.length
       ? homeActivityListRes?.data?.filter(
           // @ts-ignore
@@ -68,7 +67,6 @@ export default function Index() {
         )
       : [];
     
-    console.log(homeActivityListRes.data)
     return homeActivityListRes.data.length !== 0 ? (
       homeActivityListRes.data
         .sort((a, b) => a.sign_up_last - b.sign_up_last)

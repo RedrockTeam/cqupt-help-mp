@@ -15,7 +15,7 @@ import {
   VolunteerInfo,
 } from "./dto";
 
-export const checkIsVolunteer = (_key: string) =>
+export const checkIsVolunteer = () =>
   request<CheckIsVolunteerRes>("/christina-volunteer/front/user/is");
 
 export const loginVolunteer = (info: VolunteerInfo) =>

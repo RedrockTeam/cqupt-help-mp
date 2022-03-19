@@ -18,7 +18,6 @@ const SetPasswordProtect = () => {
         getQuestionList
     );
     const [answer, setanswer] = useState(null);
-    console.log(answer)
     const [showPop, setshowPop] = useState(false);
     const [showBind, setshowBind] = useState(false);
     const [index, setindex] = useState(0);
@@ -33,7 +32,6 @@ const SetPasswordProtect = () => {
     const [mutateBind] = useMutation(bindProtect)
     const setUserProtectQuestion = async () => {
         if (answer?.value?.length > 1) {
-            console.log({ id: quesIndex, value: answer.value });
             const res = await mutateBind({ id: quesIndex, value: answer.value }, {
                 onSuccess: (res) => {
                     if (res.status == 10000) {

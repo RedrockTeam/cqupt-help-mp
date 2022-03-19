@@ -57,7 +57,6 @@ const CheckProtect = () => {
     };
     const [mutateAnswer, { isLoading, isError }] = useMutation(getProtectQuestion, {
         onSuccess: (res) => {
-            console.log(res)
             if (res.status === 10000) {
                 console.log("执行")
                 const { data } = res;
