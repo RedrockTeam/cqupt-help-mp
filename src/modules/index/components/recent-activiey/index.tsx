@@ -5,6 +5,8 @@ import { getString, navTo, resolvePage } from "@/common/helpers/utils";
 
 import styles from "./index.module.scss";
 import volunteerImg from "@/static/images/volunteer-img.jpg";
+import { checkIsVolunteer } from "../../../volunteer/services";
+import { redirectTo } from "@tarojs/taro";
 
 
 function getDateString(timeStamp: number) {
@@ -34,20 +36,32 @@ const RecentActivity = ({
   if (gapDay(signUpEnd) < 0) {
     return null;
   }
+
+  const [isVolunteer, setIsVolunteer] = React.useState(true);
+
+  checkIsVolunteer().then(data => {
+    if (!data.data) {
+      setIsVolunteer(false);
+    }
+  })
   return (
     <View
       className={styles.activity}
       onClick={() => {
         console.log("触发线下活动");
-        navTo({
-          url: resolvePage("index", "activity-detail"),
-          payload: {
-            name,
-            introduction,
-            id
-          },
-          encode: true,
-        });
+        if (isVolunteer) {
+          navTo({
+            url: resolvePage("index", "activity-detail"),
+            payload: {
+              name,
+              introduction,
+              id
+            },
+            encode: true,
+          });
+        } else {
+          redirectTo({ url: resolvePage("volunteer", "bind") });
+        }
       }}
     >
       <View className={styles.left}>

@@ -12,8 +12,6 @@ import PopupContext from "@/stores/popup";
 import { useContainer } from "unstated-next";
 import NavBack from "@/common/components/nav-back";
 import icon1 from "@/static/images/volunteer-icon1.png";
-import { resolvePage } from "@/common/helpers/utils";
-import { redirectTo } from "@tarojs/taro";
 // import icon2 from "@/static/images/volunteer-icon2.png";
 import success from "@/static/images/rob-success.png";
 import error from "@/static/images/error.png";
@@ -24,7 +22,6 @@ import {
 // import { ConvertingDatesToTimestamps } from "@/common/helpers/date";
 import styles from "./index.module.scss";
 import { applyActivity } from "../../services";
-import { checkIsVolunteer } from "../../../volunteer/services";
 import { getVolunteerActivityDetail } from "../../../volunteer/services"
 // import { setLocale } from "miniprogram-ci";
 import { IVolunteerActivityDetail } from "@/modules/volunteer/services/dto";
@@ -40,11 +37,6 @@ const AcDetail = () => {
     getVolunteerActivityDetail(initialParams.id).then(data => {
       setParams(data.data)
       setIsLoading(false)
-    })
-    checkIsVolunteer().then(data => {
-      if (!data.data) {
-        redirectTo({ url: resolvePage("volunteer", "bind") });
-      }
     })
   }, [])
 
