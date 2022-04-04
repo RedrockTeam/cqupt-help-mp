@@ -36,6 +36,12 @@ export interface MyActivityDetail {
 }
 
 export interface MyActivity {
+  id: Key | null | undefined;
+  status: { is_change: number; is_sign: number; };
+  last_date: number;
+  start_date: number;
+  time: any;
+  type: number;
   activity_detail: MyActivityDetail;
   if_read: 1 | 2 | 3; // 1:未读，      2:已读，       3:无法读取
   registration_time: number; // 用户报名的当天时间

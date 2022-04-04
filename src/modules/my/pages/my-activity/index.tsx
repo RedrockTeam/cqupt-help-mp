@@ -43,33 +43,36 @@ const MyActivity = () => {
         const nowTimeStamp = parseInt(String(new Date().getTime() / 1000));
         let overdueActivity: MyActivities = [];
 
-        let commonList = activityList.filter((activity) => activity.activity_detail.type === 0)
+        let commonList = activityList.filter((activity) => {
+          console.log(activity)
+          return activity.type === 0
+        })
         commonList = commonList.map((cur) => {
-          let dates = cur.activity_detail?.time?.split(' - ') as any;
+          let dates = cur?.time?.split(' - ') as any;
           const startDate = ConvertingDatesToTimestamps(dates[0]);
           const lastDate = ConvertingDatesToTimestamps(dates[1]);
-          cur.activity_detail.start_date = startDate;
-          cur.activity_detail.last_date = lastDate;
-          cur.activity_detail.status = {
+          cur.start_date = startDate;
+          cur.last_date = lastDate;
+          cur.status = {
             is_change: 0,
             is_sign: 0
           }
           return cur;
 
         })
-        commonList.sort((pre, cur) => cur.activity_detail.last_date - pre.activity_detail.last_date)
-        overdueActivity = commonList.filter(cur => cur.activity_detail.last_date < nowTimeStamp);
-        commonList = commonList.filter(cur => cur.activity_detail.last_date > nowTimeStamp);
+        commonList.sort((pre, cur) => cur.last_date - pre.last_date)
+        overdueActivity = commonList.filter(cur => cur.last_date < nowTimeStamp);
+        commonList = commonList.filter(cur => cur.last_date > nowTimeStamp);
         commonList = commonList.concat(overdueActivity);
 
         setCommonList(commonList);
 
-        let volunteerList = activityList.filter((activity) => activity.activity_detail.type === 1)
-        volunteerList.sort((pre, cur) => cur.activity_detail.last_date - pre.activity_detail.last_date)
-        overdueActivity = volunteerList.filter(cur => cur.activity_detail.last_date < nowTimeStamp);
-        volunteerList = volunteerList.filter(cur => cur.activity_detail.last_date > nowTimeStamp);
+        let volunteerList = activityList.filter((activity) => activity.type === 1)
+        volunteerList.sort((pre, cur) => cur.last_date - pre.last_date)
+        overdueActivity = volunteerList.filter(cur => cur.last_date < nowTimeStamp);
+        volunteerList = volunteerList.filter(cur => cur.last_date > nowTimeStamp);
         // @ts-ignore
-        volunteerList.sort((cur, next) => cur.activity_detail?.date - next.activity_detail?.date)
+        volunteerList.sort((cur, next) => cur?.date - next?.date)
         volunteerList = volunteerList.concat(overdueActivity);
 
         setVolunteerList(volunteerList);
@@ -89,7 +92,7 @@ const MyActivity = () => {
   const [mutationPostActivityRead] = useMutation(postVolunteerActivityRead, {})
   useDidShow(() => {
     mutateActivityListRes().then(({ data } : MyActivitiesRes) => {
-      const unreadCommonList = data?.filter((activity) => activity.activity_detail.type === 0 && activity.if_read === 1)
+      const unreadCommonList = data?.filter((activity) => activity.type === 0 && activity.if_read === 1)
       unreadCommonList?.map(commonAc => {
         mutationPostActivityRead({
           registration_time: String(commonAc.registration_time)
@@ -145,8 +148,8 @@ const MyActivity = () => {
           commonList.map((commonActivity) => {
             return (
               <Activity
-                key={commonActivity.activity_detail.id}
-                activity_detail={commonActivity.activity_detail}
+                key={commonActivity.id}
+                activity_detail={commonActivity}
                 if_read={commonActivity.if_read}
                 registration_time={commonActivity.registration_time} />
             )
@@ -178,8 +181,8 @@ const MyActivity = () => {
           volunteerList.map((volunteerActivity) => {
             return (
               <Activity
-                key={volunteerActivity.activity_detail.id}
-                activity_detail={volunteerActivity.activity_detail}
+                key={volunteerActivity.id}
+                activity_detail={volunteerActivity}
                 if_read={volunteerActivity.if_read}
                 registration_time={volunteerActivity.registration_time} />
             )

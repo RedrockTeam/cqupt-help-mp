@@ -77,12 +77,12 @@ const Picker = ({
               })}
             </PickerViewColumn>
             <PickerViewColumn>
-              {viewItems.timePartList[dateIndex].map((item) => {
+              {viewItems.timePartList[dateIndex].map((item, index) => {
                 return (
                   <View
                     style={{ lineHeight: "58px" }}
                     className={styles.pickerItem}
-                    key={`${item.begin_time} + ${item.end_time}`}
+                    key={`${item}${index}`}
                   >
                     {`${timestampToHMString(
                       item.begin_time

@@ -37,29 +37,28 @@ import { IVolunteerActivityDetail } from "../../services/dto";
 
 const VolunteerDetail = () => {
   const { params } = useRouter();
+  
   const [showPicker, setShowPicker] = useState(false);
 
   const [isScrolling, setIsScrolling] = useState(false);
   const [needResume, setNeedResume] = useState(false);
   const [pickerValue, setPickerValue] = useState<number[]>([0, 0]);
+  const [isPickerSelect , setIsPickerSelect] = useState(false);
   const Popup = useContainer(PopupContext);
 
   let { data, isLoading, isError } = useQuery(
-    ["getVolunteerActivityDetail", params.rely_id],
+    params.rely_id,
     getVolunteerActivityDetail
   );
   // data = VolunteerActivityDetail;
   let info: IVolunteerActivityDetail;
   let viewItems: any = null;
-
   if (data) {
     // data.data.need_additions = JSON.parse(data.data.need_additions);
     // data.data.imagines = [data.data.imagines.slice(2, -2)];
     // console.log(data.data.imagines);
 
     info = data.data;
-    console.log("info");
-    console.log(info);
     //  判断是否为字符串
     if (typeof info.need_additions === "string") {
       if (info.need_additions !== "")
@@ -76,6 +75,7 @@ const VolunteerDetail = () => {
 
   const [mutateApply] = useMutation(applyVolunteerActivity, {
     onSuccess(res) {
+      console.log(res)
       if (res.status === 10000) {
         const hide = Popup.show({
           title: "申请成功",
@@ -88,7 +88,7 @@ const VolunteerDetail = () => {
         }, 1500);
       } else {
         const hide = Popup.show({
-          title: "申请失败",
+          title: "你已报过该活动",
           detail: "错误",
           img: error,
         });
@@ -121,9 +121,7 @@ const VolunteerDetail = () => {
         return;
       }
       await mutateApply({
-        id: date.detail_id,
-        begin_time: timePart.begin_time,
-        end_time: timePart.end_time,
+        time_id: date.time_part_info[timePartIndex].time_id ,
         addition: JSON.stringify({}),
       });
     } else {
@@ -174,7 +172,11 @@ const VolunteerDetail = () => {
           <Button
             className={styles.button}
             onClick={() => {
-              handleShowPicker();
+              if(isPickerSelect){
+                handleApply()
+              }else{
+                handleShowPicker();
+              }
             }}
           >
             立即报名
@@ -194,8 +196,8 @@ const VolunteerDetail = () => {
       {info.images.length === 0 ?
         <Image className={styles.pic} mode="aspectFill" src={volunteerImg} /> :
         <Swiper className={styles.pic} circular autoplay>
-          {info.images.map((e) => (
-            <SwiperItem key={e}>
+          {info.images.map((e,index) => (
+            <SwiperItem key={`${e}${index}`}>
               <Image src={e} className={styles.pic} mode="aspectFill" />
             </SwiperItem>
           ))}
@@ -289,7 +291,8 @@ const VolunteerDetail = () => {
             onOk={() => {
               if (!isScrolling) {
                 setShowPicker(false);
-                setNeedResume(true);
+                setIsPickerSelect(true);
+                // setNeedResume(true);
               } else {
                 console.log("scrolling");
               }

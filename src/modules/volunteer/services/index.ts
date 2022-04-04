@@ -28,7 +28,7 @@ export const loginVolunteer = (info: VolunteerInfo) =>
   });
 
 export const getVolunteerActivityListInfo = () =>
-  request<VolunteerActivityListInfoRes>("/christina-volunteer/front/user/activities");
+  request<VolunteerActivityListInfoRes>("/christina-volunteer/front/activities");
 
 export const getVolunteerActivityDetail = (activity_id: string) =>
   request<VolunteerActivityDetailRes>(
@@ -54,7 +54,7 @@ export const getVolunteerActivityDetailMutation = (data: { rely_id: string }) =>
 
 export const applyVolunteerActivity = (data: VolunteerActivityApply) =>
   request<VolunteerActivityApplyRes, VolunteerActivityApply>(
-    "/christina-volunteer/volunteer/activity/apply",
+    "/christina-volunteer/front/user/apply",
     {
       method: "POST",
       data,

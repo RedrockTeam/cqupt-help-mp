@@ -56,15 +56,18 @@ export interface TimeDetail {
 }
 
 interface IVolunteerTimePartDetail {
+  detail: any;
   detail_id: number; // 每天的志愿有不同的id
   date: number; //活动日期时间戳
   time_part_info: IVolunteerTimePartInfo[];
 }
 
 interface IVolunteerTimePartInfo {
+  end_time: number;
+  detail:unknown
   time_id: number;
-  begin_time: number; // 时段开始时间戳
-  end_time: number; // 时段结束时间戳
+  // begin_time: number; // 时段开始时间戳
+  // end_time: number; // 时段结束时间戳
   now: number; //当前报名人数
 }
 
@@ -91,9 +94,7 @@ export interface VolunteerActivityDetailRes extends BaseRes {
 }
 
 export interface VolunteerActivityApply {
-  id: number;
-  begin_time: number;
-  end_time: number;
+  time_id: number;
   addition: string;
 }
 

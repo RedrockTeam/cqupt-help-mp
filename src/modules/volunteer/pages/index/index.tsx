@@ -32,7 +32,8 @@ const Volunteer = () => {
   let xiaojiList: VolunteerActivity[] = [];
   let yuanjiList: VolunteerActivity[] = [];
 
-  if (list?.data) {
+  if (list?.data && list?.data.length !== 0) {
+    console.log(list.data)
     xiaojiList = list.data.filter((item) => item.team_level === "校级");
     yuanjiList = list.data.filter((item) => item.team_level === "院级");
   }
@@ -83,11 +84,14 @@ const Volunteer = () => {
                 className={styles.card}
                 key={item.activity_id}
                 onClick={() =>
-                  navTo({
+                  {
+                    console.log(item.activity_id)
+                    navTo({
                     url: `${resolvePage("volunteer", "detail")}?rely_id=${
                       item.activity_id
                     }`,
                   })
+                  }
                 }
               >
                 <View className={styles.cardTop}>
