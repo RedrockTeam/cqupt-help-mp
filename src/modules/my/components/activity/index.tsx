@@ -11,22 +11,16 @@ import { MyActivity } from "../../services/dto";
 
 // 将秒为单位的时间转换为 [00]:[00]
 const translateTimeToClock = (begin_time: number, end_time: number) => {
-  const beginHour = parseInt(String(begin_time / (60 * 60)));
-  const beginMinute = parseInt(String((begin_time % (60 * 60)) / 60));
-  const endHour = parseInt(String(end_time / (60 * 60)));
-  const endMinute = parseInt(String((end_time % (60 * 60)) / 60));
-  const beginTime = [
-    beginHour < 10 ? `0${beginHour}` : String(beginHour),
-    beginMinute < 10 ? `0${beginMinute}` : String(beginMinute),
-  ];
-  const endTime = [
-    endHour < 10 ? `0${endHour}` : String(endHour),
-    endMinute < 10 ? `0${endMinute}` : String(endMinute),
-  ];
+  const beginDate = new Date(begin_time * 1000);
+  const endDate = new Date(end_time * 1000);
+  const beginHour = beginDate.getHours().toString().padStart(2, "0");
+  const beginMinute = beginDate.getMinutes().toString().padStart(2, "0");
+  const endHour = endDate.getHours().toString().padStart(2, "0");
+  const endMinute = endDate.getMinutes().toString().padStart(2, "0");
 
   return {
-    beginTime: `${beginTime[0]}:${beginTime[1]}`,
-    endTime: `${endTime[0]}:${endTime[1]}`,
+    beginTime: `${beginHour}:${beginMinute}`,
+    endTime: `${endHour}:${endMinute}`,
   };
 };
 
@@ -64,6 +58,8 @@ const Activity = ({
     time_part?.begin_time as number,
     time_part?.end_time as number
   );
+  console.log("time_part", time_part);
+  
   const time_area = `${acMonth}月${acDate}日 ${beginTime}-${endTime}`;
 
   /**
