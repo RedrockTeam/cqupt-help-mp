@@ -99,17 +99,19 @@ export const leftTime = (timestamp: number) => {
   const m = Math.ceil((interval / 60) % 60);
   if (h > 0) {
     return `${h}小时${m}分钟`;
-  } else {
-    return `${m}分钟`;
   }
+  return `${m}分钟`;
 };
 
 /**
  *  将时间戳转换为 HH:MM的字符串
  */
-export const timestampToHMString = (timestamp: number) =>
-  timestampToDayjs(timestamp - 8 * 60 * 60).format("HH:mm");
-
+export function timestampToHMString (timestamp: number) {
+  const date = new Date(timestamp * 1000);
+  const hour = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hour}:${minutes}`;
+}
 
 /**
  * 将 字符串 'MM月DD日 hh:mm-hh:mm' 转换为已秒计数的起始与终止时间段

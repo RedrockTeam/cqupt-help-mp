@@ -75,7 +75,6 @@ const VolunteerDetail = () => {
 
   const [mutateApply] = useMutation(applyVolunteerActivity, {
     onSuccess(res) {
-      console.log(res)
       if (res.status === 10000) {
         const hide = Popup.show({
           title: "申请成功",
