@@ -27,13 +27,4 @@ export const applyMyRewards = (activity_id: number) =>
 export const getMyVolunteerReads = (_key: string) =>
   request<MyReadsRes>("/christina-volunteer/front/user/showRead", {
     method: "GET",
-  });
-/**
- * @description: 获取普通活动小红点
- * @Author: kyingStar
- * @Date: 2021/9/2
- */
-export const getMyActivityReads = (_key: string) =>
-  request<MyReadsRes>("/christina-volunteer/front/badge", {
-    method: "GET",
-  });
+  }); 

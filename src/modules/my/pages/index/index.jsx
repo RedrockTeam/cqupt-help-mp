@@ -12,22 +12,16 @@ import ticketIcon from "@/static/images/ticket-icon.png";
 import campusIcon from "@/static/images/campus-icon.png";
 import prizeIcon from "@/static/images/prize-icon.png";
 import { getInfo } from "@/stores/user";
-import { redirectTo, useDidShow, scanCode } from "@tarojs/taro";
+import { redirectTo, scanCode } from "@tarojs/taro";
 import Placeholder from "@/common/components/placeholder";
 import { useMutation } from "react-query/dist/react-query.production.min";
 import styles from "./index.module.scss";
-import { getMyVolunteerReads, getMyActivityReads } from "../../services";
+import { getMyVolunteerReads } from "../../services";
 
 function MyIndex(){
   const [realName, setRealName] = useState("");
   const [stuNum, setStuNum] = useState("");
   const [college, setCollege] = useState("")
-  getInfo().then(e =>{
-    console.log(e);
-    setRealName(e.realName)
-    setStuNum(e.stuNum)
-    setCollege(e.college)
-  });
   const [showPop, setshowPop] = useState(false);
   const [myVolunteerReadsRes, setMyVolunteerReadsRes] = useState(null);
   const [myActivityReadsRes, setMyActivityReadsRes] = useState(null);
@@ -43,6 +37,13 @@ function MyIndex(){
       });
     }
   };
+  getInfo().then(e =>{
+    console.log(e);
+    setRealName(e.realName)
+    setStuNum(e.stuNum)
+    setCollege(e.college)
+    setLoading(false);
+  });
   // const [mutateVolunteerReadRes] = useMutation(getMyVolunteerReads, {
   //   onSuccess(myReadsRes) {
   //     setMyVolunteerReadsRes(myReadsRes.data);
@@ -52,19 +53,6 @@ function MyIndex(){
   //     setError(true)
   //   }
   // })
-  const [mutateActivityReadRes] = useMutation(getMyActivityReads, {
-    onSuccess(myReadsRes) {
-      setMyActivityReadsRes(myReadsRes.data);
-      setLoading(false);
-    },
-    onError() {
-      setError(true)
-    }
-  })
-  useDidShow(() => {
-    // mutateVolunteerReadRes();
-    mutateActivityReadRes()
-  })
 
   if (isLoading) {
     return (
@@ -121,8 +109,8 @@ function MyIndex(){
               <Text className={styles.text}>
                 我的活动
               </Text>
-              {/*{number &&<Text className={styles.hint_number}>{number}</Text>}*/}
-              {/*{*/}
+              {/*{number &&<Text className={sasdastyles.hint_number}>{number}</Text>}*/}
+              {/*{*
               {/*  number === 0 ? (*/}
               {/*    <Text className={styles.hint_number}>0</Text>*/}
               {/*  ) : (*/}
