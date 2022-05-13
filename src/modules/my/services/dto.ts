@@ -3,6 +3,7 @@ import { BaseRes } from "@/common/helpers/request";
 export interface TimePart {
   begin_time: number;   //  均为秒计数的时间，表示一天中的 hh:mm（时：分）
   end_time: number;
+  time_id: number; //时间段 id
 }
 
 export interface Status {
@@ -17,7 +18,7 @@ export interface Result {
 
 export interface MyActivityDetail {
   rely_id: number;
-  id: number; //  活动id
+  activity_id: number; //  活动id
   type: 0 | 1; // 0 表示普通活动， 1 表示志愿活动
   name: string;
   team_name: string;
@@ -33,6 +34,7 @@ export interface MyActivityDetail {
   time_part?: TimePart; // 志愿活动独有
   result: Result;
   status: Status; //  用户状态
+  volunteer_list_id:number //志愿活动者ID 
 }
 
 export interface MyActivity {

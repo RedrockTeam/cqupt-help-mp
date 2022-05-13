@@ -19,6 +19,7 @@ import {
 } from "../../services";
 import styles from "./index.module.scss";
 import ActionSheet from "../../components/actionSheet/index";
+import { MyActivities, MyActivity } from "@/modules/my/services/dto";
 
 const PAGE_TITLE = "报名结果";
 const NAV_BACKGROUND = "#F6F6F9";
@@ -117,9 +118,11 @@ const VolunteerApply = () => {
     last_date,
     activity_id,
     is_sign,
+    volunteer_list_id,
+    new_time_id
   } = params;
   const { realName } = getInfo();
-
+  
   //  管理签到状态
   const [isScanned, setIsScanned] = useState<boolean>(is_sign === "1");
   const [scanText, setScanText] = useState<string>(is_sign === '1' ? "签到成功" : "扫码签到");
@@ -130,6 +133,7 @@ const VolunteerApply = () => {
   // 管理 pass 字段的状态
   // TODO: 因为后端在更换班次之后，pass字段总是为''
   const [pass, setPass] = useState<'0' | '1' | '2'>(pass_state === '' ? '0' : pass_state as '1' | '2');
+  let activities: MyActivity[];
 
   // 每次回到该页面时，更新 is_scan 、is_change 、pass 字段
   const [mutateGetMyActivities] = useMutation(getMyActivities, {
@@ -137,19 +141,20 @@ const VolunteerApply = () => {
       console.log("getMyActivities-data:", data);
 
       if (data?.data) {
+        activities = data.data;
         const tarActivity = data.data.filter(({ activity_detail: activity }) => {
           const { begin_time, end_time } = genSeconds(date);
           return (
-            activity.rely_id == Number(rely_id) &&
-            activity.id == Number(activity_id) &&
-            activity?.time_part?.begin_time == begin_time &&
-            activity?.time_part?.end_time == end_time
+            activity.rely_id === Number(rely_id) &&
+            activity.id === Number(activity_id) &&
+            activity?.time_part?.begin_time === begin_time &&
+            activity?.time_part?.end_time === end_time
           );
         });
         console.log(tarActivity);
         if (
-          changeState != String(tarActivity[0].activity_detail.status.is_change) ||
-          isScanned != (tarActivity[0].activity_detail.status.is_sign === 1)
+          changeState !== String(tarActivity[0].activity_detail.status.is_change) ||
+          isScanned !== (tarActivity[0].activity_detail.status.is_sign === 1)
         ) {
           setChangeState(String(tarActivity[0].activity_detail.status.is_change));
           setIsScanned(tarActivity[0].activity_detail.status.is_sign === 1);
@@ -225,7 +230,7 @@ const VolunteerApply = () => {
     setShowSheet(false);
   };
 
-  let desc;
+  let desc: string;
   switch (pass) {
     case "0":
       desc = `录取正在进行中，请耐心等待结果～`;
@@ -237,6 +242,7 @@ const VolunteerApply = () => {
       desc =
         "很遗憾，您未成功抢到本次志愿活动的机会，不过也请不要气馁，时常查看”青协志愿者协会”或志愿者服务群，能快速获取志愿活动报名的时间，相信您下次一定能够成功参与志愿活动！";
       break;
+    default:
   }
 
   const Popup = useContainer(PopupContext);
@@ -271,22 +277,16 @@ const VolunteerApply = () => {
           }&last_date=${last_date
           }&date=${_date
           }&rely_id=${rely_id
-          }&activity_id=${activity_id}`,
+          }&activity_id=${activity_id
+          }&volunteer_list_id=${volunteer_list_id}
+          `,
       });
     } else if (pass === "1") {
+      
       //  成功录取的情况下
-      const { begin_time, end_time } = genSeconds(date);
       await mutateChange({
-        old: {
-          activity_id: Number(activity_id),
-          begin_time,
-          end_time,
-        },
-        new: {
-          activity_id: Number(activity_id),
-          begin_time: 0,
-          end_time: 0,
-        },
+        volunteer_list_id: volunteer_list_id,
+        new_time_id: new_time_id,
       });
     }
   };
@@ -317,13 +317,10 @@ const VolunteerApply = () => {
   );
 
   const handleQuit = async () => {
-    console.log("quit");
     const { begin_time, end_time } = genSeconds(date);
     console.log(typeof begin_time, typeof end_time);
     await mutateQuit({
-      activity_id: parseInt(activity_id),
-      begin_time,
-      end_time,
+      volunteer_list_id: volunteer_list_id,
     });
   };
 

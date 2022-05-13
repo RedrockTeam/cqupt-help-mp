@@ -45,7 +45,7 @@ const VolunteerDetail = () => {
   const [pickerValue, setPickerValue] = useState<number[]>([0, 0]);
   const [isPickerSelect , setIsPickerSelect] = useState(false);
   const Popup = useContainer(PopupContext);
-
+  
   let { data, isLoading, isError } = useQuery(
     params.rely_id,
     getVolunteerActivityDetail
@@ -60,6 +60,7 @@ const VolunteerDetail = () => {
 
     info = data.data;
     //  判断是否为字符串
+    console.log('48', info);
     if (typeof info.need_additions === "string") {
       if (info.need_additions !== "")
         info.need_additions = JSON.parse(info.need_additions);

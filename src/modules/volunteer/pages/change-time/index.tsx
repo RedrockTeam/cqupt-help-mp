@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Params } from "@/modules/volunteer/pages/application";
-import {navigateBack, useDidShow, useRouter} from "@tarojs/taro";
+import { navigateBack, useDidShow, useRouter } from "@tarojs/taro";
 import { Button, ITouchEvent, Text, View } from "@tarojs/components";
 import styles from "@/modules/volunteer/pages/change-time/index.module.scss";
 import NavBack from "@/common/components/nav-back";
@@ -32,6 +32,7 @@ const VolunteerChangeTime = () => {
     rely_id,
     date: date_part,
     activity_id,
+    volunteer_list_id
   } = useRouter().params as Params;
   // console.log("useRouter().params:", useRouter().params);
 
@@ -81,11 +82,11 @@ const VolunteerChangeTime = () => {
           let _dateIndex = dateList.findIndex((val) => val.date === _date);
           _dateIndex = _dateIndex === -1 ? 0 : dateIndex; //  容错
           // console.log('dateList:', dateList, '_dateIndex:', _dateIndex)
-          // @ts-ignore
           dateList = dateList.map((date) => date.date);
           const _timeIndex = timePartList[_dateIndex].findIndex(
             (timePart) =>
-              timePart.begin_time === begin_time && timePart.end_time === end_time
+              timePart.begin_time === begin_time &&
+              timePart.end_time === end_time
           );
 
           // console.log("_dateIndex:", _dateIndex);
@@ -167,7 +168,7 @@ const VolunteerChangeTime = () => {
         }, 3000);
       } else {
         const hide = Popup.show({
-          detail: "申请失败，请稍后再试",
+          detail: res.info,
         });
         const timer = setTimeout(() => {
           hide();
@@ -200,23 +201,10 @@ const VolunteerChangeTime = () => {
           setTimeout(() => hide(), 1500);
           return;
         }
-
-        //  处理时间为秒计数
-        const { begin_time: old_begin, end_time: old_end } = genSeconds(
-          date_part
-        );
-
+        console.log('/src/modules/volunteeer/pages/change-time/index', data);
         await mutateChange({
-          old: {
-            activity_id: Number(activity_id),
-            begin_time: old_begin,
-            end_time: old_end,
-          },
-          new: {
-            activity_id: Number(date.id),
-            begin_time: timePart.begin_time,
-            end_time: timePart.end_time,
-          },
+          volunteer_list_id: volunteer_list_id,
+          new_time_id: "",
         });
       }
     }
@@ -224,10 +212,6 @@ const VolunteerChangeTime = () => {
 
   if (isLoading) return <Placeholder title="修改班次" />;
   if (isError) return <Placeholder title="修改班次" isError />;
-
-
-
-
 
   return (
     <View className={styles.wrapper}>

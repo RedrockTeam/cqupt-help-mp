@@ -16,7 +16,7 @@ export interface VolunteerActivity {
   activity_id: number;
   start_date: number;
   last_date: number;
-  date: number; 
+  date: number;
   time_part: {
     time_id: number;
     begin_time: number;
@@ -64,7 +64,7 @@ interface IVolunteerTimePartDetail {
 
 interface IVolunteerTimePartInfo {
   end_time: number;
-  detail:unknown
+  detail: unknown
   time_id: number;
   // begin_time: number; // 时段开始时间戳
   // end_time: number; // 时段结束时间戳
@@ -73,20 +73,32 @@ interface IVolunteerTimePartInfo {
 
 export interface IVolunteerActivityDetail {
   activity_id: number,
-  name: string;
-  team_name: string;
-  introduction: string;
-  sign_up_start: number; // 报名开始时间戳
-  sign_up_last: number; // 报名结束时间戳
-  hour: string;
-  team_level: string;
-  place: string;
-  start_date: number; // 活动开始时间戳
-  last_date: number; // 活动截止时间戳
-  num: string;
-  images: string[];
-  need_additions: number[];
-  detail: IVolunteerTimePartDetail[];
+  name: string,
+  team_name: string,
+  introduction: string,
+  sign_up_start: number,
+  sign_up_last: number,
+  hour: string,
+  team_level: string,
+  type: number,
+  volunteer_list_id: number,
+  last_date: number,
+  start_date: number,
+  date: number, //活动当天0时 时间戳
+  time_part: {
+    time_id: number,
+    begin_time: number,
+    end_time: number
+  },
+  result: {
+    pass: number,  //0没审核，1通过，2没通过
+    qq: number //活动QQ群
+  },
+  status: {
+    is_change: number, //是否想要改变志愿，0未改变，1审核中，2已改变
+    is_sign: number, //签到（志愿活动特供）0未签到，1签到
+    is_read: number //1未读。2已读。3未审核
+  }
 }
 
 export interface VolunteerActivityDetailRes extends BaseRes {
@@ -117,14 +129,14 @@ export interface VolunteerActivityQuitRes {
  * 志愿活动更改班次相关
  */
 export interface VolunteerActivityChangeReq {
-  volunteer_list: string; // 志愿活动者ID
+  volunteer_list_id: string; // 志愿活动者ID
   new_time_id: string;
 }
 
-export interface VolunteerActivityChangeRes extends VolunteerActivityQuitRes {} // 跟退出活动的响应是一样的
+export interface VolunteerActivityChangeRes extends VolunteerActivityQuitRes { } // 跟退出活动的响应是一样的
 
 /**
  * 扫码签到相关
  */
-export interface VolunteerActivitySignInReq extends VolunteerActivityQuitReq {} // 跟退出活动的请求是一样的
-export interface VolunteerActivitySignInRes extends VolunteerActivityQuitRes {} // 跟退出活动的响应是一样的
+export interface VolunteerActivitySignInReq extends VolunteerActivityQuitReq { } // 跟退出活动的请求是一样的
+export interface VolunteerActivitySignInRes extends VolunteerActivityQuitRes { } // 跟退出活动的响应是一样的

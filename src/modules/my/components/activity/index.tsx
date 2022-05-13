@@ -28,7 +28,7 @@ const Activity = ({
   activity_detail: {
     rely_id,
     name,
-    id,
+    activity_id,
     start_date,
     last_date,
     date: activityDate,
@@ -37,6 +37,7 @@ const Activity = ({
     status: { is_change = 0, is_sign },
     team_name,
     type,
+    volunteer_list_id,
   },
   registration_time,
   if_read,
@@ -65,9 +66,9 @@ const Activity = ({
   /**
    *  创建按钮
    * @param btnType :number :0:详细信息，1:等待结果，2:查看结果
-   * @param id
+   * @param activity_id
    */
-  const renderBtn = (btnType: 0 | 1 | 2, id: number) => {
+  const renderBtn = (btnType: 0 | 1 | 2, activity_id: number) => {
     switch (btnType) {
       case 0:
         return (
@@ -75,7 +76,7 @@ const Activity = ({
             className={`${styles.btn} ${styles.btn_detail}`}
             onClick={() =>
               navTo({
-                url: `${resolvePage("volunteer", "detail")}?rely_id=${rely_id}`,
+                url: `${resolvePage("volunteer", "detail")}?rely_id=${rely_id}&activity_id=${activity_id}`,
               })
             }
           >
@@ -93,11 +94,12 @@ const Activity = ({
                 url: `${resolvePage(
                   "volunteer",
                   "application"
-                )}?name=${name}&team_name=${team_name}&start_date=${startDate}&last_date=${lastDate}&concat=${
-                  result?.qq
-                }&pass=${
-                  result?.pass
-                }&date=${time_area}&registration_time=${registration_time}&activity_id=${id}&rely_id=${rely_id}&is_change=${is_change}&is_sign=${is_sign}`,
+                )}?name=${name}&team_name=${team_name}&start_date=${startDate
+                }&last_date=${lastDate}&concat=${result?.qq}&pass=${result?.pass
+                }&date=${time_area}&registration_time=${registration_time
+                }&activity_id=${activity_id}&rely_id=${rely_id}&is_change=${is_change
+                }&is_sign=${is_sign}&volunteer_list_id=${volunteer_list_id
+                }&new_time_id=${time_part?.time_id}`,
               });
             }}
           >
@@ -153,8 +155,8 @@ const Activity = ({
         {type !== 0 && !isOverdue() ? (
           // {type !== 0 ?
           <View className={styles.btnWrapper}>
-            {renderBtn(0, id)}
-            {renderBtn(ifPassed(), id)}
+            {renderBtn(0, activity_id)}
+            {renderBtn(ifPassed(), activity_id)}
             {if_read === 1 && ifPassed() === 2 ? (
               <View className={styles.btn_red_point} />
             ) : null}

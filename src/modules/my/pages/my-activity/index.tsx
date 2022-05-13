@@ -179,6 +179,8 @@ const MyActivity = () => {
           />
         ) : (
           volunteerList.map((volunteerActivity) => {
+            console.log(114514)
+            console.log(volunteerActivity)
             return (
               <Activity
                 key={volunteerActivity.id}

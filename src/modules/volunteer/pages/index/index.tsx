@@ -29,13 +29,13 @@ const Volunteer = () => {
     getVolunteerActivityListInfo
   );
   // list = VolunteerActivityListInfoRes;
-  let xiaojiList: VolunteerActivity[] = [];
-  let yuanjiList: VolunteerActivity[] = [];
+  let schoolLevelList: VolunteerActivity[] = [];
+  let collegeLevelList: VolunteerActivity[] = [];
 
   if (list?.data && list?.data.length !== 0) {
     console.log(list.data)
-    xiaojiList = list.data.filter((item) => item.team_level === "校级");
-    yuanjiList = list.data.filter((item) => item.team_level === "院级");
+    schoolLevelList = list.data.filter((item) => item.team_level === "校级");
+    collegeLevelList = list.data.filter((item) => item.team_level === "院级");
   }
 
   // list = VolunteerActivityListInfo;
@@ -127,7 +127,7 @@ const Volunteer = () => {
         setActive={setActive}
         titles={["校级志愿", "院级志愿"]}
       />
-      {active === 0 ? renderList(xiaojiList) : renderList(yuanjiList)}
+      {active === 0 ? renderList(schoolLevelList) : renderList(collegeLevelList)}
     </View>
   );
 };
