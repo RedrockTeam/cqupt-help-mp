@@ -47,7 +47,7 @@ const VolunteerDetail = () => {
   const Popup = useContainer(PopupContext);
   
   let { data, isLoading, isError } = useQuery(
-    params.rely_id,
+    params.activity_id,
     getVolunteerActivityDetail
   );
   // data = VolunteerActivityDetail;

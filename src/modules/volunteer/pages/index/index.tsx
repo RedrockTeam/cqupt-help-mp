@@ -87,7 +87,7 @@ const Volunteer = () => {
                   {
                     console.log(item.activity_id)
                     navTo({
-                    url: `${resolvePage("volunteer", "detail")}?rely_id=${
+                    url: `${resolvePage("volunteer", "detail")}?activity_id=${
                       item.activity_id
                     }`,
                   })

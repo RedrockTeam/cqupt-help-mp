@@ -76,7 +76,7 @@ const Activity = ({
             className={`${styles.btn} ${styles.btn_detail}`}
             onClick={() =>
               navTo({
-                url: `${resolvePage("volunteer", "detail")}?rely_id=${rely_id}&activity_id=${activity_id}`,
+                url: `${resolvePage("volunteer", "detail")}?activity_id=${activity_id}`,
               })
             }
           >
