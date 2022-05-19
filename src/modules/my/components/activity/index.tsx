@@ -97,7 +97,7 @@ const Activity = ({
                 )}?name=${name}&team_name=${team_name}&start_date=${startDate
                 }&last_date=${lastDate}&concat=${result?.qq}&pass=${result?.pass
                 }&date=${time_area}&registration_time=${registration_time
-                }&activity_id=${activity_id}&rely_id=${rely_id}&is_change=${is_change
+                }&activity_id=${activity_id}&is_change=${is_change
                 }&is_sign=${is_sign}&volunteer_list_id=${volunteer_list_id
                 }&new_time_id=${time_part?.time_id}`,
               });

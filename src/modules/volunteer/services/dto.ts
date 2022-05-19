@@ -72,6 +72,7 @@ interface IVolunteerTimePartInfo {
 }
 
 export interface IVolunteerActivityDetail {
+  detail: any;
   activity_id: number,
   name: string,
   team_name: string,

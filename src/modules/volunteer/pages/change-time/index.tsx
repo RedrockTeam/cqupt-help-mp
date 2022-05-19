@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Params } from "@/modules/volunteer/pages/application";
 import { navigateBack, useDidShow, useRouter } from "@tarojs/taro";
 import { Button, ITouchEvent, Text, View } from "@tarojs/components";
 import styles from "@/modules/volunteer/pages/change-time/index.module.scss";
 import NavBack from "@/common/components/nav-back";
 import {
+  getVolunteerActivityDetail,
   getVolunteerActivityDetailMutation,
   getVolunteerActivityListInfo,
   postVolunteerActivityChange,
@@ -45,18 +46,19 @@ const VolunteerChangeTime = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [, setShowPicker] = useState(true);
   const [pickerValue, setPickerValue] = useState<{ dateList: any; timePartList: any}>();
-  const [data, setData] = useState<any>();
 
-  let { data: list, isLoading, isError } = useQuery(
-    "getVolunteerActivityListInfo",
-    getVolunteerActivityListInfo
+  const { data, isLoading, isError } = useQuery(
+    [activity_id],
+    getVolunteerActivityDetail
   );
-  // useDidShow(() => {
-  //   mutateGetActivityDetail({
-  //     rely_id
-  //   }).then();
-  // });
-
+  
+  useEffect(() => {
+    if(data){
+      const dateList = data.data.detail?.map(e => e.date)
+      const timePartList = data.data.detail?.map(e => e.time_part_info)
+      setPickerValue({dateList,timePartList})
+    } 
+  },[data])
   /**
    * 生成picker表头时间字符串
    * @param data          后端返回的data
@@ -121,6 +123,7 @@ const VolunteerChangeTime = () => {
       }, 3000);
     },
   });
+  
   const handleChange = async () => {
     if (!isScrolling) {
       setShowPicker(false);
@@ -137,9 +140,9 @@ const VolunteerChangeTime = () => {
           return;
         }
         console.log('/src/modules/volunteeer/pages/change-time/index', data);
-        await mutateChange({
+        await mutateChange({ 
+          new_time_id: date.time_part_info[timePartIndex].time_id,
           volunteer_list_id: volunteer_list_id,
-          new_time_id: "",
         });
       }
     }
@@ -151,7 +154,6 @@ const VolunteerChangeTime = () => {
   return (
     <View className={styles.wrapper}>
       <NavBack title={PAGE_TITLE} background={BACKGROUND} />
-
       <View className={styles.volunteer}>
         <View className={styles.header}>
           <Text>{name}</Text>
