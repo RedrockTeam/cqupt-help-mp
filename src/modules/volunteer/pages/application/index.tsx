@@ -278,8 +278,7 @@ const VolunteerApply = () => {
           }&date=${_date
           }&rely_id=${rely_id
           }&activity_id=${activity_id
-          }&volunteer_list_id=${volunteer_list_id}
-          `,
+          }&volunteer_list_id=${volunteer_list_id}`,
       });
     } else if (pass === "1") {
       
